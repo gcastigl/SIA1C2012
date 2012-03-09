@@ -17,7 +17,8 @@ public class EdificioRule implements GPSRule {
 	
 	@Override
 	public GPSState evalRule(GPSState state) throws NotAppliableException {
-		((EdificioState) state)
+		((EdificioState) state).getCurrentBoard().validatePosition(row, col, height);
+		return null;
 	}
 
 	@Override

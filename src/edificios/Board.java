@@ -19,9 +19,8 @@ public class Board {
 	}
 	
 	public boolean validatePosition(int row, int col, int height){
-		
-		return checkRow(row, height) && checkCol(col, height) && checkViewInCol(col, height) && checkViewInRow(row, height);
-		
+		return checkRow(row, height) && checkCol(col, height) && 
+			checkViewInCol(col, height) && checkViewInRow(row, height);
 	}
 	
 	// Repeated values on row
@@ -30,18 +29,16 @@ public class Board {
 			if(x == height)
 				return false;
 		}
-		
 		return true;
 	}
 	
 	// Repeated values on column
 	private boolean checkCol(int col, int height){
 		for (int i = 0; i < n; i++) {
-			
-			if(buildings[i][col] == height)
+			if (buildings[i][col] == height) {
 				return false;
+			}
 		}
-		
 		return true;
 	}
 	
@@ -63,7 +60,6 @@ public class Board {
 		if (!satisfies) {
 			return false;
 		}
-		
 		viewDistance = restrictions[RIGHT][row];		
 		count = 0;
 		for (int i = n - 1; i >= 0; i--) {
@@ -71,7 +67,7 @@ public class Board {
 			if(value == 0){
 				return true;
 			}
-			else if(value < height){
+			else if (value < height) {
 				count++;
 				if(count > viewDistance)
 					return false;
@@ -87,30 +83,31 @@ public class Board {
 		boolean satisfies = true;
 		for (int i = 0; i < n; i++) {
 			int value = buildings[i][col];
-			if(value == 0){
+			if (value == 0) {
 				// satisfies = true;
 			}
-			else if(value < height){
+			else if (value < height) {
 				count++;
-				if(count > viewDistance)
+				if (count > viewDistance) {
 					return false;
+				}
 			}
 		}
 		if (!satisfies) {
 			return false;
 		}
-		
 		viewDistance = restrictions[BOTTOM][col];		
 		count = 0;
 		for (int i = n - 1; i >= 0; i--) {
 			int value = buildings[i][col];
-			if(value == 0){
+			if (value == 0) {
 				return true;
 			}
-			else if(value < height){
+			else if(value < height) {
 				count++;
-				if(count > viewDistance)
+				if (count > viewDistance) {
 					return false;
+				}
 			}
 		}
 		return true;
@@ -136,29 +133,8 @@ public class Board {
 		return true;
 	}
 	
-	public static void main(String[] args) {
-		int[][] rules = {{3,2,1},{1,2,2},{3,2,1}, {1,2,2}};
-		Board myBoard = new Board(3, rules);
-		
-		int[][] buildings = myBoard.getBuildings();
-		buildings[0][0] = 1;
-		buildings[0][1] = 2;
-		buildings[0][2] = 3;
-
-		buildings[1][0] = 2;
-		buildings[1][1] = 3;
-		buildings[1][2] = 1;
-		
-		buildings[2][0] = 3;
-		buildings[2][1] = 1;
-//		buildings[2][2] = 2;
-		
-		
-		System.out.println(myBoard.validatePosition(2, 2, 2));
-		
-	}
-
 	public int getSize() {
 		return n;
 	}
+
 }

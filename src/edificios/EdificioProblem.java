@@ -17,9 +17,7 @@ public class EdificioProblem implements GPSProblem {
 	}
 	
 	private void initializeRules() {
-		
 		int maxHeight = initBoard.getSize();
-		
 		for (int i = 0; i < maxHeight; i++) {
 			for (int j = 0; j < maxHeight; j++) {
 				for (int k = 0; k < maxHeight; k++) {
@@ -48,7 +46,5 @@ public class EdificioProblem implements GPSProblem {
 	public List<GPSRule> getRules() {
 		return rules;
 	}
-	
-	
 
 }

@@ -21,10 +21,8 @@ public class EdificioState implements GPSState {
 	
 	@Override
 	public boolean isGoalState() {
-		
 		int[][] buildings = currentBoard.getBuildings();
 		int n = buildings.length;
-		
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (buildings[i][j] == 0) {
@@ -32,7 +30,6 @@ public class EdificioState implements GPSState {
 				}
 			}
 		}
-		
 		return true;
 	}
 

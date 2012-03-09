@@ -29,7 +29,7 @@ No está permitido el uso de librerías o toolkits.
 Problema 9: Edificios
 ---------------------
 
-+ [Ver PDF](./TPE_pre1/doc/TPE1%20-%20Entrega%20preliminar%201.pdf?raw=true)
++ [Ver PDF con enunciados](./TPE_pre1/doc/TPE1%20-%20Entrega%20preliminar%201.pdf?raw=true)
 
 
 

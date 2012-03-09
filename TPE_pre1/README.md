@@ -1,7 +1,7 @@
 Sistemas de Inteligencia Artificial
 ===================================
 
-## Trabajo Prácticos Preeliminar #1
+## Trabajo Práctico #1 - Entrega preliminar
 ## Métodos de búsqueda no informados
 
 #### Problema asignado al azar: Ejercicio 9
@@ -29,7 +29,7 @@ No está permitido el uso de librerías o toolkits.
 Problema 9: Edificios
 ---------------------
 
-+ [Ver PDF](./doc/TPE1%20-%20Entrega%20preliminar%201.pdf)
++ [Ver PDF](./TPE_pre1/doc/TPE1%20-%20Entrega%20preliminar%201.pdf?raw=true)
 
 
 

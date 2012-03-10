@@ -32,8 +32,11 @@ public class Solver {
 		long initialTime = System.currentTimeMillis();
 		eng.engine(prob, se);
 		long elapsedTime = System.currentTimeMillis() - initialTime;
-		Logger.log("Result", "Algorithm took " + elapsedTime + " ms", Logger.LEVEL_TRACE);
 		
+		long ms = elapsedTime % 1000;
+		long seconds = elapsedTime / 1000;
+		String time = "Algorithm took " + seconds + " seconds and " + ms + " ms";
+		Logger.log("Timing", time, Logger.LEVEL_TRACE);
 	}
 	
 	private static Map<String, SearchStrategy> getStreategies() {

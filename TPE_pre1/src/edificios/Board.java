@@ -127,15 +127,12 @@ public class Board {
 	}
 	
 	public Board addAndDuplicate(int row, int col, int height){
-		Board ret = new Board(n);
-		int i,j;
-		for( i = 0 ; i < n ; i ++){
-			for( j = 0 ; j < n ; j ++){
-				ret.buildings[i][j] = buildings[i][j];
-			}
+		Board clone = new Board(n);
+		for(int i = 0 ; i < n ; i ++){
+			clone.buildings[i] = buildings[i].clone();
 		}
-		ret.buildings[row][col] = height;
-		return ret;
+		clone.buildings[row][col] = height;
+		return clone;
 	}
 	
 	

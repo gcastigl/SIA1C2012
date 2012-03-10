@@ -14,15 +14,13 @@ public class BuildingParser {
 		rules[Settings.LEFT] = new int[] {4, 1, 2, 3, 2};
 		rules[Settings.RIGHT] = new int[] {1, 2, 2, 2, 4};
 		Settings.restrictions = rules;
-		Board parsed = new Board(rules[0].length);
-		return parsed;
+		return new Board(rules[0].length);
 	}
 
 	private static Board board3() {
 		int[][] rules = {{1,2,2},{3,1,2},{1,2,2}, {3,1,2}};
 		Settings.restrictions = rules;
-		Board parsed = new Board(rules[0].length);
-		return parsed;
+		return new Board(rules[0].length);
 	}
 
 	private static Board board2() {
@@ -32,7 +30,6 @@ public class BuildingParser {
 		rules[Settings.LEFT] = new int[] {2, 1};
 		rules[Settings.RIGHT] = new int[] {1, 2};
 		Settings.restrictions = rules;
-		Board parsed = new Board(rules[0].length);
-		return parsed;
+		return new Board(rules[0].length);
 	}
 }

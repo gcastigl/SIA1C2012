@@ -45,10 +45,18 @@ public class Solver {
 		long initialTime = System.currentTimeMillis();
 		eng.engine(prob, se);
 		long elapsedTime = System.currentTimeMillis() - initialTime;
-		
+		printFormattedElapsedTime(elapsedTime);
+	}
+	
+	private static void printFormattedElapsedTime(long elapsedTime) {
 		long ms = elapsedTime % 1000;
-		long seconds = elapsedTime / 1000;
-		String time = "Algorithm took " + seconds + " seconds and " + ms + " ms";
+		long seconds = (elapsedTime / 1000) % 60;
+		long minutes = elapsedTime / (60 * 1000);
+		String time = "Algorithm took " ;
+		if (minutes != 0) {
+			time += minutes + " min ";
+		}
+		time += seconds + " seconds and " + ms + " ms";
 		Logger.log("Timing", time, Logger.LEVEL_TRACE);
 		System.out.println(time);
 	}

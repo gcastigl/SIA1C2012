@@ -62,7 +62,7 @@ public class Solver {
 	private static Map<String, Integer> getLogLevels() {
 		Map<String, Integer> loggerLevels = new HashMap<String, Integer>();
 		loggerLevels.put("LOW", Logger.LEVEL_ERROR);
-		loggerLevels.put("MED", Logger.LEVEL_WARNING);
+		loggerLevels.put("MED", Logger.LEVEL_TRACE);
 		loggerLevels.put("MAX", Logger.LEVEL_DEBUG);
 		return loggerLevels;
 	}

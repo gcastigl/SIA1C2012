@@ -9,10 +9,10 @@ public class Logger {
 	private static FileWriter fw = null;
 
 	public static final int LEVEL_OFF = -1;
-	public static final int LEVEL_DEBUG = 0;
-	public static final int LEVEL_TRACE = 1;
-	public static final int LEVEL_WARNING = 2;
-	public static final int LEVEL_ERROR = 3;
+	public static final int LEVEL_DEBUG = 3;
+	public static final int LEVEL_TRACE = 2;
+	public static final int LEVEL_WARNING = 1;
+	public static final int LEVEL_ERROR = 0;
 	
 	public static int LOG_LEVEL;
 	

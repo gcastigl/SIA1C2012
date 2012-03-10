@@ -93,13 +93,12 @@ public abstract class GPSEngine {
 
 	private  boolean checkOpenAndClosed(Integer cost, GPSState state) {
 		for (GPSNode openNode : open) {
-			if (openNode.getState().compare(state) && openNode.getCost() < cost) {
+			if (openNode.getCost() < cost && openNode.getState().compare(state)) {
 				return true;
 			}
 		}
 		for (GPSNode closedNode : closed) {
-			if (closedNode.getState().compare(state)
-					&& closedNode.getCost() < cost) {
+			if (closedNode.getCost() < cost && closedNode.getState().compare(state)) {
 				return true;
 			}
 		}

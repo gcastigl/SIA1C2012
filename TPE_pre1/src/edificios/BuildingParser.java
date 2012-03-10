@@ -4,10 +4,10 @@ package edificios;
 public class BuildingParser {
 	
 	public static Board parse(String filename){
-		return board1();
+		return board3();
 	}
 	
-	private static Board board1() {
+	private static Board board5() {
 		int[][] rules = new int[4][];
 		rules[Settings.TOP] = new int[] {2, 5, 2, 2, 1};
 		rules[Settings.BOTTOM] = new int[] {3, 1, 2, 2, 4};
@@ -18,15 +18,13 @@ public class BuildingParser {
 		return parsed;
 	}
 
-/*
-	private static Board board1() {
+	private static Board board3() {
 		int[][] rules = {{1,2,2},{3,1,2},{1,2,2}, {3,1,2}};
 		Settings.restrictions = rules;
 		Board parsed = new Board(rules[0].length);
 		return parsed;
 	}
 
-*/	
 	private static Board board2() {
 		int[][] rules = new int[4][];
 		rules[Settings.TOP] = new int[] {2, 1};

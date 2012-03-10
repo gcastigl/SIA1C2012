@@ -11,7 +11,6 @@ import util.Logger;
 public class Solver {
 
 	public static void main(String[] args) {
-		args = new String[] {"IDFS"};
 		if(args == null || args.length == 0) {
 			System.out.println("Please declare what searching method you want to use (BFS, DFS) and the logging level");
 			System.out.println("Next time run: java -jar Solver.java BFS [MIN MED MAX]");

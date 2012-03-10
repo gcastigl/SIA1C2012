@@ -11,26 +11,26 @@ import util.Logger;
 public class Solver {
 
 	public static void main(String[] args) {
-		if(args.length < 2){
+		args = new String[] {"IDFS"};
+		if(args == null || args.length == 0) {
 			System.out.println("Please declare what searching method you want to use (BFS, DFS) and the logging level");
-			System.out.println("Next time run: java -jar Solver.java BFS LEVEL_DEBUG");
+			System.out.println("Next time run: java -jar Solver.java BFS [MIN MED MAX]");
 			System.out.println("For more information on how to run the solver please read the Readme.md file");
 			return;
 		}
 		
 		// init logger
 		Logger.init();
-		if(args[1].equals("LEVEL_DEBUG"))
-			Logger.LOG_LEVEL = Logger.LEVEL_DEBUG;
-		else if(args[1].equals("LEVEL_TRACE"))
-			Logger.LOG_LEVEL = Logger.LEVEL_TRACE;
-		else if(args[1].equals("LEVEL_WARNING"))
-			Logger.LOG_LEVEL = Logger.LEVEL_WARNING;
-		else if(args[1].equals("LEVEL_ERROR"))
-			Logger.LOG_LEVEL = Logger.LEVEL_ERROR;
-		else{
-			Logger.log("Solver", args[1] + " logger mode not found", Logger.LEVEL_ERROR);
-			return;
+		if (args.length == 2) {
+			Map<String, Integer> loggerLevels = getLogLevels();
+			Integer level = loggerLevels.get(args[1]);
+			if (level == null) {
+				Logger.LOG_LEVEL = Logger.LEVEL_OFF;	
+			} else {
+				Logger.LOG_LEVEL = level;
+			}
+		} else{
+			Logger.LOG_LEVEL = Logger.LEVEL_OFF;
 		}
 		
 		Map<String, SearchStrategy> startegies = getStreategies();
@@ -57,5 +57,13 @@ public class Solver {
 		startegy.put("DFS", SearchStrategy.DFS);
 		startegy.put("BFS", SearchStrategy.BFS);
 		return startegy;
+	}
+	
+	private static Map<String, Integer> getLogLevels() {
+		Map<String, Integer> loggerLevels = new HashMap<String, Integer>();
+		loggerLevels.put("LOW", Logger.LEVEL_ERROR);
+		loggerLevels.put("MED", Logger.LEVEL_WARNING);
+		loggerLevels.put("MAX", Logger.LEVEL_DEBUG);
+		return loggerLevels;
 	}
 }

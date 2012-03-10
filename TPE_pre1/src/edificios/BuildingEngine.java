@@ -9,6 +9,8 @@ public class BuildingEngine extends GPSEngine {
 
 	private int currentMaxDepth = 1;
 	
+	boolean adding = false;
+	
 	@Override
 	public void addNode(GPSNode node) {
 		switch(strategy){
@@ -22,9 +24,14 @@ public class BuildingEngine extends GPSEngine {
 			if (open.isEmpty()) {
 				open.add(new GPSNode(problem.getInitState(), 0));
 				currentMaxDepth++;
+				adding = true;
 			}
 			if (node.getDepth() <= currentMaxDepth) {
-				((LinkedList<GPSNode>) open).addFirst(node);
+				if (adding) {
+					((LinkedList<GPSNode>) open).addFirst(node);
+				}
+			} else {
+				adding = false;
 			}
 			break;
 		default:

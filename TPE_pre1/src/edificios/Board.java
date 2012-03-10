@@ -9,7 +9,7 @@ public class Board {
 		this.n = n;
 	}
 	
-	public boolean validatePosition(int row, int col, int height){
+	public boolean validatePosition(int row, int col, int height) {
 		boolean check;
 		check = buildings[row][col] == 0 && checkRow(row, height) && checkCol(col, height);
 		if (check) {
@@ -21,16 +21,16 @@ public class Board {
 	}
 	
 	// Repeated values on row
-	private boolean checkRow(int row, int height){
-		for(int x: buildings[row]){
-			if(x == height)
+	private boolean checkRow(int row, int height) {
+		for(int x: buildings[row]) {
+			if (x == height)
 				return false;
 		}
 		return true;
 	}
 	
 	// Repeated values on column
-	private boolean checkCol(int col, int height){
+	private boolean checkCol(int col, int height) {
 		for (int i = 0; i < n; i++) {
 			if (buildings[i][col] == height) {
 				return false;
@@ -39,17 +39,17 @@ public class Board {
 		return true;
 	}
 	
-	private boolean checkViewInRow(int row, int height){
+	private boolean checkViewInRow(int row, int height) {
 		int viewDistance = Settings.restrictions[Settings.LEFT][row];
 		int count = 0;
 		boolean satisfies = true;
 		int currHeight = -1;
 		for (int i = 0; i < n && buildings[row][i] != 0; i++) {
 			int value = buildings[row][i];
-			if(value != 0 && value > currHeight){
+			if (value != 0 && value > currHeight) {
 				count++;
 				currHeight = value;
-				if(count > viewDistance){
+				if (count > viewDistance) {
 					satisfies = false;
 				}
 			}
@@ -78,10 +78,10 @@ public class Board {
 		boolean satisfies = true;
 		for (int i = 0; i < n && buildings[i][col] != 0; i++) {
 			int value = buildings[i][col];
-			if(value != 0 && value > currHeight){
+			if (value != 0 && value > currHeight) {
 				count++;
 				currHeight = value;
-				if(count > viewDistance){
+				if (count > viewDistance) {
 					satisfies = false;
 				}
 			}
@@ -91,10 +91,10 @@ public class Board {
 		currHeight = -1;
 		for (int i = n - 1; i >= 0 && buildings[i][col] != 0; i--) {
 			int value = buildings[i][col];
-			if(value != 0 && value > currHeight){
+			if (value != 0 && value > currHeight) {
 				count++;
 				currHeight = value;
-				if(count > viewDistance){
+				if (count > viewDistance) {
 					satisfies = false;
 				}
 			}
@@ -126,9 +126,9 @@ public class Board {
 		return n;
 	}
 	
-	public Board addAndDuplicate(int row, int col, int height){
+	public Board addAndDuplicate(int row, int col, int height) {
 		Board clone = new Board(n);
-		for(int i = 0 ; i < n ; i ++){
+		for(int i = 0 ; i < n ; i ++) {
 			clone.buildings[i] = buildings[i].clone();
 		}
 		clone.buildings[row][col] = height;
@@ -145,30 +145,30 @@ public class Board {
 		String ret = "";
 		String ln = "";
 		int i,j;
-		for( i = 0 ; i < n; i ++){
+		for (i = 0 ; i < n; i ++) {
 			ln += Settings.restrictions[Settings.TOP][i] + " ";
 		}
 		ret += " | " + ln + " | " + "\n";
 		ln = "";
-		for( i = 0 ; i < 2*n + 4 ; i ++){
+		for (i = 0 ; i < 2*n + 4 ; i ++) {
 			ln += "-";
 		}
 		ret += ln + "\n";
-		for( i = 0; i < n; i ++){
+		for (i = 0; i < n; i ++) {
 			ln = "" + Settings.restrictions[Settings.LEFT][i] + "| ";
-			for(j = 0 ; j < n ;j ++){
+			for(j = 0 ; j < n ;j ++) {
 				ln += "" + buildings[i][j] + " ";
 			}
 			ln += " |" + Settings.restrictions[Settings.RIGHT][i];
 			ret += ln + "\n";
 		}
 		ln = "";
-		for( i = 0 ; i < 2*n + 4 ; i ++){
+		for (i = 0 ; i < 2*n + 4 ; i ++) {
 			ln += "-";
 		}
 		ret += ln + "\n";
 		ln = " | ";
-		for( i = 0 ; i < n; i ++){
+		for (i = 0 ; i < n; i ++) {
 			ln += Settings.restrictions[Settings.BOTTOM][i] + " ";
 		}
 		ret += ln + "\n";

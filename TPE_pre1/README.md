@@ -9,10 +9,21 @@ Sistemas de Inteligencia Artificial
 Ejecución
 ---------
 
-Para correr el General Problem Solver usted debe declarar qué estrategia de búsqueda no informada utilizará.
+Para correr el General Problem Solver usted debe declarar qué estrategia de búsqueda no informada utilizará, como así también el nivel de LOG que se desea obtener. Ejemplos:
 
-* `java -jar Edificios.jar DFS` -- Si desea utilizar Depth-first search
-* `java -jar Edificios.jar BFS` -- Si desea utilizar Depth-first search
+* `java -jar Edificios.jar DFS LEVEL_DEBUG` -- Si desea utilizar Depth-first search como estrategia y logguear todos los pasos del algoritmo.
+* `java -jar Edificios.jar BFS LEVEL_ERROR` -- Si desea utilizar Depth-first search y logguear sólo los errores que pudieran llegar a ocurrir.
+
+Los niveles de log son:
+
+
+* `LEVEL_DEBUG` -- 
+* `LEVEL_TRACE` -- 
+* `LEVEL_WARNING` -- 
+* `LEVEL_ERROR` -- 
+
+El programa creará un archivo de texto `log.txt` con la salida del mismo pero también irá mostrando su avance por la salida estándar. 
+Nota: Mientras mayor sea el nivel de log deseado, más demorará la ejecución del programa.
 
 Si así lo desea, puede cambiar el tablero desde el código, en la clase BuldingParser del archivo `BuildingParser.java`. Sólo debe setear los vectores con los números borde del tablero a crear. Luejo ejecute `ant` en el directorio que contiene al archivo `build.xml` para así generar un nuevo `Edificios.jar` y correrlo como se explicó anteriormente.
 

@@ -1,0 +1,263 @@
+
+\documentclass[%
+	%draft,
+	%submission,
+	%compressed,
+	final,
+	%
+	%technote,
+	%internal,
+	%submitted,
+	%inpress,
+	reprint,
+	%
+	%titlepage,
+	notitlepage,
+	%anonymous,
+	narroweqnarray,
+	inline,
+	twoside,
+	invited
+	]{ieee}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fancybox}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{subfigure}
+
+\newcommand{\latexiie}{\LaTeX2{\Large$_\varepsilon$}}
+
+%\usepackage{ieeetsp}	% if you want the "trans. sig. pro." style
+%\usepackage{ieeetc}	% if you want the "trans. comp." style
+%\usepackage{ieeeimtc}	% if you want the IMTC conference style
+
+% Use the `endfloat' package to move figures and tables to the end
+% of the paper. Useful for `submission' mode.
+%\usepackage {endfloat}
+
+% Use the `times' package to use Helvetica and Times-Roman fonts
+% instead of the standard Computer Modern fonts. Useful for the 
+% IEEE Computer Society transactions.
+%\usepackage{times}
+% (Note: If you have the commercial package `mathtime,' (from 
+% y&y (http://www.yandy.com), it is much better, but the `times' 
+% package works too). So, if you have it...
+%\usepackage {mathtime}
+
+% for any plug-in code... insert it here. For example, the CDC style...
+%\usepackage{ieeecdc}
+
+\begin{document}
+
+%----------------------------------------------------------------------
+% Title Information, Abstract and Keywords
+%----------------------------------------------------------------------
+\title[Métodos de búsqueda no informados]{%
+       Métodos de búsqueda no informados}
+
+% format author this way for journal articles.
+% MAKE SURE THERE ARE NO SPACES BEFORE A \member OR \authorinfo
+% COMMAND (this also means `don't break the line before these
+% commands).
+\author[Castiglione, Karpovsky, Sturla]{Gonzalo V. Castiglione, Alan E. Karpovsky, Martín Sturla\\\textit{Estudiantes 
+       Instituto Tecnológico de Buenos Aires (ITBA)}\\
+\\\textbf{15 de Marzo de 2012}
+}
+
+
+
+\journal{Cátedra\ \ Sist.\ de\ Inteligencia\ Artificial,\ ITBA\ }
+\titletext{-\ 15, MARZO\ 2012}
+\ieeecopyright{\copyright\ 2011 ITBA}
+\lognumber{}
+\pubitemident{}
+\loginfo{15 de Marzo, 2012.}
+\firstpage{1}
+
+\confplacedate{Buenos Aires, Argentina, 15 de Marzo, 2012}
+
+\maketitle               
+
+\begin{abstract} 
+El presente informe busca analizar y comparar distintas estrategias de búsqueda no informadas sobre un problema en particular haciendo uso de un motor de inferencias.
+\end{abstract}
+
+\begin{keywords}
+DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
+\end{keywords}
+
+%----------------------------------------------------------------------
+% SECTION I: Introduccion%----------------------------------------------------------------------
+\section{Introducción}
+
+\PARstart Dentro de la optimización matemática podemos encontrar una técnica de análisis numérico denominada \textbf{cuadrados mínimos}. La misma intenta encontrar, dado un conjunto de pares (o ternas, etc.), la función que mejor se aproxime a los datos, de acuerdo con el criterio de mínimo error cuadrático.
+
+En este caso se utilizará el método antes nombrado para encontrar una relación entre la velocidad promedio del viento y el tiempo en el instante de la medición. Estas velocidades corresponden a mediciones de doce estaciones meteorológicas situadas en la República de Irlanda, para el período 1971-1978.
+En particular se busca que dicho ajuste venga dado por una función de la forma:
+
+\begin{equation}
+v(t)\ =\ A_0 + A_1\cos{(2\pi f_{1} t)} + B_1\sin{(2\pi f_{1} t)}
+\end{equation}
+
+donde $v$ es la velocidad del viento, $t$ es el tiempo en días y $f_1=\frac{1}{365.25}dia^{-1}$. Para corregir el desfase que existe con la duración del año trópico  \textit{(365 días 5 horas 48 minutos 45.25 segundos)}, se añade $0.25$ al la cantidad de días anuales, los cuales representan esas $\approx 6$ horas de diferencia.\\
+
+Con este fin, se hará uso de tres métodos numéricos distintos (Cholesky, Gauss, QR) y luego se compararán los resultados obtenidos a fin de estudiar su complejidad, su error y consecuentemente su adecuación al problema planteado.
+
+En primer lugar se expondrá un breve marco teórico, luego se explicará el proceso informático utilizado para manipular los datos, se presentarán los valores de los coeficientes $A_0$, $A_1$ y $B_1$ para cada estación meteorológica y se concluirá con un análisis previamente mencionados.
+
+
+%----------------------------------------------------------------------
+% SECTION II: Marco Teórico
+%----------------------------------------------------------------------
+
+\section{Marco Teórico}
+\label{mat}
+\subsection{Cuadrados Mínimos}
+
+\par El problema de cuadrados mínimos consiste en encontrar el mínimo de la función
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Método & Tiempo medio & Tiempo  medio \\
+ &  Octave $(sec)$ & Propio $(sec)$ \\
+\hline
+\hline
+Eliminación Gaussiana & $0.011430$ & $0.013100$ \\
+Cholesky & $0.009559$ & $0.012204$ \\
+ QR &  $0.028912$&$0.031182$ \\
+\hline  
+\end{tabular}
+\end{center}
+\caption{Tabla de comparación de performance de los métodos propios versus los métodos nativos de GNU Octave}
+\label{tmedio}
+\end{table}
+
+Estos resultados son consistentes con la siguiente tabla\footnote{Fierens, P. (2011), \emph{Cuadrados mínimos: repaso}, Buenos Aires: Instituto Tecnológico de Buenos Aires.}, la cual presenta el número de operaciones necesrias para resolver el problema de cuadrados mínimos cuando $A \in \Re ^{mxn}$:
+
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Algoritmo & Número de operaciones\\
+\hline
+\hline
+
+Eliminación Gaussiana & $n^2(m+\frac{2n}{3})$\\
+Cholesky & $n^2(m+\frac{n}{3})$\\
+QR & $2n^2(m-\frac{n}{3})$\\
+
+\hline  
+\end{tabular}
+\end{center}
+\caption{Complejidad del problema de cuadrados mínimos}
+\label{tmedio}
+\end{table}
+
+Si las columnas de la matriz A fueran casi linealmente dependientes, hubiera sido preferible la utilización del algoritmo \textbf{QR} frente a las ecuaciones normales. Como en este problema en particular esta condición no se cumple, el algoritmo más performante ha sido el de Cholesky.
+
+
+%----------------------------------------------------------------------
+% The bibliography. This bibliography was generated using the following
+% two lines:
+%\bibliographystyle{IEEEbib}
+%\bibliography{ieeecls}
+% where, the contents of the ieeecls.bib file was:
+%
+%@book{lamport,
+%        AUTHOR = "Leslie Lamport",
+%         TITLE = "A Document Preparation System: {\LaTeX} User's Guide
+%                  and Reference Manual",
+%       EDITION = "Second",
+%     PUBLISHER = "Addison-Wesley",
+%       ADDRESS = "Reading, MA",
+%          YEAR = 1994,
+%          NOTE = "Be sure to get the updated version for \LaTeX2e!"
+%}
+%
+%@book{goossens,
+%        AUTHOR = "Michel Goossens and Frank Mittelbach and
+%                  Alexander Samarin",
+%         TITLE = "The {\LaTeX} Companion",
+%     PUBLISHER = "Addison-Wesley",
+%       ADDRESS = "Reading, MA",
+%          YEAR = 1994,
+%}
+%
+% The ieeecls.bbl file was manually included here to make the distribution
+% of this paper easier. You need not do it for your own papers.
+
+\clearpage
+
+\begin{thebibliography}{1}
+
+\bibitem{lamport1}
+Fierens, P. (2011),
+\newblock {\em Cuadrados mínimos: repaso},
+\newblock Buenos Aires: Instituto Tecnológico de Buenos Aires.
+
+\bibitem{lamport1}
+Abdi, H.,
+\newblock {\em  Least-squares: {Encyclopedia for research methods for the social sciences}},
+\newblock Thousand Oaks (CA): Sage. pp, 2003.
+
+\bibitem{lamport1}
+Farebrother, R.W. (1988),
+\newblock {\em Linear Least Squares Computations, STATISTICS: Textbooks and Monographs}, \newblock New York: Marcel Dekker.
+
+\bibitem{lamport1}
+Lipson, M.; Lipschutz, S. (2001),
+\newblock {\em Schaum's outline of theory and problems of linear algebra}, 
+\newblock New York: McGraw-Hill, pp. 69–80.
+
+
+\end{thebibliography}
+
+%----------------------------------------------------------------------
+
+
+\clearpage
+
+\onecolumn
+
+\onecolumn
+\section*{Anexo A: Gráficos ilustrativos}
+
+\begin{figure}[H]
+\centering
+%\includegraphics[scale=0.7]{./images/ciudadRPTconajuste.png}
+\caption{Curva que ajusta las velocidades medidas en la estación RPT, obtenida mediante eliminación gaussiana.}
+\label{dataRPT}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+%\includegraphics[scale=0.7]{./images/CIUDAD.PNG}
+\caption{Error de la curva de ajuste obtenida por eliminación gaussiana, con respecto a las velocidades de la estación RPT.}
+\label{dataRPT}
+\end{figure}
+
+\clearpage
+
+
+
+\section*{Anexo B: Código}
+
+\subsection{Código para la obtención de las matrices $A$ y $b$}
+
+%\VerbatimInput{./code/calculoAb.m}
+
+
+
+
+\end{document}

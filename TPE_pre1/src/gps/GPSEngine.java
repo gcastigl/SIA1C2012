@@ -83,7 +83,7 @@ public abstract class GPSEngine {
 					&& !checkOpenAndClosed(node.getCost() + rule.getCost(),
 							newState)) {
 				GPSNode newNode = new GPSNode(newState, node.getCost()
-						+ rule.getCost());
+						+ rule.getCost(), node.getDepth() + 1);
 				newNode.setParent(node);
 				addNode(newNode);
 			}

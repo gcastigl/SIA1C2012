@@ -5,15 +5,19 @@ import gps.api.GPSState;
 public class GPSNode {
 
 	private GPSState state;
-
 	private GPSNode parent;
-
 	private Integer cost;
+	private int depth;
 
 	public GPSNode(GPSState state, Integer cost) {
+		this(state, cost, 0);
+	}
+	
+	public GPSNode(GPSState state, Integer cost, int depth) {
 		super();
 		this.state = state;
 		this.cost = cost;
+		this.depth = depth;
 	}
 
 	public GPSNode getParent() {
@@ -32,6 +36,10 @@ public class GPSNode {
 		return cost;
 	}
 
+	public int getDepth() {
+		return depth;
+	}
+	
 	@Override
 	public String toString() {
 		return state.toString();

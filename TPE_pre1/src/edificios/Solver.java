@@ -56,6 +56,7 @@ public class Solver {
 		Map<String, SearchStrategy> startegy = new HashMap<String, SearchStrategy>();
 		startegy.put("DFS", SearchStrategy.DFS);
 		startegy.put("BFS", SearchStrategy.BFS);
+		startegy.put("IDFS", SearchStrategy.DFSI);
 		return startegy;
 	}
 	

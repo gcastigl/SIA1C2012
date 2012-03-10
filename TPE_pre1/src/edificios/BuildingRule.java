@@ -3,7 +3,6 @@ package edificios;
 import gps.api.GPSRule;
 import gps.api.GPSState;
 import gps.exception.NotAppliableException;
-import util.Logger;
 
 public class BuildingRule implements GPSRule {
 
@@ -17,17 +16,14 @@ public class BuildingRule implements GPSRule {
 	
 	@Override
 	public GPSState evalRule(GPSState state) throws NotAppliableException {
-		Logger.log("Debug", "Eval " + this.getName(), Logger.LEVEL_DEBUG);
-
+//		Logger.log("Debug", "Eval " + this.getName(), Logger.LEVEL_DEBUG);
 		Board currBoard = ((BuildingState) state).getCurrentBoard();
 		if (currBoard.validatePosition(row, col, height)) {
 			Board newBoard = currBoard.duplicateAndSet(row, col, height);
-//			System.out.println("Returned!");
 //			newBoard.printBoard();
 			return new BuildingState(newBoard);
-		}
-		else{
-			Logger.log("Debug", this.getName() + " --> Not applicable", Logger.LEVEL_DEBUG);
+		} else {
+//			Logger.log("Debug", " --> Not applicable", Logger.LEVEL_DEBUG);
 			throw new NotAppliableException();
 		}
 	}

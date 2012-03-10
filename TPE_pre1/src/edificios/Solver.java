@@ -50,6 +50,7 @@ public class Solver {
 		long seconds = elapsedTime / 1000;
 		String time = "Algorithm took " + seconds + " seconds and " + ms + " ms";
 		Logger.log("Timing", time, Logger.LEVEL_TRACE);
+		System.out.println(time);
 	}
 	
 	private static Map<String, SearchStrategy> getStreategies() {

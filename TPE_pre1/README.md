@@ -9,18 +9,21 @@ Sistemas de Inteligencia Artificial
 Ejecución
 ---------
 
-Para correr el General Problem Solver usted debe declarar qué estrategia de búsqueda no informada utilizará, como así también el nivel de LOG que se desea obtener. Ejemplos:
+Para correr el General Problem Solver usted debe declarar qué estrategia de búsqueda no informada utilizará, como así también el nivel de LOG que se desea obtener (este último parámetro puede ser omitido). Ejemplos:
 
-* `java -jar Edificios.jar DFS LEVEL_DEBUG` -- Si desea utilizar Depth-first search como estrategia y logguear todos los pasos del algoritmo.
-* `java -jar Edificios.jar BFS LEVEL_ERROR` -- Si desea utilizar Depth-first search y logguear sólo los errores que pudieran llegar a ocurrir.
+* `java -jar Edificios.jar DFS` -- Si desea utilizar Depth-first search como estrategia y no logguear nada.
+* `java -jar Edificios.jar BFS MIN` -- Si desea utilizar Depth-first search y un nivel mínimo de logueo.
+
+Generalizando
+
+* `java -jar Edificios.jar [DFS BFS IDFS] [MIN MED MAX]` -- El parámetro que indica la estrategia de búsqueda no puede ser omitido; en caso de omitir el segundo parámetro (nivel de log), el programa se ejecutará sin log alguno.
 
 Los niveles de log son:
 
 
-* `LEVEL_DEBUG` -- 
-* `LEVEL_TRACE` -- 
-* `LEVEL_WARNING` -- 
-* `LEVEL_ERROR` -- 
+* `MIN` -- 
+* `MED` -- 
+* `MAX` -- 
 
 El programa creará un archivo de texto `log.txt` con la salida del mismo pero también irá mostrando su avance por la salida estándar. 
 Nota: Mientras mayor sea el nivel de log deseado, más demorará la ejecución del programa.

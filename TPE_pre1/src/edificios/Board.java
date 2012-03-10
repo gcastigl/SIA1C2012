@@ -11,8 +11,8 @@ public class Board {
 	
 	public boolean validatePosition(int row, int col, int height){
 		boolean check;
-		check = checkRow(row, height) && checkCol(col, height) && buildings[row][col] == 0;
-		if(check){
+		check = buildings[row][col] == 0 && checkRow(row, height) && checkCol(col, height);
+		if (check) {
 			buildings[row][col] = height;
 			check = checkViewInCol(col, height) && checkViewInRow(row, height);
 			buildings[row][col] = 0;

@@ -20,7 +20,9 @@ public abstract class GPSEngine {
 	// Use this variable in the addNode implementation
 	protected SearchStrategy strategy;
 
+	
 	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
+		Logger.log("GPSEngine", "Solving " + myProblem + " with " + myStrategy.toString(), Logger.LEVEL_TRACE);
 		problem = myProblem;
 		strategy = myStrategy;
 
@@ -76,8 +78,10 @@ public abstract class GPSEngine {
 			try {
 				newState = rule.evalRule(node.getState());
 			} catch (NotAppliableException e) {
+				Logger.log("Invalid Rule", rule, Logger.LEVEL_DEBUG);
 				// Do nothing
 			}
+			
 			if (newState != null
 					&& !checkBranch(node, newState)
 					&& !checkOpenAndClosed(node.getCost() + rule.getCost(),

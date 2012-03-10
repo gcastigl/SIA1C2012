@@ -22,7 +22,7 @@ public class BuildingProblem implements GPSProblem {
 		int maxHeight = initBoard.getSize();
 		for (int i = 0; i < maxHeight; i++) {
 			for (int j = 0; j < maxHeight; j++) {
-				for (int k = 1; k < maxHeight + 1; k++) {
+				for (int k = 1; k <= maxHeight; k++) {
 					rules.add(new BuildingRule(i,j,k));
 				}
 			}

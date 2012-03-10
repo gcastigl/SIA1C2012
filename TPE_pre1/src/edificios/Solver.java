@@ -29,8 +29,8 @@ public class Solver {
 			} else {
 				Logger.LOG_LEVEL = level;
 			}
-		} else{
-			Logger.LOG_LEVEL = Logger.LEVEL_OFF;
+		} else {
+			Logger.LOG_LEVEL = Logger.LEVEL_TRACE;
 		}
 		
 		Map<String, SearchStrategy> startegies = getStreategies();

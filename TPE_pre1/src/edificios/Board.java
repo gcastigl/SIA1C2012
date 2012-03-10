@@ -155,35 +155,44 @@ public class Board {
 	
 	public void printBoard(){
 		
+		System.out.println(toString());
+		
+		
+	}
+	
+	@Override
+	public String toString() {
+		String ret = "";
 		String ln = "";
 		int i,j;
 		for( i = 0 ; i < n; i ++){
 			ln += Settings.restrictions[TOP][i] + " ";
 		}
-		System.out.println(" | " + ln + " | ");
+		ret += " | " + ln + " | " + "\n";
 		ln = "";
 		for( i = 0 ; i < 2*n + 4 ; i ++){
 			ln += "-";
 		}
-		System.out.println(ln);
+		ret += ln + "\n";
 		for( i = 0; i < n; i ++){
 			ln = "" + Settings.restrictions[LEFT][i] + "| ";
 			for(j = 0 ; j < n ;j ++){
 				ln += "" + buildings[i][j] + " ";
 			}
 			ln += " |" + Settings.restrictions[RIGHT][i];
-			System.out.println(ln);
+			ret += ln + "\n";
 		}
 		ln = "";
 		for( i = 0 ; i < 2*n + 4 ; i ++){
 			ln += "-";
 		}
-		System.out.println(ln);
+		ret += ln + "\n";
 		ln = " | ";
 		for( i = 0 ; i < n; i ++){
 			ln += Settings.restrictions[BOTTOM][i] + " ";
 		}
-		System.out.println(ln);
+		ret += ln + "\n";
+		return ret;
 	}
 
 }

@@ -32,5 +32,10 @@ public class BuildingState implements GPSState {
 		}
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		return currentBoard.toString();
+	}
 
 }

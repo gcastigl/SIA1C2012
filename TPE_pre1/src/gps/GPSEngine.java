@@ -32,7 +32,7 @@ public abstract class GPSEngine {
 		open.add(rootNode);
 		while (!failed && !finished) {
 			if (open.size() <= 0) {
-				Logger.log("GSPEngine", "Algorithm failed", Logger.LEVEL_TRACE);
+				Logger.log("GSPEngine", "Algorithm failed - Empty open list", Logger.LEVEL_TRACE);
 				failed = true;
 			} else {
 				GPSNode currentNode = open.get(0);
@@ -67,8 +67,8 @@ public abstract class GPSEngine {
 	}
 
 	private  boolean explode(GPSNode node) {
-		if(problem.getRules() == null){
-			System.err.println("No rules!");
+		if (problem.getRules() == null) {
+			Logger.log("GPSEngine", "No rules!", Logger.LEVEL_ERROR);
 			return false;
 		}
 		for (GPSRule rule : problem.getRules()) {
@@ -109,8 +109,7 @@ public abstract class GPSEngine {
 		if (parent == null) {
 			return false;
 		}
-		return checkBranch(parent.getParent(), state)
-				|| state.compare(parent.getState());
+		return checkBranch(parent.getParent(), state) || state.compare(parent.getState());
 	}
 
 	public abstract  void addNode(GPSNode node);

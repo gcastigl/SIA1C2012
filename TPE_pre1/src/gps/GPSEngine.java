@@ -66,7 +66,6 @@ public abstract class GPSEngine {
 			System.err.println("No rules!");
 			return false;
 		}
-		int i = 0;
 		for (GPSRule rule : problem.getRules()) {
 			GPSState newState = null;
 			try {

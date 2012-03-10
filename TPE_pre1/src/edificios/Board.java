@@ -18,8 +18,16 @@ public class Board {
 	}
 	
 	public boolean validatePosition(int row, int col, int height){
-		return checkRow(row, height) && checkCol(col, height) && 
-			checkViewInCol(col, height) && checkViewInRow(row, height);
+		boolean check;
+		check = checkRow(row, height) && checkCol(col, height) && buildings[row][col] == 0;
+		if(check){
+			buildings[row][col] = height;
+			check = checkViewInCol(col, height) && checkViewInRow(row, height);
+			buildings[row][col] = 0;
+		}
+		return check;
+		
+			
 	}
 	
 	// Repeated values on row
@@ -41,75 +49,69 @@ public class Board {
 		return true;
 	}
 	
+	
 	private boolean checkViewInRow(int row, int height){
 		int viewDistance = Settings.restrictions[LEFT][row];
 		int count = 0;
 		boolean satisfies = true;
-		for (int i = 0; i < n; i++) {
+		int currHeight = -1;
+		for (int i = 0; i < n && buildings[row][i] != 0; i++) {
 			int value = buildings[row][i];
-			if(value == 0){
-				// satisfies = true;
-			}
-			else if(value < height){
+			if(value != 0 && value > currHeight){
 				count++;
-				if(count > viewDistance)
-					return false;
+				currHeight = value;
+				if(count > viewDistance){
+					satisfies = false;
+				}
 			}
-		}
-		if (!satisfies) {
-			return false;
+			
 		}
 		viewDistance = Settings.restrictions[RIGHT][row];		
 		count = 0;
-		for (int i = n - 1; i >= 0; i--) {
+		currHeight = -1;
+		for (int i = n - 1; i >= 0 && buildings[row][i] != 0; i--) {
 			int value = buildings[row][i];
-			if(value == 0){
-				return true;
-			}
-			else if (value < height) {
+			if(value != 0 && value > currHeight){
 				count++;
-				if(count > viewDistance)
-					return false;
+				currHeight = value;
+				if(count > viewDistance){
+					satisfies = false;
+				}
 			}
 		}
-		return true;
+		return satisfies;
 	}
 	
 	private boolean checkViewInCol(int col, int height){
 		
 		int viewDistance = Settings.restrictions[TOP][col];
 		int count = 0;
+		int currHeight = -1;
 		boolean satisfies = true;
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n && buildings[i][col] != 0; i++) {
 			int value = buildings[i][col];
-			if (value == 0) {
-				// satisfies = true;
-			}
-			else if (value < height) {
+			if(value != 0 && value > currHeight){
 				count++;
-				if (count > viewDistance) {
-					return false;
+				currHeight = value;
+				if(count > viewDistance){
+					satisfies = false;
 				}
 			}
-		}
-		if (!satisfies) {
-			return false;
 		}
 		viewDistance = Settings.restrictions[BOTTOM][col];		
 		count = 0;
-		for (int i = n - 1; i >= 0; i--) {
+		currHeight = -1;
+		for (int i = n - 1; i >= 0 && buildings[i][col] != 0; i--) {
 			int value = buildings[i][col];
-			if (value == 0) {
-				return true;
-			}
-			else if(value < height) {
+			if(value != 0 && value > currHeight){
 				count++;
-				if (count > viewDistance) {
-					return false;
+				currHeight = value;
+				if(count > viewDistance){
+					satisfies = false;
 				}
 			}
 		}
-		return true;
+		return satisfies;
 	}
 	
 	public int[][] getBuildings() {
@@ -137,17 +139,19 @@ public class Board {
 	}
 	
 	public Board addAndDuplicate(int row, int col, int height){
+		
 		Board ret = new Board(n);
 		int i,j;
-		int[][] builds = buildings.clone();
-		buildings[row][col] = height;
-		ret.setBuildings(builds);
+		for( i = 0 ; i < n ; i ++){
+			for( j = 0 ; j < n ; j ++){
+				ret.buildings[i][j] = buildings[i][j];
+			}
+		}
+		ret.buildings[row][col] = height;
+		
 		return ret;
 	}
 	
-	private void setBuildings(int[][] buildings){
-		this.buildings = buildings;
-	}
 	
 	public void printBoard(){
 		

@@ -14,7 +14,7 @@ public class BuildingEngine extends GPSEngine {
 		switch(strategy){
 		
 		case BFS:
-			((LinkedList<GPSNode>) open).addFirst(node);break;
+			((LinkedList<GPSNode>) open).add(node);break;
 		case DFS:
 			((LinkedList<GPSNode>) open).addFirst(node); break;
 		}

@@ -21,8 +21,8 @@ public class BuildingRule implements GPSRule {
 
 		Board currBoard = ((BuildingState) state).getCurrentBoard();
 		if (currBoard.validatePosition(row, col, height)) {
+			Board newBoard = currBoard.duplicateAndSet(row, col, height);
 //			System.out.println("Returned!");
-			Board newBoard = currBoard.addAndDuplicate(row, col, height);
 //			newBoard.printBoard();
 			return new BuildingState(newBoard);
 		}

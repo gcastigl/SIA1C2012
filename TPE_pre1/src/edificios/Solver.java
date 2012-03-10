@@ -11,6 +11,7 @@ import util.Logger;
 public class Solver {
 
 	public static void main(String[] args) {
+		args = new String[] {"DFS", "MED"};
 		if(args == null || args.length == 0) {
 			System.out.println("Please declare what searching method you want to use (BFS, DFS) and the logging level");
 			System.out.println("Next time run: java -jar Solver.java BFS [MIN MED MAX]");
@@ -61,6 +62,7 @@ public class Solver {
 	
 	private static Map<String, Integer> getLogLevels() {
 		Map<String, Integer> loggerLevels = new HashMap<String, Integer>();
+		loggerLevels.put("OFF", Logger.LEVEL_OFF);
 		loggerLevels.put("LOW", Logger.LEVEL_ERROR);
 		loggerLevels.put("MED", Logger.LEVEL_TRACE);
 		loggerLevels.put("MAX", Logger.LEVEL_DEBUG);

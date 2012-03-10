@@ -6,6 +6,19 @@ Sistemas de Inteligencia Artificial
 
 #### Problema asignado al azar: Ejercicio 9
 
+Ejecución
+---------
+
+Para correr el General Problem Solver usted debe declarar qué estrategia de búsqueda no informada utilizará.
+
+* `java -jar Edificios.jar DFS` -- Si desea utilizar Depth-first search
+* `java -jar Edificios.jar BFS` -- Si desea utilizar Depth-first search
+
+Si así lo desea, puede cambiar el tablero desde el código, en la clase BuldingParser del archivo `BuildingParser.java`. Sólo debe setear los vectores con los números borde del tablero a crear. Luejo ejecute `ant` en el directorio que contiene al archivo `build.xml` para así generar un nuevo `Edificios.jar` y correrlo como se explicó anteriormente.
+
+____________________________
+____________________________
+
 Objetivo
 --------
 

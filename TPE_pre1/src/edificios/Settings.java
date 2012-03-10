@@ -5,9 +5,6 @@ import gps.SearchStrategy;
 /**
  * 
  * Simple struct containing static redundant data that does not belong in the states.
- * 
- * 
- * @author martin
  *
  */
 

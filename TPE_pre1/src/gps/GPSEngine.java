@@ -19,6 +19,8 @@ public abstract class GPSEngine {
 
 	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
 
+		long timeStart = System.currentTimeMillis();
+
 		problem = myProblem;
 		strategy = myStrategy;
 
@@ -38,7 +40,9 @@ public abstract class GPSEngine {
 				open.remove(0);
 				if (isGoal(currentNode)) {
 					finished = true;
+					long timeEnd = System.currentTimeMillis();
 					System.out.println(currentNode.getSolution());
+					System.out.println("Running time: " + (timeEnd-timeStart) + "ms");
 					System.out.println("Expanded nodes: " + explosionCounter);
 				} else {
 					System.out.println("expanding node");

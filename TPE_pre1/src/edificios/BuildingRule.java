@@ -25,7 +25,7 @@ public class BuildingRule implements GPSRule {
 			return new BuildingState(newBoard);
 		}
 		else{
-			System.out.println("Not appliable");
+			System.out.println(this.getName() + " --> Not applicable");
 			throw new NotAppliableException();
 		}
 	}
@@ -37,7 +37,7 @@ public class BuildingRule implements GPSRule {
 
 	@Override
 	public String getName() {
-		return "Poner el numero " + height + " en la posicion (" + row + ", " + col + ").";
+		return "Rule: Put: " + height + " in ("+ row + ", " + col + ")";
 	}
 
 }

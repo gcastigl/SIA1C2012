@@ -1,0 +1,30 @@
+<?xml version="1.0" ?> 
+<project name="Edificios" default="compress">
+
+	<target name="init">
+		<mkdir dir="build/classes" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="src" destdir="build/classes" />
+	</target>
+	
+	<target name="compress" depends="compile">
+		
+		<jar destfile="./Edificios.jar"
+	         basedir="build/classes"
+	         includes="**/*.class">
+	      <manifest>
+	        <attribute name="Main-Class" value="edificios/Solver" />
+	      </manifest>
+		</jar>
+	</target>
+	
+
+
+	<target name="clean">
+		<delete dir="build" />
+		<delete dir="dist" />
+	</target>
+	
+</project>

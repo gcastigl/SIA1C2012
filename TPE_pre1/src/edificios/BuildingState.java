@@ -2,11 +2,11 @@ package edificios;
 
 import gps.api.GPSState;
 
-public class EdificioState implements GPSState {
+public class BuildingState implements GPSState {
 
 	private Board currentBoard;
 	
-	public EdificioState(Board board) {
+	public BuildingState(Board board) {
 		this.currentBoard = board;
 	}
 	
@@ -16,7 +16,7 @@ public class EdificioState implements GPSState {
 	
 	@Override
 	public boolean compare(GPSState state) {
-		return currentBoard.equals(((EdificioState) state).getCurrentBoard());
+		return currentBoard.equals(((BuildingState) state).getCurrentBoard());
 	}
 	
 	@Override

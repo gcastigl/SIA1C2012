@@ -9,12 +9,11 @@ public class Board {
 	
 	private int n;
 	private int[][] buildings;
-	private int[][] restrictions;
 	
 	
-	public Board(int n, int[][] restrictions ) {
+	
+	public Board(int n) {
 		buildings = new int[n][n];
-		this.restrictions = restrictions;
 		this.n = n;
 	}
 	
@@ -43,7 +42,7 @@ public class Board {
 	}
 	
 	private boolean checkViewInRow(int row, int height){
-		int viewDistance = restrictions[LEFT][row];
+		int viewDistance = Settings.restrictions[LEFT][row];
 		int count = 0;
 		boolean satisfies = true;
 		for (int i = 0; i < n; i++) {
@@ -60,7 +59,7 @@ public class Board {
 		if (!satisfies) {
 			return false;
 		}
-		viewDistance = restrictions[RIGHT][row];		
+		viewDistance = Settings.restrictions[RIGHT][row];		
 		count = 0;
 		for (int i = n - 1; i >= 0; i--) {
 			int value = buildings[row][i];
@@ -78,7 +77,7 @@ public class Board {
 	
 	private boolean checkViewInCol(int col, int height){
 		
-		int viewDistance = restrictions[TOP][col];
+		int viewDistance = Settings.restrictions[TOP][col];
 		int count = 0;
 		boolean satisfies = true;
 		for (int i = 0; i < n; i++) {
@@ -96,7 +95,7 @@ public class Board {
 		if (!satisfies) {
 			return false;
 		}
-		viewDistance = restrictions[BOTTOM][col];		
+		viewDistance = Settings.restrictions[BOTTOM][col];		
 		count = 0;
 		for (int i = n - 1; i >= 0; i--) {
 			int value = buildings[i][col];

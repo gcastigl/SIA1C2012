@@ -6,13 +6,13 @@ import gps.api.GPSProblem;
 import gps.api.GPSRule;
 import gps.api.GPSState;
 
-public class EdificioProblem implements GPSProblem {
+public class BuildingProblem implements GPSProblem {
 
 	private Board initBoard;
 	private List<GPSRule> rules;
 	
-	public EdificioProblem() {
-		initBoard = EdificioParser.parse("./resources/board.txt");
+	public BuildingProblem() {
+		initBoard = BuildingParser.parse("./resources/board.txt");
 		initializeRules();
 	}
 	
@@ -21,7 +21,7 @@ public class EdificioProblem implements GPSProblem {
 		for (int i = 0; i < maxHeight; i++) {
 			for (int j = 0; j < maxHeight; j++) {
 				for (int k = 0; k < maxHeight; k++) {
-					rules.add(new EdificioRule(i,j,k));
+					rules.add(new BuildingRule(i,j,k));
 				}
 			}
 		}
@@ -39,7 +39,7 @@ public class EdificioProblem implements GPSProblem {
 
 	@Override
 	public GPSState getInitState() {
-		return new EdificioState(initBoard);
+		return new BuildingState(initBoard);
 	}
 
 	@Override

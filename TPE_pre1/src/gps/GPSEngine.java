@@ -1,5 +1,6 @@
 package gps;
 
+import edificios.BuildingState;
 import gps.api.GPSProblem;
 import gps.api.GPSRule;
 import gps.api.GPSState;
@@ -38,11 +39,13 @@ public abstract class GPSEngine {
 				closed.add(currentNode);
 				open.remove(0);
 				if (isGoal(currentNode)) {
+					BuildingState state = (BuildingState) currentNode.getState();
+					Logger.log("Solution", "\n" + state.getCurrentBoard(), Logger.LEVEL_TRACE);
 					finished = true;
 				} else {
-					Logger.log("Debug", "------ Expanding node ------\n", Logger.LEVEL_DEBUG);
-					Logger.log("Debug", currentNode.getState().toString(), Logger.LEVEL_DEBUG);
-					Logger.log("Debug", "-----------------------------", Logger.LEVEL_DEBUG);
+//					Logger.log("Debug", "------ Expanding node ------\n", Logger.LEVEL_DEBUG);
+//					Logger.log("Debug", currentNode.getState().toString(), Logger.LEVEL_DEBUG);
+//					Logger.log("Debug", "-----------------------------", Logger.LEVEL_DEBUG);
 					explosionCounter++;
 					explode(currentNode);
 				}

@@ -6,7 +6,6 @@ import gps.exception.NotAppliableException;
 
 public class BuildingRule implements GPSRule {
 
-
 	private int row, col, height;
 	
 	public BuildingRule(int row, int col, int heigth) {

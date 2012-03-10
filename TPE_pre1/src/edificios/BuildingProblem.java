@@ -48,5 +48,10 @@ public class BuildingProblem implements GPSProblem {
 	public List<GPSRule> getRules() {
 		return rules;
 	}
+	
+	@Override
+	public String toString() {
+		return "\n" + initBoard.toString();
+	}
 
 }

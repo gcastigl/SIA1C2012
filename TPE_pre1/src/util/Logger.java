@@ -8,6 +8,7 @@ public class Logger {
 	private static final String route = "log.txt";
 	private static FileWriter fw = null;
 
+	public static final int LEVEL_OFF = -1;
 	public static final int LEVEL_DEBUG = 0;
 	public static final int LEVEL_TRACE = 1;
 	public static final int LEVEL_WARNING = 2;
@@ -36,7 +37,7 @@ public class Logger {
 	}
 	
 	public static void log(String tag, Object o, int level) {
-		if (level < LOG_LEVEL) {
+		if (level > LOG_LEVEL) {
 			return;
 		}
 		if (o != null) {

@@ -20,7 +20,7 @@ public class BuildingRule implements GPSRule {
 		Logger.log("Debug", "Eval " + this.getName(), Logger.LEVEL_DEBUG);
 
 		Board currBoard = ((BuildingState) state).getCurrentBoard();
-		if(currBoard.validatePosition(row, col, height)){
+		if (currBoard.validatePosition(row, col, height)) {
 //			System.out.println("Returned!");
 			Board newBoard = currBoard.addAndDuplicate(row, col, height);
 //			newBoard.printBoard();
@@ -28,7 +28,6 @@ public class BuildingRule implements GPSRule {
 		}
 		else{
 			Logger.log("Debug", this.getName() + " --> Not applicable", Logger.LEVEL_DEBUG);
-//			System.out.println(this.getName() + " --> Not applicable");
 			throw new NotAppliableException();
 		}
 	}
@@ -43,4 +42,8 @@ public class BuildingRule implements GPSRule {
 		return "Rule: Put: " + height + " in ("+ row + ", " + col + ")";
 	}
 
+	@Override
+	public String toString() {
+		return getName();
+	}
 }

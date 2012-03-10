@@ -18,11 +18,8 @@ public class Solver {
 			return;
 		}
 		
-		
 		// init logger
 		Logger.init();
-		
-		
 		if(args[1].equals("LEVEL_DEBUG"))
 			Logger.LOG_LEVEL = Logger.LEVEL_DEBUG;
 		else if(args[1].equals("LEVEL_TRACE"))
@@ -33,7 +30,7 @@ public class Solver {
 			Logger.LOG_LEVEL = Logger.LEVEL_ERROR;
 		else{
 			Logger.log("Solver", args[1] + " logger mode not found", Logger.LEVEL_ERROR);
-			return ;
+			return;
 		}
 		
 		Map<String, SearchStrategy> startegies = getStreategies();

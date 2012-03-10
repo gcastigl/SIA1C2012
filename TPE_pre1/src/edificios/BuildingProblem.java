@@ -1,10 +1,11 @@
 package edificios;
 
-import java.util.List;
-
 import gps.api.GPSProblem;
 import gps.api.GPSRule;
 import gps.api.GPSState;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class BuildingProblem implements GPSProblem {
 
@@ -17,6 +18,7 @@ public class BuildingProblem implements GPSProblem {
 	}
 	
 	private void initializeRules() {
+		rules = new LinkedList<GPSRule>();
 		int maxHeight = initBoard.getSize();
 		for (int i = 0; i < maxHeight; i++) {
 			for (int j = 0; j < maxHeight; j++) {

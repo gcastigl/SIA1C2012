@@ -10,7 +10,7 @@ public class BuildingEngine extends GPSEngine {
 	@Override
 	public void addNode(GPSNode node) {
 		
-		switch(Settings.strategy){
+		switch(strategy){
 		
 		case BFS:
 			((LinkedList<GPSNode>) open).addFirst(node);break;

@@ -14,7 +14,6 @@ import gps.SearchStrategy;
 public class Settings {
 	
 	public static int[][] restrictions;
-	public static SearchStrategy strategy;
 	
 	
 

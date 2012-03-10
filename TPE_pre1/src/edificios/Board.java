@@ -83,7 +83,6 @@ public class Board {
 	}
 	
 	private boolean checkViewInCol(int col, int height){
-		
 		int viewDistance = Settings.restrictions[TOP][col];
 		int count = 0;
 		int currHeight = -1;

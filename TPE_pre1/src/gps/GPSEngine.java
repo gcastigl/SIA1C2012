@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import util.Logger;
+
 public abstract class GPSEngine {
 
 	protected List<GPSNode> open = new LinkedList<GPSNode>();
@@ -18,9 +20,6 @@ public abstract class GPSEngine {
 	protected SearchStrategy strategy;
 
 	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
-
-		long timeStart = System.currentTimeMillis();
-
 		problem = myProblem;
 		strategy = myStrategy;
 
@@ -32,7 +31,7 @@ public abstract class GPSEngine {
 		open.add(rootNode);
 		while (!failed && !finished) {
 			if (open.size() <= 0) {
-				System.out.println("failed aca 111");
+				Logger.log("GSPEngine", "Algorithm failed", Logger.LEVEL_TRACE);
 				failed = true;
 			} else {
 				GPSNode currentNode = open.get(0);
@@ -40,14 +39,10 @@ public abstract class GPSEngine {
 				open.remove(0);
 				if (isGoal(currentNode)) {
 					finished = true;
-					long timeEnd = System.currentTimeMillis();
-					System.out.println(currentNode.getSolution());
-					System.out.println("Running time: " + (timeEnd-timeStart) + "ms");
-					System.out.println("Expanded nodes: " + explosionCounter);
 				} else {
-					System.out.println("------ Expanding node ------\n");
-					System.out.println(currentNode.getState().toString());
-					System.out.println("-----------------------------");
+					Logger.log("Debug", "------ Expanding node ------\n", Logger.LEVEL_DEBUG);
+					Logger.log("Debug", currentNode.getState().toString(), Logger.LEVEL_DEBUG);
+					Logger.log("Debug", "-----------------------------", Logger.LEVEL_DEBUG);
 					explosionCounter++;
 					explode(currentNode);
 				}
@@ -55,9 +50,10 @@ public abstract class GPSEngine {
 		}
 
 		if (finished) {
-			System.out.println("OK! solution found!");
+			Logger.log("GPSEngine", "OK! solution found!", Logger.LEVEL_TRACE);
+			Logger.log("GPSEngine", "Expanded nodes: " + explosionCounter, Logger.LEVEL_TRACE);
 		} else if (failed) {
-			System.err.println("FAILED! solution not found!");
+			Logger.log("GSPEngine", "FAILED! solution not found!", Logger.LEVEL_ERROR);
 		}
 	}
 

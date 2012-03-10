@@ -1,6 +1,5 @@
 package edificios;
 
-import gps.SearchStrategy;
 
 /**
  * 
@@ -11,7 +10,5 @@ import gps.SearchStrategy;
 public class Settings {
 	
 	public static int[][] restrictions;
-	
-	
 
 }

@@ -1,6 +1,5 @@
 package edificios;
 
-import gps.SearchStrategy;
 
 public class BuildingParser {
 	

@@ -17,8 +17,15 @@ public class BuildingRule implements GPSRule {
 	
 	@Override
 	public GPSState evalRule(GPSState state) throws NotAppliableException {
-		((BuildingState) state).getCurrentBoard().validatePosition(row, col, height);
-		return null;
+		Board currBoard = ((BuildingState) state).getCurrentBoard();
+		if(currBoard.validatePosition(row, col, height)){
+			System.out.println("Returned!");
+			return new BuildingState(currBoard.addAndDuplicate(row, col, height));
+		}
+		else{
+			System.out.println("Not appliable");
+			throw new NotAppliableException();
+		}
 	}
 
 	@Override

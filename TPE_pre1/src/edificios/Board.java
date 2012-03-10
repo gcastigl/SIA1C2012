@@ -135,5 +135,18 @@ public class Board {
 	public int getSize() {
 		return n;
 	}
+	
+	public Board addAndDuplicate(int row, int col, int height){
+		Board ret = new Board(n);
+		int i,j;
+		int[][] builds = buildings.clone();
+		buildings[row][col] = height;
+		ret.setBuildings(builds);
+		return ret;
+	}
+	
+	private void setBuildings(int[][] buildings){
+		this.buildings = buildings;
+	}
 
 }

@@ -10,6 +10,7 @@ public class BuildingEngine extends GPSEngine {
 	@Override
 	public void addNode(GPSNode node) {
 		
+		
 		switch(strategy){
 		
 		case BFS:

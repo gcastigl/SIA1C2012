@@ -45,7 +45,9 @@ public abstract class GPSEngine {
 					System.out.println("Running time: " + (timeEnd-timeStart) + "ms");
 					System.out.println("Expanded nodes: " + explosionCounter);
 				} else {
-					System.out.println("expanding node");
+					System.out.println("------ Expanding node ------\n");
+					System.out.println(currentNode.getState().toString());
+					System.out.println("-----------------------------");
 					explosionCounter++;
 					explode(currentNode);
 				}

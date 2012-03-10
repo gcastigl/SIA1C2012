@@ -17,6 +17,7 @@ public class BuildingRule implements GPSRule {
 	
 	@Override
 	public GPSState evalRule(GPSState state) throws NotAppliableException {
+		System.out.println(this.getName() + " --> Evaluating rule...");
 		Board currBoard = ((BuildingState) state).getCurrentBoard();
 		if(currBoard.validatePosition(row, col, height)){
 			System.out.println("Returned!");

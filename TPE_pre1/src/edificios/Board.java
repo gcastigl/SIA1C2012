@@ -1,16 +1,8 @@
 package edificios;
 
 public class Board {
-
-	private static final int TOP = 0;
-	private static final int BOTTOM = 1;
-	private static final int LEFT = 2;
-	private static final int RIGHT = 3;
-	
 	private int n;
 	private int[][] buildings;
-	
-	
 	
 	public Board(int n) {
 		buildings = new int[n][n];
@@ -26,8 +18,6 @@ public class Board {
 			buildings[row][col] = 0;
 		}
 		return check;
-		
-			
 	}
 	
 	// Repeated values on row
@@ -49,9 +39,8 @@ public class Board {
 		return true;
 	}
 	
-	
 	private boolean checkViewInRow(int row, int height){
-		int viewDistance = Settings.restrictions[LEFT][row];
+		int viewDistance = Settings.restrictions[Settings.LEFT][row];
 		int count = 0;
 		boolean satisfies = true;
 		int currHeight = -1;
@@ -66,15 +55,15 @@ public class Board {
 			}
 			
 		}
-		viewDistance = Settings.restrictions[RIGHT][row];		
+		viewDistance = Settings.restrictions[Settings.RIGHT][row];		
 		count = 0;
 		currHeight = -1;
 		for (int i = n - 1; i >= 0 && buildings[row][i] != 0; i--) {
 			int value = buildings[row][i];
-			if(value != 0 && value > currHeight){
+			if (value != 0 && value > currHeight) {
 				count++;
 				currHeight = value;
-				if(count > viewDistance){
+				if (count > viewDistance) {
 					satisfies = false;
 				}
 			}
@@ -82,8 +71,8 @@ public class Board {
 		return satisfies;
 	}
 	
-	private boolean checkViewInCol(int col, int height){
-		int viewDistance = Settings.restrictions[TOP][col];
+	private boolean checkViewInCol(int col, int height) {
+		int viewDistance = Settings.restrictions[Settings.TOP][col];
 		int count = 0;
 		int currHeight = -1;
 		boolean satisfies = true;
@@ -97,7 +86,7 @@ public class Board {
 				}
 			}
 		}
-		viewDistance = Settings.restrictions[BOTTOM][col];		
+		viewDistance = Settings.restrictions[Settings.BOTTOM][col];		
 		count = 0;
 		currHeight = -1;
 		for (int i = n - 1; i >= 0 && buildings[i][col] != 0; i--) {
@@ -138,7 +127,6 @@ public class Board {
 	}
 	
 	public Board addAndDuplicate(int row, int col, int height){
-		
 		Board ret = new Board(n);
 		int i,j;
 		for( i = 0 ; i < n ; i ++){
@@ -147,16 +135,12 @@ public class Board {
 			}
 		}
 		ret.buildings[row][col] = height;
-		
 		return ret;
 	}
 	
 	
-	public void printBoard(){
-		
+	public void printBoard() {
 		System.out.println(toString());
-		
-		
 	}
 	
 	@Override
@@ -165,7 +149,7 @@ public class Board {
 		String ln = "";
 		int i,j;
 		for( i = 0 ; i < n; i ++){
-			ln += Settings.restrictions[TOP][i] + " ";
+			ln += Settings.restrictions[Settings.TOP][i] + " ";
 		}
 		ret += " | " + ln + " | " + "\n";
 		ln = "";
@@ -174,11 +158,11 @@ public class Board {
 		}
 		ret += ln + "\n";
 		for( i = 0; i < n; i ++){
-			ln = "" + Settings.restrictions[LEFT][i] + "| ";
+			ln = "" + Settings.restrictions[Settings.LEFT][i] + "| ";
 			for(j = 0 ; j < n ;j ++){
 				ln += "" + buildings[i][j] + " ";
 			}
-			ln += " |" + Settings.restrictions[RIGHT][i];
+			ln += " |" + Settings.restrictions[Settings.RIGHT][i];
 			ret += ln + "\n";
 		}
 		ln = "";
@@ -188,7 +172,7 @@ public class Board {
 		ret += ln + "\n";
 		ln = " | ";
 		for( i = 0 ; i < n; i ++){
-			ln += Settings.restrictions[BOTTOM][i] + " ";
+			ln += Settings.restrictions[Settings.BOTTOM][i] + " ";
 		}
 		ret += ln + "\n";
 		return ret;

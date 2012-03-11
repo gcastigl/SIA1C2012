@@ -1,5 +1,7 @@
 package edificios;
 
+import java.util.Arrays;
+
 public class Board {
 	private int n;
 	private int buildingOnBoard;
@@ -132,6 +134,15 @@ public class Board {
 		return true;
 	}
 	
+	@Override
+	public int hashCode() {
+		int hash = 0;
+		for(int[] row: buildings) {
+			hash += Arrays.hashCode(row);
+		}
+		return hash;
+	}
+	
 	public int getSize() {
 		return n;
 	}
@@ -186,5 +197,4 @@ public class Board {
 		ret += ln + "\n";
 		return ret;
 	}
-
 }

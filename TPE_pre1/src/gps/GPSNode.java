@@ -60,4 +60,9 @@ public class GPSNode {
 		GPSNode node = (GPSNode) obj;
 		return state.compare(node.state);
 	}
+	
+	@Override
+	public int hashCode() {
+		return 457 * state.hashCode() + 823 * depth;
+	}
 }

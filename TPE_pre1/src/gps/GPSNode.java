@@ -51,4 +51,13 @@ public class GPSNode {
 		}
 		return this.parent.getSolution() + "\n" + this.state;
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || !(obj instanceof GPSNode)) {
+			return false;
+		}
+		GPSNode node = (GPSNode) obj;
+		return state.compare(node.state);
+	}
 }

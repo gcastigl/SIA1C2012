@@ -10,18 +10,21 @@ import java.util.LinkedList;
 
 public class BuildingsHybridIDFSEngine extends GPSEngine {
 	
-	private static final int DEPTH_TO_SWITCH_TO_DFS = 5;
+	private static final int DEPTH_TO_SWITCH_TO_DFS = 4;
 	
 	private static final int MODE_DFS = 0;
 	private static final int MODE_BFS = 1;
 	
 	private Collection<GPSNode> frontieerNodes = new HashSet<GPSNode>();
-	private int mode = MODE_BFS; 
-	private int currentMaxDepth = 1;
+	private int mode; 
+	private int currentMaxDepth;
+	// used for the DFS algorithm
+	private int index = 0, indexDepth = 0;
 	
 	@Override
 	public void engine(GPSProblem myProblem) {
 		mode = MODE_BFS;
+		currentMaxDepth = 1;
 		frontieerNodes.clear();
 		super.engine(myProblem);
 	}
@@ -30,7 +33,12 @@ public class BuildingsHybridIDFSEngine extends GPSEngine {
 	public void addNode(GPSNode node) {
 		switch(mode) {
 			case MODE_DFS:
-				((LinkedList<GPSNode>) open).addFirst(node);
+				if (indexDepth != node.getDepth()) {
+					indexDepth = node.getDepth();
+					index = 0;
+				}
+				((LinkedList<GPSNode>) open).add(index, node);
+				index++;
 				break;
 			case MODE_BFS:
 				if (!open.contains(node)) {
@@ -55,13 +63,20 @@ public class BuildingsHybridIDFSEngine extends GPSEngine {
 		}
 		if (node.getDepth() >= currentMaxDepth) {
 			// when bottom of tree is reached, clean open list to start  
-			// again with a deeper search
-			open.clear();
-			open.addAll(frontieerNodes);
+			// again with a deeper search starting from the frontieer modes
+			// returned by the BFS
+			resetToInitialState();
+			open.add(new GPSNode(problem.getInitState(), 0));
 			currentMaxDepth++;
 			return true;
 		}
 		return super.explode(node);
+	}
+	
+	private void resetToInitialState() {
+		index = 0;
+		indexDepth = 0;
+		open.clear();
 	}
 	
 	@Override

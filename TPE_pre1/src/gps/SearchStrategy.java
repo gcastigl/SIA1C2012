@@ -4,4 +4,5 @@ public enum SearchStrategy {
 	BFS,
 	DFS,
 	DFSI,
+	HDFSI,
 }

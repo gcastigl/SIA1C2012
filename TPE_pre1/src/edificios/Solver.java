@@ -1,6 +1,7 @@
 package edificios;
 
 import edificios.engineimplementation.BuildingsEngine;
+import edificios.engineimplementation.BuildingsHybridIDFSEngine;
 import edificios.engineimplementation.BuildingsIDFSEngine;
 import gps.GPSEngine;
 import gps.SearchStrategy;
@@ -69,6 +70,7 @@ public class Solver {
 		startegy.put("DFS", SearchStrategy.DFS);
 		startegy.put("BFS", SearchStrategy.BFS);
 		startegy.put("IDFS", SearchStrategy.DFSI);
+		startegy.put("HDFSI", SearchStrategy.HDFSI);
 		return startegy;
 	}
 	
@@ -86,6 +88,7 @@ public class Solver {
 		engines.put(SearchStrategy.BFS, new BuildingsEngine());
 		engines.put(SearchStrategy.DFS, new BuildingsEngine());
 		engines.put(SearchStrategy.DFSI, new BuildingsIDFSEngine());
+		engines.put(SearchStrategy.HDFSI, new BuildingsHybridIDFSEngine());
 		return engines;
 	}
 }

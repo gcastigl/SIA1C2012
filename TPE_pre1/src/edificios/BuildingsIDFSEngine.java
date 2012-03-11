@@ -1,9 +1,12 @@
-package gps;
+package edificios;
+
+import gps.GPSEngine;
+import gps.GPSNode;
 
 import java.util.LinkedList;
 
 
-public class BuildIDFSEngine extends GPSEngine {
+public class BuildingsIDFSEngine extends GPSEngine {
 
 	private int currentMaxDepth = 1;
 	

@@ -92,7 +92,7 @@ public class Solver {
 	private static void printUsage() {
 		System.out.println("Usage: Algorithm [Logging level]");
 		System.out.println("Available Algorithms: " + "[BFS | DFS | IDFS | HIDFS]");
-		System.out.println("Logging level (optional): " + "[MIN MED MAX]");
+		System.out.println("Logging level (optional): " + "[MIN | MED | MAX]");
 		System.out.println("Example: java -jar Solver.java DFS MED");
 	}
 }

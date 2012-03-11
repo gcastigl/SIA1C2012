@@ -1,7 +1,8 @@
 package edificios;
 
+import edificios.engineimplementation.BuildingsEngine;
+import edificios.engineimplementation.BuildingsIDFSEngine;
 import gps.GPSEngine;
-import gps.BuildIDFSEngine;
 import gps.SearchStrategy;
 
 import java.util.HashMap;
@@ -82,9 +83,9 @@ public class Solver {
 	
 	private static Map<SearchStrategy, GPSEngine> getEngines() {
 		Map<SearchStrategy, GPSEngine> engines = new HashMap<SearchStrategy, GPSEngine>();
-		engines.put(SearchStrategy.BFS, new BuildingEngine());
-		engines.put(SearchStrategy.DFS, new BuildingEngine());
-		engines.put(SearchStrategy.DFSI, new BuildIDFSEngine());
+		engines.put(SearchStrategy.BFS, new BuildingsEngine());
+		engines.put(SearchStrategy.DFS, new BuildingsEngine());
+		engines.put(SearchStrategy.DFSI, new BuildingsIDFSEngine());
 		return engines;
 	}
 }

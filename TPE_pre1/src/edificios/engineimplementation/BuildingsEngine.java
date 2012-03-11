@@ -1,11 +1,11 @@
-package edificios;
+package edificios.engineimplementation;
 
 import gps.GPSEngine;
 import gps.GPSNode;
 
 import java.util.LinkedList;
 
-public class BuildingEngine extends GPSEngine {
+public class BuildingsEngine extends GPSEngine {
 	
 	@Override
 	public void addNode(GPSNode node) {

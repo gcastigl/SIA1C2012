@@ -98,31 +98,33 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 % SECTION I: Introduccion%----------------------------------------------------------------------
 \section{Introducción}
 
-\PARstart Dentro de la optimización matemática podemos encontrar una técnica de análisis numérico denominada \textbf{cuadrados mínimos}. La misma intenta encontrar, dado un conjunto de pares (o ternas, etc.), la función que mejor se aproxime a los datos, de acuerdo con el criterio de mínimo error cuadrático.
+\PARstart El juego \textit{Edificios} también conocido como \textit{Skyscraper puzzle} es una variante del conocido \textit{Sudoku} y consiste de una grilla cuadrada con números en su borde que representan las pistas sobre cuántos edificios se visualizan en esa dirección. El tablero, visto desde arriba, representa un espacio cubierto de edificios. Cada casillero debe ser completado con un dígito que va entre 1 y N, siendo N el tamaño de la grilla; haciendo que cada fila y cada columna contengan sólo una vez a cada dígito (como sucede en el Sudoku).
 
-En este caso se utilizará el método antes nombrado para encontrar una relación entre la velocidad promedio del viento y el tiempo en el instante de la medición. Estas velocidades corresponden a mediciones de doce estaciones meteorológicas situadas en la República de Irlanda, para el período 1971-1978.
-En particular se busca que dicho ajuste venga dado por una función de la forma:
-
-\begin{equation}
-v(t)\ =\ A_0 + A_1\cos{(2\pi f_{1} t)} + B_1\sin{(2\pi f_{1} t)}
-\end{equation}
-
-donde $v$ es la velocidad del viento, $t$ es el tiempo en días y $f_1=\frac{1}{365.25}dia^{-1}$. Para corregir el desfase que existe con la duración del año trópico  \textit{(365 días 5 horas 48 minutos 45.25 segundos)}, se añade $0.25$ al la cantidad de días anuales, los cuales representan esas $\approx 6$ horas de diferencia.\\
-
-Con este fin, se hará uso de tres métodos numéricos distintos (Cholesky, Gauss, QR) y luego se compararán los resultados obtenidos a fin de estudiar su complejidad, su error y consecuentemente su adecuación al problema planteado.
-
-En primer lugar se expondrá un breve marco teórico, luego se explicará el proceso informático utilizado para manipular los datos, se presentarán los valores de los coeficientes $A_0$, $A_1$ y $B_1$ para cada estación meteorológica y se concluirá con un análisis previamente mencionados.
-
+\par En este puzzle, cada dígito puesto en la grilla podría ser visualizado como un edificio de esa altura. Por ejemplo, si ingresamos un 5, estaríamos colocando un edificio de altura 5. Cada uno de los numeros que están por fuera de la grilla revelan la cantidad de edificios que pueden ser vistos al mirar la línea o columna en esa dirección. Cada edificio bloquea a todos los edificios de menor altura de ser vistos, mientras que los edificios de mayor altura son vistos a través de él.
 
 %----------------------------------------------------------------------
 % SECTION II: Marco Teórico
 %----------------------------------------------------------------------
 
-\section{Marco Teórico}
-\label{mat}
-\subsection{Cuadrados Mínimos}
+\section{Estados del problema}
 
-\par El problema de cuadrados mínimos consiste en encontrar el mínimo de la función
+\subsection{Estado inicial}
+
+\par El estado inicial del problema es un tablero que contiene sólo las pistas en sus bordes (no contiene ningún edificio en la grilla). Para que el problema tenga solución éste tablero debe ser válido; es decir que no cualquier combinación de pistas sobre la visibilidad de edificios en esa dirección conducirán a un problema que sea posible resolver.
+
+\subsection{Estado final}
+
+\par El estado final del problema es un tablero con todos los casilleros completos (lleno de edificios) que cumpla con las raglas del juego citadas anteriormente.
+
+\section{Modelado del problema}
+
+\par Aaaaaa
+
+\section{Reglas}
+
+\par Aaaaaa
+
+\section{Other}
 
 \begin{table}[H]
 \begin{center}

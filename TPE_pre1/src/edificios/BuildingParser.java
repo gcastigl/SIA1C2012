@@ -3,7 +3,7 @@ package edificios;
 
 public class BuildingParser {
 	
-	public static Board parse(String filename){
+	public static Board parse(String filename) {
 		return board3();
 	}
 	
@@ -17,6 +17,16 @@ public class BuildingParser {
 		return new Board(rules[0].length);
 	}
 
+	private static Board board4() {
+		int[][] rules = new int[4][];
+		rules[Settings.TOP] = new int[] {4, 2, 2, 1};
+		rules[Settings.BOTTOM] = new int[] {1, 2, 2, 4};
+		rules[Settings.LEFT] = new int[] {4, 2, 2, 1};
+		rules[Settings.RIGHT] = new int[] {1, 2, 2, 4};
+		Settings.restrictions = rules;
+		return new Board(rules[0].length);
+	}
+	
 	private static Board board3() {
 		int[][] rules = {{1,2,2},{3,1,2},{1,2,2}, {3,1,2}};
 		Settings.restrictions = rules;

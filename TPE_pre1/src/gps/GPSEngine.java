@@ -22,9 +22,10 @@ public abstract class GPSEngine {
 
 	
 	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
-		Logger.log("GPSEngine", "Solving " + myProblem + " with " + myStrategy.toString(), Logger.LEVEL_TRACE);
 		problem = myProblem;
 		strategy = myStrategy;
+		
+		Logger.log("GPSEngine", "Solving with " + strategy.toString() + " the following board \n\n" + problem.getInitState().toString(), Logger.LEVEL_TRACE);
 
 		GPSNode rootNode = new GPSNode(problem.getInitState(), 0);
 		boolean finished = false;
@@ -42,7 +43,7 @@ public abstract class GPSEngine {
 				open.remove(0);
 				if (isGoal(currentNode)) {
 					BuildingState state = (BuildingState) currentNode.getState();
-					Logger.log("Solution", "\n" + state.getCurrentBoard(), Logger.LEVEL_TRACE);
+					Logger.log("Solution", "\n\n" + state.getCurrentBoard(), Logger.LEVEL_TRACE);
 					finished = true;
 				} else {
 //					Logger.log("Debug", "------ Expanding node ------\n", Logger.LEVEL_DEBUG);

@@ -43,9 +43,6 @@ public abstract class GPSEngine {
 					Logger.log("Solution", "\n\n" + state.getCurrentBoard(), Logger.LEVEL_TRACE);
 					finished = true;
 				} else {
-//					Logger.log("Debug", "------ Expanding node ------\n", Logger.LEVEL_DEBUG);
-//					Logger.log("Debug", currentNode.getState().toString(), Logger.LEVEL_DEBUG);
-//					Logger.log("Debug", "-----------------------------", Logger.LEVEL_DEBUG);
 					explosionCounter++;
 					explode(currentNode);
 				}
@@ -63,6 +60,7 @@ public abstract class GPSEngine {
 	private boolean isGoal(GPSNode currentNode) {
 		return currentNode.getState() != null
 				&& currentNode.getState().isGoalState();
+		// getGoalState() is not used in cases that there is more than one solution
 		// && currentNode.getState().compare(problem.getGoalState());
 	}
 

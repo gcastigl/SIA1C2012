@@ -70,7 +70,7 @@ public class Solver {
 		startegy.put("DFS", SearchStrategy.DFS);
 		startegy.put("BFS", SearchStrategy.BFS);
 		startegy.put("IDFS", SearchStrategy.DFSI);
-		startegy.put("HDFSI", SearchStrategy.HDFSI);
+		startegy.put("HIDFS", SearchStrategy.HDFSI);
 		return startegy;
 	}
 	

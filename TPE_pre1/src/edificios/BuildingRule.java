@@ -42,4 +42,16 @@ public class BuildingRule implements GPSRule {
 	public String toString() {
 		return getName();
 	}
+
+	public int getRow() {
+		return row;
+	}
+	
+	public int getCol() {
+		return col;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
 }

@@ -88,7 +88,7 @@ public class BuildingProblem implements GPSProblem {
 			index++;
 		}
 		GPSRule r = rules.remove(index);
-		((LinkedList<GPSRule>) rules).addLast(r);
+		((LinkedList<GPSRule>) rules).addFirst(r);
 	}
 	
 	@Override

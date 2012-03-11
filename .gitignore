@@ -3,3 +3,6 @@ bin/*
 .classpath
 *.class
 log.txt
+*.log
+*.aux
+*.pdf

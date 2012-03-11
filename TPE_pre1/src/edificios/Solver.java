@@ -1,5 +1,7 @@
 package edificios;
 
+import gps.GPSEngine;
+import gps.BuildIDFSEngine;
 import gps.SearchStrategy;
 
 import java.util.HashMap;
@@ -33,7 +35,7 @@ public class Solver {
 			Logger.LOG_LEVEL = Logger.LEVEL_TRACE;
 		}
 		
-		Map<String, SearchStrategy> startegies = getStreategies();
+		Map<String, SearchStrategy> startegies = getStrategies();
 		SearchStrategy se = startegies.get(args[0]);
 		if (se == null) {
 			Logger.log("Solver", args[0] + " strategy not found", Logger.LEVEL_ERROR);
@@ -41,7 +43,7 @@ public class Solver {
 		}
 		// init problem engine solver
 		BuildingProblem prob = new BuildingProblem();
-		BuildingEngine eng = new BuildingEngine();
+		GPSEngine eng = getEngines().get(se);
 		long initialTime = System.currentTimeMillis();
 		eng.engine(prob, se);
 		long elapsedTime = System.currentTimeMillis() - initialTime;
@@ -61,7 +63,7 @@ public class Solver {
 		System.out.println(time);
 	}
 	
-	private static Map<String, SearchStrategy> getStreategies() {
+	private static Map<String, SearchStrategy> getStrategies() {
 		Map<String, SearchStrategy> startegy = new HashMap<String, SearchStrategy>();
 		startegy.put("DFS", SearchStrategy.DFS);
 		startegy.put("BFS", SearchStrategy.BFS);
@@ -76,5 +78,13 @@ public class Solver {
 		loggerLevels.put("MED", Logger.LEVEL_TRACE);
 		loggerLevels.put("MAX", Logger.LEVEL_DEBUG);
 		return loggerLevels;
+	}
+	
+	private static Map<SearchStrategy, GPSEngine> getEngines() {
+		Map<SearchStrategy, GPSEngine> engines = new HashMap<SearchStrategy, GPSEngine>();
+		engines.put(SearchStrategy.BFS, new BuildingEngine());
+		engines.put(SearchStrategy.DFS, new BuildingEngine());
+		engines.put(SearchStrategy.DFSI, new BuildIDFSEngine());
+		return engines;
 	}
 }

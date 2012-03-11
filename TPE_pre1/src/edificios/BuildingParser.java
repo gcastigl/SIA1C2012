@@ -17,6 +17,16 @@ public class BuildingParser {
 		return new Board(rules[0].length);
 	}
 
+	private static Board board5_2() {
+		int[][] rules = new int[4][];
+		rules[Settings.TOP] = new int[] {3, 2, 3, 1, 2};
+		rules[Settings.BOTTOM] = new int[] {2, 1, 3, 4, 3};
+		rules[Settings.LEFT] = new int[] {3, 4, 2, 1, 2};
+		rules[Settings.RIGHT] = new int[] {2, 1, 2, 4, 3};
+		Settings.restrictions = rules;
+		return new Board(rules[0].length);
+	}
+	
 	private static Board board4() {
 		int[][] rules = new int[4][];
 		rules[Settings.TOP] = new int[] {4, 2, 2, 1};

@@ -25,4 +25,9 @@ public class BuildingsIDFSEngine extends GPSEngine {
 		}
 		return super.explode(node);
 	}
+	
+	@Override
+	public String getStrategyName() {
+		return "Iterative DFS";
+	}
 }

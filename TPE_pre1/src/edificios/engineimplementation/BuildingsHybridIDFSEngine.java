@@ -2,7 +2,6 @@ package edificios.engineimplementation;
 
 import gps.GPSEngine;
 import gps.GPSNode;
-import gps.SearchStrategy;
 import gps.api.GPSProblem;
 
 import java.util.Collection;
@@ -21,10 +20,10 @@ public class BuildingsHybridIDFSEngine extends GPSEngine {
 	private int currentMaxDepth = 1;
 	
 	@Override
-	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
+	public void engine(GPSProblem myProblem) {
 		mode = MODE_BFS;
 		frontieerNodes.clear();
-		super.engine(myProblem, myStrategy);
+		super.engine(myProblem);
 	}
 	
 	@Override
@@ -63,5 +62,10 @@ public class BuildingsHybridIDFSEngine extends GPSEngine {
 			return true;
 		}
 		return super.explode(node);
+	}
+	
+	@Override
+	public String getStrategyName() {
+		return "Hybrid Iterative DFS";
 	}
 }

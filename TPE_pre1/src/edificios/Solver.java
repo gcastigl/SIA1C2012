@@ -1,6 +1,7 @@
 package edificios;
 
-import edificios.engineimplementation.BuildingsEngine;
+import edificios.engineimplementation.BuildingsDFSEngine;
+import edificios.engineimplementation.BuildingsBFSEngine;
 import edificios.engineimplementation.BuildingsHybridIDFSEngine;
 import edificios.engineimplementation.BuildingsIDFSEngine;
 import gps.GPSEngine;
@@ -44,7 +45,7 @@ public class Solver {
 		BuildingProblem prob = new BuildingProblem();
 		GPSEngine eng = getEngines().get(se);
 		long initialTime = System.currentTimeMillis();
-		eng.engine(prob, se);
+		eng.engine(prob);
 		long elapsedTime = System.currentTimeMillis() - initialTime;
 		printFormattedElapsedTime(elapsedTime);
 	}
@@ -82,8 +83,8 @@ public class Solver {
 	
 	private static Map<SearchStrategy, GPSEngine> getEngines() {
 		Map<SearchStrategy, GPSEngine> engines = new HashMap<SearchStrategy, GPSEngine>();
-		engines.put(SearchStrategy.BFS, new BuildingsEngine());
-		engines.put(SearchStrategy.DFS, new BuildingsEngine());
+		engines.put(SearchStrategy.BFS, new BuildingsBFSEngine());
+		engines.put(SearchStrategy.DFS, new BuildingsDFSEngine());
 		engines.put(SearchStrategy.IDFS, new BuildingsIDFSEngine());
 		engines.put(SearchStrategy.HIDFS, new BuildingsHybridIDFSEngine());
 		return engines;

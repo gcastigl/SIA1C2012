@@ -18,15 +18,12 @@ public abstract class GPSEngine {
 	protected List<GPSNode> closed = new ArrayList<GPSNode>();
 	protected GPSProblem problem;
 	// Use this variable in the addNode implementation
-	protected SearchStrategy strategy;
 
 	
-	public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
-		problem = myProblem;
-		strategy = myStrategy;
-		
-		Logger.log("GPSEngine", "Solving with " + strategy.toString() + " the following board \n\n" + problem.getInitState().toString(), Logger.LEVEL_TRACE);
+	public void engine(GPSProblem problem) {
+		Logger.log("GPSEngine", "Solving with " + getStrategyName() + " the following board \n" + problem.getInitState().toString(), Logger.LEVEL_TRACE);
 
+		this.problem = problem;
 		GPSNode rootNode = new GPSNode(problem.getInitState(), 0);
 		boolean finished = false;
 		boolean failed = false;
@@ -119,4 +116,5 @@ public abstract class GPSEngine {
 
 	public abstract void addNode(GPSNode node);
 	
+	public abstract String getStrategyName();
 }

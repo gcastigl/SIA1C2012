@@ -110,7 +110,7 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \subsection{Estado inicial}
 
-\par El estado inicial del problema es un tablero que contiene sólo las pistas en sus bordes (no contiene ningún edificio en la grilla). Para que el problema tenga solución éste tablero debe ser válido; es decir que no cualquier combinación de pistas sobre la visibilidad de edificios en esa dirección conducirán a un problema que sea posible resolver.
+\par El estado inicial del problema es un tablero que contiene sólo las pistas en sus bordes (no contiene ningún edificio en la grilla). Para que el problema tenga solución éste tablero debe ser válido; es decir que no cualquier combinación de pistas sobre la visibilidad de edificios en esa dirección conducirán a un problema que resoluble.
 
 \subsection{Estado final}
 
@@ -122,7 +122,55 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \section{Reglas}
 
-\par Aaaaaa
+\par Dado un tablero de tamaño $n\times n$ podemos describir las reglas del problema en forma general como sigue:\\
+
+\emph{Poner un edificio de tamaño $1$ a $n$ en la casilla $(i,j)$.}\\
+
+\par Por lo que, que dado un tablero de $n\times n$, el total de reglas está dado por $n^{n^n} = n^3$: por cada fila, por cada columna, se tienen $n$ edificios distintos para colocar. 
+\par Ejemplos de reglas:
+\begin{itemize}
+\item Poner un edificio de altura 1 en la posición $(0,0)$
+\item Poner un edificio de altura 1 en la posición $(0,1)$
+\item Poner un edificio de altura 2 en la posición $(0,0)$
+\item Poner un edificio de altura 4 en la posición $(3,1)$
+\end{itemize}
+
+\subsection{Metareglas}
+
+\par Si una restriccion (o pista) dice $n$ (siendo $n$ la dimendion del tablero) podemos definir una metaregla como sigue:
+
+\emph{Colocar edificios de altura $1$ hasta $n$ en forma ordenada y ascendente en esa fila o columna}
+
+\par Esto reduce considerablemente toodos los algoritmos dado que quedarian menos casillas por explorar.
+
+\section{Costos}
+
+\par Debido a la naturaleza de nuestro probema, la aplciacion de todas las reglas tiene el mismo costo y éste es unitario. Es decir que la transición de un estado X a un estado Y, en nuestro caso, siempre nos cuesta $1$.
+
+\section{Algoritmos de búsqueda implementados}
+
+\par Hemos implementado cuatro algoritmos de búsqueda no informada distintos.
+
+\begin{description}
+
+\item[DFS]
+Depth-first search
+
+\item[BFS]
+Breadth-first search
+
+\item[IDFS]
+Iterative DFS o profundización iterativa
+
+\item[HIDFS]
+Hybrid Iterative DFS
+
+\end{description}
+
+\section{Heurísticas}
+
+\par Completar con heurísticas
+
 
 \section{Other}
 

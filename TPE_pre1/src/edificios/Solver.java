@@ -15,7 +15,7 @@ import util.Logger;
 public class Solver {
 
 	public static void main(String[] args) {
-		args = new String[] {"DFS", "MED"};
+		args = new String[] {"BFS", "MED"};
 		if(args == null || args.length == 0) {
 			System.out.println("Please declare what searching method you want to use (BFS, DFS) and the logging level");
 			System.out.println("Next time run: java -jar Solver.java BFS [MIN MED MAX]");
@@ -69,8 +69,8 @@ public class Solver {
 		Map<String, SearchStrategy> startegy = new HashMap<String, SearchStrategy>();
 		startegy.put("DFS", SearchStrategy.DFS);
 		startegy.put("BFS", SearchStrategy.BFS);
-		startegy.put("IDFS", SearchStrategy.DFSI);
-		startegy.put("HIDFS", SearchStrategy.HDFSI);
+		startegy.put("IDFS", SearchStrategy.IDFS);
+		startegy.put("HIDFS", SearchStrategy.HIDFS);
 		return startegy;
 	}
 	
@@ -87,8 +87,8 @@ public class Solver {
 		Map<SearchStrategy, GPSEngine> engines = new HashMap<SearchStrategy, GPSEngine>();
 		engines.put(SearchStrategy.BFS, new BuildingsEngine());
 		engines.put(SearchStrategy.DFS, new BuildingsEngine());
-		engines.put(SearchStrategy.DFSI, new BuildingsIDFSEngine());
-		engines.put(SearchStrategy.HDFSI, new BuildingsHybridIDFSEngine());
+		engines.put(SearchStrategy.IDFS, new BuildingsIDFSEngine());
+		engines.put(SearchStrategy.HIDFS, new BuildingsHybridIDFSEngine());
 		return engines;
 	}
 }

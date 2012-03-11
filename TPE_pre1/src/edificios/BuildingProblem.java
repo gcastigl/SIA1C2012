@@ -15,6 +15,7 @@ public class BuildingProblem implements GPSProblem {
 	public BuildingProblem() {
 		initBoard = BuildingParser.parse("./resources/board.txt");
 		initializeRules();
+		sortRules();
 	}
 	
 	private void initializeRules() {
@@ -29,6 +30,67 @@ public class BuildingProblem implements GPSProblem {
 		}
 	}
 
+	private void sortRules() {
+		sortTop();
+		sortBottom();
+		sortLeft();
+		sortRight();
+	}
+	
+	private void sortTop() {
+		int topHeigth = initBoard.getSize();
+		int[] topRules = Settings.restrictions[Settings.TOP];
+		for (int i = 0; i < topRules.length; i++) {
+			if (topRules[i] == 1) {
+				setRuleFirst(0, i, topHeigth);
+			}
+		}
+	}
+	
+	private void sortBottom() {
+		int topHeigth = initBoard.getSize();
+		int[] bottomRules = Settings.restrictions[Settings.BOTTOM];
+		for (int i = 0; i < bottomRules.length; i++) {
+			if (bottomRules[i] == 1) {
+				setRuleFirst(topHeigth - 1, i, topHeigth);
+			}
+		}
+	}
+	
+	private void sortLeft() {
+		int topHeigth = initBoard.getSize();
+		int[] leftRules = Settings.restrictions[Settings.LEFT];
+		for (int i = 0; i < leftRules.length; i++) {
+			if (leftRules[i] == 1) {
+				setRuleFirst(i, 0, topHeigth);
+			}
+		}
+	}
+
+	private void sortRight() {
+		int topHeigth = initBoard.getSize();
+		int[] rightRules = Settings.restrictions[Settings.RIGHT];
+		for (int i = 0; i < rightRules.length; i++) {
+			if (rightRules[i] == 1) {
+				setRuleFirst(i, topHeigth - 1, topHeigth);
+			}
+		}
+	}
+
+	private void setRuleFirst(int row, int col, int height) {
+		int index = 0;
+		for (GPSRule r: rules) {
+			BuildingRule br = (BuildingRule) r;
+			if (br.getRow() == row && br.getCol() == col && 
+				br.getHeight() == height) {
+				break;
+			}
+			index++;
+		}
+		GPSRule r = rules.remove(index);
+		((LinkedList<GPSRule>) rules).addLast(r);
+	}
+	
 	@Override
 	public GPSState getGoalState() {
 		throw new IllegalStateException();

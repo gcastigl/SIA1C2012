@@ -11,7 +11,8 @@ public class BuildingsEngine extends GPSEngine {
 	public void addNode(GPSNode node) {
 		switch(strategy){
 		case BFS:
-			open.add(node);
+			if (!open.contains(node))
+				open.add(node);
 			break;
 		case DFS:
 			((LinkedList<GPSNode>) open).addFirst(node);

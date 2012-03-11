@@ -2,11 +2,13 @@ package edificios;
 
 public class Board {
 	private int n;
+	private int buildingOnBoard;
 	private int[][] buildings;
 	
 	public Board(int n) {
 		buildings = new int[n][n];
 		this.n = n;
+		buildingOnBoard = 0;
 	}
 	
 	public boolean validatePosition(int row, int col, int height) {
@@ -106,12 +108,20 @@ public class Board {
 		return buildings;
 	}
 	
+	public int getBuildingOnBoard() {
+		return buildingOnBoard;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null || !(obj instanceof Board)) {
 			return false;
 		}
 		Board other = (Board) obj;
+		if (other.buildingOnBoard != buildingOnBoard) {
+			return false;
+		}
+		// only check if there is an equal number of buildings set on both boards!
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (buildings[i][j] != other.buildings[i][j]) {
@@ -132,6 +142,7 @@ public class Board {
 			clone.buildings[i] = buildings[i].clone();
 		}
 		clone.buildings[row][col] = height;
+		clone.buildingOnBoard = buildingOnBoard + 1;
 		return clone;
 	}
 	
@@ -145,6 +156,7 @@ public class Board {
 		String ret = "";
 		String ln = "";
 		int i,j;
+		ret += "buildings on board: " + buildingOnBoard + "\n";
 		for (i = 0 ; i < n; i ++) {
 			ln += Settings.restrictions[Settings.TOP][i] + " ";
 		}

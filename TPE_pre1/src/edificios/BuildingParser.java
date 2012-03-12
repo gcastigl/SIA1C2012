@@ -3,8 +3,24 @@ package edificios;
 
 public class BuildingParser {
 	
-	public static Board parse(String filename) {
-		return board4_2();
+	public static Board parse(int problemN) {
+		switch(problemN){
+			case 1:
+				return board2();
+			case 2:
+				return board3();	
+			case 3:
+				return board4();	
+			case 4:
+				return board4_2();	
+			case 5:
+				return board5();			
+			case 6:
+				return board5_2();
+			default:
+				System.out.println("No problem matchs with the problem number or problem number has not been defined. Returning random problem.");
+				return board3();
+		}
 	}
 	
 	private static Board board5() {

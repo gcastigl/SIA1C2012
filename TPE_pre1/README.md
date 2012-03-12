@@ -11,19 +11,29 @@ Ejecución
 
 Para correr el General Problem Solver usted debe declarar qué estrategia de búsqueda no informada utilizará, como así también el nivel de LOG que se desea obtener (este último parámetro puede ser omitido). Ejemplos:
 
-* `java -jar Edificios.jar DFS` -- Si desea utilizar Depth-first search como estrategia y no logguear nada.
-* `java -jar Edificios.jar BFS MIN` -- Si desea utilizar Depth-first search y un nivel mínimo de logueo.
+* `java -jar Edificios.jar DFS 2` -- Si desea utilizar Depth-first search como estrategia, cargar el tablero 2 y no logguear nada.
+* `java -jar Edificios.jar BFS 3 MAX` -- Si desea utilizar Breadth-first search como estrategia, cargar el tablero 3 y tener un nivel máximo de logueo.
 
 Generalizando
 
-* `java -jar Edificios.jar [DFS BFS IDFS] [MIN MED MAX]` -- El parámetro que indica la estrategia de búsqueda no puede ser omitido; en caso de omitir el segundo parámetro (nivel de log), el programa se ejecutará sin log alguno.
+* `java -jar Edificios.jar [DFS BFS IDFS] problemN [MIN MED MAX]` -- El parámetro que indica la estrategia de búsqueda no puede ser omitido como así tampoco el número de problema a ejecutar; en caso de omitir el segundo parámetro (nivel de log), el programa se ejecutará sin log alguno.
+
+Los problemas disponibles son:
+
+* `1` -- Tablero de 2x2 
+* `2` -- Tablero de 3x3 
+* `3` -- Tablero de 4x4 
+* `4` -- Tablero de 4x4 
+* `5` -- Tablero de 5x5 
+* `6` -- Tablero de 5x5 
 
 Los niveles de log son:
-
 
 * `MIN` -- 
 * `MED` -- 
 * `MAX` -- 
+
+
 
 El programa creará un archivo de texto `log.txt` con la salida del mismo pero también irá mostrando su avance por la salida estándar. 
 Nota: Mientras mayor sea el nivel de log deseado, más demorará la ejecución del programa.

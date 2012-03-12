@@ -23,9 +23,10 @@ public class Solver {
 		
 		// init logger
 		Logger.init();
-		if (args.length == 2) {
+		System.out.println(args.length);
+		if (args.length == 3) {
 			Map<String, Integer> loggerLevels = getLogLevels();
-			Integer level = loggerLevels.get(args[1]);
+			Integer level = loggerLevels.get(args[2]);
 			if (level == null) {
 				Logger.LOG_LEVEL = Logger.LEVEL_OFF;	
 			} else {
@@ -41,8 +42,15 @@ public class Solver {
 			Logger.log("Solver", args[0] + " strategy not found", Logger.LEVEL_ERROR);
 			return;
 		}
+		
+		if (args[1] == null) {
+			Logger.log("Solver", "You must provide a problem number", Logger.LEVEL_ERROR);
+			printUsage();
+			return;
+		}
+		
 		// init problem engine solver
-		BuildingProblem prob = new BuildingProblem();
+		BuildingProblem prob = new BuildingProblem(Integer.parseInt(args[1]));
 		GPSEngine eng = getEngines().get(se);
 		long initialTime = System.currentTimeMillis();
 		eng.engine(prob);
@@ -91,9 +99,9 @@ public class Solver {
 	}
 	
 	private static void printUsage() {
-		System.out.println("Usage: Algorithm [Logging level]");
+		System.out.println("Usage: Algorithm [Logging level] ProblemN");
 		System.out.println("Available Algorithms: " + "[BFS | DFS | IDFS | HIDFS]");
 		System.out.println("Logging level (optional): " + "[MIN | MED | MAX]");
-		System.out.println("Example: java -jar Solver.java DFS MED");
+		System.out.println("Example: java -jar Solver.java DFS MED 2");
 	}
 }

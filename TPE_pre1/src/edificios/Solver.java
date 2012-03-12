@@ -1,12 +1,15 @@
 package edificios;
 
-import edificios.engineimplementation.BuildingsDFSEngine;
 import edificios.engineimplementation.BuildingsBFSEngine;
+import edificios.engineimplementation.BuildingsDFSEngine;
 import edificios.engineimplementation.BuildingsHybridIDFSEngine;
 import edificios.engineimplementation.BuildingsIDFSEngine;
+import exceptions.CorruptFileException;
 import gps.GPSEngine;
 import gps.SearchStrategy;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +53,23 @@ public class Solver {
 		}
 		
 		// init problem engine solver
-		BuildingProblem prob = new BuildingProblem(Integer.parseInt(args[1]));
+		Board level = null;
+		try{
+			level = BuildingParser.parse(args[1]);			
+		}
+		catch(CorruptFileException e){
+			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR );
+			return;
+		}
+		catch(FileNotFoundException e){
+			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
+			return;
+		}
+		catch(IOException e){
+			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
+			return;
+		}
+		BuildingProblem prob = new BuildingProblem(level);
 		GPSEngine eng = getEngines().get(se);
 		long initialTime = System.currentTimeMillis();
 		eng.engine(prob);

@@ -9,16 +9,16 @@ Sistemas de Inteligencia Artificial
 Ejecución
 ---------
 
-Para correr el General Problem Solver usted debe declarar qué estrategia de búsqueda no informada utilizará, como así también el nivel de LOG que se desea obtener (este último parámetro puede ser omitido). Ejemplos:
+Para correr el General Problem Solver lo primero que debe hacer es correr el comando `ant` lo que creará el archivo `Edificios.jar`. Una vez hecho esto, usted debe declarar qué estrategia de búsqueda no informada utilizará, qué archivo de nivel correrá el algoritmo (tableros) y por último, opcionalmente, el nivel de LOG que se desea obtener (este último parámetro puede ser omitido). Ejemplos:
 
 * `java -jar Edificios.jar DFS res/boards/board1` -- Si desea utilizar Depth-first search como estrategia, cargar el tablero 'board1'  y no logguear nada.
-* `java -jar Edificios.jar BFS board3 MAX` -- Si desea utilizar Breadth-first search como estrategia, cargar el tablero 'board3' y tener un nivel máximo de logueo.
+* `java -jar Edificios.jar BFS res/boards/board3 MAX` -- Si desea utilizar Breadth-first search como estrategia, cargar el tablero 'board3' y tener un nivel máximo de logueo.
 
 Generalizando
 
 * `java -jar Edificios.jar [DFS BFS IDFS] fileName [MIN MED MAX]` -- El parámetro que indica la estrategia de búsqueda no puede ser omitido como así tampoco el archivo con el tablero a resolver; en caso de omitir el tercer parámetro (nivel de log), el programa se ejecutará sin log alguno.
 
-Los problemas disponibles son:
+Los problemas disponibles están dentro de la carpeta `/res/boards/` y tienen las siguientes características:
 
 * `board1` -- Tablero de 2x2 
 * `board2` -- Tablero de 3x3 

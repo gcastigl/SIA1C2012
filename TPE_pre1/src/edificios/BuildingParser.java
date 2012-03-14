@@ -16,12 +16,12 @@ public class BuildingParser {
 		BufferedReader  in = new BufferedReader(new FileReader(file));
 		Board ret = null;
 		try{
-			int dimension = Integer.valueOf(in.readLine());	
+			int dimension = Integer.valueOf(in.readLine().trim());	
 			ret = new Board(dimension);
 			int i,j;
 			int[][] restrs = new int[4][dimension];
 			for( i = 0 ; i < 4 ; i ++){
-				String line = in.readLine();
+				String line = in.readLine().trim();
 				if(line == null){
 					throw new CorruptFileException ("Number of rows is invalid.");
 				}

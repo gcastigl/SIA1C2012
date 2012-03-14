@@ -53,20 +53,9 @@ public class Solver {
 		}
 		
 		// init problem engine solver
-		Board level = null;
-		try{
-			level = BuildingParser.parse(args[1]);			
-		}
-		catch(CorruptFileException e){
-			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR );
-			return;
-		}
-		catch(FileNotFoundException e){
-			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
-			return;
-		}
-		catch(IOException e){
-			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
+		Board level = parseLevel(args[1]);
+		if (level == null) {
+			Logger.log("Level error", "null level returned by level parser", Logger.LEVEL_ERROR);
 			return;
 		}
 		BuildingProblem prob = new BuildingProblem(level);
@@ -75,6 +64,24 @@ public class Solver {
 		eng.engine(prob);
 		long elapsedTime = System.currentTimeMillis() - initialTime;
 		printFormattedElapsedTime(elapsedTime);
+	}
+	
+	private static Board parseLevel(String fileName) {
+		try{
+			return BuildingParser.parse(fileName);			
+		}
+		catch(CorruptFileException e){
+			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR );
+			return null;
+		}
+		catch(FileNotFoundException e){
+			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
+			return null;
+		}
+		catch(IOException e){
+			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
+			return null;
+		}
 	}
 	
 	private static void printFormattedElapsedTime(long elapsedTime) {

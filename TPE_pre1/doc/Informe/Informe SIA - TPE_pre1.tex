@@ -120,14 +120,9 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \par El tablero del juego se modeló mediante la creación de la clase Board; la misma contiene una variable privada de tipo matriz de enteros que representa a la grilla propiamente dicha. Si un casillero dicha matriz  tiene un $0$, significa que  está vacío; si en cambio tiene un número $k \in [1,n]$ significa que hay situado un edificio con altura $k$.\\
 \par Las pistas o restricciones del tablero (números en los bordes del mismo) se modelaron con un arreglo de cuatro vectores de enteros (TOP, BOTTOM, LEFT, RIGHT) que simplemente contienen la restricción en esa dirección.
-Cabe destacar que en los estados únicamente se guarda el tablero; guardar las restricciones sería redundante. (Ver Figura 1).\\
+Cabe destacar que en los estados únicamente se guarda el tablero; guardar las restricciones sería redundante. Ver \textbf{Figura \ref{modelado}} en la sección \textbf{Anexo B}.\\
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=0.65]{./images/ModeladoSIA.jpg}
-\caption{Modelado del problema}
-\label{modelado}
-\end{figure}
+
 
 \section{Reglas}
 
@@ -221,44 +216,7 @@ la altura del edificio es relativamente alta comparado a $n$.
 el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación, por lo cual se puede aplicar la metaregla mencionada anteriormente.
 \section{Resultados}
 
-
-Estos resultados son consistentes con la siguiente tabla\footnote{Fierens, P. (2011), \emph{Cuadrados mínimos: repaso}, Buenos Aires: Instituto Tecnológico de Buenos Aires.}, la cual presenta el número de operaciones necesrias para resolver el problema de cuadrados mínimos cuando $A \in \Re ^{mxn}$:
-
-
-\begin{table}[H]
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-Algoritmo & Dimensión (n) & Tiempo & Nodos explotados\\
-\hline
-\hline
-
-DFS & $2\times2$ & - & -\\
-DFS & $3\times3$ & - & -\\
-DFS & $4\times4$ & - & -\\
-DFS & $5\times5$ & - & -\\
-\hline
-BFS & $2\times2$ & - & -\\
-BFS & $3\times3$ & - & -\\
-BFS & $4\times4$ & - & -\\
-BFS & $5\times5$ & - & -\\
-\hline
-IDFS & $2\times2$ & - & -\\
-IDFS & $3\times3$ & - & -\\
-IDFS & $4\times4$ & - & -\\
-IDFS & $5\times5$ & - & -\\
-\hline
-HIDFS & $2\times2$ & - & -\\
-HIDFS & $3\times3$ & - & -\\
-HIDFS & $4\times4$ & - & -\\
-HIDFS & $5\times5$ & - & -\\
-
-\hline  
-\end{tabular}
-\end{center}
-\caption{Complejidad del problema de cuadrados mínimos}
-\label{tmedio}
-\end{table}
+\par A través de las distintas pruebas realizadas observamos que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver \textbf{tabla \ref{tabla1}} en la sección \textbf{Anexo}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados y no podíamos aplicar heurísticas, nos pareció interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Básicamente lo que hicimos fue preprocesar las pistas o restricciones del tablereo y ordenar el conjujnto de las 125 reglas. Una vez ordenadas éstas no son vueltas a tocar y son pasadas al \textit{GPS} para que este las aplique, en ese órden, en cada paso. Ver \textbf{tabla \ref{tabla2}} en la sección \textbf{Anexo}.
 
 \section{Conclusión}
 
@@ -295,31 +253,31 @@ HIDFS & $5\times5$ & - & -\\
 % The ieeecls.bbl file was manually included here to make the distribution
 % of this paper easier. You need not do it for your own papers.
 
-\clearpage
+%\clearpage
 
-\begin{thebibliography}{1}
+%\begin{thebibliography}{1}
 
-\bibitem{lamport1}
-Fierens, P. (2011),
-\newblock {\em Cuadrados mínimos: repaso},
-\newblock Buenos Aires: Instituto Tecnológico de Buenos Aires.
+%\bibitem{lamport1}
+%Fierens, P. (2011),
+%\newblock {\em Cuadrados mínimos: repaso},
+%\newblock Buenos Aires: Instituto Tecnológico de Buenos Aires.
 
-\bibitem{lamport1}
-Abdi, H.,
-\newblock {\em  Least-squares: {Encyclopedia for research methods for the social sciences}},
-\newblock Thousand Oaks (CA): Sage. pp, 2003.
+%\bibitem{lamport1}
+%Abdi, H.,
+%\newblock {\em  Least-squares: {Encyclopedia for research methods for the social sciences}},
+%\newblock Thousand Oaks (CA): Sage. pp, 2003.
 
-\bibitem{lamport1}
-Farebrother, R.W. (1988),
-\newblock {\em Linear Least Squares Computations, STATISTICS: Textbooks and Monographs}, \newblock New York: Marcel Dekker.
+%\bibitem{lamport1}
+%Farebrother, R.W. (1988),
+%\newblock {\em Linear Least Squares Computations, STATISTICS: Textbooks and Monographs}, %\newblock New York: Marcel Dekker.
 
-\bibitem{lamport1}
-Lipson, M.; Lipschutz, S. (2001),
-\newblock {\em Schaum's outline of theory and problems of linear algebra}, 
-\newblock New York: McGraw-Hill, pp. 69–80.
+%\bibitem{lamport1}
+%Lipson, M.; Lipschutz, S. (2001),
+%\newblock {\em Schaum's outline of theory and problems of linear algebra}, 
+%newblock New York: McGraw-Hill, pp. 69–80.
 
 
-\end{thebibliography}
+%\end{thebibliography}
 
 %----------------------------------------------------------------------
 
@@ -329,29 +287,93 @@ Lipson, M.; Lipschutz, S. (2001),
 \onecolumn
 
 \onecolumn
-\section*{Anexo A: Gráficos ilustrativos}
+\section*{Anexo A: Tablas}
 
-\begin{figure}[H]
-\centering
-%\includegraphics[scale=0.7]{./images/ciudadRPTconajuste.png}
-\caption{Curva que ajusta las velocidades medidas en la estación RPT, obtenida mediante eliminación gaussiana.}
-\label{dataRPT}
-\end{figure}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Algoritmo & Dimensión (n) & Tiempo & Nodos explotados\\
+\hline
+\hline
 
-\begin{figure}[H]
-\centering
-%\includegraphics[scale=0.7]{./images/CIUDAD.PNG}
-\caption{Error de la curva de ajuste obtenida por eliminación gaussiana, con respecto a las velocidades de la estación RPT.}
-\label{dataRPT}
-\end{figure}
+DFS & $2\times2$ & - & -\\
+DFS & $3\times3$ & - & -\\
+DFS & $4\times4$ & - & -\\
+DFS & $5\times5$ & - & -\\
+\hline
+BFS & $2\times2$ & - & -\\
+BFS & $3\times3$ & - & -\\
+BFS & $4\times4$ & - & -\\
+BFS & $5\times5$ & - & -\\
+\hline
+IDFS & $2\times2$ & - & -\\
+IDFS & $3\times3$ & - & -\\
+IDFS & $4\times4$ & - & -\\
+IDFS & $5\times5$ & - & -\\
+\hline
+HIDFS & $2\times2$ & - & -\\
+HIDFS & $3\times3$ & - & -\\
+HIDFS & $4\times4$ & - & -\\
+HIDFS & $5\times5$ & - & -\\
+
+\hline  
+\end{tabular}
+\end{center}
+\caption{Comparación de tiempos entre algoritmos para distintos tableros}
+\label{tabla1}
+\end{table}
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+Algoritmo & Dimensión (n) & Tiempo & Nodos explotados\\
+\hline
+\hline
+
+DFS & $2\times2$ & - & -\\
+DFS & $3\times3$ & - & -\\
+DFS & $4\times4$ & - & -\\
+DFS & $5\times5$ & - & -\\
+\hline
+BFS & $2\times2$ & - & -\\
+BFS & $3\times3$ & - & -\\
+BFS & $4\times4$ & - & -\\
+BFS & $5\times5$ & - & -\\
+\hline
+IDFS & $2\times2$ & - & -\\
+IDFS & $3\times3$ & - & -\\
+IDFS & $4\times4$ & - & -\\
+IDFS & $5\times5$ & - & -\\
+\hline
+HIDFS & $2\times2$ & - & -\\
+HIDFS & $3\times3$ & - & -\\
+HIDFS & $4\times4$ & - & -\\
+HIDFS & $5\times5$ & - & -\\
+
+\hline  
+\end{tabular}
+\end{center}
+\caption{Comparación de tiempos entre algoritmos con ordenamiento de reglas}
+\label{tabla2}
+\end{table}
 
 \clearpage
 
+\section*{Anexo B: Imágenes}
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.65]{./images/ModeladoSIA.jpg}
+\label{modelado}
+\end{center}
+\end{figure}
 
-\section*{Anexo B: Código}
+\begin{center}
+\par Figura 1: Modelado del problema
+\end{center}
 
-\subsection{Código para la obtención de las matrices $A$ y $b$}
 
 %\VerbatimInput{./code/calculoAb.m}
 

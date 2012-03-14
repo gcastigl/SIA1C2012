@@ -7,19 +7,21 @@ import gps.api.GPSState;
 import java.util.LinkedList;
 import java.util.List;
 
+import util.Logger;
+
 public class BuildingProblem implements GPSProblem {
 
-	private Board initBoard;
-	private List<GPSRule> rules;
+	protected Board initBoard;
+	protected List<GPSRule> rules;
 	
 	public BuildingProblem(Board board) {
 		initBoard = board;
+		rules = new LinkedList<GPSRule>();
 		initializeRules();
 		sortRules();
 	}
 	
-	private void initializeRules() {
-		rules = new LinkedList<GPSRule>();
+	protected void initializeRules() {
 		int maxHeight = initBoard.getSize();
 		for (int i = 0; i < maxHeight; i++) {
 			for (int j = 0; j < maxHeight; j++) {
@@ -30,7 +32,7 @@ public class BuildingProblem implements GPSProblem {
 		}
 	}
 
-	private void sortRules() {
+	protected void sortRules() {
 		sortTop();
 		sortBottom();
 		sortLeft();
@@ -102,6 +104,11 @@ public class BuildingProblem implements GPSProblem {
 				break;
 			}
 			index++;
+		}
+		if (index == rules.size()) {
+			String warning = "Rule: [" + row + ", " + col + "] value: " + height + " not founds!"; 
+			Logger.log("Warning", warning, Logger.LEVEL_WARNING);
+			return;
 		}
 		GPSRule r = rules.remove(index);
 		((LinkedList<GPSRule>) rules).addFirst(r);

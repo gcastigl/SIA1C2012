@@ -17,12 +17,11 @@ public abstract class GPSEngine {
 	protected List<GPSNode> open = new LinkedList<GPSNode>();
 	protected List<GPSNode> closed = new ArrayList<GPSNode>();
 	protected GPSProblem problem;
-	// Use this variable in the addNode implementation
-
 	
 	public void engine(GPSProblem problem) {
 		Logger.log("GPSEngine", "Solving with " + getStrategyName() + " the following board \n" + problem.getInitState().toString(), Logger.LEVEL_TRACE);
-
+		Logger.log("Rules:", problem.getRules(), Logger.LEVEL_TRACE);
+		
 		this.problem = problem;
 		GPSNode rootNode = new GPSNode(problem.getInitState(), 0);
 		boolean finished = false;
@@ -65,14 +64,13 @@ public abstract class GPSEngine {
 	}
 
 	protected boolean explode(GPSNode node) {
-		if (problem.getRules() == null) {
-			Logger.log("GPSEngine", "No rules!", Logger.LEVEL_ERROR);
-			return false;
-		}
+		Logger.log("Explode", node, Logger.LEVEL_DEBUG);
+		
 		for (GPSRule rule : problem.getRules()) {
 			GPSState newState = null;
 			try {
 				newState = rule.evalRule(node.getState());
+				Logger.log("Applied Rule", rule, Logger.LEVEL_DEBUG);
 			} catch (NotAppliableException e) {
 				Logger.log("Invalid Rule", rule, Logger.LEVEL_DEBUG);
 				// Do nothing
@@ -86,6 +84,7 @@ public abstract class GPSEngine {
 						+ rule.getCost(), node.getDepth() + 1);
 				newNode.setParent(node);
 				addNode(newNode);
+				Logger.log("New State", "New state added to open list", Logger.LEVEL_DEBUG);
 			}
 		}
 		return true;

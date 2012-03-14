@@ -7,6 +7,8 @@ import gps.api.GPSState;
 import java.util.LinkedList;
 import java.util.List;
 
+import util.Logger;
+
 public class BuildingProblem implements GPSProblem {
 
 	private Board initBoard;

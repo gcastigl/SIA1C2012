@@ -12,8 +12,8 @@ public class BuildingProblem implements GPSProblem {
 	private Board initBoard;
 	private List<GPSRule> rules;
 	
-	public BuildingProblem() {
-		initBoard = BuildingParser.parse("./resources/board.txt");
+	public BuildingProblem(Board board) {
+		initBoard = board;
 		initializeRules();
 		sortRules();
 	}

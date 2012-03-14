@@ -9,26 +9,34 @@ Sistemas de Inteligencia Artificial
 Ejecución
 ---------
 
-Para correr el General Problem Solver usted debe declarar qué estrategia de búsqueda no informada utilizará, como así también el nivel de LOG que se desea obtener (este último parámetro puede ser omitido). Ejemplos:
+Para correr el General Problem Solver lo primero que debe hacer es correr el comando `ant` lo que creará el archivo `Edificios.jar`. Una vez hecho esto, usted debe declarar qué estrategia de búsqueda no informada utilizará, qué archivo de nivel correrá el algoritmo (tableros) y por último, opcionalmente, el nivel de LOG que se desea obtener (este último parámetro puede ser omitido). Ejemplos:
 
-* `java -jar Edificios.jar DFS` -- Si desea utilizar Depth-first search como estrategia y no logguear nada.
-* `java -jar Edificios.jar BFS MIN` -- Si desea utilizar Depth-first search y un nivel mínimo de logueo.
+* `java -jar Edificios.jar DFS res/boards/board1` -- Si desea utilizar Depth-first search como estrategia, cargar el tablero 'board1'  y no logguear nada.
+* `java -jar Edificios.jar BFS res/boards/board3 MAX` -- Si desea utilizar Breadth-first search como estrategia, cargar el tablero 'board3' y tener un nivel máximo de logueo.
 
 Generalizando
 
-* `java -jar Edificios.jar [DFS BFS IDFS] [MIN MED MAX]` -- El parámetro que indica la estrategia de búsqueda no puede ser omitido; en caso de omitir el segundo parámetro (nivel de log), el programa se ejecutará sin log alguno.
+* `java -jar Edificios.jar [DFS BFS IDFS] fileName [MIN MED MAX]` -- El parámetro que indica la estrategia de búsqueda no puede ser omitido como así tampoco el archivo con el tablero a resolver; en caso de omitir el tercer parámetro (nivel de log), el programa se ejecutará sin log alguno.
+
+Los problemas disponibles están dentro de la carpeta `/res/boards/` y tienen las siguientes características:
+
+* `board1` -- Tablero de 2x2 
+* `board2` -- Tablero de 3x3 
+* `board3` -- Tablero de 4x4 
+* `board4` -- Tablero de 5x5 
+* `board5` -- Tablero de 5x5 
 
 Los niveles de log son:
-
 
 * `MIN` -- 
 * `MED` -- 
 * `MAX` -- 
 
+
+
 El programa creará un archivo de texto `log.txt` con la salida del mismo pero también irá mostrando su avance por la salida estándar. 
 Nota: Mientras mayor sea el nivel de log deseado, más demorará la ejecución del programa.
 
-Si así lo desea, puede cambiar el tablero desde el código, en la clase BuldingParser del archivo `BuildingParser.java`. Sólo debe setear los vectores con los números borde del tablero a crear. Luejo ejecute `ant` en el directorio que contiene al archivo `build.xml` para así generar un nuevo `Edificios.jar` y correrlo como se explicó anteriormente.
 
 ____________________________
 ____________________________

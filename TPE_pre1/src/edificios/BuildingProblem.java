@@ -11,17 +11,17 @@ import util.Logger;
 
 public class BuildingProblem implements GPSProblem {
 
-	private Board initBoard;
-	private List<GPSRule> rules;
+	protected Board initBoard;
+	protected List<GPSRule> rules;
 	
 	public BuildingProblem(Board board) {
 		initBoard = board;
+		rules = new LinkedList<GPSRule>();
 		initializeRules();
 		sortRules();
 	}
 	
-	private void initializeRules() {
-		rules = new LinkedList<GPSRule>();
+	protected void initializeRules() {
 		int maxHeight = initBoard.getSize();
 		for (int i = 0; i < maxHeight; i++) {
 			for (int j = 0; j < maxHeight; j++) {
@@ -32,7 +32,7 @@ public class BuildingProblem implements GPSProblem {
 		}
 	}
 
-	private void sortRules() {
+	protected void sortRules() {
 		sortTop();
 		sortBottom();
 		sortLeft();

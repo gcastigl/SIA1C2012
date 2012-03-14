@@ -100,7 +100,7 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \PARstart El juego \textit{Edificios} también conocido como \textit{Skyscraper puzzle} es una variante del conocido \textit{Sudoku} y consiste de una grilla cuadrada con números en su borde que representan las pistas sobre cuántos edificios se visualizan en esa dirección. El tablero, visto desde arriba, representa un espacio cubierto de edificios. Cada casillero debe ser completado con un dígito que va entre 1 y N, siendo N el tamaño de la grilla; haciendo que cada fila y cada columna contengan sólo una vez a cada dígito (como sucede en el Sudoku).
 
-\par En este puzzle, cada dígito puesto en la grilla podría ser visualizado como un edificio de esa altura. Por ejemplo, si ingresamos un 5, estaríamos colocando un edificio de altura 5. Cada uno de los numeros que están por fuera de la grilla revelan la cantidad de edificios que pueden ser vistos al mirar la línea o columna en esa dirección. Cada edificio bloquea a todos los edificios de menor altura de ser vistos, mientras que los edificios de mayor altura son vistos a través de él.
+\par En este puzzle, cada dígito puesto en la grilla podría ser visualizado como un edificio de esa altura. Por ejemplo, si ingresamos un 5, estaríamos colocando un edificio de altura 5. Cada uno de los numeros que están por fuera de la grilla revelan la cantidad de edificios que pueden ser vistos al mirar la línea o columna en esa dirección. Cada edificio bloquea la visión de todo edificio de menor altura que se encuentre detrás de él.
 
 %----------------------------------------------------------------------
 % SECTION II: Marco Teórico
@@ -110,21 +110,22 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \subsection{Estado inicial}
 
-\par El estado inicial del problema es un tablero que contiene sólo las pistas en sus bordes (no contiene ningún edificio en la grilla). Para que el problema tenga solución éste tablero debe ser válido; es decir que no cualquier combinación de pistas sobre la visibilidad de edificios en esa dirección conducirán a un problema que resoluble.
+\par El estado inicial del problema es un tablero que contiene sólo las pistas en sus bordes (no contiene ningún edificio en la grilla). Para que el problema tenga solución éste tablero debe ser válido; es decir que no cualquier combinación de pistas sobre la visibilidad de edificios en esa dirección conducirán a un problema resoluble.
 
 \subsection{Estado final}
 
-\par El estado final del problema es un tablero con todos los casilleros completos (lleno de edificios) que cumpla con las raglas del juego citadas anteriormente.
+\par El estado final del problema es un tablero con todos los casilleros completos (lleno de edificios) que cumpla con las reglas del juego citadas anteriormente.
 
 \section{Modelado del problema}
 
-\par El tablero del juego se modeló mediante la creación de la clase Board; la misma contiene una variable privada de tipo matriz de enterios que representa a la grilla propiamente dicha. Si esta matriz es una determinada posición tiene un $0$, significa que ese casillero está vacío; si en cambio tiene un número $k \in [1,n]$ significa que allí hay situado un edificio con altura $k$.\\
-\par Las pistas o restricciones del tablero (números en los bordes del mismo) las modelamos con arreglo de cuatro vectores de enteros (TOP, BOTTOM, LEFT, RIGHT) que simplemente contienen la restricción en esa dirección.\\
+\par El tablero del juego se modeló mediante la creación de la clase Board; la misma contiene una variable privada de tipo matriz de enteros que representa a la grilla propiamente dicha. Si un casillero dicha matriz  tiene un $0$, significa que  está vacío; si en cambio tiene un número $k \in [1,n]$ significa que hay situado un edificio con altura $k$.\\
+\par Las pistas o restricciones del tablero (números en los bordes del mismo) se modelaron con un arreglo de cuatro vectores de enteros (TOP, BOTTOM, LEFT, RIGHT) que simplemente contienen la restricción en esa dirección.
+Cabe destacar que en los estados únicamente se guarda el tablero; guardar las restricciones sería redundante. (Ver Figura 1).\\
 
 \begin{figure}[H]
 \centering
 \includegraphics[scale=0.65]{./images/ModeladoSIA.jpg}
-\caption{Modeladod el problema}
+\caption{Modelado del problema}
 \label{modelado}
 \end{figure}
 
@@ -134,7 +135,7 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \emph{Poner un edificio de altura $x$ en la posición $(i,j)$ del tablero, con $x \in [1, n]$.}\\
 
-\par Por lo que, que dado un tablero de $n\times n$, el total de reglas está dado por $n \times {n \times n} = n^3$. Ya que, por cada fila, por cada columna, se tienen $n$ edificios distintos para colocar. 
+\par Por lo que, que dado un tablero de $n\times n$, el total de reglas está dado por $n \times {n \times n} = n^3$ ya que por cada fila y por cada columna, se tienen $n$ edificios distintos para colocar. 
 \par Ejemplos de reglas:
 \begin{itemize}
 \item Poner un edificio de altura 1 en la posición $(0,0)$
@@ -145,7 +146,7 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \end{itemize}
 
-\par Las reglas así definidas producen un factor de ramificación de $n^3$ lo que hace que, para tableros grandes (mayores a $5\times5$) se tarde un tiempo muy considerable en encontrar la solución. Para subsanar este inconveniente se puede planter el problema enunciando las reglas como siguen:\\
+\par Las reglas así definidas producen un factor de ramificación de $n^3$ lo que hace que, para tableros grandes (mayores a $5\times5$) se tarde un tiempo muy considerables (en el orden de las horas) en encontrar la solución. Para subsanar este inconveniente se puede plantear el problema enunciando con reglas diferentes, enumeradas a continuación:\\
 
 \emph{Poner un edificio de tamaño $a$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.}\\
 
@@ -158,21 +159,26 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 \item Poner un edificio de altura $n$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
 \end{itemize}
 
-\par Esto nos otorga un factor de ramificación igual a $n$ siendo este muy inferior al del caso anterior. Si bien esta estrategia reduce la cantidad de reglas como así también el factor de ramificación, tomamos la decisión de implementar el primer conjunto de reglas [Poner un edificio de altura $x$ en la posición $(i,j)$] ya que, para la siguiente parte del TP, esto nos permitirá trabajar mejor con las heurísticas.
+\par Esto nos otorga un factor de ramificación igual a $n$ siendo este inferior al del caso anterior. Si bien esta estrategia reduce la cantidad de reglas como así también el factor de ramificación, se tomó la decisión de implementar el primer conjunto de reglas [Poner un edificio de altura $x$ en la posición $(i,j)$] ya que, para la siguiente parte del TP, 
+se implementarán heurísticas (descritas en la sección VII) que permitirán en algunos tableros saber qué números se deben colocar en ciertos casilleros, y es oportuno comenzar llenando dichos casilleros para que haya menos ramificación
+ (se descartan números en las filas  y columnas en las que se han insertado) y por lo tanto 
+menor cantidad de estados explotados o recorridos. Asimismo el problema de la ramificación $n^3$ se puede subsanar utilizando una función heurística que elija un subconjunto acotado de los posibles $n^3$ sucesores.
+
 
 
 
 \subsection{Metareglas}
 
-\par Si una restriccion (o pista) dice $n$ (siendo $n$ la dimensión del tablero) podemos definir una metaregla como sigue:\\
+\par Si una restriccion en una fila enumera $n$ edificios (siendo $n$ la dimensión del tablero) es conveniente aplicar una metaregla como sigue:\\
 
 \emph{Colocar edificios de altura $1$ hasta $n$ en forma ordenada y ascendente en esa fila o columna}\\
 
-\par Esto reduce considerablemente todos los algoritmos dado que quedarian menos casillas por explorar.
+\par Esto reduce considerablemente todos la cantidad de estados explotados por  algoritmos. Esta metaregla no ha sido implementada dado que 
+la búsqueda es desinformada, sin embargo será usada cuando se apliquen heurísticas.
 
 \section{Costos}
 
-\par Debido a la naturaleza de nuestro probema, la aplciacion de todas las reglas tiene el mismo costo y éste es unitario. Es decir que la transición de un estado X a un estado Y, en nuestro caso, siempre nos cuesta $1$.
+\par Debido a la naturaleza del probema, la aplciacion de todas las reglas tiene el mismo costo y éste es unitario. Es decir que la transición de un estado X a un estado Y, en nuestro caso, siempre nos cuesta $1$.
 
 \section{Algoritmos de búsqueda implementados}
 
@@ -196,23 +202,23 @@ Hybrid Iterative DFS
 
 \section{Heurísticas}
 
-\par La idea de las heurísticas, al tener un problema de satisfaccion de restricciones como el nuestro, no es hallar el camino óptimo a la solución ya que previamente sabemos su profundidad y su costo. Lo interesante de aplicar heurísticas en este caso es poder descartar caminos que no conducirán al algoritmo hacia la solución. Esto se logra, para un determinado nodo, asignándole el valor infinito a la función $h(n)$ de los sucesores irresolubles de éste.\\
+\par La idea detrás de las heurísticas, en un  problema de satisfacción de restricciones como el discutido, no es hallar el camino óptimo a la solución ya que previamente se conoce su profundidad y  costo,  sino descartar caminos que no conducirán al algoritmo hacia la solución. Esto se logra, para un determinado nodo, asignándole el valor infinito a la función $h(n)$ de los sucesores irresolubles de éste.\\
 
 \subsection{Heurística 1}
-\par Dado un tablero de $n\times n$, si algunas de las restricciones contiene el número $n$, la fila o columna en esa dirección deberá contener los números de $1$ a $n$ en forma ordenada y ascendente.
+
+\par Si una restricción indica el número $1$, esa fila o columna deberá comenzar con la altura maxima $(n)$. Además si la restricción opuesta es un $2$, se coloca $n-1$ al lado de este.
 
 \subsection{Heurística 2}
 
-\par Si una restricción indica el número $1$, esa fila o columna deberá comenzar con la altura maxima $(n)$.
-
-\subsection{Heurística 3}
-
-\par Si una restricción indica algún número distinto de $1$ , esa fila o columna no podrá comenzar con $(n)$.
-
-\subsection{Heurística 4}
-
-\par Si una restricción indica algún número $a$ mayor o igual que $1$ , esa fila o columna deberá tener un edificio con la altura máxima $(n)$ a, al menos, $a$ casilleros de distancia. Esto es facil de ver ya que, considerando que ambos lados tienen restricciones (izquierda y derecha ó arriba y abajo), se puede localizar a algunos casilleros donde está la altura máxima. Por ejemplo, si tenemos $K$ como restricción izquierda y $R$ como restricción derecha, esto implica que la altura máxima tiene que estar a, al menos, $R$ casilleros desde la izquierda y a, al menos, $K$ casilleros desde la derecha.
-
+\par Dado un tablero de dimensión $n$, si una restricción indica algún número distinto de $1$ , esa fila o columna trivialmente no podrá comenzar con $(n)$.
+\par Si se considera el caso general, si una restricción indica algún número $a$ mayor o igual que $1$ , esa fila o columna deberá tener un edificio con la altura máxima $(n)$ a, al menos, $a$ casilleros de distancia. Esto es fácil de verificar: si 
+el edificio de altura máxima está a una distancia de $k$, a lo sumo puede haber $k$ edificios observados. Considerando que ambos lados tienen restricciones (izquierda y derecha ó arriba y abajo), se puede localizar a algunos casilleros donde está la altura máxima. Por ejemplo, si tenemos $K$ como restricción izquierda y $R$ como restricción derecha, esto implica que la altura máxima tiene que estar a, al menos, $R$ casilleros desde la izquierda y a, al menos, $K$ casilleros desde la derecha.
+\par Pero aún se puede generalizar más. Sea $k$ la altura de un cierto edificio. Dado una restricción $a$, se verifica que el edificio de altura $k$ debe estar como mínimo a una distancia de $a - n + k$. La demostración es análoga a la anterior. Desde ya, si dicha distancia es menor o igual que uno no hay ningún 
+tipo de información útil. Asimismo, cuanto mayor sea este número mayor es la información obtenida: las posibilidades para colocar el edificio con altura $k$ son menores. 
+Es fácil ver que $ a + k - (n + 1) $ es la cantidad de casilleros que no pueden contener al edificio de altura $k$, por lo que se aplicará esta heurística únicamente cuando $ a + k - 1 > n$, es decir cuando el número en la restricción y 
+la altura del edificio es relativamente alta comparado a $n$. 
+\par De esta generalidad se obtiene un resultado útil. Dado una fila o columna con restricción $n$, cada edificio de altura $k$ debe estar al menos $n - n + k = k$ distancia. En otras palabras, el edificio de altura máxima debe estar a $n$ casilleros de distancia, 
+el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación, por lo cual se puede aplicar la metaregla mencionada anteriormente.
 \section{Resultados}
 
 
@@ -256,7 +262,7 @@ HIDFS & $5\times5$ & - & -\\
 
 \section{Conclusión}
 
-\PARstart Creemos que lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\PARstart Se cree que lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 
 %----------------------------------------------------------------------

@@ -1,4 +1,4 @@
-
+ 
 \documentclass[%
 	%draft,
 	%submission,
@@ -87,7 +87,7 @@
 \maketitle               
 
 \begin{abstract} 
-El presente informe busca analizar y comparar distintas estrategias de búsqueda no informadas sobre un problema en particular haciendo uso de un motor de inferencias.
+El presente informe busca analizar y comparar distintas estrategias de búsqueda no informadas sobre un problema en particular (Skyscraper puzzle) haciendo uso de un motor de inferencias.
 \end{abstract}
 
 \begin{keywords}
@@ -118,13 +118,21 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \section{Modelado del problema}
 
-\par Aaaaaa
+\par El tablero del juego se modeló mediante la creación de la clase Board; la misma contiene una variable privada de tipo matriz de enterios que representa a la grilla propiamente dicha. Si esta matriz es una determinada posición tiene un $0$, significa que ese casillero está vacío; si en cambio tiene un número $k \in [1,n]$ significa que allí hay situado un edificio con altura $k$.\\
+\par Las pistas o restricciones del tablero (números en los bordes del mismo) las modelamos con arreglo de cuatro vectores de enteros (TOP, BOTTOM, LEFT, RIGHT) que simplemente contienen la restricción en esa dirección.\\
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.65]{./images/ModeladoSIA.jpg}
+\caption{Modeladod el problema}
+\label{modelado}
+\end{figure}
 
 \section{Reglas}
 
 \par Dado un tablero de tamaño $n\times n$ podemos describir las reglas del problema en forma general como sigue:\\
 
-\emph{Poner un edificio de tamaño $1$ a $n$ en la casilla $(i,j)$.}\\
+\emph{Poner un edificio de altura $x$ en la posición $(i,j)$ del tablero, con $x \in [1, n]$.}\\
 
 \par Por lo que, que dado un tablero de $n\times n$, el total de reglas está dado por $n \times {n \times n} = n^3$. Ya que, por cada fila, por cada columna, se tienen $n$ edificios distintos para colocar. 
 \par Ejemplos de reglas:
@@ -133,11 +141,30 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 \item Poner un edificio de altura 1 en la posición $(0,1)$
 \item Poner un edificio de altura 2 en la posición $(0,0)$
 \item Poner un edificio de altura 4 en la posición $(3,1)$
+\item $\ldots$
+
 \end{itemize}
+
+\par Las reglas así definidas producen un factor de ramificación de $n^3$ lo que hace que, para tableros grandes (mayores a $5\times5$) se tarde un tiempo muy considerable en encontrar la solución. Para subsanar este inconveniente se puede planter el problema enunciando las reglas como siguen:\\
+
+\emph{Poner un edificio de tamaño $a$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.}\\
+
+\par En nu tablero de $n\times n$ el conjunto de reglas quedaría definido de la siguiente forma:\\
+
+\begin{itemize}
+\item Poner un edificio de altura 1 en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
+\item Poner un edificio de altura 2 en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
+\item $\vdots$
+\item Poner un edificio de altura $n$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
+\end{itemize}
+
+\par Esto nos otorga un factor de ramificación igual a $n$ siendo este muy inferior al del caso anterior. Si bien esta estrategia reduce la cantidad de reglas como así también el factor de ramificación, tomamos la decisión de implementar el primer conjunto de reglas [Poner un edificio de altura $x$ en la posición $(i,j)$] ya que, para la siguiente parte del TP, esto nos permitirá trabajar mejor con las heurísticas.
+
+
 
 \subsection{Metareglas}
 
-\par Si una restriccion (o pista) dice $n$ (siendo $n$ la dimendion del tablero) podemos definir una metaregla como sigue:\\
+\par Si una restriccion (o pista) dice $n$ (siendo $n$ la dimensión del tablero) podemos definir una metaregla como sigue:\\
 
 \emph{Colocar edificios de altura $1$ hasta $n$ en forma ordenada y ascendente en esa fila o columna}\\
 
@@ -149,7 +176,7 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \section{Algoritmos de búsqueda implementados}
 
-\par Hemos implementado cuatro algoritmos de búsqueda no informada distintos.
+\par Hemos implementado cuatro algoritmos de búsqueda no informada diferentes. Los mismos son:
 
 \begin{description}
 
@@ -169,43 +196,69 @@ Hybrid Iterative DFS
 
 \section{Heurísticas}
 
-\par Completar con heurísticas
+\par La idea de las heurísticas, al tener un problema de satisfaccion de restricciones como el nuestro, no es hallar el camino óptimo a la solución ya que previamente sabemos su profundidad y su costo. Lo interesante de aplicar heurísticas en este caso es poder descartar caminos que no conducirán al algoritmo hacia la solución. Esto se logra, para un determinado nodo, asignándole el valor infinito a la función $h(n)$ de los sucesores irresolubles de éste.\\
+
+\subsection{Heurística 1}
+\par Dado un tablero de $n\times n$, si algunas de las restricciones contiene el número $n$, la fila o columna en esa dirección deberá contener los números de $1$ a $n$ en forma ordenada y ascendente.
+
+\subsection{Heurística 2}
+
+\par Si una restricción indica el número $1$, esa fila o columna deberá comenzar con la altura maxima $(n)$.
+
+\subsection{Heurística 3}
+
+\par Si una restricción indica algún número distinto de $1$ , esa fila o columna no podrá comenzar con $(n)$.
+
+\subsection{Heurística 3}
+
+\par Si una restricción indica algún número $a$ mayor o igual que $1$ , esa fila o columna deberá tener un edificio con la altura máxima $(n)$ a, al menos, $a$ casilleros de distancia. Esto es facil de ver ya que, considerando que ambos lados tienen restricciones (izquierda y derecha ó arriba y abajo), se puede localizar a algunos casilleros donde está la altura máxima. Por ejemplo, si tenemos $K$ como restricción izquierda y $R$ como restricción derecha, esto implica que la altura máxima tiene que estar a, al menos, $R$ casilleros desde la izquierda y a, al menos, $K$ casilleros desde la derecha.
+
+\subsection{Heurística 3}
+\par Si una restricción 
+si un lado dice N-a
+pera, antes que eso
+reciprocamente
+si un lado dice algo distinto de 1
+el N no puede ir primero
+porque no llegas a la cantidad de alturas
+y mas generalmente
+Dado N - a
+a mayor o igual que 1
 
 
-\section{Other}
+\section{Resultados}
 
-\begin{table}[H]
-\begin{center}
-\begin{tabular}{|c|c|c|}
-\hline
-Método & Tiempo medio & Tiempo  medio \\
- &  Octave $(sec)$ & Propio $(sec)$ \\
-\hline
-\hline
-Eliminación Gaussiana & $0.011430$ & $0.013100$ \\
-Cholesky & $0.009559$ & $0.012204$ \\
- QR &  $0.028912$&$0.031182$ \\
-\hline  
-\end{tabular}
-\end{center}
-\caption{Tabla de comparación de performance de los métodos propios versus los métodos nativos de GNU Octave}
-\label{tmedio}
-\end{table}
 
 Estos resultados son consistentes con la siguiente tabla\footnote{Fierens, P. (2011), \emph{Cuadrados mínimos: repaso}, Buenos Aires: Instituto Tecnológico de Buenos Aires.}, la cual presenta el número de operaciones necesrias para resolver el problema de cuadrados mínimos cuando $A \in \Re ^{mxn}$:
 
 
 \begin{table}[H]
 \begin{center}
-\begin{tabular}{|c|c|}
+\begin{tabular}{|c|c|c|c|}
 \hline
-Algoritmo & Número de operaciones\\
+Algoritmo & Dimensión (n) & Tiempo & Nodos explotados\\
 \hline
 \hline
 
-Eliminación Gaussiana & $n^2(m+\frac{2n}{3})$\\
-Cholesky & $n^2(m+\frac{n}{3})$\\
-QR & $2n^2(m-\frac{n}{3})$\\
+DFS & $2\times2$ & - & -\\
+DFS & $3\times3$ & - & -\\
+DFS & $4\times4$ & - & -\\
+DFS & $5\times5$ & - & -\\
+\hline
+BFS & $2\times2$ & - & -\\
+BFS & $3\times3$ & - & -\\
+BFS & $4\times4$ & - & -\\
+BFS & $5\times5$ & - & -\\
+\hline
+IDFS & $2\times2$ & - & -\\
+IDFS & $3\times3$ & - & -\\
+IDFS & $4\times4$ & - & -\\
+IDFS & $5\times5$ & - & -\\
+\hline
+HIDFS & $2\times2$ & - & -\\
+HIDFS & $3\times3$ & - & -\\
+HIDFS & $4\times4$ & - & -\\
+HIDFS & $5\times5$ & - & -\\
 
 \hline  
 \end{tabular}
@@ -214,7 +267,9 @@ QR & $2n^2(m-\frac{n}{3})$\\
 \label{tmedio}
 \end{table}
 
-Si las columnas de la matriz A fueran casi linealmente dependientes, hubiera sido preferible la utilización del algoritmo \textbf{QR} frente a las ecuaciones normales. Como en este problema en particular esta condición no se cumple, el algoritmo más performante ha sido el de Cholesky.
+\section{Conclusión}
+
+\PARstart Creemos que lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 
 %----------------------------------------------------------------------

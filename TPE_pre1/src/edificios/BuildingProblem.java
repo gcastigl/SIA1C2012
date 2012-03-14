@@ -103,6 +103,11 @@ public class BuildingProblem implements GPSProblem {
 			}
 			index++;
 		}
+		if (index == rules.size()) {
+			String warning = "Rule: [" + row + ", " + col + "] value: " + height + " not founds!"; 
+			Logger.log("Warning", warning, Logger.LEVEL_WARNING);
+			return;
+		}
 		GPSRule r = rules.remove(index);
 		((LinkedList<GPSRule>) rules).addFirst(r);
 	}

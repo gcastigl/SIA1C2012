@@ -27,7 +27,7 @@ public class Solver {
 			Map<String, Integer> loggerLevels = getLogLevels();
 			Integer level = loggerLevels.get(args[1]);
 			if (level == null) {
-				Logger.LOG_LEVEL = Logger.LEVEL_OFF;	
+				Logger.LOG_LEVEL = Logger.LEVEL_TRACE;
 			} else {
 				Logger.LOG_LEVEL = level;
 			}

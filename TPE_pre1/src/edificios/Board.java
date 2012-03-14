@@ -150,7 +150,9 @@ public class Board {
 	public Board duplicateAndSet(int row, int col, int height) {
 		Board clone = new Board(n);
 		for(int i = 0 ; i < n ; i ++) {
-			clone.buildings[i] = buildings[i].clone();
+			for (int j = 0; j < n; j++) {				
+				clone.buildings[i][j] = buildings[i][j];
+			}
 		}
 		clone.buildings[row][col] = height;
 		clone.buildingOnBoard = buildingOnBoard + 1;

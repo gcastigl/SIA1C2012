@@ -145,7 +145,7 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 
 \emph{Poner un edificio de tamaño $a$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.}\\
 
-\par En nu tablero de $n\times n$ el conjunto de reglas quedaría definido de la siguiente forma:\\
+\par En un tablero de $n\times n$ el conjunto de reglas quedaría definido de la siguiente forma:\\
 
 \begin{itemize}
 \item Poner un edificio de altura 1 en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
@@ -197,7 +197,7 @@ Hybrid Iterative DFS
 
 \section{Heurísticas}
 
-\par La idea detrás de las heurísticas, en un  problema de satisfacción de restricciones como el discutido, no es hallar el camino óptimo a la solución ya que previamente se conoce su profundidad y  costo,  sino descartar caminos que no conducirán al algoritmo hacia la solución. Esto se logra, para un determinado nodo, asignándole el valor infinito a la función $h(n)$ de los sucesores irresolubles de éste.\\
+\par La idea detrás de las heurísticas, en un  problema de satisfacción de restricciones como el discutido, no es hallar el camino óptimo a la solución ya que previamente se conoce su profundidad y  costo,  sino descartar caminos que no conducirán al algoritmo hacia la solución. Esto se logra, para un determinado nodo, asignándole el valor "infinito" a la función $h(n)$ de los sucesores irresolubles de éste.\\
 
 \subsection{Heurística 1}
 
@@ -216,11 +216,16 @@ la altura del edificio es relativamente alta comparado a $n$.
 el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación, por lo cual se puede aplicar la metaregla mencionada anteriormente.
 \section{Resultados}
 
-\par A través de las distintas pruebas realizadas observamos que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver \textbf{tabla \ref{tabla1}} en la sección \textbf{Anexo}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados y no podíamos aplicar heurísticas, nos pareció interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Básicamente lo que hicimos fue preprocesar las pistas o restricciones del tablereo y ordenar el conjujnto de las 125 reglas. Una vez ordenadas éstas no son vueltas a tocar y son pasadas al \textit{GPS} para que este las aplique, en ese órden, en cada paso. Ver \textbf{tabla \ref{tabla2}} en la sección \textbf{Anexo}.
+\par A través de las distintas pruebas realizadas observamos que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver \textbf{tabla \ref{tabla1}} en la sección \textbf{Anexo}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados y no podíamos aplicar heurísticas, nos pareció interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Básicamente lo que hicimos fue preprocesar las pistas o restricciones del tablero y ordenar el conjujnto de reglas. Una vez ordenadas éstas no son vueltas a tocar y son pasadas al \textit{GPS} para que este las aplique, en ese órden, en cada paso. Ver \textbf{tabla \ref{tabla2}} en la sección \textbf{Anexo}.
 
 \section{Conclusión}
 
-\PARstart Se cree que lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\PARstart Es notable destacar la cantidad tiempo requerido y uso de recursos a para resolver pequeños problemas con metodos no informados. Ya que, luego de ver los resultados obtenidos para pequeños tableros, se necesitó hacer uso de un pre-ordenamiento de las reglas ya que la resolucion del problema tomaba en el orden de las horas para tableros tan simples como ser 4x4.
+
+Resultó muy interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden
+en cual se agregan los nuevos estados al conjunto de no explorados. 
+
+(continuar!!!)
 
 
 %----------------------------------------------------------------------

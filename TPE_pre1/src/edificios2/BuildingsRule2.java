@@ -9,11 +9,11 @@ import gps.exception.NotAppliableException;
 public class BuildingsRule2 implements GPSRule {
 
 	private int height;
-	
+
 	public BuildingsRule2(int height) {
 		this.height = height;
 	}
-	
+
 	@Override
 	public Integer getCost() {
 		return 1;
@@ -28,7 +28,7 @@ public class BuildingsRule2 implements GPSRule {
 	public String toString() {
 		return getName();
 	}
-	
+
 	@Override
 	public GPSState evalRule(GPSState state) throws NotAppliableException {
 		Board board = ((BuildingState) state).getCurrentBoard();
@@ -36,12 +36,16 @@ public class BuildingsRule2 implements GPSRule {
 		int[][] buildings = board.getBuildings();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				if (buildings[i][j] == height) {
-					break;
+				if (buildings[i][j] == 0) {
+					if (board.validatePosition(i, j, height)) {
+						return new BuildingState(board.duplicateAndSet(i, j,
+								height));
+					}
+					else{
+						throw new NotAppliableException();
+					}
 				}
-				if (buildings[i][j] == 0 && board.validatePosition(i, j, height)) {
-					return new BuildingState(board.duplicateAndSet(i, j, height));
-				}
+
 			}
 		}
 		throw new NotAppliableException();

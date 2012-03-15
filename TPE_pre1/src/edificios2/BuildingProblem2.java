@@ -12,7 +12,7 @@ public class BuildingProblem2 extends BuildingProblem {
 	@Override
 	protected void initializeRules() {
 		int maxHeight = initBoard.getSize();
-		for (int i = 1; i < maxHeight; i++) {
+		for (int i = 1; i <= maxHeight; i++) {
 			rules.add(new BuildingsRule2(i));
 		}
 	}

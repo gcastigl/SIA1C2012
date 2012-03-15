@@ -1,18 +1,20 @@
 package edificios;
 
+import edificios.engineimplementation.BuildingsBFSEngine;
+import edificios.engineimplementation.BuildingsDFSEngine;
+import edificios.engineimplementation.BuildingsHybridIDFSEngine;
+import edificios.engineimplementation.BuildingsIDFSEngine;
+import edificios2.BuildingProblem2;
+import exceptions.CorruptFileException;
+import gps.GPSEngine;
+import gps.SearchStrategy;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import util.Logger;
-import edificios.engineimplementation.BuildingsBFSEngine;
-import edificios.engineimplementation.BuildingsDFSEngine;
-import edificios.engineimplementation.BuildingsHybridIDFSEngine;
-import edificios.engineimplementation.BuildingsIDFSEngine;
-import exceptions.CorruptFileException;
-import gps.GPSEngine;
-import gps.SearchStrategy;
 
 
 public class Solver {
@@ -21,38 +23,37 @@ public class Solver {
 	private static final int REDUCED_RULES=1;
 
 	public static void main(String[] args) {
-		if(args == null || args.length == 0) {
+		if (args == null || args.length < 2) {
 			printUsage();
 			return;
 		}
 		
 		// init logger
 		Logger.init();
-		Integer selectedRules = null;
 		if (args.length == 3 || args.length == 4) {
-			Map<String, Integer> loggerLevels = getLogLevels();
-			Map<String, Integer> ruleSet = getRuleSet();
-			
+			Map<String, Integer> loggerLevels = getLogLevels();			
 			Integer level = loggerLevels.get(args[2]);
+			if (level == null && args.length == 4) {
+				level = loggerLevels.get(args[3]);	
+			}
 			if (level == null) {
 				Logger.LOG_LEVEL = Logger.LEVEL_TRACE;
-				selectedRules = ruleSet.get(args[2]);
-				System.out.println(args[2]);
-				System.out.println(selectedRules + "asdf");
 			} else {
 				Logger.LOG_LEVEL = level;
-				selectedRules = ruleSet.get(args[3]);
-				System.out.println(args[3]);
-				System.out.println(selectedRules);
 			}
-			
 		} else {
 			Logger.LOG_LEVEL = Logger.LEVEL_TRACE;
 		}
 		
+		Map<String, Integer> ruleSet = getRuleSet();
+		Integer selectedRules = null;
+		if (args.length >= 3) {			
+			selectedRules = ruleSet.get(args[2]);
+		}
 		if(selectedRules == null){
 			selectedRules = STANDARD_RULES;
 		}
+		System.out.println(selectedRules);
 		Map<String, SearchStrategy> startegies = getStrategies();
 		SearchStrategy se = startegies.get(args[0]);
 		if (se == null) {
@@ -77,7 +78,7 @@ public class Solver {
 		if(selectedRules == STANDARD_RULES)
 			prob = new BuildingProblem(level);
 		else
-			prob = new edificios2.BuildingProblem2(level);
+			prob = new BuildingProblem2(level);
 		GPSEngine eng = getEngines().get(se);
 		long initialTime = System.currentTimeMillis();
 		eng.engine(prob);
@@ -144,10 +145,11 @@ public class Solver {
 	}
 	
 	private static void printUsage() {
-		System.out.println("Usage: Algorithm [Logging level] ProblemN");
+		System.out.println("Usage: Algorithm pathToMap ruleSet [Logging level]\n");
 		System.out.println("Available Algorithms: " + "[BFS | DFS | IDFS | HIDFS]");
+		System.out.println("Rules Set: " + "[STD | RED]");
 		System.out.println("Logging level (optional): " + "[MIN | MED | MAX]");
-		System.out.println("Example: java -jar Solver.java DFS MED 2");
+		System.out.println("Example: java -jar Solver.java DFS res/boards/board3 RED");
 	}
 	
 	private static Map<String, Integer> getRuleSet(){

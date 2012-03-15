@@ -184,7 +184,7 @@ el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica
 
 \par A través de las distintas pruebas realizadas se observó que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver tablas en la sección \textbf{Anexo A}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados y no podíamos aplicar heurísticas,  resultó interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Básicamente lo que se hizo fue preprocesar las pistas o restricciones del tablero y ordenar el conjunto de reglas por única vez. Los tiempos obtenidos preprocesando las reglas fueron superiores a los anteriores pero aún muy inferiores al obtenido por el conjunto reducido de reglas.
 
-\par Observando las tablas se puede apreciar que el orden de eficiencia de los algoritmos fue DFS, IDFS, BFS, en ese orden. 
+\par Observando las tablas se puede apreciar que el algoritmo con mayor performance fue el DFS.
 
 \section{Conclusión}
 
@@ -192,7 +192,7 @@ el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica
 
 \par Resultó muy interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden en cual se agregan los nuevos estados al conjunto de no explorados.
 
-\par No sorprende que el DFS haya sido el algoritmo con mejor desempeño, dado que al tener un árbol con profundidad acotada, el DFS evita los inconvenientes más usuales como pasarse de la profundidad de la solución óptima o entrar en ciclos del grafo (la cota de profundidad le es muy útil). El IDFS tiene una performace un poco menor dado que como el problema tiene profundidad acotada de $n$, el IDFS no es más que un DFS con el overhead extra de tener que iterar por las $n-1$ profundidades anteriores. El BFS resultó ser el menos óptimo dado que son demasiados los estados que debe explorar para llegar a la solución en problemas exponenciales como es el de los \textit{Skycrapers}. 
+\par No sorprende que el DFS haya sido el algoritmo con mejor desempeño, dado que al tener un árbol con profundidad acotada, el DFS evita los inconvenientes más usuales como pasarse de la profundidad de la solución óptima o entrar en ciclos del grafo (la cota de profundidad le es muy útil). El IDFS tiene una performace menor dado que como el problema tiene profundidad acotada de $n$, el IDFS no es más que un DFS con el overhead extra de tener que iterar por las $n-1$ profundidades anteriores. El BFS resultó ser menos óptimo dado que son demasiados los estados que debe explorar para llegar a la solución en problemas exponenciales como es el de los \textit{Skycrapers}. 
 
 %----------------------------------------------------------------------
 % The bibliography. This bibliography was generated using the following

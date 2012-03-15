@@ -25,17 +25,17 @@ public class BuildingsIDFSEngine extends GPSEngine {
 	
 	@Override
 	public void addNode(GPSNode node) {
-		if (visited.contains(node)) {
-			return;
+		if (!visited.contains(node)) {
+			((LinkedList<GPSNode>) open).addFirst(node);
+			visited.add(node);
 		}
-		((LinkedList<GPSNode>) open).addFirst(node);
-		visited.add(node);
 	}
 	
 	@Override
 	protected boolean explode(GPSNode node) {
 		if (node.getDepth() >= currentMaxDepth) {
 			open.clear();
+			visited.clear();
 			open.add(new GPSNode(problem.getInitState(), 0));
 			currentMaxDepth++;
 			return true;

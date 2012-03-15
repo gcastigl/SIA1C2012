@@ -75,7 +75,7 @@
 
 \journal{Cátedra\ \ Sist.\ de\ Inteligencia\ Artificial,\ ITBA\ }
 \titletext{-\ 15, MARZO\ 2012}
-\ieeecopyright{\copyright\ 2011 ITBA}
+\ieeecopyright{\copyright\ 2012 ITBA}
 \lognumber{}
 \pubitemident{}
 \loginfo{15 de Marzo, 2012.}
@@ -99,7 +99,7 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \PARstart El juego \textit{Edificios} también conocido como \textit{Skyscraper puzzle} es una variante del conocido \textit{Sudoku} y consiste de una grilla cuadrada con números en su borde que representan las pistas sobre cuántos edificios se visualizan en esa dirección. El tablero, visto desde arriba, representa un espacio cubierto de edificios. Cada casillero debe ser completado con un dígito que va entre 1 y N, siendo N el tamaño de la grilla; haciendo que cada fila y cada columna contengan sólo una vez a cada dígito (como sucede en el Sudoku).
 
-\par En este puzzle, cada dígito puesto en la grilla podría ser visualizado como un edificio de esa altura. Por ejemplo, si ingresamos un 5, estaríamos colocando un edificio de altura 5. Cada uno de los numeros que están por fuera de la grilla revelan la cantidad de edificios que pueden ser vistos al mirar la línea o columna en esa dirección. Cada edificio bloquea la visión de todo edificio de menor altura que se encuentre detrás de él.
+%\par En este puzzle, cada dígito puesto en la grilla podría ser visualizado como un edificio de %esa altura. Por ejemplo, si ingresamos un 5, estaríamos colocando un edificio de altura 5. Cada %uno de los numeros que están por fuera de la grilla revelan la cantidad de edificios que pueden %ser vistos al mirar la línea o columna en esa dirección. Cada edificio bloquea la visión de todo %edificio de menor altura que se encuentre detrás de él.
 
 %----------------------------------------------------------------------
 % SECTION II: Marco Teórico
@@ -117,7 +117,7 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \section{Modelado del problema}
 
-\par El tablero del juego se modeló mediante la creación de la clase Board; la misma contiene una variable privada de tipo matriz de enteros que representa a la grilla propiamente dicha. Si un casillero dicha matriz  tiene un $0$, significa que  está vacío; si en cambio tiene un número $k \in [1,n]$ significa que hay situado un edificio con altura $k$.\\
+\par El tablero del juego se modeló mediante la creación de la clase Board; la misma contiene una variable privada de tipo matriz de enteros que representa a la grilla propiamente dicha. Si un casillero de dicha matriz  tiene un $0$, significa que  está vacío; si en cambio tiene un número $k \in [1,n]$ significa que hay situado un edificio con altura $k$.\\
 \par Las pistas o restricciones del tablero (números en los bordes del mismo) se modelaron con un arreglo de cuatro vectores de enteros (TOP, BOTTOM, LEFT, RIGHT) que simplemente contienen la restricción en esa dirección.
 Cabe destacar que en los estados únicamente se guarda el tablero; guardar las restricciones sería redundante. Ver \textbf{Figura 1} en la sección \textbf{Anexo B}.\\
 
@@ -125,9 +125,9 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 
 \section{Reglas}
 
-\par Dado un tablero de tamaño $n\times n$ podemos describir las reglas del problema en forma general como sigue:\\
+\par Dado un tablero de tamaño $n\times n$ podemos describir las reglas del problema en forma general como sigue:
 
-\emph{Poner un edificio de altura $x$ en la posición $(i,j)$ del tablero, con $x \in [1, n]$.}\\
+\emph{Poner un edificio de altura $x$ en la posición $(i,j)$ del tablero, con $x \in [1, n]$.}
 
 \par Por lo que, que dado un tablero de $n\times n$, el total de reglas está dado por $n \times {n \times n} = n^3$ ya que por cada fila y por cada columna, se tienen $n$ edificios distintos para colocar. 
 \par Ejemplos de reglas:
@@ -138,9 +138,9 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 
 \end{itemize}
 
-\par Las reglas así definidas producen un factor de ramificación de $n^3$ lo que hace que, para tableros grandes (mayores a $5\times5$) se tarde un tiempo muy considerables (en el orden de las horas) en encontrar la solución. Para subsanar este inconveniente se puede plantear el problema enunciando con reglas diferentes, enumeradas a continuación:\\
+\par Las reglas así definidas producen un factor de ramificación de $n^3$ lo que hace que, para tableros grandes (mayores a $5\times5$) se tarde un tiempo muy considerable (en el orden de las horas) en encontrar la solución. Para subsanar este inconveniente se puede plantear el problema enunciando con un conjunto de reglas distinto, descripto a continuación:\\
 
-\emph{Poner un edificio de tamaño $a$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.}\\
+\emph{Poner un edificio de tamaño $x$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo, con $x \in [1, n]$.}\\
 
 \par En un tablero de $n\times n$ el conjunto de reglas quedaría definido de la siguiente forma:\\
 
@@ -150,50 +150,20 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 \item Poner un edificio de altura $n$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
 \end{itemize}
 
-\par Esto nos otorga un factor de ramificación igual a $n$ siendo este inferior al del caso anterior. Si bien esta estrategia reduce la cantidad de reglas como así también el factor de ramificación, se tomó la decisión de implementar el primer conjunto de reglas [Poner un edificio de altura $x$ en la posición $(i,j)$] ya que, para la siguiente parte del TP, 
-se implementarán heurísticas (descritas en la sección VII) que permitirán en algunos tableros saber qué números se deben colocar en ciertos casilleros, y es oportuno comenzar llenando dichos casilleros para que haya menos ramificación
- (se descartan números en las filas  y columnas en las que se han insertado) y por lo tanto 
-menor cantidad de estados explotados o recorridos. Asimismo el problema de la ramificación $n^3$ se puede subsanar utilizando una función heurística que elija un subconjunto acotado de los posibles $n^3$ sucesores.
-
-
-
-
-\subsection{Metareglas}
-
-\par Si una restriccion en una fila enumera $n$ edificios (siendo $n$ la dimensión del tablero) es conveniente aplicar una metaregla como sigue:\\
-
-\emph{Colocar edificios de altura $1$ hasta $n$ en forma ordenada y ascendente en esa fila o columna}\\
-
-\par Esto reduce considerablemente todos la cantidad de estados explotados por  algoritmos. Esta metaregla no ha sido implementada dado que 
-la búsqueda es desinformada, sin embargo será usada cuando se apliquen heurísticas.
+\par Esto otorga un factor de ramificación igual a $n$ siendo este muy inferior al del caso anterior. \\
+\par Se decidió implementar ambos conjuntos de reglas y los resultados fueron comparados en las tablas de la sección \textbf{Anexo A}.
 
 \section{Costos}
 
-\par Debido a la naturaleza del probema, la aplciacion de todas las reglas tiene el mismo costo y éste es unitario. Es decir que la transición de un estado X a un estado Y, en nuestro caso, siempre nos cuesta $1$.
+\par Debido a la naturaleza del probema, la aplciacion de todas las reglas tiene el mismo costo y éste es unitario. Es decir que la transición de un estado X a un estado Y, en nuestro caso, siempre cuesta $1$.
 
 \section{Algoritmos de búsqueda implementados}
 
-\par Hemos implementado cuatro algoritmos de búsqueda no informada diferentes. Los mismos son:
-
-\begin{description}
-
-\item[DFS]
-Depth-first search
-
-\item[BFS]
-Breadth-first search
-
-\item[IDFS]
-Iterative DFS o profundización iterativa
-
-\item[HIDFS]
-Hybrid Iterative DFS
-
-\end{description}
+\par Hemos implementado cuatro algoritmos de búsqueda no informada diferentes. Los mismos son: DFS, BFS, IDFS, HIDFS.
 
 \section{Heurísticas}
 
-\par La idea detrás de las heurísticas, en un  problema de satisfacción de restricciones como el discutido, no es hallar el camino óptimo a la solución ya que previamente se conoce su profundidad y  costo,  sino descartar caminos que no conducirán al algoritmo hacia la solución. Esto se logra, para un determinado nodo, asignándole el valor "infinito" a la función $h(n)$ de los sucesores irresolubles de éste.\\
+\par La idea detrás de las heurísticas, en un  problema de satisfacción de restricciones como el discutido, no es hallar el camino óptimo a la solución ya que previamente se conoce su profundidad y  costo,  sino descartar caminos que no conducirán al algoritmo hacia la solución. Esto se logra, para un determinado nodo, asignándole el valor \textit{infinito} a la función $h(n)$ de los sucesores irresolubles de éste.\\
 
 \subsection{Heurística 1}
 
@@ -209,17 +179,20 @@ tipo de información útil. Asimismo, cuanto mayor sea este número mayor es la 
 Es fácil ver que $ a + k - (n + 1) $ es la cantidad de casilleros que no pueden contener al edificio de altura $k$, por lo que se aplicará esta heurística únicamente cuando $ a + k - 1 > n$, es decir cuando el número en la restricción y 
 la altura del edificio es relativamente alta comparado a $n$. 
 \par De esta generalidad se obtiene un resultado útil. Dado una fila o columna con restricción $n$, cada edificio de altura $k$ debe estar al menos $n - n + k = k$ distancia. En otras palabras, el edificio de altura máxima debe estar a $n$ casilleros de distancia, 
-el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación, por lo cual se puede aplicar la metaregla mencionada anteriormente.
+el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación.
 \section{Resultados}
 
-\par A través de las distintas pruebas realizadas observamos que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver tablas en la sección \textbf{Anexo A}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados y no podíamos aplicar heurísticas, nos pareció interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Básicamente lo que hicimos fue preprocesar las pistas o restricciones del tablero y ordenar el conjujnto de reglas. Una vez ordenadas éstas no son vueltas a tocar y son pasadas al \textit{GPS} para que este las aplique, en ese órden, en cada paso. Ver tablas comparativas en la sección \textbf{Anexo A}.
+\par A través de las distintas pruebas realizadas se observó que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver tablas en la sección \textbf{Anexo A}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados y no podíamos aplicar heurísticas,  resultó interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Básicamente lo que se hizo fue preprocesar las pistas o restricciones del tablero y ordenar el conjunto de reglas por única vez. Los tiempos obtenidos preprocesando las reglas fueron superiores a los anteriores pero aún muy inferiores al obtenido por el conjunto reducido de reglas.
+
+\par Observando las tablas se puede apreciar que el orden de eficiencia de los algoritmos fue DFS, IDFS, BFS, en ese orden. 
 
 \section{Conclusión}
 
-\PARstart Es notable destacar la cantidad tiempo requerido y uso de recursos a para resolver pequeños problemas con metodos no informados. Ya que, luego de ver los resultados obtenidos para pequeños tableros, se necesitó hacer uso de un pre-ordenamiento de las reglas ya que la resolucion del problema tomaba en el orden de las horas para tableros tan simples como ser 4x4.
+\PARstart Es notable destacar la cantidad tiempo requerido y uso de recursos para resolver pequeños problemas con métodos no informados. Luego de ver los resultados obtenidos para pequeños tableros, se necesitó hacer uso de un pre-ordenamiento de las reglas ya que la resolucion del problema tomaba un tiempo en el orden de las horas para tableros tan simples como ser $4\times4$.\\
 
-\par Resultó muy interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden
-en cual se agregan los nuevos estados al conjunto de no explorados. 
+\par Resultó muy interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden en cual se agregan los nuevos estados al conjunto de no explorados.
+
+\par No sorprende que el DFS haya sido el algoritmo con mejor desempeño, dado que al tener un árbol con profundidad acotada, el DFS evita los inconvenientes más usuales como pasarse de la profundidad de la solución óptima o entrar en ciclos del grafo (la cota de profundidad le es muy útil). El IDFS tiene una performace un poco menor dado que como el problema tiene profundidad acotada de $n$, el IDFS no es más que un DFS con el overhead extra de tener que iterar por las $n-1$ profundidades anteriores. El BFS resultó ser el menos óptimo dado que son demasiados los estados que debe explorar para llegar a la solución en problemas exponenciales como es el de los \textit{Skycrapers}. 
 
 %----------------------------------------------------------------------
 % The bibliography. This bibliography was generated using the following
@@ -285,6 +258,9 @@ en cual se agregan los nuevos estados al conjunto de no explorados.
 
 \onecolumn
 \section*{Anexo A: Tablas}
+
+\textit{Nota: \textbf{N/A} significa que el algoritmo no encontró la respuesta en un tiempo razonable. Algunos tableros han sido corridos durante horas y otros durante varios minutos.}
+
 \subsection{DFS}
 
 \begin{table}[H]
@@ -324,13 +300,13 @@ $(4\times 4)$ & & \\
 \hline
 Tiempo & \textit{N/A} & 9ms \\
 \hline
-Nodos frontera & - & 3 \\
+Nodos frontera & 290 & 3 \\
 \hline
-Nodos expandidos & - & 93 \\
+Nodos expandidos & 91236 & 93 \\
 \hline
-Estados generados & - & 97 \\
+Estados generados & 91527 & 97 \\
 \hline
-Profundidad de la solución & 2 (cantidad edificios  & 16 \\
+Profundidad de la solución & 11 (cantidad edificios  & 16 \\
 &puestos al corte)&\\
 \hline
 &&\\
@@ -345,13 +321,13 @@ $(5\times 5)$ & & \\
 \hline
 Tiempo & \textit{N/A} & 331ms \\
 \hline
-Nodos frontera & - & 7 \\
+Nodos frontera & 935 & 7 \\
 \hline
-Nodos expandidos & - & 901 \\
+Nodos expandidos & 65729 & 901 \\
 \hline
-Estados generados & - & 909 \\
+Estados generados & 66665 & 909 \\
 \hline
-Profundidad de la solución & 2 (cantidad edificios  & 25 \\
+Profundidad de la solución & 17 (cantidad edificios  & 25 \\
 &puestos al corte)&\\
 
 \hline  
@@ -401,13 +377,13 @@ $(4\times 4)$ & & \\
 \hline
 Tiempo & \textit{N/A} & 58ms \\
 \hline
-Nodos frontera & - & 1 \\
+Nodos frontera & 52836 & 1 \\
 \hline
-Nodos expandidos & - & 111 \\
+Nodos expandidos & 4132 & 111 \\
 \hline
-Estados generados & - & 113 \\
+Estados generados & 57522 & 113 \\
 \hline
-Profundidad de la solución & 2 (cantidad edificios  & 16 \\
+Profundidad de la solución & 3 (cantidad edificios  & 16 \\
 &puestos al corte)&\\
 \hline
 &&\\
@@ -422,11 +398,11 @@ $(5\times 5)$ & & \\
 \hline
 Tiempo & \textit{N/A} & 519ms \\
 \hline
-Nodos frontera & - & 0 \\
+Nodos frontera & 152016 & 0 \\
 \hline
-Nodos expandidos & - & 1889 \\
+Nodos expandidos & 3488 & 1889 \\
 \hline
-Estados generados & - & 1890 \\
+Estados generados & 155505 & 1890 \\
 \hline
 Profundidad de la solución & 2 (cantidad edificios  & 25 \\
 &puestos al corte)&\\
@@ -477,15 +453,15 @@ Tablero 2 & & \\
 $(4\times 4)$ & & \\
 &&\\
 \hline
-Tiempo & \textit{N/A} & 268ms \\
+Tiempo & \textit{N/A} & 68ms \\
 \hline
-Nodos frontera & - & 3 \\
+Nodos frontera & 297 & 3 \\
 \hline
-Nodos expandidos & - & 833 \\
+Nodos expandidos & 28979 & 833 \\
 \hline
-Estados generados & - & 837 \\
+Estados generados & 29777 & 837 \\
 \hline
-Profundidad de la solución & 2 (cantidad edificios  & 16 \\
+Profundidad de la solución & 10 (cantidad edificios  & 16 \\
 &puestos al corte)&\\
 \hline
 &&\\
@@ -500,13 +476,13 @@ $(5\times 5)$ & & \\
 \hline
 Tiempo & \textit{N/A} & 1sec 643ms \\
 \hline
-Nodos frontera & - & 7 \\
+Nodos frontera & 954 & 7 \\
 \hline
-Nodos expandidos & - & 6528 \\
+Nodos expandidos & 25571 & 6528 \\
 \hline
-Estados generados & - & 6536 \\
+Estados generados & 26526 & 6536 \\
 \hline
-Profundidad de la solución & 2 (cantidad edificios  & 25 \\
+Profundidad de la solución & 19 (cantidad edificios  & 25 \\
 &puestos al corte)&\\
 
 \hline  

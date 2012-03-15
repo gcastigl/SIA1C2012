@@ -5,4 +5,3 @@ bin/*
 log.txt
 *.log
 *.aux
-*.pdf

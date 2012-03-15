@@ -41,7 +41,7 @@ Los niveles de log son:
 Los conjuntos de reglas disponibles:
 
 * `STD` -- Conjunto de reglas standard: Poner un edificio de altura "k" en la posición (i,j), siendo "k" un número perteneciente a [1,n]. Esto genera un factor de ramificación igual a n**3. 
-* `RED` -- Conjunto de reglas reducido: Poner un edificio de altura 1 en el próximo lugar vacío de izquierda a derecha, de arriba a abajo,...Poner un edificio de altura n en el próximo lugar vacío de izquierda a derecha, de arriba a abajo. Este conjunto de reglas tiene sólo n reglas, siendo n la dimensión del tablero. Esto produce un factor de ramificación igual a n lo que agiliza mucho el tiempo de procesamiento de los algoritmos.
+* `RED` -- Conjunto de reglas reducido: "Poner un edificio de altura 1 en el próximo lugar vacío de izquierda a derecha, de arriba a abajo", ... , "Poner un edificio de altura n en el próximo lugar vacío de izquierda a derecha, de arriba a abajo". Este conjunto de reglas tiene sólo n reglas, siendo n la dimensión del tablero. Esto produce un factor de ramificación igual a n lo que agiliza mucho el tiempo de procesamiento de los algoritmos.
 
 
 El programa creará un archivo de texto `log.txt` con la salida del mismo pero también irá mostrando su avance por la salida estándar. 

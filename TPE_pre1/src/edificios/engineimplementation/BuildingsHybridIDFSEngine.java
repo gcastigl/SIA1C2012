@@ -4,7 +4,6 @@ import gps.GPSEngine;
 import gps.GPSNode;
 import gps.api.GPSProblem;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -66,6 +65,7 @@ public class BuildingsHybridIDFSEngine extends GPSEngine {
 			// again with a deeper search starting from the frontieer modes
 			// returned by the BFS
 			open.clear();
+			visited.clear();
 			open.addAll(frontieerNodes);
 			currentMaxDepth++;
 			return true;

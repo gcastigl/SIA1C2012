@@ -7,6 +7,7 @@ import gps.api.GPSProblem;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class BuildingsHybridIDFSEngine extends GPSEngine {
 	
@@ -15,16 +16,16 @@ public class BuildingsHybridIDFSEngine extends GPSEngine {
 	private static final int MODE_DFS = 0;
 	private static final int MODE_BFS = 1;
 	
-	private Collection<GPSNode> frontieerNodes = new HashSet<GPSNode>();
+	private Set<GPSNode> visited = new HashSet<GPSNode>();
+	private Set<GPSNode> frontieerNodes = new HashSet<GPSNode>();
 	private int mode; 
 	private int currentMaxDepth;
-	// used for the DFS algorithm
-	private int index = 0, indexDepth = 0;
 	
 	@Override
 	public void engine(GPSProblem myProblem) {
 		mode = MODE_BFS;
 		currentMaxDepth = 1;
+		visited.clear();
 		frontieerNodes.clear();
 		super.engine(myProblem);
 	}
@@ -33,16 +34,15 @@ public class BuildingsHybridIDFSEngine extends GPSEngine {
 	public void addNode(GPSNode node) {
 		switch(mode) {
 			case MODE_DFS:
-				if (indexDepth != node.getDepth()) {
-					indexDepth = node.getDepth();
-					index = 0;
+				if (!visited.contains(node)) {
+					((LinkedList<GPSNode>) open).addFirst(node);
+					visited.add(node);
 				}
-				((LinkedList<GPSNode>) open).add(index, node);
-				index++;
 				break;
 			case MODE_BFS:
-				if (!open.contains(node)) {
+				if (!visited.contains(node)) {
 					open.add(node);
+					visited.add(node);
 				}
 				break;
 		}
@@ -65,18 +65,12 @@ public class BuildingsHybridIDFSEngine extends GPSEngine {
 			// when bottom of tree is reached, clean open list to start  
 			// again with a deeper search starting from the frontieer modes
 			// returned by the BFS
-			resetToInitialState();
-			open.add(new GPSNode(problem.getInitState(), 0));
+			open.clear();
+			open.addAll(frontieerNodes);
 			currentMaxDepth++;
 			return true;
 		}
 		return super.explode(node);
-	}
-	
-	private void resetToInitialState() {
-		index = 0;
-		indexDepth = 0;
-		open.clear();
 	}
 	
 	@Override

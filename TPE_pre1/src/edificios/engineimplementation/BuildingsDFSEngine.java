@@ -1,22 +1,32 @@
 package edificios.engineimplementation;
 
-import java.util.LinkedList;
-
+import edificios.BuildingProblem;
 import gps.GPSEngine;
 import gps.GPSNode;
+import gps.api.GPSProblem;
+
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Set;
 
 public class BuildingsDFSEngine extends GPSEngine {
-
-	private int index = 0, indexDepth = 0;
+	
+	private Set<GPSNode> visited = new HashSet<GPSNode>();
+	
+	@Override
+	public void engine(GPSProblem problem) {
+		((BuildingProblem) problem).invertRules();
+		visited.clear();
+		super.engine(problem);
+	}
 	
 	@Override
 	public void addNode(GPSNode node) {
-		if (indexDepth != node.getDepth()) {
-			indexDepth = node.getDepth();
-			index = 0;
+		if (visited.contains(node)) {
+			return;
 		}
-		((LinkedList<GPSNode>) open).add(index, node);
-		index++;
+		((LinkedList<GPSNode>) open).addFirst(node);
+		visited.add(node);
 	}
 	
 	@Override

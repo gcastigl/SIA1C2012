@@ -1,41 +1,46 @@
 package edificios.engineimplementation;
 
+import edificios.BuildingProblem;
 import gps.GPSEngine;
 import gps.GPSNode;
+import gps.api.GPSProblem;
 
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 
 public class BuildingsIDFSEngine extends GPSEngine {
 
-	private int currentMaxDepth = 1;
-	private int index = 0, indexDepth = 0;
+	private Set<GPSNode> visited = new HashSet<GPSNode>();
+	private int currentMaxDepth;
+	
+	@Override
+	public void engine(GPSProblem problem) {
+		((BuildingProblem) problem).invertRules();
+		visited.clear();
+		currentMaxDepth = 1;
+		super.engine(problem);
+	}
 	
 	@Override
 	public void addNode(GPSNode node) {
-		if (indexDepth != node.getDepth()) {
-			indexDepth = node.getDepth();
-			index = 0;
+		if (visited.contains(node)) {
+			return;
 		}
-		((LinkedList<GPSNode>) open).add(index, node);
-		index++;
+		((LinkedList<GPSNode>) open).addFirst(node);
+		visited.add(node);
 	}
 	
 	@Override
 	protected boolean explode(GPSNode node) {
 		if (node.getDepth() >= currentMaxDepth) {
-			resetToInitialState();
+			open.clear();
 			open.add(new GPSNode(problem.getInitState(), 0));
 			currentMaxDepth++;
 			return true;
 		}
 		return super.explode(node);
-	}
-	
-	private void resetToInitialState() {
-		index = 0;
-		indexDepth = 0;
-		open.clear();
 	}
 	
 	@Override

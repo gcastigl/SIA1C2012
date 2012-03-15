@@ -134,6 +134,14 @@ public class BuildingProblem implements GPSProblem {
 		return rules;
 	}
 	
+	public void invertRules() {
+		List<GPSRule> inverted = new LinkedList<GPSRule>();
+		for(GPSRule r: rules) {
+			inverted.add(r);
+		}
+		rules = inverted;
+	}
+	
 	@Override
 	public String toString() {
 		return "\n" + initBoard.toString();

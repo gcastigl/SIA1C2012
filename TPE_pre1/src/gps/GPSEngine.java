@@ -51,6 +51,8 @@ public abstract class GPSEngine {
 		if (finished) {
 			Logger.log("GPSEngine", "OK! solution found!", Logger.LEVEL_TRACE);
 			Logger.log("GPSEngine", "Expanded nodes: " + explosionCounter, Logger.LEVEL_TRACE);
+			Logger.log("GPSEngine", "Frontieer nodes: " + open.size(), Logger.LEVEL_TRACE);
+			Logger.log("GPSEngine", "Total generated nodes: " + (open.size() + closed.size()), Logger.LEVEL_TRACE);
 		} else if (failed) {
 			Logger.log("GSPEngine", "FAILED! solution not found!", Logger.LEVEL_ERROR);
 		}
@@ -65,14 +67,15 @@ public abstract class GPSEngine {
 
 	protected boolean explode(GPSNode node) {
 		Logger.log("Explode", node, Logger.LEVEL_DEBUG);
+		Logger.log("Frontieer", "Nodes in open list: " + open.size(), Logger.LEVEL_DEBUG);
 		
 		for (GPSRule rule : problem.getRules()) {
 			GPSState newState = null;
 			try {
 				newState = rule.evalRule(node.getState());
-				Logger.log("Applied Rule", rule, Logger.LEVEL_DEBUG);
+//				Logger.log("Applied Rule", rule, Logger.LEVEL_DEBUG);
 			} catch (NotAppliableException e) {
-				Logger.log("Invalid Rule", rule, Logger.LEVEL_DEBUG);
+//				Logger.log("Invalid Rule", rule, Logger.LEVEL_DEBUG);
 				// Do nothing
 			}
 			

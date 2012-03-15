@@ -53,7 +53,6 @@ public class Solver {
 		if(selectedRules == null){
 			selectedRules = STANDARD_RULES;
 		}
-		System.out.println(selectedRules);
 		Map<String, SearchStrategy> startegies = getStrategies();
 		SearchStrategy se = startegies.get(args[0]);
 		if (se == null) {

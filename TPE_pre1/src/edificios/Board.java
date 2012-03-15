@@ -47,9 +47,13 @@ public class Board {
 		int viewDistance = Settings.restrictions[Settings.LEFT][row];
 		int count = 0;
 		boolean satisfies = true;
+		boolean complete = true;
 		int currHeight = -1;
-		for (int i = 0; i < n && buildings[row][i] != 0; i++) {
+		for (int i = 0; i < n && complete; i++) {
 			int value = buildings[row][i];
+			if( value == 0){
+				complete = false;
+			}
 			if (value != 0 && value > currHeight) {
 				count++;
 				currHeight = value;
@@ -59,18 +63,26 @@ public class Board {
 			}
 			
 		}
+		if( complete && count != viewDistance){
+			satisfies = false;
+		}
 		viewDistance = Settings.restrictions[Settings.RIGHT][row];		
 		count = 0;
 		currHeight = -1;
-		for (int i = n - 1; i >= 0 && buildings[row][i] != 0; i--) {
+		complete = true;
+		for (int i = n - 1; i >= 0 && complete; i--) {
 			int value = buildings[row][i];
+			if( value == 0){
+				complete = false;
+			}
 			if (value != 0 && value > currHeight) {
 				count++;
 				currHeight = value;
-				if (count > viewDistance) {
-					satisfies = false;
-				}
+				
 			}
+		}
+		if( complete && count != viewDistance){
+			satisfies = false;
 		}
 		return satisfies;
 	}
@@ -80,28 +92,37 @@ public class Board {
 		int count = 0;
 		int currHeight = -1;
 		boolean satisfies = true;
-		for (int i = 0; i < n && buildings[i][col] != 0; i++) {
+		boolean complete = true;
+		for (int i = 0; i < n && complete; i++) {
 			int value = buildings[i][col];
+			if( value == 0){
+				complete = false;
+			}
 			if (value != 0 && value > currHeight) {
 				count++;
 				currHeight = value;
-				if (count > viewDistance) {
-					satisfies = false;
-				}
+				
 			}
+		}
+		if( complete && count != viewDistance){
+			satisfies = false;
 		}
 		viewDistance = Settings.restrictions[Settings.BOTTOM][col];		
 		count = 0;
 		currHeight = -1;
-		for (int i = n - 1; i >= 0 && buildings[i][col] != 0; i--) {
+		complete = true;
+		for (int i = n - 1; i >= 0 && complete; i--) {
 			int value = buildings[i][col];
+			if( value == 0){
+				complete = false;
+			}
 			if (value != 0 && value > currHeight) {
 				count++;
 				currHeight = value;
-				if (count > viewDistance) {
-					satisfies = false;
-				}
 			}
+		}
+		if( complete && count != viewDistance){
+			satisfies = false;
 		}
 		return satisfies;
 	}

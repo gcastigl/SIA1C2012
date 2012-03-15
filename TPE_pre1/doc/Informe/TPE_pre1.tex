@@ -119,7 +119,7 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \par El tablero del juego se modeló mediante la creación de la clase Board; la misma contiene una variable privada de tipo matriz de enteros que representa a la grilla propiamente dicha. Si un casillero dicha matriz  tiene un $0$, significa que  está vacío; si en cambio tiene un número $k \in [1,n]$ significa que hay situado un edificio con altura $k$.\\
 \par Las pistas o restricciones del tablero (números en los bordes del mismo) se modelaron con un arreglo de cuatro vectores de enteros (TOP, BOTTOM, LEFT, RIGHT) que simplemente contienen la restricción en esa dirección.
-Cabe destacar que en los estados únicamente se guarda el tablero; guardar las restricciones sería redundante. Ver \textbf{Figura \ref{modelado}} en la sección \textbf{Anexo B}.\\
+Cabe destacar que en los estados únicamente se guarda el tablero; guardar las restricciones sería redundante. Ver \textbf{Figura 1} en la sección \textbf{Anexo B}.\\
 
 
 
@@ -133,8 +133,6 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 \par Ejemplos de reglas:
 \begin{itemize}
 \item Poner un edificio de altura 1 en la posición $(0,0)$
-\item Poner un edificio de altura 1 en la posición $(0,1)$
-\item Poner un edificio de altura 2 en la posición $(0,0)$
 \item Poner un edificio de altura 4 en la posición $(3,1)$
 \item $\ldots$
 
@@ -148,7 +146,6 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 
 \begin{itemize}
 \item Poner un edificio de altura 1 en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
-\item Poner un edificio de altura 2 en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
 \item $\vdots$
 \item Poner un edificio de altura $n$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
 \end{itemize}
@@ -215,17 +212,14 @@ la altura del edificio es relativamente alta comparado a $n$.
 el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación, por lo cual se puede aplicar la metaregla mencionada anteriormente.
 \section{Resultados}
 
-\par A través de las distintas pruebas realizadas observamos que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver \textbf{tabla \ref{tabla1}} en la sección \textbf{Anexo}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados y no podíamos aplicar heurísticas, nos pareció interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Básicamente lo que hicimos fue preprocesar las pistas o restricciones del tablero y ordenar el conjujnto de reglas. Una vez ordenadas éstas no son vueltas a tocar y son pasadas al \textit{GPS} para que este las aplique, en ese órden, en cada paso. Ver \textbf{tabla \ref{tabla2}} en la sección \textbf{Anexo}.
+\par A través de las distintas pruebas realizadas observamos que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver tablas en la sección \textbf{Anexo A}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados y no podíamos aplicar heurísticas, nos pareció interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Básicamente lo que hicimos fue preprocesar las pistas o restricciones del tablero y ordenar el conjujnto de reglas. Una vez ordenadas éstas no son vueltas a tocar y son pasadas al \textit{GPS} para que este las aplique, en ese órden, en cada paso. Ver tablas comparativas en la sección \textbf{Anexo A}.
 
 \section{Conclusión}
 
 \PARstart Es notable destacar la cantidad tiempo requerido y uso de recursos a para resolver pequeños problemas con metodos no informados. Ya que, luego de ver los resultados obtenidos para pequeños tableros, se necesitó hacer uso de un pre-ordenamiento de las reglas ya que la resolucion del problema tomaba en el orden de las horas para tableros tan simples como ser 4x4.
 
-Resultó muy interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden
+\par Resultó muy interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden
 en cual se agregan los nuevos estados al conjunto de no explorados. 
-
-(continuar!!!)
-
 
 %----------------------------------------------------------------------
 % The bibliography. This bibliography was generated using the following
@@ -308,13 +302,13 @@ Tablero 1 & & \\
 $(3\times 3)$ & & \\
 &&\\
 \hline
-Tiempo & 526ms & 7ms \\
+Tiempo & 245ms & 3ms \\
 \hline
 Nodos frontera & 82 & 4 \\
 \hline
-Nodos expandidos & 1940 & 57 \\
+Nodos expandidos & 993 & 10 \\
 \hline
-Estados generados & 2023 & 62 \\
+Estados generados & 1076 & 15 \\
 \hline
 Profundidad de la solución & 9 & 9 \\
 \hline
@@ -328,13 +322,13 @@ Tablero 2 & & \\
 $(4\times 4)$ & & \\
 &&\\
 \hline
-Tiempo & \textit{N/A} & 142ms \\
+Tiempo & \textit{N/A} & 9ms \\
 \hline
-Nodos frontera & - & 4 \\
+Nodos frontera & - & 3 \\
 \hline
-Nodos expandidos & - & 873 \\
+Nodos expandidos & - & 93 \\
 \hline
-Estados generados & - & 878 \\
+Estados generados & - & 97 \\
 \hline
 Profundidad de la solución & 2 (cantidad edificios  & 16 \\
 &puestos al corte)&\\
@@ -349,13 +343,13 @@ Tablero 3 & & \\
 $(5\times 5)$ & & \\
 &&\\
 \hline
-Tiempo & \textit{N/A} & 21 sec 67ms \\
+Tiempo & \textit{N/A} & 331ms \\
 \hline
-Nodos frontera & - & 14 \\
+Nodos frontera & - & 7 \\
 \hline
-Nodos expandidos & - & 26651 \\
+Nodos expandidos & - & 901 \\
 \hline
-Estados generados & - & 26666 \\
+Estados generados & - & 909 \\
 \hline
 Profundidad de la solución & 2 (cantidad edificios  & 25 \\
 &puestos al corte)&\\
@@ -385,13 +379,13 @@ Tablero 1 & & \\
 $(3\times 3)$ & & \\
 &&\\
 \hline
-Tiempo & 2 sec 234ms & 6ms \\
+Tiempo & 3 sec 793 ms & 11ms \\
 \hline
 Nodos frontera & 0 & 0 \\
 \hline
-Nodos expandidos & 6355 & 22 \\
+Nodos expandidos & 7132 & 16 \\
 \hline
-Estados generados & 6356 & 23 \\
+Estados generados & 7133  & 17 \\
 \hline
 Profundidad de la solución & 9 & 9 \\
 \hline
@@ -405,13 +399,13 @@ Tablero 2 & & \\
 $(4\times 4)$ & & \\
 &&\\
 \hline
-Tiempo & \textit{N/A} & 60ms \\
+Tiempo & \textit{N/A} & 58ms \\
 \hline
-Nodos frontera & 75362 & 11 \\
+Nodos frontera & - & 1 \\
 \hline
-Nodos expandidos & 6469 & 418 \\
+Nodos expandidos & - & 111 \\
 \hline
-Estados generados & 81832 & 430 \\
+Estados generados & - & 113 \\
 \hline
 Profundidad de la solución & 2 (cantidad edificios  & 16 \\
 &puestos al corte)&\\
@@ -426,13 +420,13 @@ Tablero 3 & & \\
 $(5\times 5)$ & & \\
 &&\\
 \hline
-Tiempo & \textit{N/A} & 313ms \\
+Tiempo & \textit{N/A} & 519ms \\
 \hline
-Nodos frontera & 79433 & 8 \\
+Nodos frontera & - & 0 \\
 \hline
-Nodos expandidos & 2013 & 3694 \\
+Nodos expandidos & - & 1889 \\
 \hline
-Estados generados & 88226 & 3703 \\
+Estados generados & - & 1890 \\
 \hline
 Profundidad de la solución & 2 (cantidad edificios  & 25 \\
 &puestos al corte)&\\
@@ -463,13 +457,13 @@ Tablero 1 & & \\
 $(3\times 3)$ & & \\
 &&\\
 \hline
-Tiempo & 526ms & 7ms \\
+Tiempo & 802ms & 21ms \\
 \hline
 Nodos frontera & 82 & 4 \\
 \hline
-Nodos expandidos & 1940 & 57 \\
+Nodos expandidos & 2583 & 57 \\
 \hline
-Estados generados & 2023 & 62 \\
+Estados generados & 2666 & 62 \\
 \hline
 Profundidad de la solución & 9 & 9 \\
 \hline
@@ -483,13 +477,13 @@ Tablero 2 & & \\
 $(4\times 4)$ & & \\
 &&\\
 \hline
-Tiempo & \textit{N/A} & 142ms \\
+Tiempo & \textit{N/A} & 268ms \\
 \hline
-Nodos frontera & - & 4 \\
+Nodos frontera & - & 3 \\
 \hline
-Nodos expandidos & - & 873 \\
+Nodos expandidos & - & 833 \\
 \hline
-Estados generados & - & 878 \\
+Estados generados & - & 837 \\
 \hline
 Profundidad de la solución & 2 (cantidad edificios  & 16 \\
 &puestos al corte)&\\
@@ -504,13 +498,13 @@ Tablero 3 & & \\
 $(5\times 5)$ & & \\
 &&\\
 \hline
-Tiempo & \textit{N/A} & 21 sec 67ms \\
+Tiempo & \textit{N/A} & 1sec 643ms \\
 \hline
-Nodos frontera & - & 14 \\
+Nodos frontera & - & 7 \\
 \hline
-Nodos expandidos & - & 26651 \\
+Nodos expandidos & - & 6528 \\
 \hline
-Estados generados & - & 26666 \\
+Estados generados & - & 6536 \\
 \hline
 Profundidad de la solución & 2 (cantidad edificios  & 25 \\
 &puestos al corte)&\\

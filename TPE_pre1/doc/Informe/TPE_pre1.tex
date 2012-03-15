@@ -100,7 +100,7 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \PARstart El juego \textit{Edificios} también conocido como \textit{Skyscraper puzzle} es una variante del conocido \textit{Sudoku} y consiste de una grilla cuadrada con números en su borde que representan las pistas sobre cuántos edificios se visualizan en esa dirección. El tablero, visto desde arriba, representa un espacio cubierto de edificios. Cada casillero debe ser completado con un dígito que va entre 1 y N, siendo N el tamaño de la grilla; haciendo que cada fila y cada columna contengan sólo una vez a cada dígito (como sucede en el Sudoku).
 
-\par En este puzzle, cada dígito puesto en la grilla podría ser visualizado como un edificio de esa altura. Por ejemplo, si ingresamos un 5, estaríamos colocando un edificio de altura 5. Cada uno de los numeros que están por fuera de la grilla revelan la cantidad de edificios que pueden ser vistos al mirar la línea o columna en esa dirección. Cada edificio bloquea la visión de todo edificio de menor altura que se encuentre detrás de él.
+%\par En este puzzle, cada dígito puesto en la grilla podría ser visualizado como un edificio de %esa altura. Por ejemplo, si ingresamos un 5, estaríamos colocando un edificio de altura 5. Cada %uno de los numeros que están por fuera de la grilla revelan la cantidad de edificios que pueden %ser vistos al mirar la línea o columna en esa dirección. Cada edificio bloquea la visión de todo %edificio de menor altura que se encuentre detrás de él.
 
 %----------------------------------------------------------------------
 % SECTION II: Marco Teórico
@@ -120,7 +120,7 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy
 
 \par El tablero del juego se modeló mediante la creación de la clase Board; la misma contiene una variable privada de tipo matriz de enteros que representa a la grilla propiamente dicha. Si un casillero dicha matriz  tiene un $0$, significa que  está vacío; si en cambio tiene un número $k \in [1,n]$ significa que hay situado un edificio con altura $k$.\\
 \par Las pistas o restricciones del tablero (números en los bordes del mismo) se modelaron con un arreglo de cuatro vectores de enteros (TOP, BOTTOM, LEFT, RIGHT) que simplemente contienen la restricción en esa dirección.
-Cabe destacar que en los estados únicamente se guarda el tablero; guardar las restricciones sería redundante. Ver \textbf{Figura \ref{modelado}} en la sección \textbf{Anexo B}.\\
+Cabe destacar que en los estados únicamente se guarda el tablero; guardar las restricciones sería redundante. Ver \textbf{Figura 1} en la sección \textbf{Anexo B}.\\
 
 
 
@@ -134,9 +134,7 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 \par Ejemplos de reglas:
 \begin{itemize}
 \item Poner un edificio de altura 1 en la posición $(0,0)$
-\item Poner un edificio de altura 1 en la posición $(0,1)$
-\item Poner un edificio de altura 2 en la posición $(0,0)$
-\item Poner un edificio de altura 4 en la posición $(3,1)$
+\item Poner un edificio de altura 2 en la posición $(3,1)$
 \item $\ldots$
 
 \end{itemize}
@@ -149,7 +147,6 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 
 \begin{itemize}
 \item Poner un edificio de altura 1 en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
-\item Poner un edificio de altura 2 en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
 \item $\vdots$
 \item Poner un edificio de altura $n$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
 \end{itemize}
@@ -163,7 +160,7 @@ La tablas que se encuentran en el anexo ilustran pruebas que demuestran que el c
 
 \section{Algoritmos de búsqueda implementados}
 
-\par Hemos implementado cuatro algoritmos de búsqueda no informada diferentes. Los mismos son:
+\par Se han implementado tres algoritmos de búsqueda no informada diferentes. Los mismos son:
 
 \begin{description}
 
@@ -175,9 +172,6 @@ Breadth-first search
 
 \item[IDFS]
 Iterative DFS o profundización iterativa
-
-\item[HIDFS]
-Hybrid Iterative DFS
 
 \end{description}
 
@@ -202,13 +196,21 @@ la altura del edificio es relativamente alta comparado a $n$.
 el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación.
 \section{Resultados}
 
+<<<<<<< Updated upstream
 \par A través de las distintas pruebas realizadas se observó que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver \textbf{tabla \ref{tabla1}} en la sección \textbf{Anexo}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados , fue interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. VER ESTO: SE PUEDE O NO!!!??! Básicamente lo que se hizo fue preprocesar las pistas o restricciones del tablero y ordenar el conjujnto de reglas. Una vez ordenadas éstas no son vueltas a tocar y son pasadas al \textit{GPS} para que este las aplique, en ese órden, en cada paso. Ver \textbf{tabla \ref{tabla2}} en la sección \textbf{Anexo}.
+=======
+\par A través de las distintas pruebas realizadas se observó que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver tablas comparativs en el  \textbf{Anexo A}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados , fue interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Lo que se hizo fue preprocesar las pistas o restricciones del tablero y ordenar el conjujnto de reglas por única vez. 
+>>>>>>> Stashed changes
 
 \section{Conclusión}
 
 \PARstart Es notable destacar la cantidad tiempo requerido y uso de recursos a para resolver pequeños problemas con metodos no informados. Ya que, luego de ver los resultados obtenidos para pequeños tableros, se necesitó hacer uso de un pre-ordenamiento de las reglas ya que la resolucion del problema tomaba en el orden de las horas para tableros de dimensiones de tan solo 4.
 
+<<<<<<< Updated upstream
 Resultó interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden
+=======
+\par Resultó interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden
+>>>>>>> Stashed changes
 en cual se agregan los nuevos estados al conjunto de no explorados. 
 Comparando los algoritmos no sorprende que el orden de performance haya sido DFS, IDFS y BFS en ese orden. Como la profundidad del problema está acotada 
 en la profundidad de la solución, el DFS resulta óptimo dado que no corre el riesgo de exceder la profundidad de la solución óptima o de caer 
@@ -216,9 +218,12 @@ en ciclos. Dado que se sabe de antemano que en un tablero
 de dimensión $n \times n$ la profundidad de la solución es $n^{2}$, el IDFS no es más que un DFS con el \textit{overhead} extra de tener que explorar 
 todos los nodos con profundidad $n^{2} - 1$. Por último la performance del BFS no es óptima dado que dada la naturaleza exponencial del problema los estados 
 que debe explotar y recorrer son simplemente muy abundantes para resolver el problema eficientemente con una busqueda tan abarcativa. 
+<<<<<<< Updated upstream
 
 (continuar!!!)
 
+=======
+>>>>>>> Stashed changes
 
 %----------------------------------------------------------------------
 % The bibliography. This bibliography was generated using the following
@@ -281,79 +286,218 @@ que debe explotar y recorrer son simplemente muy abundantes para resolver el pro
 
 \clearpage
 
-\onecolumn
 
 \onecolumn
 \section*{Anexo A: Tablas}
+\subsection{DFS}
 
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
-Algoritmo & Dimensión (n) & Tiempo & Nodos explotados\\
+ & Conj. reglas 1 & Conj. reglas 1 (n) & Conj. reglas 2\\
+ & sin preprocesamiento & con preprocesamiento & (reducido)\\
 \hline
 \hline
 
-DFS & $2\times2$ & - & -\\
-DFS & $3\times3$ & - & -\\
-DFS & $4\times4$ & - & -\\
-DFS & $5\times5$ & - & -\\
+&&&\\
+Tablero 1 & & &\\
+$(2\times 2)$ & & &\\
+&&&\\
+Tiempo & 1ms & 2ms & 3ms\\
+Nodos explotados & 10 & 211 & 333\\
+
 \hline
-BFS & $2\times2$ & - & -\\
-BFS & $3\times3$ & - & -\\
-BFS & $4\times4$ & - & -\\
-BFS & $5\times5$ & - & -\\
 \hline
-IDFS & $2\times2$ & - & -\\
-IDFS & $3\times3$ & - & -\\
-IDFS & $4\times4$ & - & -\\
-IDFS & $5\times5$ & - & -\\
+
+&&&\\
+Tablero 2 & & &\\
+$(3\times 3)$ & & &\\
+&&&\\
+Tiempo & 1ms & 2ms & 3ms\\
+Nodos explotados & 10 & 211 & 333\\
+
 \hline
-HIDFS & $2\times2$ & - & -\\
-HIDFS & $3\times3$ & - & -\\
-HIDFS & $4\times4$ & - & -\\
-HIDFS & $5\times5$ & - & -\\
+\hline
+
+&&&\\
+Tablero 3 & & &\\
+$(4\times 4)$ & & &\\
+&&&\\
+Tiempo & 1ms & 2ms & 3ms\\
+Nodos explotados & 10 & 211 & 333\\
+
+\hline
+\hline
+
+&&&\\
+Tablero 4 & & &\\
+$(5\times 5)$ & & &\\
+&&&\\
+Tiempo & 1ms & 2ms & 3ms\\
+Nodos explotados & 10 & 211 & 333\\
+
 
 \hline  
 \end{tabular}
 \end{center}
-\caption{Comparación de tiempos entre algoritmos para distintos tableros}
-\label{tabla1}
+\caption{Comparación de tiempos para DFS con distintos sets de reglas}
+\label{tablaDFS}
 \end{table}
 
+\clearpage
+
+\subsection{BFS}
+
 \begin{table}[H]
 \begin{center}
-\begin{tabular}{|c|c|c|c|}
+\begin{tabular}{|c|c|c|}
 \hline
-Algoritmo & Dimensión (n) & Tiempo & Nodos explotados\\
+ & Conj. reglas 1 &  Conj. reglas 2\\
+ & (estándar) &  (reducido)\\
+
 \hline
 \hline
 
-DFS & $2\times2$ & - & -\\
-DFS & $3\times3$ & - & -\\
-DFS & $4\times4$ & - & -\\
-DFS & $5\times5$ & - & -\\
+&&\\
+Tablero 1 & & \\
+$(3\times 3)$ & & \\
+&&\\
 \hline
-BFS & $2\times2$ & - & -\\
-BFS & $3\times3$ & - & -\\
-BFS & $4\times4$ & - & -\\
-BFS & $5\times5$ & - & -\\
+Tiempo & 2 sec 234ms & 6ms \\
 \hline
-IDFS & $2\times2$ & - & -\\
-IDFS & $3\times3$ & - & -\\
-IDFS & $4\times4$ & - & -\\
-IDFS & $5\times5$ & - & -\\
+Nodos frontera & 0 & 0 \\
 \hline
-HIDFS & $2\times2$ & - & -\\
-HIDFS & $3\times3$ & - & -\\
-HIDFS & $4\times4$ & - & -\\
-HIDFS & $5\times5$ & - & -\\
+Nodos expandidos & 6355 & 22 \\
+\hline
+Estados generados & 6356 & 23 \\
+\hline
+Profundidad de la solución & 9 & 9 \\
+\hline
+&&\\
+
+\hline
+\hline
+
+&&\\
+Tablero 2 & & \\
+$(4\times 4)$ & & \\
+&&\\
+\hline
+Tiempo & \textit{N/A} & 60ms \\
+\hline
+Nodos frontera & 75362 & 11 \\
+\hline
+Nodos expandidos & 6469 & 418 \\
+\hline
+Estados generados & 81832 & 430 \\
+\hline
+Profundidad de la solución & 2 (cantidad edificios  & 16 \\
+&puestos al corte)&\\
+\hline
+&&\\
+
+\hline
+\hline
+
+&&\\
+Tablero 3 & & \\
+$(5\times 5)$ & & \\
+&&\\
+\hline
+Tiempo & \textit{N/A} & 313ms \\
+\hline
+Nodos frontera & 79433 & 8 \\
+\hline
+Nodos expandidos & 2013 & 3694 \\
+\hline
+Estados generados & 88226 & 3703 \\
+\hline
+Profundidad de la solución & 2 (cantidad edificios  & 25 \\
+&puestos al corte)&\\
 
 \hline  
 \end{tabular}
 \end{center}
-\caption{Comparación de tiempos entre algoritmos con ordenamiento de reglas}
-\label{tabla2}
+\caption{Comparación de tiempos para BFS con distintos sets de reglas}\
+\end{table}
+
+
+\clearpage
+
+\subsection{IDFS}
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+ & Conj. reglas 1 &  Conj. reglas 2\\
+ & (estándar) &  (reducido)\\
+
+\hline
+\hline
+
+&&\\
+Tablero 1 & & \\
+$(3\times 3)$ & & \\
+&&\\
+\hline
+Tiempo & 526ms & 7ms \\
+\hline
+Nodos frontera & 82 & 4 \\
+\hline
+Nodos expandidos & 1940 & 57 \\
+\hline
+Estados generados & 2023 & 62 \\
+\hline
+Profundidad de la solución & 9 & 9 \\
+\hline
+&&\\
+
+\hline
+\hline
+
+&&\\
+Tablero 2 & & \\
+$(4\times 4)$ & & \\
+&&\\
+\hline
+Tiempo & \textit{N/A} & 142ms \\
+\hline
+Nodos frontera & - & 4 \\
+\hline
+Nodos expandidos & - & 873 \\
+\hline
+Estados generados & - & 878 \\
+\hline
+Profundidad de la solución & 2 (cantidad edificios  & 16 \\
+&puestos al corte)&\\
+\hline
+&&\\
+
+\hline
+\hline
+
+&&\\
+Tablero 3 & & \\
+$(5\times 5)$ & & \\
+&&\\
+\hline
+Tiempo & \textit{N/A} & 21 sec 67ms \\
+\hline
+Nodos frontera & - & 14 \\
+\hline
+Nodos expandidos & - & 26651 \\
+\hline
+Estados generados & - & 26666 \\
+\hline
+Profundidad de la solución & 2 (cantidad edificios  & 25 \\
+&puestos al corte)&\\
+
+\hline  
+\end{tabular}
+\end{center}
+\caption{Comparación de tiempos para IDFS con distintos sets de reglas}\label{tablaIDFS}
 \end{table}
 
 \clearpage

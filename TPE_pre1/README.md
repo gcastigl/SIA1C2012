@@ -18,6 +18,12 @@ Generalizando
 
 * `java -jar Edificios.jar [DFS BFS IDFS] fileName [MIN MED MAX] [STD RED]` -- El parámetro que indica la estrategia de búsqueda no puede ser omitido como así tampoco el archivo con el tablero a resolver; en caso de omitir el tercer parámetro (nivel de log), el programa se ejecutará con el nivel mínimo de log. Si se omite el parámetro de conjunto de reglas, el programa finalizará con error, es mandatorio elegir qué conjunto de reglas se utilizarán (STD o RED).
 
+Los algoritmos disponibles:
+
+* `DFS` -- Depth-first search 
+* `BFS` -- Breadth-first search
+* `IDFS` --  Iterated DFS
+
 Los problemas disponibles están dentro de la carpeta `/res/boards/` y tienen las siguientes características:
 
 * `board1` -- Tablero de 2x2 

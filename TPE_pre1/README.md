@@ -9,14 +9,14 @@ Sistemas de Inteligencia Artificial
 Ejecución
 ---------
 
-Para correr el General Problem Solver lo primero que debe hacer es correr el comando `ant` lo que creará el archivo `Edificios.jar`. Una vez hecho esto, usted debe declarar qué estrategia de búsqueda no informada utilizará, qué archivo de nivel correrá el algoritmo (tableros) luego, opcionalmente, el nivel de LOG que se desea obtener y por último, obligatoriamente, qué conjunto de reglas utilizar. Ejemplos:
+Para correr el General Problem Solver lo primero que debe hacer es correr el comando `ant` lo que creará el archivo `Edificios.jar`. Una vez hecho esto, usted debe declarar qué estrategia de búsqueda utilizará, qué archivo de nivel correrá el algoritmo (tableros) luego qué conjunto de reglas utilizar y por último, el nivel de LOG que se desea obtener (opcional). Ejemplos:
 
-* `java -jar Edificios.jar DFS res/boards/board1` -- Si desea utilizar Depth-first search como estrategia, cargar el tablero 'board1', no logguear nada y usar el conjunto de reglas STD (standard).
-* `java -jar Edificios.jar BFS res/boards/board3 MAX RED` -- Si desea utilizar Breadth-first search como estrategia, cargar el tablero 'board3', tener un nivel máximo de logueo y utilizar el conjunto de reglas RED (reduced).
+* `java -jar Edificios.jar DFS res/boards/board1 STD` -- Si desea utilizar Depth-first search como estrategia, cargar el tablero 'board1', no logguear nada y usar el conjunto de reglas STD (standard).
+* `java -jar Edificios.jar BFS res/boards/board3 RED MAX` -- Si desea utilizar Breadth-first search como estrategia, cargar el tablero 'board3', utilizar el conjunto de reglas RED (reduced) y tener un nivel máximo de logueo (el logging puede afectar la performance).
 
 Generalizando
 
-* `java -jar Edificios.jar [DFS BFS IDFS] fileName [MIN MED MAX] [STD RED]` -- El parámetro que indica la estrategia de búsqueda no puede ser omitido como así tampoco el archivo con el tablero a resolver; en caso de omitir el tercer parámetro (nivel de log), el programa se ejecutará con el nivel mínimo de log. Si se omite el parámetro de conjunto de reglas, el programa finalizará con error, es mandatorio elegir qué conjunto de reglas se utilizarán (STD o RED).
+* `java -jar Edificios.jar [DFS BFS IDFS] fileName [STD RED] [MIN MED MAX]` -- El parámetro que indica la estrategia de búsqueda no puede ser omitido como así tampoco el archivo con el tablero a resolver; en caso de omitir el último parámetro (nivel de log), el programa se ejecutará con el nivel mínimo de log. 
 
 Los algoritmos disponibles:
 
@@ -34,9 +34,9 @@ Los problemas disponibles están dentro de la carpeta `/res/boards/` y tienen la
 
 Los niveles de log son:
 
-* `MIN` -- 
-* `MED` -- 
-* `MAX` -- 
+* `MIN`  
+* `MED`  
+* `MAX`  
 
 Los conjuntos de reglas disponibles:
 

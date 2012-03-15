@@ -154,22 +154,8 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 \item Poner un edificio de altura $n$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
 \end{itemize}
 
-\par Esto nos otorga un factor de ramificación igual a $n$ siendo este inferior al del caso anterior. Si bien esta estrategia reduce la cantidad de reglas como así también el factor de ramificación, se tomó la decisión de implementar el primer conjunto de reglas [Poner un edificio de altura $x$ en la posición $(i,j)$] ya que, para la siguiente parte del TP, 
-se implementarán heurísticas (descritas en la sección VII) que permitirán en algunos tableros saber qué números se deben colocar en ciertos casilleros, y es oportuno comenzar llenando dichos casilleros para que haya menos ramificación
- (se descartan números en las filas  y columnas en las que se han insertado) y por lo tanto 
-menor cantidad de estados explotados o recorridos. Asimismo el problema de la ramificación $n^3$ se puede subsanar utilizando una función heurística que elija un subconjunto acotado de los posibles $n^3$ sucesores.
-
-
-
-
-\subsection{Metareglas}
-
-\par Si una restriccion en una fila enumera $n$ edificios (siendo $n$ la dimensión del tablero) es conveniente aplicar una metaregla como sigue:\\
-
-\emph{Colocar edificios de altura $1$ hasta $n$ en forma ordenada y ascendente en esa fila o columna}\\
-
-\par Esto reduce considerablemente todos la cantidad de estados explotados por  algoritmos. Esta metaregla no ha sido implementada dado que 
-la búsqueda es desinformada, sin embargo será usada cuando se apliquen heurísticas.
+\par Esto nos otorga un factor de ramificación igual a $n$ siendo este inferior al del caso anterior. Esta estrategia reduce la cantidad de reglas como así también el factor de ramificación, se tomó la decisión de implementar ambos conjuntos de reglas y comparar los resultados.
+La tablas que se encuentran en el anexo ilustran pruebas que demuestran que el conjunto de reglas reducido es superior al otro como se sospechó.
 
 \section{Costos}
 
@@ -213,17 +199,23 @@ tipo de información útil. Asimismo, cuanto mayor sea este número mayor es la 
 Es fácil ver que $ a + k - (n + 1) $ es la cantidad de casilleros que no pueden contener al edificio de altura $k$, por lo que se aplicará esta heurística únicamente cuando $ a + k - 1 > n$, es decir cuando el número en la restricción y 
 la altura del edificio es relativamente alta comparado a $n$. 
 \par De esta generalidad se obtiene un resultado útil. Dado una fila o columna con restricción $n$, cada edificio de altura $k$ debe estar al menos $n - n + k = k$ distancia. En otras palabras, el edificio de altura máxima debe estar a $n$ casilleros de distancia, 
-el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación, por lo cual se puede aplicar la metaregla mencionada anteriormente.
+el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación.
 \section{Resultados}
 
-\par A través de las distintas pruebas realizadas observamos que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver \textbf{tabla \ref{tabla1}} en la sección \textbf{Anexo}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados y no podíamos aplicar heurísticas, nos pareció interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Básicamente lo que hicimos fue preprocesar las pistas o restricciones del tablero y ordenar el conjujnto de reglas. Una vez ordenadas éstas no son vueltas a tocar y son pasadas al \textit{GPS} para que este las aplique, en ese órden, en cada paso. Ver \textbf{tabla \ref{tabla2}} en la sección \textbf{Anexo}.
+\par A través de las distintas pruebas realizadas se observó que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver \textbf{tabla \ref{tabla1}} en la sección \textbf{Anexo}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados , fue interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. VER ESTO: SE PUEDE O NO!!!??! Básicamente lo que se hizo fue preprocesar las pistas o restricciones del tablero y ordenar el conjujnto de reglas. Una vez ordenadas éstas no son vueltas a tocar y son pasadas al \textit{GPS} para que este las aplique, en ese órden, en cada paso. Ver \textbf{tabla \ref{tabla2}} en la sección \textbf{Anexo}.
 
 \section{Conclusión}
 
-\PARstart Es notable destacar la cantidad tiempo requerido y uso de recursos a para resolver pequeños problemas con metodos no informados. Ya que, luego de ver los resultados obtenidos para pequeños tableros, se necesitó hacer uso de un pre-ordenamiento de las reglas ya que la resolucion del problema tomaba en el orden de las horas para tableros tan simples como ser 4x4.
+\PARstart Es notable destacar la cantidad tiempo requerido y uso de recursos a para resolver pequeños problemas con metodos no informados. Ya que, luego de ver los resultados obtenidos para pequeños tableros, se necesitó hacer uso de un pre-ordenamiento de las reglas ya que la resolucion del problema tomaba en el orden de las horas para tableros de dimensiones de tan solo 4.
 
-Resultó muy interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden
+Resultó interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden
 en cual se agregan los nuevos estados al conjunto de no explorados. 
+Comparando los algoritmos no sorprende que el orden de performance haya sido DFS, IDFS y BFS en ese orden. Como la profundidad del problema está acotada 
+en la profundidad de la solución, el DFS resulta óptimo dado que no corre el riesgo de exceder la profundidad de la solución óptima o de caer 
+en ciclos. Dado que se sabe de antemano que en un tablero 
+de dimensión $n \times n$ la profundidad de la solución es $n^{2}$, el IDFS no es más que un DFS con el \textit{overhead} extra de tener que explorar 
+todos los nodos con profundidad $n^{2} - 1$. Por último la performance del BFS no es óptima dado que dada la naturaleza exponencial del problema los estados 
+que debe explotar y recorrer son simplemente muy abundantes para resolver el problema eficientemente con una busqueda tan abarcativa. 
 
 (continuar!!!)
 

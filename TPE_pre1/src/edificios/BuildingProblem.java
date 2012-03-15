@@ -18,7 +18,7 @@ public class BuildingProblem implements GPSProblem {
 		initBoard = board;
 		rules = new LinkedList<GPSRule>();
 		initializeRules();
-		sortRules();
+//		sortRules();
 	}
 	
 	protected void initializeRules() {

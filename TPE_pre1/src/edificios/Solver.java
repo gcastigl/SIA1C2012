@@ -1,5 +1,6 @@
 package edificios;
 
+import edificios.engineimplementation.BuildingsAStarEngine;
 import edificios.engineimplementation.BuildingsBFSEngine;
 import edificios.engineimplementation.BuildingsDFSEngine;
 import edificios.engineimplementation.BuildingsHybridIDFSEngine;
@@ -74,10 +75,11 @@ public class Solver {
 		}
 		BuildingProblem prob;
 		System.out.println("RULES: " + selectedRules);
-		if(selectedRules == STANDARD_RULES)
+		if(selectedRules == STANDARD_RULES) {
 			prob = new BuildingProblem(level);
-		else
+		} else {
 			prob = new BuildingProblem2(level);
+		}
 		GPSEngine eng = getEngines().get(se);
 		long initialTime = System.currentTimeMillis();
 		eng.engine(prob);
@@ -122,6 +124,7 @@ public class Solver {
 		startegy.put("BFS", SearchStrategy.BFS);
 		startegy.put("IDFS", SearchStrategy.IDFS);
 		startegy.put("HIDFS", SearchStrategy.HIDFS);
+		startegy.put("AStar", SearchStrategy.AStar);
 		return startegy;
 	}
 	
@@ -140,12 +143,13 @@ public class Solver {
 		engines.put(SearchStrategy.DFS, new BuildingsDFSEngine());
 		engines.put(SearchStrategy.IDFS, new BuildingsIDFSEngine());
 		engines.put(SearchStrategy.HIDFS, new BuildingsHybridIDFSEngine());
+		engines.put(SearchStrategy.AStar, new BuildingsAStarEngine());
 		return engines;
 	}
 	
 	private static void printUsage() {
 		System.out.println("Usage: Algorithm pathToMap ruleSet [Logging level]\n");
-		System.out.println("Available Algorithms: " + "[BFS | DFS | IDFS | HIDFS]");
+		System.out.println("Available Algorithms: " + "[BFS | DFS | IDFS | HIDFS | AStar]");
 		System.out.println("Rules Set: " + "[STD | RED]");
 		System.out.println("Logging level (optional): " + "[MIN | MED | MAX]");
 		System.out.println("Example: java -jar Solver.java DFS res/boards/board3 RED");

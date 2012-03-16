@@ -6,7 +6,6 @@ import gps.api.GPSRule;
 import gps.api.GPSState;
 import gps.exception.NotAppliableException;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,7 +14,7 @@ import util.Logger;
 public abstract class GPSEngine {
 
 	protected List<GPSNode> open = new LinkedList<GPSNode>();
-	protected List<GPSNode> closed = new ArrayList<GPSNode>();
+	protected List<GPSNode> closed = new LinkedList<GPSNode>();
 	protected GPSProblem problem;
 	
 	public void engine(GPSProblem problem) {
@@ -58,7 +57,7 @@ public abstract class GPSEngine {
 		}
 	}
 
-	private boolean isGoal(GPSNode currentNode) {
+	protected boolean isGoal(GPSNode currentNode) {
 		return currentNode.getState() != null
 				&& currentNode.getState().isGoalState();
 		// getGoalState() is not used in cases that there is more than one solution

@@ -7,6 +7,7 @@ public class GPSNode {
 	private GPSState state;
 	private GPSNode parent;
 	private Integer cost;
+	private int h;
 	private int depth;
 
 	public GPSNode(GPSState state, Integer cost) {
@@ -65,4 +66,21 @@ public class GPSNode {
 	public int hashCode() {
 		return 457 * state.hashCode() + 823 * depth;
 	}
+	
+	public int g() {
+		return cost;
+	}
+
+	public int h() {
+		return h;
+	}
+	
+	public void setH(int h) {
+		this.h = h;
+	}
+	
+	public int f() {
+		return cost + h;
+	}
+	
 }

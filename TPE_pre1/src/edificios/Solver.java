@@ -17,19 +17,46 @@ import java.util.Map;
 
 import util.Logger;
 
-
 public class Solver {
-	
-	private static final int STANDARD_RULES = 0;
-	private static final int REDUCED_RULES=1;
 
 	public static void main(String[] args) {
+		args = new String[] {"AStar", "TPE_pre1/res/boards/board4", "RED"};
 		if (args == null || args.length < 2) {
 			printUsage();
 			return;
 		}
 		
-		// init logger
+		initLogger(args);
+		// init engine
+		Map<String, GPSEngine> engines = getEngines();
+		GPSEngine gps = engines.get(args[0]);
+		if (gps == null) {
+			Logger.log("Solver", args[0] + " strategy not found", Logger.LEVEL_ERROR);
+			return;
+		}
+		// get level
+		Board level = getParsedLevel(args[1]);
+		if (level == null) {
+			Logger.log("Level error", "null level returned by level parser", Logger.LEVEL_ERROR);
+			return;
+		}
+		// init problem builder
+		Map<String, BuildingProblem> problemBuilders = getProblemBuilders(level);
+		BuildingProblem prob = null;
+		if (args.length == 3 || args.length == 4) {
+			prob = problemBuilders.get(args[2]);
+		}
+		if (prob == null) {
+			prob = problemBuilders.get("STD");
+		}
+		// start engine
+		long initialTime = System.currentTimeMillis();
+		gps.engine(prob);
+		long elapsedTime = System.currentTimeMillis() - initialTime;
+		printFormattedElapsedTime(elapsedTime);
+	}
+	
+	private static void initLogger(String[] args) {
 		Logger.init();
 		if (args.length == 3 || args.length == 4) {
 			Map<String, Integer> loggerLevels = getLogLevels();			
@@ -45,49 +72,9 @@ public class Solver {
 		} else {
 			Logger.LOG_LEVEL = Logger.LEVEL_TRACE;
 		}
-		
-		Map<String, Integer> ruleSet = getRuleSet();
-		Integer selectedRules = null;
-		if (args.length >= 3) {			
-			selectedRules = ruleSet.get(args[2]);
-		}
-		if(selectedRules == null){
-			selectedRules = STANDARD_RULES;
-		}
-		Map<String, SearchStrategy> startegies = getStrategies();
-		SearchStrategy se = startegies.get(args[0]);
-		if (se == null) {
-			Logger.log("Solver", args[0] + " strategy not found", Logger.LEVEL_ERROR);
-			return;
-		}
-		
-		if (args[1] == null) {
-			Logger.log("Solver", "You must provide a problem number", Logger.LEVEL_ERROR);
-			printUsage();
-			return;
-		}
-		
-		// init problem engine solver
-		Board level = parseLevel(args[1]);
-		if (level == null) {
-			Logger.log("Level error", "null level returned by level parser", Logger.LEVEL_ERROR);
-			return;
-		}
-		BuildingProblem prob;
-		System.out.println("RULES: " + selectedRules);
-		if(selectedRules == STANDARD_RULES) {
-			prob = new BuildingProblem(level);
-		} else {
-			prob = new BuildingProblem2(level);
-		}
-		GPSEngine eng = getEngines().get(se);
-		long initialTime = System.currentTimeMillis();
-		eng.engine(prob);
-		long elapsedTime = System.currentTimeMillis() - initialTime;
-		printFormattedElapsedTime(elapsedTime);
 	}
 	
-	private static Board parseLevel(String fileName) {
+	private static Board getParsedLevel(String fileName) {
 		try{
 			return BuildingParser.parse(fileName);			
 		}
@@ -105,6 +92,14 @@ public class Solver {
 		}
 	}
 	
+	private static void printUsage() {
+		System.out.println("Usage: Algorithm pathToMap ruleSet [Logging level]\n");
+		System.out.println("Available Algorithms: " + "[BFS | DFS | IDFS | HIDFS | AStar]");
+		System.out.println("Rules Set: " + "[STD | RED]");
+		System.out.println("Logging level (optional): " + "[MIN | MED | MAX]");
+		System.out.println("Example: java -jar Solver.java DFS res/boards/board3 RED");
+	}
+	
 	private static void printFormattedElapsedTime(long elapsedTime) {
 		long ms = elapsedTime % 1000;
 		long seconds = (elapsedTime / 1000) % 60;
@@ -118,13 +113,13 @@ public class Solver {
 		System.out.println(time);
 	}
 	
-	private static Map<String, SearchStrategy> getStrategies() {
-		Map<String, SearchStrategy> startegy = new HashMap<String, SearchStrategy>();
-		startegy.put("DFS", SearchStrategy.DFS);
-		startegy.put("BFS", SearchStrategy.BFS);
-		startegy.put("IDFS", SearchStrategy.IDFS);
-		startegy.put("HIDFS", SearchStrategy.HIDFS);
-		startegy.put("AStar", SearchStrategy.AStar);
+	private static Map<String, GPSEngine> getEngines() {
+		Map<String, GPSEngine> startegy = new HashMap<String, GPSEngine>();
+		startegy.put("DFS", new BuildingsDFSEngine());
+		startegy.put("BFS", new BuildingsBFSEngine());
+		startegy.put("IDFS", new BuildingsIDFSEngine());
+		startegy.put("HIDFS", new BuildingsHybridIDFSEngine());
+		startegy.put("AStar", new BuildingsAStarEngine());
 		return startegy;
 	}
 	
@@ -137,28 +132,10 @@ public class Solver {
 		return loggerLevels;
 	}
 	
-	private static Map<SearchStrategy, GPSEngine> getEngines() {
-		Map<SearchStrategy, GPSEngine> engines = new HashMap<SearchStrategy, GPSEngine>();
-		engines.put(SearchStrategy.BFS, new BuildingsBFSEngine());
-		engines.put(SearchStrategy.DFS, new BuildingsDFSEngine());
-		engines.put(SearchStrategy.IDFS, new BuildingsIDFSEngine());
-		engines.put(SearchStrategy.HIDFS, new BuildingsHybridIDFSEngine());
-		engines.put(SearchStrategy.AStar, new BuildingsAStarEngine());
-		return engines;
-	}
-	
-	private static void printUsage() {
-		System.out.println("Usage: Algorithm pathToMap ruleSet [Logging level]\n");
-		System.out.println("Available Algorithms: " + "[BFS | DFS | IDFS | HIDFS | AStar]");
-		System.out.println("Rules Set: " + "[STD | RED]");
-		System.out.println("Logging level (optional): " + "[MIN | MED | MAX]");
-		System.out.println("Example: java -jar Solver.java DFS res/boards/board3 RED");
-	}
-	
-	private static Map<String, Integer> getRuleSet(){
-		Map<String, Integer> ret = new HashMap<String, Integer>();
-		ret.put("STD",STANDARD_RULES);
-		ret.put("RED", REDUCED_RULES);
+	private static Map<String, BuildingProblem> getProblemBuilders(Board level){
+		Map<String, BuildingProblem> ret = new HashMap<String, BuildingProblem>();
+		ret.put("STD", new BuildingProblem(level));
+		ret.put("RED", new BuildingProblem2(level));
 		return ret;
 	}
 }

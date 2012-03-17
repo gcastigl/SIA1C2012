@@ -19,7 +19,6 @@ import util.Logger;
 public class Solver {
 
 	public static void main(String[] args) {
-		args = new String[] {"AStar", "TPE_pre1/res/boards/board4", "RED"};
 		if (args == null || args.length < 2) {
 			printUsage();
 			return;

@@ -6,6 +6,7 @@ import gps.api.GPSRule;
 import gps.api.GPSState;
 import gps.exception.NotAppliableException;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,9 +14,14 @@ import util.Logger;
 
 public abstract class GPSEngine {
 
-	protected List<GPSNode> open = new LinkedList<GPSNode>();
-	protected List<GPSNode> closed = new LinkedList<GPSNode>();
+	protected Collection<GPSNode> open;
+	protected List<GPSNode> closed;
 	protected GPSProblem problem;
+	
+	public GPSEngine() {
+		open = new LinkedList<GPSNode>();
+		closed = new LinkedList<GPSNode>();
+	}
 	
 	public void engine(GPSProblem problem) {
 		Logger.log("GPSEngine", "Solving with " + getStrategyName() + " the following board \n" + problem.getInitState().toString(), Logger.LEVEL_TRACE);
@@ -33,9 +39,8 @@ public abstract class GPSEngine {
 				Logger.log("GSPEngine", "Algorithm failed - Empty open list", Logger.LEVEL_TRACE);
 				failed = true;
 			} else {
-				GPSNode currentNode = open.get(0);
+				GPSNode currentNode = removeHead();
 				closed.add(currentNode);
-				open.remove(0);
 				if (isGoal(currentNode)) {
 					BuildingState state = (BuildingState) currentNode.getState();
 					Logger.log("Solution", "\n\n" + state.getCurrentBoard(), Logger.LEVEL_TRACE);
@@ -57,11 +62,12 @@ public abstract class GPSEngine {
 		}
 	}
 
+	protected GPSNode removeHead() {
+		return ((List<GPSNode>) open).remove(0);
+	}
+	
 	protected boolean isGoal(GPSNode currentNode) {
-		return currentNode.getState() != null
-				&& currentNode.getState().isGoalState();
-		// getGoalState() is not used in cases that there is more than one solution
-		// && currentNode.getState().compare(problem.getGoalState());
+		return currentNode.getState() != null && currentNode.getState().isGoalState();
 	}
 
 	protected boolean explode(GPSNode node) {
@@ -77,7 +83,6 @@ public abstract class GPSEngine {
 //				Logger.log("Invalid Rule", rule, Logger.LEVEL_DEBUG);
 				// Do nothing
 			}
-			
 			if (newState != null
 					&& !checkBranch(node, newState)
 					&& !checkOpenAndClosed(node.getCost() + rule.getCost(),

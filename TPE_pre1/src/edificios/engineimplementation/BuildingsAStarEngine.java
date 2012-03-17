@@ -1,17 +1,16 @@
 package edificios.engineimplementation;
 
-import gps.GPSEngineAStar;
+import gps.GPSEngine;
 import gps.GPSNode;
-import gps.api.GPSProblem;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
 
-public class BuildingsAStarEngine extends GPSEngineAStar {
+public class BuildingsAStarEngine extends GPSEngine {
+	
 	private static final int INITIAL_QUE_SIZE = 100;
 	
-	@Override
-	public void engine(GPSProblem problem) {
+	public BuildingsAStarEngine() {
 		open = new PriorityQueue<GPSNode>(INITIAL_QUE_SIZE, new Comparator<GPSNode>() {
 			@Override
 			public int compare(GPSNode o1, GPSNode o2) {
@@ -21,7 +20,11 @@ public class BuildingsAStarEngine extends GPSEngineAStar {
 				return o1.h() - o2.h();
 			}
 		});
-		super.engine(problem);
+	}
+	
+	@Override
+	protected GPSNode removeHead() {
+		return ((PriorityQueue<GPSNode>) open).remove();
 	}
 	
 	@Override

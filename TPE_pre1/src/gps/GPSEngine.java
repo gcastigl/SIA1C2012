@@ -15,7 +15,7 @@ import util.Logger;
 public abstract class GPSEngine {
 
 	protected Collection<GPSNode> open;
-	protected List<GPSNode> closed;
+	protected Collection<GPSNode> closed;
 	protected GPSProblem problem;
 	
 	public GPSEngine() {

@@ -8,7 +8,6 @@ import edificios.engineimplementation.BuildingsIDFSEngine;
 import edificios2.BuildingProblem2;
 import exceptions.CorruptFileException;
 import gps.GPSEngine;
-import gps.SearchStrategy;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,7 +24,6 @@ public class Solver {
 			printUsage();
 			return;
 		}
-		
 		initLogger(args);
 		// init engine
 		Map<String, GPSEngine> engines = getEngines();

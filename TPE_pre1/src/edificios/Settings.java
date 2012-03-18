@@ -15,4 +15,9 @@ public class Settings {
 	
 	public static int[][] restrictions;
 
+	
+	public static int PATHSTRATEGY;
+	public static final int SEQUENCE = 0;
+	public static final int SPIRAL = 1;
+	public static final int MRV = 2;
 }

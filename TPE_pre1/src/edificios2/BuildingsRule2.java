@@ -11,15 +11,11 @@ import java.awt.Point;
 
 public class BuildingsRule2 implements GPSRule {
 
-	private int height;
-	private static BoardIteratorStrategy strategy;
-	
 	//Cabeza pero works
+	private static BoardIteratorStrategy strategy;
 	private static Point next;
-
-	public BuildingsRule2(int height) {
-		this.height = height;
-		switch (Settings.PATHSTRATEGY){
+	static {
+		switch (Settings.PATHSTRATEGY) {
 			case Settings.STRATEGY_SEQUENCE:
 				strategy = new SequenceStrategy();
 				break;
@@ -31,6 +27,17 @@ public class BuildingsRule2 implements GPSRule {
 				break;
 			default: throw new IllegalArgumentException("Invalid strategy@Settings.PATHSTRATEGY");
 		}
+	}
+	
+	private static Point getNext(GPSState state){
+		return strategy.getNext(state);
+	}
+	
+	
+	private int height;
+	
+	public BuildingsRule2(int height) {
+		this.height = height;
 	}
 
 	@Override
@@ -51,25 +58,15 @@ public class BuildingsRule2 implements GPSRule {
 	@Override
 	public GPSState evalRule(GPSState state) throws NotAppliableException {
 		Board board = ((BuildingState) state).getCurrentBoard();
-		//System.out.println("---------------------------");
-		//System.out.println(height);
-		if(height == 1){
+		if (height == 1) {
 			next = getNext(state);
 		}
-		//System.out.println("" + next.x + "," + next.y);
 		//board.printBoard();
-		if(board.validatePosition(next.x, next.y, height)){
+		if (board.validatePosition(next.x, next.y, height)) {
 			return new BuildingState(board.duplicateAndSet(next.x, next.y, height));
-		}
-		else{
+		} else{
 			throw new NotAppliableException();
 		}
-		
-		
-	}
-	
-	private static Point getNext(GPSState state){
-		return strategy.getNext(state);
 	}
 
 }

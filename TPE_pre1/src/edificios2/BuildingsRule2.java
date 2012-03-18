@@ -106,7 +106,11 @@ public class BuildingsRule2 implements GPSRule {
 						int count = 0;
 						for( k=1 ; k <= size ; k ++){
 							if(board.validatePosition(i,j, k)){
-								count++;
+								buildings[i][j] = k;
+								if(BuildingProblem2.instance.getHValue(state) != Integer.MAX_VALUE){
+									count++;									
+								}
+								buildings[i][j] = 0;
 							}
 						}
 						if( count < min ){

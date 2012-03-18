@@ -97,6 +97,7 @@ public class BuildingsRule2 implements GPSRule {
 			ret = new Point(x, y);
 			break;
 		case Settings.MRV:
+			board.printBoard();
 			int min = Integer.MAX_VALUE;
 			ret = new Point();
 			int i,j, k;
@@ -107,8 +108,8 @@ public class BuildingsRule2 implements GPSRule {
 						for( k=1 ; k <= size ; k ++){
 							if(board.validatePosition(i,j, k)){
 								buildings[i][j] = k;
-								if(BuildingProblem2.instance.getHValue(state) != Integer.MAX_VALUE){
-									count++;									
+								if(!BuildingProblem2.instance.checkNoSolution(board)){
+									count++;
 								}
 								buildings[i][j] = 0;
 							}
@@ -120,6 +121,14 @@ public class BuildingsRule2 implements GPSRule {
 						}
 					}
 				}
+			}
+			System.out.println(min);
+			System.out.println("Poner en: " + ret.x + "," + ret.y);
+			try{
+				Thread.sleep(5000);				
+			}
+			catch(Exception e){
+				
 			}
 			break;
 		}

@@ -24,6 +24,7 @@ public class Solver {
 			return;
 		}
 		initLogger(args);
+		Settings.PATHSTRATEGY = Settings.STRATEGY_MRV;
 		// init engine
 		Map<String, GPSEngine> engines = getEngines();
 		GPSEngine gps = engines.get(args[0]);
@@ -46,7 +47,6 @@ public class Solver {
 		if (prob == null) {
 			prob = problemBuilders.get("RED");
 		}
-		Settings.PATHSTRATEGY = Settings.MRV;
 		// start engine
 		long initialTime = System.currentTimeMillis();
 		gps.engine(prob);

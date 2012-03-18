@@ -17,7 +17,8 @@ public class Settings {
 
 	
 	public static int PATHSTRATEGY;
-	public static final int SEQUENCE = 0;
-	public static final int SPIRAL = 1;
-	public static final int MRV = 2;
+	
+	public static final int STRATEGY_SEQUENCE = 0;
+	public static final int STRATEGY_SPIRAL = 1;
+	public static final int STRATEGY_MRV = 2;
 }

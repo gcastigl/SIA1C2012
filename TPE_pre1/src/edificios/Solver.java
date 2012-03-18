@@ -46,6 +46,7 @@ public class Solver {
 		if (prob == null) {
 			prob = problemBuilders.get("STD");
 		}
+		Settings.PATHSTRATEGY = Settings.MRV;
 		// start engine
 		long initialTime = System.currentTimeMillis();
 		gps.engine(prob);

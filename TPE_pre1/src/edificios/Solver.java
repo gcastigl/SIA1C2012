@@ -44,7 +44,7 @@ public class Solver {
 			prob = problemBuilders.get(args[2]);
 		}
 		if (prob == null) {
-			prob = problemBuilders.get("STD");
+			prob = problemBuilders.get("RED");
 		}
 		// start engine
 		long initialTime = System.currentTimeMillis();

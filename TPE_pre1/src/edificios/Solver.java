@@ -34,7 +34,6 @@ public class Solver {
 	private static final int TOTAL_PARAMS	= 5;
 	
 	public static void main(String[] args) {
-		args = new String[] {"DFS", "TPE_pre1/res/boards/board4", "inspiral", "Simple", "MED"};
 		if (args == null || args.length < TOTAL_PARAMS) {
 			printUsage();
 			return;
@@ -58,12 +57,13 @@ public class Solver {
 	}
 	
 	private static void printUsage() {
-		System.out.println("Usage: Algorithm pathToMap boardIterator LoggingLevel\n");
-		System.out.println("Algorithms: " + "[BFS | DFS | IDFS | HIDFS | AStar | Greedy]");
-		System.out.println("Board iterators: " + "[Outspiral | Inspiral | MRV | Sequential]");
-		System.out.println("Logging level: " + "[Min | Med | Max]");
-		System.out.println("Example: java -jar Solver.java AStar res/boards/board6x6 Med");
-		System.out.println("** High logging level may reduce performance **");
+		System.out.println("Usage:");
+		System.out.println("\t=> Algorithm:\t\t" + "[BFS | DFS | IDFS | HIDFS | AStar | Greedy]");
+		System.out.println("\t=> Board:\t\t" + "res/boards/*");
+		System.out.println("\t=> Board iterator:\t" + "[Outspiral | Inspiral | MRV | Sequential]");
+		System.out.println("\t=> Heuristic:\t\t" + "[Simple | RestrictDensity]");
+		System.out.print("\t=> Logging level:\t" + "[Min | Med | Max]");
+		System.out.println(" -- ** High logging level may reduce performance **");
 	}
 	
 	private static void printFormattedElapsedTime(long elapsedTime) {
@@ -136,7 +136,7 @@ public class Solver {
 	
 	private static void setDesiredHeursitic(BuildingProblem problem, String heuristic) {
 		Map<String, Heuristic> heuristics = new HashMap<String, Heuristic>();
-		heuristics.put("restrictionDensity", new RestrictionDensityHeuristic());
+		heuristics.put("restrictdensity", new RestrictionDensityHeuristic());
 		heuristics.put("simple", new SimpleHeuristic());
 		Heuristic h = heuristics.get(heuristic);
 		if (h == null) {

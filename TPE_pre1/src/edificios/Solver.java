@@ -32,7 +32,6 @@ public class Solver {
 			printUsage();
 			return;
 		}
-		Settings.PATHSTRATEGY = Settings.STRATEGY_MRV;
 		initLogger(args[LOG_LEVEL].toLowerCase());
 		initBoardIteratorStrategy(args[BOARD_STRATEGY].toLowerCase());
 		GPSEngine gps = initGPS(args[ALGORITHM].toLowerCase());
@@ -91,7 +90,7 @@ public class Solver {
 		Map<String, BoardIteratorStrategy> boardStrategies = new HashMap<String, BoardIteratorStrategy>();
 		boardStrategies.put("mrv", new MRVStrategy());
 		boardStrategies.put("spiral", new SpiralStrategy());
-		boardStrategies.put("sequencial", new SequenceStrategy());
+		boardStrategies.put("sequential", new SequenceStrategy());
 		Settings.strategy = boardStrategies.get(boardStrategy);
 		if (Settings.strategy == null) {
 			throw new IllegalArgumentException("Invalid strategy: " + boardStrategy);

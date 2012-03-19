@@ -9,7 +9,7 @@ import gps.api.GPSState;
 public class BuildingProblem2 extends BuildingProblem {
 
 	//Needed by MRV to access H function to see if it is infinite 
-	public static BuildingProblem2 instance ;
+	public static BuildingProblem2 instance;
 
 	public BuildingProblem2(Board board) {
 		super(board);

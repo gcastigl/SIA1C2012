@@ -10,6 +10,12 @@ public class SpiralStrategy implements BoardIteratorStrategy {
 
 	private static final int[][] DIRECTIONS = {{-1, 0}, {0 , -1}, {1, 0}, {0 , 1}};
 	
+	
+	private boolean outwards;
+	
+	public SpiralStrategy(boolean out) {
+		outwards = out;
+	}
 	@Override
 	public String getName() {
 		return "Spiral iteration";
@@ -22,9 +28,17 @@ public class SpiralStrategy implements BoardIteratorStrategy {
 		int[][] buildings = board.getBuildings();
 		
 		int dir = 0;
-		int currSize = 1;
-		int x = size/2;
-		int y = size/2;
+		int x,y, currSize;
+		if(outwards){
+			y = size/2;
+			currSize = 1;
+			x = size/2;			
+		}
+		else{
+			x = size - 1;
+			y = size - 1;
+			currSize = size-1;
+		}
 		int traversed = 0;
 		int parity = 0;
 		while(buildings[x][y] != 0){
@@ -36,10 +50,24 @@ public class SpiralStrategy implements BoardIteratorStrategy {
 				dir ++;
 				dir = dir % 4;
 				parity++;
-				if(parity == 2){
-					parity = 0;
-					currSize++;
+				if( !outwards && currSize == size - 1){
+					if(parity == 3){
+						parity = 0;
+						currSize--;
+					}
 				}
+				else{
+					if(parity == 2){
+						parity = 0;
+						if(outwards){
+							currSize++;							
+						}
+						else{
+							currSize--;
+						}
+					}
+				}
+				
 			}
 		}
 		return new Point(x, y);

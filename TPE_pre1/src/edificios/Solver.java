@@ -91,7 +91,8 @@ public class Solver {
 	private static void initBoardIteratorStrategy(String boardStrategy) {
 		Map<String, BoardIteratorStrategy> boardStrategies = new HashMap<String, BoardIteratorStrategy>();
 		boardStrategies.put("mrv", new MRVStrategy());
-		boardStrategies.put("spiral", new SpiralStrategy());
+		boardStrategies.put("outspiral", new SpiralStrategy(true));
+		boardStrategies.put("inspiral", new SpiralStrategy(false));
 		boardStrategies.put("sequential", new SequenceStrategy());
 		Settings.strategy = boardStrategies.get(boardStrategy);
 		if (Settings.strategy == null) {

@@ -43,7 +43,7 @@ public class Solver {
 			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
 			return;
 		}
-		BuildingProblem problemBuilder = getProblemBuilders("RED", level);
+		BuildingProblem problemBuilder = getProblemBuilders("red", level);
 		long initialTime = System.currentTimeMillis();
 		gps.engine(problemBuilder);
 		long elapsedTime = System.currentTimeMillis() - initialTime;
@@ -73,23 +73,18 @@ public class Solver {
 	}
 	
 	private static void initLogger(String logParameter) {
+		Map<String, Integer> loggerLevels = new HashMap<String, Integer>();
+		loggerLevels.put("off", Logger.LEVEL_OFF);
+		loggerLevels.put("low", Logger.LEVEL_ERROR);
+		loggerLevels.put("med", Logger.LEVEL_TRACE);
+		loggerLevels.put("max", Logger.LEVEL_DEBUG);
 		Logger.init();
-		Map<String, Integer> loggerLevels = getLogLevels();			
 		Integer level = loggerLevels.get(logParameter);
 		if (level == null) {
 			System.out.println("Unknown logging level: " + logParameter + ". Using Default intead.");
 			level = loggerLevels.get(DEFAULT_LOG_LEVEL);
 		}
 		Logger.LOG_LEVEL = level;
-	}
-
-	private static Map<String, Integer> getLogLevels() {
-		Map<String, Integer> loggerLevels = new HashMap<String, Integer>();
-		loggerLevels.put("off", Logger.LEVEL_OFF);
-		loggerLevels.put("low", Logger.LEVEL_ERROR);
-		loggerLevels.put("med", Logger.LEVEL_TRACE);
-		loggerLevels.put("max", Logger.LEVEL_DEBUG);
-		return loggerLevels;
 	}
 	
 	private static void initBoardIteratorStrategy(String boardStrategy) {
@@ -122,8 +117,8 @@ public class Solver {
 	
 	private static BuildingProblem getProblemBuilders(String builder, Board level){
 		Map<String, BuildingProblem> builders = new HashMap<String, BuildingProblem>();
-		builders.put("STD", new BuildingProblem(level));
-		builders.put("RED", new BuildingProblem2(level));
+		builders.put("std", new BuildingProblem(level));
+		builders.put("red", new BuildingProblem2(level));
 		BuildingProblem problemBuilder = builders.get(builder); 
 		if (problemBuilder == null) {
 			throw new IllegalArgumentException("Unknown " + builder + " type");

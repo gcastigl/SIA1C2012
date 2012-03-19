@@ -23,6 +23,7 @@ import util.Logger;
 
 public class Solver {
 	
+	private static final String DEFAULT_BUILDER = "red";
 	private static final String DEFAULT_LOG_LEVEL = "med";
 	
 	private static final int ALGORITHM 		= 0;
@@ -48,7 +49,7 @@ public class Solver {
 			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
 			return;
 		}
-		BuildingProblem problemBuilder = getProblemBuilders("red", level);
+		BuildingProblem problemBuilder = getProblemBuilders(DEFAULT_BUILDER, level);
 		setDesiredHeursitic(problemBuilder, args[HEURISTIC].toLowerCase());
 		long initialTime = System.currentTimeMillis();
 		gps.engine(problemBuilder);

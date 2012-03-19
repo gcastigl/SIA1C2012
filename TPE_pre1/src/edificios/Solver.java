@@ -27,8 +27,10 @@ public class Solver {
 	private static final int BOARD_STRATEGY = 2;
 	private static final int LOG_LEVEL 		= 3;
 	
+	private static final int TOTAL_PARAMS	= 4;
+	
 	public static void main(String[] args) {
-		if (args == null || args.length < 4) {
+		if (args == null || args.length < TOTAL_PARAMS) {
 			printUsage();
 			return;
 		}

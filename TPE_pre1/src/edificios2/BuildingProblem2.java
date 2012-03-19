@@ -1,20 +1,17 @@
 package edificios2;
 
-import gps.api.GPSState;
-import heuristics.Heuristic;
 import edificios.Board;
 import edificios.BuildingProblem;
+import gps.api.GPSState;
 
 public class BuildingProblem2 extends BuildingProblem {
 
 	// Needed by MRV to access H function to see if it is infinite
 	public static BuildingProblem2 instance;
-	private Heuristic heuristic;
 	
-	public BuildingProblem2(Board board, Heuristic heur) {
+	public BuildingProblem2(Board board) {
 		super(board);
 		instance = this;
-		heuristic = heur;
 	}
 
 	@Override

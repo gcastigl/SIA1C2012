@@ -3,6 +3,7 @@ package edificios;
 import gps.api.GPSProblem;
 import gps.api.GPSRule;
 import gps.api.GPSState;
+import heuristics.Heuristic;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +14,7 @@ public class BuildingProblem implements GPSProblem {
 
 	protected Board initBoard;
 	protected List<GPSRule> rules;
+	protected Heuristic heuristic;
 	
 	public BuildingProblem(Board board) {
 		initBoard = board;
@@ -147,4 +149,8 @@ public class BuildingProblem implements GPSProblem {
 		return "\n" + initBoard.toString();
 	}
 
+	public void setHeuristic(Heuristic heuristic) {
+		this.heuristic = heuristic;
+	}
+	
 }

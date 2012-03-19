@@ -12,7 +12,9 @@ import edificios2.MRVStrategy;
 import edificios2.SequenceStrategy;
 import edificios2.SpiralStrategy;
 import gps.GPSEngine;
+import heuristics.Heuristic;
 import heuristics.RestrictionDensityHeuristic;
+import heuristics.SimpleHeuristic;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,11 +28,13 @@ public class Solver {
 	private static final int ALGORITHM 		= 0;
 	private static final int BOARD 			= 1;
 	private static final int BOARD_STRATEGY = 2;
-	private static final int LOG_LEVEL 		= 3;
+	private static final int HEURISTIC		= 3;
+	private static final int LOG_LEVEL 		= 4;
 	
-	private static final int TOTAL_PARAMS	= 4;
+	private static final int TOTAL_PARAMS	= 5;
 	
 	public static void main(String[] args) {
+		args = new String[] {"DFS", "TPE_pre1/res/boards/board4", "inspiral", "Simple", "MED"};
 		if (args == null || args.length < TOTAL_PARAMS) {
 			printUsage();
 			return;
@@ -46,6 +50,7 @@ public class Solver {
 			return;
 		}
 		BuildingProblem problemBuilder = getProblemBuilders("red", level);
+		setDesiredHeursitic(problemBuilder, args[HEURISTIC].toLowerCase());
 		long initialTime = System.currentTimeMillis();
 		gps.engine(problemBuilder);
 		long elapsedTime = System.currentTimeMillis() - initialTime;
@@ -118,14 +123,27 @@ public class Solver {
 		return gps;
 	}
 	
-	private static BuildingProblem getProblemBuilders(String builder, Board level){
+	private static BuildingProblem getProblemBuilders(String builder, Board level) {
 		Map<String, BuildingProblem> builders = new HashMap<String, BuildingProblem>();
 		builders.put("std", new BuildingProblem(level));
-		builders.put("red", new BuildingProblem2(level, new RestrictionDensityHeuristic()));
+		builders.put("red", new BuildingProblem2(level));
 		BuildingProblem problemBuilder = builders.get(builder); 
 		if (problemBuilder == null) {
 			throw new IllegalArgumentException("Unknown " + builder + " type");
 		}
 		return problemBuilder;
+	}
+	
+	private static void setDesiredHeursitic(BuildingProblem problem, String heuristic) {
+		Map<String, Heuristic> heuristics = new HashMap<String, Heuristic>();
+		heuristics.put("restrictionDensity", new RestrictionDensityHeuristic());
+		heuristics.put("simple", new SimpleHeuristic());
+		Heuristic h = heuristics.get(heuristic);
+		if (h == null) {
+			String error = heuristic + " was not found.";
+			Logger.log("Heuristic", error, Logger.LEVEL_ERROR);
+			throw new IllegalArgumentException(error);
+		}
+		problem.setHeuristic(h);
 	}
 }

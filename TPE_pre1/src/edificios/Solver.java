@@ -1,5 +1,9 @@
 package edificios;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import util.Logger;
 import edificios.engineimplementation.BuildingsAStarEngine;
 import edificios.engineimplementation.BuildingsBFSEngine;
 import edificios.engineimplementation.BuildingsDFSEngine;
@@ -11,11 +15,6 @@ import edificios2.MRVStrategy;
 import edificios2.SequenceStrategy;
 import edificios2.SpiralStrategy;
 import gps.GPSEngine;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import util.Logger;
 
 public class Solver {
 

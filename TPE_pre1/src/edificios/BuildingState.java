@@ -6,6 +6,7 @@ public class BuildingState implements GPSState {
 
 	private Board currentBoard;
 	
+	
 	public BuildingState(Board board) {
 		this.currentBoard = board;
 	}

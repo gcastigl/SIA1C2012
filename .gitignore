@@ -5,4 +5,5 @@ bin/*
 log.txt
 *.log
 *.aux
+*.jar
 *~

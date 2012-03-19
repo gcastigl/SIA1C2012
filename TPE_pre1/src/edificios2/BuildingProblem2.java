@@ -31,15 +31,17 @@ public class BuildingProblem2 extends BuildingProblem {
 
 	@Override
 	public Integer getHValue(GPSState state) {
+		BuildingState s = (BuildingState) state;
 		Board board = ((BuildingState) state).getCurrentBoard();
-		if (checkNoSolution(board)) {
+		if ( checkNoSolution(board)) {
 			return Integer.MAX_VALUE;
 		}
 		int n = board.getSize();
 		return n * n - board.getBuildingOnBoard();
 	}
 
-	private boolean checkNoSolution(Board board) {
+	//Used by MRV
+	public boolean checkNoSolution(Board board) {
 		int[][] buildings = board.getBuildings();
 		int n = board.getSize();
 		// check top restrictions

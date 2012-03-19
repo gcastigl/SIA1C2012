@@ -10,7 +10,7 @@ public class LevelGenerator {
 	public static void main(String[] args) {
 
 		m = new int[dim][dim];
-		int i, j, k;
+		int i, j;
 		for (i = 0; i < dim; i++) {
 			for (j = 0; j < dim; j++) {
 				m[i][j] = 0;

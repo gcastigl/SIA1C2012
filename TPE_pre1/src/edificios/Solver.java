@@ -1,101 +1,62 @@
 package edificios;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import util.Logger;
 import edificios.engineimplementation.BuildingsAStarEngine;
 import edificios.engineimplementation.BuildingsBFSEngine;
 import edificios.engineimplementation.BuildingsDFSEngine;
 import edificios.engineimplementation.BuildingsGreedyEngine;
 import edificios.engineimplementation.BuildingsHybridIDFSEngine;
 import edificios.engineimplementation.BuildingsIDFSEngine;
+import edificios2.BoardIteratorStrategy;
 import edificios2.BuildingProblem2;
 import edificios2.MRVStrategy;
 import edificios2.SequenceStrategy;
 import edificios2.SpiralStrategy;
 import gps.GPSEngine;
 
-public class Solver {
+import java.util.HashMap;
+import java.util.Map;
 
+import util.Logger;
+
+public class Solver {
+	
+	private static final String DEFAULT_LOG_LEVEL = "med";
+	
+	private static final int ALGORITHM 		= 0;
+	private static final int BOARD 			= 1;
+	private static final int BOARD_STRATEGY = 2;
+	private static final int LOG_LEVEL 		= 3;
+	
 	public static void main(String[] args) {
-		if (args == null || args.length < 2) {
+		if (args == null || args.length < 4) {
 			printUsage();
 			return;
 		}
 		Settings.PATHSTRATEGY = Settings.STRATEGY_MRV;
-		initLogger(args);
-		initBoardIteratorStrategy();
-		// init engine
-		Map<String, GPSEngine> engines = getEngines();
-		GPSEngine gps = engines.get(args[0]);
-		if (gps == null) {
-			Logger.log("Solver", args[0] + " strategy not found", Logger.LEVEL_ERROR);
-			return;
-		}
-		// get level
+		initLogger(args[LOG_LEVEL].toLowerCase());
+		initBoardIteratorStrategy(args[BOARD_STRATEGY].toLowerCase());
+		GPSEngine gps = initGPS(args[ALGORITHM].toLowerCase());
 		Board level;
 		try {
-			level = BuildingParser.parse(args[1]);
+			level = BuildingParser.parse(args[BOARD]);
 		} catch (Exception e) {
 			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
 			return;
 		}
-		// init problem builder
-		Map<String, BuildingProblem> problemBuilders = getProblemBuilders(level);
-		BuildingProblem prob = null;
-		if (args.length == 3 || args.length == 4) {
-			prob = problemBuilders.get(args[2]);
-		}
-		if (prob == null) {
-			prob = problemBuilders.get("RED");
-		}
-		// start engine
+		BuildingProblem problemBuilder = getProblemBuilders("RED", level);
 		long initialTime = System.currentTimeMillis();
-		gps.engine(prob);
+		gps.engine(problemBuilder);
 		long elapsedTime = System.currentTimeMillis() - initialTime;
 		printFormattedElapsedTime(elapsedTime);
 	}
 	
-	private static void initLogger(String[] args) {
-		Logger.init();
-		if (args.length == 3 || args.length == 4) {
-			Map<String, Integer> loggerLevels = getLogLevels();			
-			Integer level = loggerLevels.get(args[2]);
-			if (level == null && args.length == 4) {
-				level = loggerLevels.get(args[3]);	
-			}
-			if (level == null) {
-				Logger.LOG_LEVEL = Logger.LEVEL_TRACE;
-			} else {
-				Logger.LOG_LEVEL = level;
-			}
-		} else {
-			Logger.LOG_LEVEL = Logger.LEVEL_TRACE;
-		}
-	}
-	
-	private static void initBoardIteratorStrategy() {
-		switch (Settings.PATHSTRATEGY) {
-			case Settings.STRATEGY_SEQUENCE:
-				Settings.strategy = new SequenceStrategy();
-				break;
-			case Settings.STRATEGY_SPIRAL:
-				Settings.strategy = new SpiralStrategy();
-				break;
-			case Settings.STRATEGY_MRV:
-				Settings.strategy = new MRVStrategy();
-				break;
-			default: throw new IllegalArgumentException("Invalid strategy@Settings.PATHSTRATEGY");
-		}
-	}
-	
 	private static void printUsage() {
-		System.out.println("Usage: Algorithm pathToMap ruleSet [Logging level]\n");
-		System.out.println("Available Algorithms: " + "[BFS | DFS | IDFS | HIDFS | AStar]");
-		System.out.println("Rules Set: " + "[STD | RED]");
-		System.out.println("Logging level (optional): " + "[MIN | MED | MAX]");
-		System.out.println("Example: java -jar Solver.java DFS res/boards/board3 RED");
+		System.out.println("Usage: Algorithm pathToMap boardIterator LoggingLevel\n");
+		System.out.println("Available Algorithms: " + "[BFS | DFS | IDFS | HIDFS | AStar | Greedy]");
+		System.out.println("Available board iterators: " + "[Spiral, MRV, SEQUENCIAL]");
+		System.out.println("Logging level: " + "[MIN | MED | MAX]");
+		System.out.println("Example: java -jar Solver.java AStar res/boards/board6x6 MED");
+		System.out.println("** High logging level may reduce performance **");
 	}
 	
 	private static void printFormattedElapsedTime(long elapsedTime) {
@@ -111,30 +72,62 @@ public class Solver {
 		System.out.println(time);
 	}
 	
-	private static Map<String, GPSEngine> getEngines() {
-		Map<String, GPSEngine> startegy = new HashMap<String, GPSEngine>();
-		startegy.put("DFS", new BuildingsDFSEngine());
-		startegy.put("BFS", new BuildingsBFSEngine());
-		startegy.put("IDFS", new BuildingsIDFSEngine());
-		startegy.put("HIDFS", new BuildingsHybridIDFSEngine());
-		startegy.put("AStar", new BuildingsAStarEngine());
-		startegy.put("Greedy", new BuildingsGreedyEngine());
-		return startegy;
+	private static void initLogger(String logParameter) {
+		Logger.init();
+		Map<String, Integer> loggerLevels = getLogLevels();			
+		Integer level = loggerLevels.get(logParameter);
+		if (level == null) {
+			System.out.println("Unknown logging level: " + logParameter + ". Using Default intead.");
+			level = loggerLevels.get(DEFAULT_LOG_LEVEL);
+		}
+		Logger.LOG_LEVEL = level;
 	}
-	
+
 	private static Map<String, Integer> getLogLevels() {
 		Map<String, Integer> loggerLevels = new HashMap<String, Integer>();
-		loggerLevels.put("OFF", Logger.LEVEL_OFF);
-		loggerLevels.put("LOW", Logger.LEVEL_ERROR);
-		loggerLevels.put("MED", Logger.LEVEL_TRACE);
-		loggerLevels.put("MAX", Logger.LEVEL_DEBUG);
+		loggerLevels.put("off", Logger.LEVEL_OFF);
+		loggerLevels.put("low", Logger.LEVEL_ERROR);
+		loggerLevels.put("med", Logger.LEVEL_TRACE);
+		loggerLevels.put("max", Logger.LEVEL_DEBUG);
 		return loggerLevels;
 	}
 	
-	private static Map<String, BuildingProblem> getProblemBuilders(Board level){
-		Map<String, BuildingProblem> ret = new HashMap<String, BuildingProblem>();
-		ret.put("STD", new BuildingProblem(level));
-		ret.put("RED", new BuildingProblem2(level));
-		return ret;
+	private static void initBoardIteratorStrategy(String boardStrategy) {
+		Map<String, BoardIteratorStrategy> boardStrategies = new HashMap<String, BoardIteratorStrategy>();
+		boardStrategies.put("mrv", new MRVStrategy());
+		boardStrategies.put("spiral", new SpiralStrategy());
+		boardStrategies.put("sequencial", new SequenceStrategy());
+		Settings.strategy = boardStrategies.get(boardStrategy);
+		if (Settings.strategy == null) {
+			throw new IllegalArgumentException("Invalid strategy: " + boardStrategy);
+		}
+	}
+		
+	private static GPSEngine initGPS(String algorithm) {
+		Map<String, GPSEngine> engines = new HashMap<String, GPSEngine>();
+		engines.put("dfs", new BuildingsDFSEngine());
+		engines.put("bfs", new BuildingsBFSEngine());
+		engines.put("idfs", new BuildingsIDFSEngine());
+		engines.put("hidfs", new BuildingsHybridIDFSEngine());
+		engines.put("astar", new BuildingsAStarEngine());
+		engines.put("greedy", new BuildingsGreedyEngine());
+		GPSEngine gps = engines.get(algorithm);
+		if (gps == null) {
+			String error = algorithm + " algorithm not found";
+			Logger.log("Solver", error, Logger.LEVEL_ERROR);
+			throw new IllegalArgumentException(error);
+		}
+		return gps;
+	}
+	
+	private static BuildingProblem getProblemBuilders(String builder, Board level){
+		Map<String, BuildingProblem> builders = new HashMap<String, BuildingProblem>();
+		builders.put("STD", new BuildingProblem(level));
+		builders.put("RED", new BuildingProblem2(level));
+		BuildingProblem problemBuilder = builders.get(builder); 
+		if (problemBuilder == null) {
+			throw new IllegalArgumentException("Unknown " + builder + " type");
+		}
+		return problemBuilder;
 	}
 }

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Board {
 	private int n;
-	private int buildingOnBoard;
+	private int buildingsOnBoard;
 	private int[][] buildings;
 
 	private int lastRow;
@@ -13,7 +13,19 @@ public class Board {
 	public Board(int n) {
 		buildings = new int[n][n];
 		this.n = n;
-		buildingOnBoard = 0;
+		buildingsOnBoard = 0;
+	}
+	
+	public Board(Board b) {
+		this(b.getSize());
+		buildingsOnBoard = b.buildingsOnBoard;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				buildings[i][j] = b.buildings[i][j];
+			}
+		}
+		lastCol = b.lastCol;
+		lastRow = b.lastRow;
 	}
 
 	public void setLastCol(int lastCol) {
@@ -34,8 +46,7 @@ public class Board {
 
 	public boolean validatePosition(int row, int col, int height) {
 		boolean check;
-		check = buildings[row][col] == 0 && checkRow(row, height)
-				&& checkCol(col, height);
+		check = buildings[row][col] == 0 && checkRow(row, height) && checkCol(col, height);
 		if (check) {
 			buildings[row][col] = height;
 			check = checkViewInCol(col, height) && checkViewInRow(row, height);
@@ -151,8 +162,8 @@ public class Board {
 		return buildings;
 	}
 
-	public int getBuildingOnBoard() {
-		return buildingOnBoard;
+	public int getBuildingsOnBoard() {
+		return buildingsOnBoard;
 	}
 
 	@Override
@@ -161,7 +172,7 @@ public class Board {
 			return false;
 		}
 		Board other = (Board) obj;
-		if (other.buildingOnBoard != buildingOnBoard) {
+		if (other.buildingsOnBoard != buildingsOnBoard) {
 			return false;
 		}
 		// only check if there is an equal number of buildings set on both
@@ -190,16 +201,9 @@ public class Board {
 	}
 
 	public Board duplicateAndSet(int row, int col, int height) {
-		Board clone = new Board(n);
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				clone.buildings[i][j] = buildings[i][j];
-			}
-		}
-		clone.lastCol = col;
-		clone.lastRow = row;
+		Board clone = new Board(this);
 		clone.buildings[row][col] = height;
-		clone.buildingOnBoard = buildingOnBoard + 1;
+		clone.buildingsOnBoard = buildingsOnBoard + 1;
 		return clone;
 	}
 
@@ -212,7 +216,7 @@ public class Board {
 		String ret = "";
 		String ln = "";
 		int i, j;
-		ret += "buildings on board: " + buildingOnBoard + "\n";
+		ret += "buildings on board: " + buildingsOnBoard + "\n";
 		for (i = 0; i < n; i++) {
 			ln += Settings.restrictions[Settings.TOP][i] + " ";
 		}

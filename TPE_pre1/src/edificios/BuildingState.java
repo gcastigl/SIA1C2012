@@ -24,7 +24,7 @@ public class BuildingState implements GPSState {
 	public boolean isGoalState() {
 		int[][] buildings = currentBoard.getBuildings();
 		int n = buildings.length;
-		return currentBoard.getBuildingOnBoard() == n * n;
+		return currentBoard.getBuildingsOnBoard() == n * n;
 	}
 	
 	@Override

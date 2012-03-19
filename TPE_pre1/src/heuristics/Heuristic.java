@@ -13,7 +13,7 @@ public abstract class Heuristic {
 		int[][] buildings = board.getBuildings();
 		int n = board.getSize();
 		boolean ret = false;
-		if (board.getBuildingOnBoard() == 0) {
+		if (board.getBuildingsOnBoard() == 0) {
 			return false;
 		}
 		int row = board.getLastRow();

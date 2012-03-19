@@ -11,6 +11,11 @@ public class SpiralStrategy implements BoardIteratorStrategy {
 	private static final int[][] DIRECTIONS = {{-1, 0}, {0 , -1}, {1, 0}, {0 , 1}};
 	
 	@Override
+	public String getName() {
+		return "Spiral iteration";
+	}
+	
+	@Override
 	public Point getNext(GPSState state) {
 		Board board = ((BuildingState) state).getCurrentBoard();
 		int size = board.getSize();

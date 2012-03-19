@@ -8,4 +8,5 @@ public interface BoardIteratorStrategy {
 
 	 Point getNext(GPSState state);
 	 
+	 String getName();
 }

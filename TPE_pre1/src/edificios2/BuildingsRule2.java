@@ -27,7 +27,9 @@ public class BuildingsRule2 implements GPSRule {
 
 	@Override
 	public String getName() {
-		return "Set " + height + " at the first valid position.";
+		String name = "Set " + height + " at the first valid position";
+		name += " - Board iteration: " + Settings.strategy.getName();
+		return name;
 	}
 
 	@Override

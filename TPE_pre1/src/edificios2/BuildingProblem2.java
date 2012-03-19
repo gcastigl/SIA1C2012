@@ -31,7 +31,6 @@ public class BuildingProblem2 extends BuildingProblem {
 
 	@Override
 	public Integer getHValue(GPSState state) {
-		BuildingState s = (BuildingState) state;
 		Board board = ((BuildingState) state).getCurrentBoard();
 		if ( checkNoSolution(board)) {
 			return Integer.MAX_VALUE;

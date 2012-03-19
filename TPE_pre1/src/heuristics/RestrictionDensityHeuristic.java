@@ -30,7 +30,7 @@ public class RestrictionDensityHeuristic extends Heuristic {
 		int toSubtract2 = (int) ((k / (double) ( n*n )) * 5);
 		//System.out.println("1:" + toSubtract1);
 		//System.out.println("2:" + toSubtract2);
-		return 10 * (n * n - board.getBuildingOnBoard());
+		return 10 * (n * n - board.getBuildingsOnBoard());
 		//return 10*(n * n + toSubtract1);
 	}
 

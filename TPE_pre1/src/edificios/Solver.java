@@ -1,20 +1,20 @@
 package edificios;
 
-import edificios.engineimplementation.BuildingsAStarEngine;
-import edificios.engineimplementation.BuildingsBFSEngine;
-import edificios.engineimplementation.BuildingsDFSEngine;
-import edificios.engineimplementation.BuildingsHybridIDFSEngine;
-import edificios.engineimplementation.BuildingsIDFSEngine;
-import edificios2.BuildingProblem2;
-import exceptions.CorruptFileException;
-import gps.GPSEngine;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import util.Logger;
+import edificios.engineimplementation.BuildingsAStarEngine;
+import edificios.engineimplementation.BuildingsBFSEngine;
+import edificios.engineimplementation.BuildingsDFSEngine;
+import edificios.engineimplementation.BuildingsGreedyEngine;
+import edificios.engineimplementation.BuildingsHybridIDFSEngine;
+import edificios.engineimplementation.BuildingsIDFSEngine;
+import edificios2.BuildingProblem2;
+import exceptions.CorruptFileException;
+import gps.GPSEngine;
 
 public class Solver {
 
@@ -118,6 +118,7 @@ public class Solver {
 		startegy.put("IDFS", new BuildingsIDFSEngine());
 		startegy.put("HIDFS", new BuildingsHybridIDFSEngine());
 		startegy.put("AStar", new BuildingsAStarEngine());
+		startegy.put("Greedy", new BuildingsGreedyEngine());
 		return startegy;
 	}
 	

@@ -54,10 +54,10 @@ public class Solver {
 	
 	private static void printUsage() {
 		System.out.println("Usage: Algorithm pathToMap boardIterator LoggingLevel\n");
-		System.out.println("Available Algorithms: " + "[BFS | DFS | IDFS | HIDFS | AStar | Greedy]");
-		System.out.println("Available board iterators: " + "[Spiral, MRV, SEQUENCIAL]");
-		System.out.println("Logging level: " + "[MIN | MED | MAX]");
-		System.out.println("Example: java -jar Solver.java AStar res/boards/board6x6 MED");
+		System.out.println("Algorithms: " + "[BFS | DFS | IDFS | HIDFS | AStar | Greedy]");
+		System.out.println("Board iterators: " + "[Outspiral | Inspiral | MRV | Sequential]");
+		System.out.println("Logging level: " + "[Min | Med | Max]");
+		System.out.println("Example: java -jar Solver.java AStar res/boards/board6x6 Med");
 		System.out.println("** High logging level may reduce performance **");
 	}
 	

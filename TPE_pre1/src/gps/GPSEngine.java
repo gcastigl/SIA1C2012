@@ -57,6 +57,7 @@ public abstract class GPSEngine {
 			Logger.log("GPSEngine", "Expanded nodes: " + explosionCounter, Logger.LEVEL_TRACE);
 			Logger.log("GPSEngine", "Frontieer nodes: " + open.size(), Logger.LEVEL_TRACE);
 			Logger.log("GPSEngine", "Total generated nodes: " + (open.size() + closed.size()), Logger.LEVEL_TRACE);
+			
 		} else if (failed) {
 			Logger.log("GSPEngine", "FAILED! solution not found!", Logger.LEVEL_ERROR);
 		}

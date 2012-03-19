@@ -30,6 +30,7 @@ public class BuildingsAStarEngine extends GPSEngine {
 	@Override
 	public void addNode(GPSNode node) {
 		node.setH(problem.getHValue(node.getState()));
+		
 		open.add(node);
 	}
 

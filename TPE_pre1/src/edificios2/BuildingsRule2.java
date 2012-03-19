@@ -22,7 +22,7 @@ public class BuildingsRule2 implements GPSRule {
 
 	@Override
 	public Integer getCost() {
-		return 1;
+		return 10;
 	}
 
 	@Override

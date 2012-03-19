@@ -1,16 +1,34 @@
 package edificios;
 
+import java.util.Random;
+
 public class LevelGenerator {
 
 	static int[][] m;
-	// static int [] numbers = { 3, 7, 2, 1, 4, 5, 6, 3};
-	static int[] numbers = { 1, 2, 3 };
+	static int [] numbers;
 	static int dim = 7;
+	
 
 	public static void main(String[] args) {
 
 		m = new int[dim][dim];
+		Random rand = new Random();
+		int count = dim * 5;
+		numbers = new int[dim];
 		int i, j;
+		for( i = 0 ; i < dim ; i ++){
+			numbers[i] = i+1;
+		}
+		while(count-- != 0){
+			int a = rand.nextInt(dim);
+			int b = rand.nextInt(dim);
+			j = numbers[a];
+			numbers[a] = numbers[b];
+			numbers[b] = j;
+		}
+		for( i = 0 ; i < dim ; i ++){
+			System.out.println(numbers[i]);
+		}
 		for (i = 0; i < dim; i++) {
 			for (j = 0; j < dim; j++) {
 				m[i][j] = 0;
@@ -78,9 +96,9 @@ public class LevelGenerator {
 			return 1;
 		}
 		int k;
-		for (k = 1; k <= dim; k++) {
-			if (isValid(r, c, k)) {
-				m[r][c] = k;
+		for (k = 0; k < dim; k++) {
+			if (isValid(r, c, numbers[k])) {
+				m[r][c] = numbers[k];
 				if (fillSpace(r, c + 1) == 1)
 					return 1;
 				m[r][c] = 0;

@@ -12,6 +12,7 @@ import edificios2.MRVStrategy;
 import edificios2.SequenceStrategy;
 import edificios2.SpiralStrategy;
 import gps.GPSEngine;
+import heuristics.RestrictionDensityHeuristic;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -120,7 +121,7 @@ public class Solver {
 	private static BuildingProblem getProblemBuilders(String builder, Board level){
 		Map<String, BuildingProblem> builders = new HashMap<String, BuildingProblem>();
 		builders.put("std", new BuildingProblem(level));
-		builders.put("red", new BuildingProblem2(level));
+		builders.put("red", new BuildingProblem2(level, new RestrictionDensityHeuristic()));
 		BuildingProblem problemBuilder = builders.get(builder); 
 		if (problemBuilder == null) {
 			throw new IllegalArgumentException("Unknown " + builder + " type");

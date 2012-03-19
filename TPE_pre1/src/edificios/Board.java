@@ -7,11 +7,30 @@ public class Board {
 	private int buildingOnBoard;
 	private int[][] buildings;
 	
+	private int lastRow;
+	private int lastCol;
+	
 	public Board(int n) {
 		buildings = new int[n][n];
 		this.n = n;
 		buildingOnBoard = 0;
 	}
+	
+	public void setLastCol(int lastCol) {
+		this.lastCol = lastCol;
+	}
+	public void setLastRow(int lastRow) {
+		this.lastRow = lastRow;
+	}
+	
+	
+	public int getLastCol() {
+		return lastCol;
+	}
+	public int getLastRow() {
+		return lastRow;
+	}
+	
 	
 	public boolean validatePosition(int row, int col, int height) {
 		boolean check;
@@ -175,6 +194,8 @@ public class Board {
 				clone.buildings[i][j] = buildings[i][j];
 			}
 		}
+		clone.lastCol = col;
+		clone.lastRow = row;
 		clone.buildings[row][col] = height;
 		clone.buildingOnBoard = buildingOnBoard + 1;
 		return clone;

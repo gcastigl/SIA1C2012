@@ -9,6 +9,11 @@ import java.awt.Point;
 public class SequenceStrategy implements BoardIteratorStrategy {
 
 	@Override
+	public String getName() {
+		return "Sequence iteration";
+	}
+	
+	@Override
 	public Point getNext(GPSState state) {
 		Board board = ((BuildingState) state).getCurrentBoard();
 		Point ret = null;

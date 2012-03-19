@@ -9,6 +9,11 @@ import java.awt.Point;
 public class MRVStrategy implements BoardIteratorStrategy {
 
 	@Override
+	public String getName() {
+		return "MRV iteration";
+	}
+	
+	@Override
 	public Point getNext(GPSState state) {
 		Board board = ((BuildingState) state).getCurrentBoard();
 		int size = board.getSize();

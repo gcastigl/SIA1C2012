@@ -12,27 +12,7 @@ import java.awt.Point;
 public class BuildingsRule2 implements GPSRule {
 
 	//Cabeza pero works
-	private static BoardIteratorStrategy strategy;
 	private static Point next;
-	static {
-		switch (Settings.PATHSTRATEGY) {
-			case Settings.STRATEGY_SEQUENCE:
-				strategy = new SequenceStrategy();
-				break;
-			case Settings.STRATEGY_SPIRAL:
-				strategy = new SpiralStrategy();
-				break;
-			case Settings.STRATEGY_MRV:
-				strategy = new MRVStrategy();
-				break;
-			default: throw new IllegalArgumentException("Invalid strategy@Settings.PATHSTRATEGY");
-		}
-	}
-	
-	private static Point getNext(GPSState state){
-		return strategy.getNext(state);
-	}
-	
 	
 	private int height;
 	
@@ -47,7 +27,9 @@ public class BuildingsRule2 implements GPSRule {
 
 	@Override
 	public String getName() {
-		return "Set " + height + " at the first valid position.";
+		String name = "Set " + height + " at the first valid position";
+		name += " - Board iteration: " + Settings.strategy.getName();
+		return name;
 	}
 
 	@Override
@@ -59,12 +41,12 @@ public class BuildingsRule2 implements GPSRule {
 	public GPSState evalRule(GPSState state) throws NotAppliableException {
 		Board board = ((BuildingState) state).getCurrentBoard();
 		if (height == 1) {
-			next = getNext(state);
+			next = Settings.strategy.getNext(state);
 		}
 		//board.printBoard();
 		if (board.validatePosition(next.x, next.y, height)) {
 			return new BuildingState(board.duplicateAndSet(next.x, next.y, height));
-		} else{
+		} else {
 			throw new NotAppliableException();
 		}
 	}

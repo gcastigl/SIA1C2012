@@ -29,11 +29,6 @@ public class BuildingsRule2 implements GPSRule {
 		}
 	}
 	
-	private static Point getNext(GPSState state){
-		return strategy.getNext(state);
-	}
-	
-	
 	private int height;
 	
 	public BuildingsRule2(int height) {
@@ -59,12 +54,12 @@ public class BuildingsRule2 implements GPSRule {
 	public GPSState evalRule(GPSState state) throws NotAppliableException {
 		Board board = ((BuildingState) state).getCurrentBoard();
 		if (height == 1) {
-			next = getNext(state);
+			next = strategy.getNext(state);
 		}
 		//board.printBoard();
 		if (board.validatePosition(next.x, next.y, height)) {
 			return new BuildingState(board.duplicateAndSet(next.x, next.y, height));
-		} else{
+		} else {
 			throw new NotAppliableException();
 		}
 	}

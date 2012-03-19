@@ -13,7 +13,7 @@ public abstract class Heuristic {
 		int[][] buildings = board.getBuildings();
 		int n = board.getSize();
 		boolean ret = false;
-		if(board.getBuildingOnBoard() == 0){
+		if (board.getBuildingOnBoard() == 0) {
 			return false;
 		}
 		int row = board.getLastRow();
@@ -69,10 +69,10 @@ public abstract class Heuristic {
 		return false;
 	}
 	
-	public int checkHeightOptions(Board board, int row, int col){
+	public int checkHeightOptions(Board board, int row, int col) {
 		int ret = 0;
-		for( int k = 1; k < board.getSize(); k ++){
-			if(board.validatePosition(row, col, k) && !checkHeightConstraint(board, row, col, k)){
+		for (int k = 1; k < board.getSize(); k ++){
+			if (board.validatePosition(row, col, k) && !checkHeightConstraint(board, row, col, k)) {
 				ret++;
 			}
 		}

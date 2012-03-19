@@ -17,5 +17,4 @@ public class Settings {
 	
 	public static int[][] restrictions;
 	public static BoardIteratorStrategy strategy;
-	
 }

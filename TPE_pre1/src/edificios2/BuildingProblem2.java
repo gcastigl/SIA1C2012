@@ -1,10 +1,9 @@
 package edificios2;
 
-import edificios.Board;
-import edificios.BuildingProblem;
-import edificios.BuildingState;
 import gps.api.GPSState;
 import heuristics.Heuristic;
+import edificios.Board;
+import edificios.BuildingProblem;
 
 public class BuildingProblem2 extends BuildingProblem {
 

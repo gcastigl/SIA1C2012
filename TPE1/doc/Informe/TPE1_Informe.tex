@@ -161,7 +161,7 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 
 \section{Algoritmos de búsqueda implementados}
 
-\par Hemos implementado cuatro algoritmos de búsqueda no informada diferentes. Los mismos son: DFS, BFS, IDFS, HIDFS.
+\par Hemos implementado seis algoritmos de búsqueda no informada diferentes. Los mismos son: DFS, BFS, IDFS, HIDFS, Greedy search y AStar \textit{(A*)}.
 
 \section{Heurísticas}
 
@@ -197,7 +197,9 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 \subsection{Heurística 5}
 
 \par Evaluar la \textit{certeza} de un determinado estado. Esto se hace evaluando la cantidad de posiciones seguras y posiciones casi-seguras que tiene el tablero, es decir, la cantidad de lugares donde de antemano ya se sabe que allí sólo podrá ir un sólo número o, en su defecto, podrán ir dos números distintos, generando alternativas posibles para ese casillero.\\
-\par De esta manera, utilizando las reglas similares a las del \textit{Sudoku} en las que un mismo número no puede repetirse en las filas y columnas, se logra puntuar mejor a los tableros que tienen más lugares seguros ante tableros que tienen más posibilidades para sus casilleros.
+\par De esta manera, utilizando las reglas similares a las del \textit{Sudoku} en las que un mismo número no puede repetirse en las filas y columnas, se logra puntuar mejor a los tableros que tienen más lugares seguros ante tableros que tienen más posibilidades para sus casilleros.\\
+
+\par Aunque resulte poco intuitivo, la implementación de esta última heurística redujo considerablemente la performance del algoritmo. Debido a esto se decidió optar por utilizar la heurística de asignarle \textit{infinito} a los tableros irresolubles, en combinación con la de calcular el número de casilleros libres.
 
 \section{Recorridos}
 
@@ -206,7 +208,7 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 \begin{itemize}
 \item \textbf{Recorrido secuencial: } Se avanza de izquierda a derecha, desde arriba hacia abajo.
 \item \textbf{Recorrido en espiral: } Se avanza desde el centro en forma de espiral o desde una esquina hacia al centro, de forma análoga.
-\item \textbf{Recorrido MVRl: } Se avanza hacia el casillero con menor cantidad de valores legales.
+\item \textbf{Recorrido MVR: } Se avanza hacia el casillero con menor cantidad de valores legales.
 \end{itemize}
 
 \section{Resultados}

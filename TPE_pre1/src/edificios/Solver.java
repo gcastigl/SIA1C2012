@@ -6,11 +6,11 @@ import edificios.engineimplementation.BuildingsDFSEngine;
 import edificios.engineimplementation.BuildingsHybridIDFSEngine;
 import edificios.engineimplementation.BuildingsIDFSEngine;
 import edificios2.BuildingProblem2;
-import exceptions.CorruptFileException;
+import edificios2.MRVStrategy;
+import edificios2.SequenceStrategy;
+import edificios2.SpiralStrategy;
 import gps.GPSEngine;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,8 +23,9 @@ public class Solver {
 			printUsage();
 			return;
 		}
-		initLogger(args);
 		Settings.PATHSTRATEGY = Settings.STRATEGY_MRV;
+		initLogger(args);
+		initBoardIteratorStrategy();
 		// init engine
 		Map<String, GPSEngine> engines = getEngines();
 		GPSEngine gps = engines.get(args[0]);
@@ -33,9 +34,11 @@ public class Solver {
 			return;
 		}
 		// get level
-		Board level = getParsedLevel(args[1]);
-		if (level == null) {
-			Logger.log("Level error", "null level returned by level parser", Logger.LEVEL_ERROR);
+		Board level;
+		try {
+			level = BuildingParser.parse(args[1]);
+		} catch (Exception e) {
+			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
 			return;
 		}
 		// init problem builder
@@ -72,21 +75,18 @@ public class Solver {
 		}
 	}
 	
-	private static Board getParsedLevel(String fileName) {
-		try{
-			return BuildingParser.parse(fileName);			
-		}
-		catch(CorruptFileException e){
-			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR );
-			return null;
-		}
-		catch(FileNotFoundException e){
-			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
-			return null;
-		}
-		catch(IOException e){
-			Logger.log("File", e.getMessage(), Logger.LEVEL_ERROR);
-			return null;
+	private static void initBoardIteratorStrategy() {
+		switch (Settings.PATHSTRATEGY) {
+			case Settings.STRATEGY_SEQUENCE:
+				Settings.strategy = new SequenceStrategy();
+				break;
+			case Settings.STRATEGY_SPIRAL:
+				Settings.strategy = new SpiralStrategy();
+				break;
+			case Settings.STRATEGY_MRV:
+				Settings.strategy = new MRVStrategy();
+				break;
+			default: throw new IllegalArgumentException("Invalid strategy@Settings.PATHSTRATEGY");
 		}
 	}
 	

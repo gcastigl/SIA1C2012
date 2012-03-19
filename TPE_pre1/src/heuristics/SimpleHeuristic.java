@@ -6,7 +6,6 @@ import gps.api.GPSState;
 
 public class SimpleHeuristic extends Heuristic{
 	
-
 	@Override
 	public Integer getH(GPSState state) {
 		Board board = ((BuildingState) state).getCurrentBoard();
@@ -14,10 +13,7 @@ public class SimpleHeuristic extends Heuristic{
 			return Integer.MAX_VALUE;
 		}
 		int n = board.getSize();
-		return 10*(n * n - board.getBuildingOnBoard());
+		return n * n - board.getBuildingsOnBoard();
 	}
-	
-	
-	
 
 }

@@ -109,17 +109,25 @@ DFS, BFS, General Problem Solver, depth-first, breadth-first, search strategy, i
 
 \subsection{Estado inicial}
 
-\par El estado inicial del problema es un tablero que contiene sólo las pistas en sus bordes (no contiene ningún edificio en la grilla). Para que el problema tenga solución éste tablero debe ser válido; es decir que no cualquier combinación de pistas sobre la visibilidad de edificios en esa dirección conducirán a un problema resoluble.
+\par El estado inicial del problema es un tablero que contiene sólo las pistas en sus bordes (no contiene ningún edificio en la grilla). 
+Para que el problema tenga solución éste tablero debe ser válido; es decir que no cualquier combinación de pistas sobre la visibilidad
+ de edificios en esa dirección conducirán a un problema resoluble.
 
 \subsection{Estado final}
 
-\par El estado final del problema es un tablero con todos los casilleros completos (lleno de edificios) que cumpla con las reglas del juego citadas anteriormente.
+\par El estado final del problema es un tablero con todos los casilleros completos (lleno de edificios) que cumpla con las reglas 
+del juego citadas anteriormente.
 
 \section{Modelado del problema}
 
-\par El tablero del juego se modeló mediante la creación de la clase Board; la misma contiene una variable privada de tipo matriz de enteros que representa a la grilla propiamente dicha. Si un casillero de dicha matriz  tiene un $0$, significa que  está vacío; si en cambio tiene un número $k \in [1,n]$ significa que hay situado un edificio con altura $k$.\\
-\par Las pistas o restricciones del tablero (números en los bordes del mismo) se modelaron con un arreglo de cuatro vectores de enteros (TOP, BOTTOM, LEFT, RIGHT) que simplemente contienen la restricción en esa dirección.
-Cabe destacar que en los estados únicamente se guarda el tablero; guardar las restricciones sería redundante. Ver \textbf{Figura 1} en la sección \textbf{Anexo B}.\\
+\par El tablero del juego se modeló mediante la creación de la clase Board; la misma contiene una variable privada de tipo matriz de 
+enteros que representa a la grilla propiamente dicha. Si un casillero de dicha matriz  tiene un $0$, significa que  está vacío; si en cambio 
+tiene un número $k \in [1,n]$ significa que hay situado un edificio con altura $k$. El tablero contiene además algunas variables necesarias para 
+incrementar la performance de ciertas heurísticas explicadas adelante. Entre dichas variables se encuentra las coordenadas del último edificio puesto.\\
+\par Las pistas o restricciones del tablero (números en los bordes del mismo) se modelaron con un arreglo de cuatro 
+vectores de enteros (TOP, BOTTOM, LEFT, RIGHT) que simplemente contienen la restricción en esa dirección.
+Cabe destacar que en los estados únicamente se guarda el tablero; guardar las restricciones sería redundante. 
+Ver \textbf{Figura 1} en la sección \textbf{Anexo B}.\\
 
 
 
@@ -140,20 +148,25 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 
 \end{itemize}
 
-\par Las reglas así definidas producen un factor de ramificación de $n^3$ lo que hace que, para tableros grandes (mayores a $5\times5$) se tarde un tiempo muy considerable (en el orden de las horas) en encontrar la solución. Para subsanar este inconveniente se puede plantear el problema enunciando con un conjunto de reglas distinto, descripto a continuación:\\
+\par Las reglas así definidas producen un factor de ramificación de $n^3$ lo que hace que, para tableros grandes (mayores a $5\times5$) se 
+tarde un tiempo muy considerable (en el orden de las horas) en encontrar la solución. Además este conjunto de rueglas tiene el problema 
+de ser mayormente conmutativas. Esto crea muchos estados redundantes. 
+Para subsanar este inconveniente se puede plantear el problema enunciando con un conjunto de reglas distinto, descripto a continuación:\\
 
 \emph{Poner un edificio de tamaño $x$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo, con $x \in [1, n]$.}\\
 
 \par En un tablero de $n\times n$ el conjunto de reglas quedaría definido de la siguiente forma:\\
 
 \begin{itemize}
-\item Poner un edificio de altura 1 en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
+\item Poner un edificio de altura 1 en el próximo lugar disponible según el recorrido usado.
 \item $\vdots$
-\item Poner un edificio de altura $n$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo.
+\item Poner un edificio de altura $n$ en el próximo lugar disponible según el recorrido usado.
 \end{itemize}
 
-\par Esto otorga un factor de ramificación igual a $n$ siendo este muy inferior al del caso anterior. \\
-\par Se decidió implementar ambos conjuntos de reglas y los resultados fueron comparados en las tablas de la sección \textbf{Anexo A}.
+\par Esto otorga un factor de ramificación igual a $n$ siendo este muy inferior al del caso anterior. El próximo casillero a llenar está indicado por 
+el recorrido. Más adelante se enumerarán los recorridos y sus respectivas propiedades, ventajas y desventajas. \\
+\par Para la primer etapa se decidió implementar ambos conjuntos de reglas y los resultados fueron comparados en las tablas de la sección \textbf{Anexo A}. 
+Para la segunda etapa del trabajo se decidió utilizar únicamente el segundo conjunto de reglas, utilizando distintos recorridos y comparándolos (reference needed). 
 
 \section{Costos}
 
@@ -165,38 +178,57 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 
 \section{Heurísticas}
 
-\par La idea detrás de las heurísticas, en un  problema de satisfacción de restricciones como el discutido, no es hallar el camino óptimo a la solución ya que previamente se conoce su profundidad y  costo,  sino descartar caminos que no conducirán al algoritmo hacia la solución. Esto se logra, para un determinado nodo, asignándole el valor \textit{infinito} a la función $h(n)$ de los sucesores irresolubles de éste.\\
+\par Como se ha planteado el modelado del problema, tiene poco sentido hablar de una función heurística que estime el costo de un cierto nodo 
+a la solución. Esto se debe a que la profundidad de la solución es sabida de antemano. Sin embargo, es válido plantear que si un nodo 
+no tiene solución porque ninguna asignación de valores de las variables o casilleros aún incompletos satisface las restricciones del problema. Por lo tanto, 
+se decidió asignar a la función heurística un costo unitario por cada casillero aún no asignado si el tablero aún parece tener solución, e infinito 
+si no se puede alcanzar la solución. Los nodos marcados con un valor de $h$ infinito permanecerán en la frontera y nunca serán explotados a menos que 
+el problema no tenga solución.
+\par Se centró el estudio de los tableros sin soluciones en base a las restricciones dadas por los números fuera del tablero, numeradas a continuación.\\
 
-\par Al comenzar el estudio del problema, se pensaron heurísticas sólo basadas en las restricciones o pistas del tablero. Las mismas son:\\
-
-\subsection{Heurística 1}
+\subsection{Propiedad 1}
 
 \par Si una restricción indica el número $1$, esa fila o columna deberá comenzar con la altura maxima $(n)$. Además si la restricción opuesta es un $2$, se coloca $n-1$ al lado de este.
 
-\subsection{Heurística 2}
+\subsection{Propiedad 2}
 
 \par Dado un tablero de dimensión $n$, si una restricción indica algún número distinto de $1$ , esa fila o columna trivialmente no podrá comenzar con $(n)$.\\
 \par Si se considera el caso general, si una restricción indica algún número $a$ mayor o igual que $1$ , esa fila o columna deberá tener un edificio con la altura máxima $(n)$ a, al menos, $a$ casilleros de distancia.  Si generalizamos este resultado, podemos obtener el siguiente resultado útil:\\\\
 \emph{Dado una fila o columna con restricción $n$, para cada edificio de altura $k$ tenemos $dist(k) >= a + k - n - 1 $, siendo $n$ la dimensión del tablero y $a$ la restricción a validar.}\\
 \par En otras palabras, el edificio de altura máxima debe estar a $n$ casilleros de distancia, el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación.
 
-\par Una vez estudiado el problema con un poco mas de detalle, se decidió explotar la \textit{naturaleza Sudoku} del problema y así definir heurísticas como sigue:\\
+\par Estas dos heurísticas previas se combinaron con las restricciones de  \textit{naturaleza Sudoku} del problema, es decir la restricción \texit{alldif} 
+que existe en cada fila y columna (es decir, todos los valores deben ser distintos) para intentar maximizar el hallazgo de nodos irresolubles.\\
 
-\subsection{Heurística 3}
+\subsection{Valor heurístico de un estado}
 
-\par Si un estado conducirá de manera seguro a un tablero no resoluble, asignar el valor \textit{infinito} a ese estado.
+\par Si un estado no conducirá de ninguna manera a una solución, asignar el valor \textit{infinito} a ese estado. 
+\par Durante el desarrollo del trabajo se analizaron distintos valores heurísticos que se le puede asignar a aquellos estados que no han sido 
+identificados como irresolubles. A continuación se enumeraron las opciones:
 
-\subsection{Heurística 4}
+\subsubsection{Costo simple}
 
-\par Para un determinado estado, contar la cantidad de casilleros libres de su tablero. Mientras menos casilleros libres tenga, mejor será puntuado dicho estado.
+\par Consiste en asignar simplemente la cantidad de casilleros aún no completados como valor de $h$. Es fácil ver que esta asignación favorece el explotado
+ de nodos con mayor profundidad, lo cual dio mejores resultados que sus contrapartes. Esta función heurística es trivialmente admisible dado que:
+\begin{itemize}
+\item Si un estado es soluble y es considerado soluble, $h$ es exactamente la longitud del camino más corto a una solución.
+\item Si un estado es irresoluble y no se lo ha identificado como tal, $h$ es trivialmente una subestimación de la longitud del camino más corto a la solucion.
+\item Si un estado es irresoluble y se lo ha identificado como tal, $h$ es teóricamente la longitud del camino a la solución,  infinito, pero en la práctica 
+es una subestimación debido a limitaciones del tamaño de almacenamiento.
+\end{itemize}
 
-\subsection{Heurística 5}
+\subsubsection{Análisis de la restrictividad de un estado}
 
-\par Evaluar la \textit{certeza} de un determinado estado. Esto se hace evaluando la cantidad de posiciones seguras y posiciones casi-seguras que tiene el tablero, es decir, la cantidad de lugares donde de antemano ya se sabe que allí sólo podrá ir un sólo número o, en su defecto, podrán ir dos números distintos, generando alternativas posibles para ese casillero.\\
-\par De esta manera, utilizando las reglas similares a las del \textit{Sudoku} en las que un mismo número no puede repetirse en las filas y columnas, se logra puntuar mejor a los tableros que tienen más lugares seguros ante tableros que tienen más posibilidades para sus casilleros.\\
-
-\par Aunque resulte poco intuitivo, la implementación de esta última heurística redujo considerablemente la performance del algoritmo. Debido a esto se decidió optar por utilizar la heurística de asignarle \textit{infinito} a los tableros irresolubles, en combinación con la de calcular el número de casilleros libres.
-
+\par Evaluar la \textit{restrictividad} de un determinado estado según la \textbf{selección de valores} ( y no la de variables, que será 
+discutida más adelante). Este es un índice que se crea calculando la cantidad de posibles números que se pueden colocar 
+en cada casillero aún incompleto, intentando ser normalizado según la cantidad de casilleros ya completos, dado que tableros más completos son trivialmente más 
+restrictivos que tableros más vacíos. Por un lado, se investigó la penalización de tableros poco restrictivos para favorecer
+ a estados con menor ramificación y sucesores. Por otro lado se investigó la penalización de tableros más restrictivos, con el pretexto de que 
+mucha restrictividad implica poca probabilidad de hallar una solución, sobre todo si aún hay muchos casilleros para completar.
+\par Para penalizar dichos tableros, sea cual sea el criterio, se incrementó el valor de $h$ por arriba de la cantidad de casilleros sin llenar. Esto hace 
+que la heurística sea trivialmente no admisible. Sin embargo, la admisibilidad de una heurística garantiza en el algoritmo \textit{A*} la optimalidad. Dado 
+que en este problema la solución tiene siempre la misma profundiad, no existe tal cosa como una solución más óptima que otra. En vista de esto se decidió 
+implementar dicha heuristica y comparar los resultados.
 \section{Recorridos}
 
 \par Se han implementado tres tipos de recorridos distintos sobre el tablero, en busca de comparar la performance obtenida con cada uno de ellos.\\
@@ -204,23 +236,65 @@ Cabe destacar que en los estados únicamente se guarda el tablero; guardar las r
 \begin{itemize}
 \item \textbf{Recorrido secuencial: } Se avanza de izquierda a derecha, desde arriba hacia abajo.
 \item \textbf{Recorrido en espiral: } Se avanza desde el centro en forma de espiral o desde una esquina hacia al centro, de forma análoga.
-\item \textbf{Recorrido MVR: } Se avanza hacia el casillero con menor cantidad de valores legales.
+\item \textbf{Recorrido MVR: } Se avanza hacia el casillero con menor cantidad de valores legales (mayor restrictividad). Nótese que se apunta 
+a mayor restrictividad en cuanto a la \textbf{selección de variables o casilleros}. Cabe destacar que esto no 
+entra en conflicto las heurísticas recién planteadas. Por ejemplo, se podría penalizar con heurísticas tableros muy restrictivos, y aún aplicar este 
+recorrido. En esencia lo que se hace en cada paso es buscar el casillero con menor cantidad de posibles asignaciones de valores, generar un sucesor 
+con cada uno de estos, pero explotar primero el que hace que el resto de los casilleros tenga la menor restrictividad posible. Esto se denomina 
+\textit{ variable selection fail-first, value selection fail-last}. Para mayores referencias se puede consultar el libro de Russel y Norvig.
 \end{itemize}
 
 \section{Resultados}
 
-\par A través de las distintas pruebas realizadas se observó que el algoritmo con mejor desempeño cualquiera sea la dimensión del tablero, es el DFS. Ver tablas en la sección \textbf{Anexo A}. A su vez, entendiendo que para este trabajo los métodos debían ser desinformados y no podíamos aplicar heurísticas,  resultó interesante comparar los tiempos obtenidos en el punto anterior con los tiempos obtenidos dándole un órden particular a las reglas antes de que el \textit{General Problem Solver} comience a resolver. Básicamente lo que se hizo fue preprocesar las pistas o restricciones del tablero y ordenar el conjunto de reglas por única vez. Los tiempos obtenidos preprocesando las reglas fueron superiores a los anteriores pero aún muy inferiores al obtenido por el conjunto reducido de reglas.
+\subsection{Algoritmos}
 
-\par Observando las tablas se puede apreciar que el algoritmo con mayor performance fue el DFS.
+\par A través de las distintas pruebas realizadas se observó que para las búsquedas no informadas, el algoritmo con mejor desempeño cualquiera 
+sea la dimensión del tablero, fue el DFS. Ver tablas en la sección \textbf{Anexo A}. 
+\par Para las búsquedas informadas, ambos algoritmos tuvieron resultados similares para tableros de menor dimensión. Para tableros de mayor dimensión, 
+el algoritmo \textit{A*} tuvo mejores resultados. (reference! Explicacion?)
+
+\subsection{Comparación de heurísticas}
+
+
+\par La implementación de la última heurística, basada en restrictividad, redujo considerablemente la performance del algoritmo. Cabe destacar que no sólo incrementó el tiempo 
+de ejecución (hecho previsible por el cálculo extra de restrictividad), sino también la cantidad de nodos expltados. 
+Debido a esto se decidió optar por utilizar la heurística de asignarle \textit{infinito} a los tableros irresolubles, en combinación con la de calcular el número de casilleros libres.
+\par Por otro lado, la identificación de estados irresolubles redujo considerablemente la cantidad de nodos generados, así como también el tiempo de ejecución.
+(reference!)
+
+\subsection{Comparación de recorridos}
+
+\par  Los distintos recorridos tuvieron distintos resultados. Los recorridos estáticos varían considerablemente su desempeño en diferentes tableros. El 
+recorrido \textit{MVR} fue el que obtuvo los mejores resultados e incluso fue capaz de resolver en tiempos considerables tableros de mayores dimensiones. 
+Sin embargo, cabe destacar que en ciertos tableros a pesar de que el recorrido \textit{MVR} generó menos estados que, por ejemplo, el secuencial, el tiempo de ejecución 
+fue mayor, algo previsible debido al costo de tener que calcular en cada estado cuál es el casillero con mayor restrictividad. 
+\par En vista del desmepeño superior 
+del \textit{mvr}, se concluyó que es, en promedio, más eficiente llenar los casilleros en orden de mayor a menor restrictividad.
+Por lo tanto se conllevó a plantear que la irregularidad de los otros recorridos se debe a la irregularidad en la restrictividad de los tableros. 
+Un tablero cuya primer fila puede ser determinada a través de las restricciones (por ejemplo, tener una $n$ como restricción) hará que el recorrido secuencial 
+complete los casilleros más restrictivos primero, mientras que los espirales no.
+\par El recorrido espiral comenzando por el centro hacia afuera obtuvo regularmente los peores resultados. Este fenómeno no se relacionó con la restrictividad, 
+que es irregular, sino con la naturaleza en la que llena el tablero. Se puede apreciar gráficamente que el espiral es el que más se demora en completar las filas 
+o columnas, por lo cual muchas de las podas por alturas no se pueden efectuar hasta profundidades muy grandes, lo cual lleva a un árbol de estados más ancho y 
+con mayor cantidad de retroceso o \textit{backtracking}.
 
 \section{Conclusión}
 
-\PARstart Es notable destacar la cantidad tiempo requerido y uso de recursos para resolver pequeños problemas con métodos no informados. Luego de ver los resultados obtenidos para pequeños tableros, se necesitó hacer uso de un pre-ordenamiento de las reglas ya que la resolucion del problema tomaba un tiempo en el orden de las horas para tableros tan simples como ser $4\times4$.\\
-
-\par Resultó muy interesante tambén la forma de resolver problemas mediante la aplicación del mismo conjunto reglas en forma repetida y variando el orden en cual se agregan los nuevos estados al conjunto de no explorados.
-
-\par No sorprende que el DFS haya sido el algoritmo con mejor desempeño, dado que al tener un árbol con profundidad acotada, el DFS evita los inconvenientes más usuales como pasarse de la profundidad de la solución óptima o entrar en ciclos del grafo (la cota de profundidad le es muy útil). El IDFS tiene una performace menor dado que como el problema tiene profundidad acotada de $n$, el IDFS no es más que un DFS con el overhead extra de tener que iterar por las $n-1$ profundidades anteriores. El BFS resultó ser menos óptimo dado que son demasiados los estados que debe explorar para llegar a la solución en problemas exponenciales como es el de los \textit{Skycrapers}. 
-
+\PARstart Es notable destacar la cantidad tiempo requerido y uso de recursos para resolver pequeños problemas con métodos no informados, sobre todo si existen reglas conmutativas. 
+ En particular para la resolución de problemas de satisafcción de restricciones, no sorprende que el DFS haya sido el algoritmo con mejor desempeño, dado que al tener un árbol con profundidad acotada, el DFS evita los inconvenientes más usuales como pasarse de la profundidad de la solución óptima o entrar en ciclos del grafo (la cota de profundidad le es muy útil). El IDFS tiene una performace menor dado que como el problema tiene profundidad acotada de $n$, el IDFS no es más que un DFS con el overhead extra de tener que iterar por las $n-1$ profundidades anteriores. El BFS resultó ser menos óptimo dado que son demasiados los estados que debe explorar para llegar a la solución en problemas exponenciales como es el de los \textit{Skycrapers}. 
+\par Para intentar llegar a una solución generando menos nodos y en una menor cantidad de tiempo utilizando búsquedas informadas, resultó esencial identificar 
+propiedades de las restricciones del problema para descartar la mayor cantidad de valores posibles, intentando de identificar a los tableros irresolubles como tales 
+lo antes (menor profundidad) posible.
+\par Resultó crucial elegir un recorrido o criterio de selección de variables o casilleros para evitar el problema de la conmutatividad de reglas. Los 
+recorridos estáticos varían su eficieincia en distintos tableros, y no cuentan con la regularidad del \textit{mvr}, pero tienen la ventaja de no 
+tener que calcular en cada estado cuál es la próxima variable a completar. Sería interesante quizás analizar una correlación entre las restricciones 
+del tablero y la densidad de restrictividad del tablero, para entonces poder elegir recorrido estático más adecuado en función de estas últimas.
+\par El recorrido óptimo resultó ser el de \textit{minimum remaining values}, que intenta hacer \textit{fallar} lo antes posible al tablero (es decir, 
+identificar si el estado es irresoluble).
+\par En cuanto al manejo de restrictividad en las funciones heurísticas, no se halló una función que favorezca o penalice a estados con mayor o menor 
+restrictividad de las variables no asignadas. Por lo que, en vista de los resultados en este problema, se identificó que debe apuntar a mayor restrictividad 
+en la selección de variables, pero no se llegó a conclusión alguna en cuanto a las selección de valores.
+(references, algo de greedy vs a* faltaria!)
 %----------------------------------------------------------------------
 % The bibliography. This bibliography was generated using the following
 % two lines:

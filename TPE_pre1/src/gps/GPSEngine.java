@@ -46,8 +46,6 @@ public abstract class GPSEngine {
 					BuildingState state = (BuildingState) currentNode.getState();
 					Logger.log("Solution", "\n\n" + state.getCurrentBoard(), Logger.LEVEL_TRACE);
 					finished = true;
-				} else if( currentNode.h() == Integer.MAX_VALUE){
-					failed = true;
 					
 				} else{
 					explosionCounter++;

@@ -166,7 +166,7 @@ Para subsanar este inconveniente se puede plantear el problema enunciando con un
 \par Esto otorga un factor de ramificación igual a $n$ siendo este muy inferior al del caso anterior. El próximo casillero a llenar está indicado por 
 el recorrido. Más adelante se enumerarán los recorridos y sus respectivas propiedades, ventajas y desventajas. \\
 \par Para la primer etapa se decidió implementar ambos conjuntos de reglas y los resultados fueron comparados en las tablas de la sección \textbf{Anexo A}. 
-Para la segunda etapa del trabajo se decidió utilizar únicamente el segundo conjunto de reglas, utilizando distintos recorridos y comparándolos (reference needed). 
+Para la segunda etapa del trabajo se decidió utilizar únicamente el segundo conjunto de reglas, utilizando distintos recorridos y comparándolos (consultar la sección \textbf{Anexo A - Punto D}). 
 
 \section{Costos}
 
@@ -250,17 +250,14 @@ con cada uno de estos, pero explotar primero el que hace que el resto de los cas
 \par A través de las distintas pruebas realizadas se observó que para las búsquedas no informadas, el algoritmo con mejor desempeño cualquiera 
 sea la dimensión del tablero, fue el DFS. Ver tablas en la sección \textbf{Anexo A}. 
 \par Para las búsquedas informadas, ambos algoritmos tuvieron resultados similares para tableros de menor dimensión. Para tableros de mayor dimensión, 
-el algoritmo \textit{A*} tuvo mejores resultados. (reference! Explicacion?)
+el algoritmo \textit{A*} tuvo mejores resultados. (Consultar la sección \textbf{Anexo A - Punto D} y ver la diferencia obtenida por el algoritmo A Star en el tablero de $5\times5$)
 
 \subsection{Comparación de heurísticas}
 
 
 \par La implementación de la última heurística, basada en restrictividad, modificó la performance del algoritmo, pero irregularmente. 
-Como muestran los resultados (reference! y corregir lo siguiente...) premiar o penalizar estados con mayor restrictividad alteró la performance 
-positiva y negativamente, con magnitudes variantes, dependiendo del tablero. 
-\par Por otro lado, la identificación de estados irresolubles redujo considerablemente la cantidad de nodos generados, así como también el tiempo de ejecución, 
-de una manera más regular y contundente.
-(reference!)
+Haciendo las pruebas correspondientes se ha notado que premiar o penalizar estados con mayor restrictividad alteró la performance positiva y negativamente, con magnitudes variantes, dependiendo del tablero. 
+\par Por otro lado, la identificación de estados irresolubles (asignándoles el valor \textit{infinito} y encolándolos en \textit{FRONTERA}) redujo considerablemente la cantidad de nodos generados, así como también el tiempo de ejecución, de una manera más regular y contundente.
 
 \subsection{Comparación de recorridos}
 
@@ -295,7 +292,7 @@ identificar si el estado es irresoluble).
 favorecer estados de mayor o menor restricción de las variables no asignadas con la cantidad de nodos generados o el tiempo de ejecución. 
 Por lo que, en vista de los resultados, se identificó que se debe apuntar a mayor restrictividad 
 en la selección de variables, pero no hubo una clara conclusión sobre la selección de valores.
-(references, algo de greedy vs a* faltaria!)
+
 %----------------------------------------------------------------------
 % The bibliography. This bibliography was generated using the following
 % two lines:
@@ -595,6 +592,82 @@ Profundidad de la solución & 19 (cantidad edificios  & 25 \\
 \end{table}
 
 \clearpage
+
+
+\subsection{A Star vs. Greedy}
+
+\par Nodos generados por cada algoritmo según el recorrido
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+ & Greedy &  A Star\\
+
+\hline
+\hline
+
+&&\\
+Tablero 1 & & \\
+$(3\times 3)$ & & \\
+&&\\
+\hline
+InSpiral & 14 & 18 \\
+\hline
+MRV & 14 & 14 \\
+\hline
+Sequential & 15 & 16 \\
+\hline
+OutSpiral & 32 & 13 \\
+\hline
+&&\\
+
+\hline
+\hline
+
+&&\\
+Tablero 2 & & \\
+$(4\times 4)$ & & \\
+&&\\
+\hline
+InSpiral & 29 & 33 \\
+\hline
+MRV & 29 & 29 \\
+\hline
+Sequential & 29 & 29 \\
+\hline
+OutSpiral & 601 & 83 \\
+\hline
+&&\\
+
+\hline
+\hline
+
+&&\\
+Tablero 3 & & \\
+$(5\times 5)$ & & \\
+&&\\
+\hline
+InSpiral & 1839 & 112 \\
+\hline
+MRV & 4804 & 153 \\
+\hline
+Sequential & 2765 & 1413 \\
+\hline
+OutSpiral & - & 13535 \\
+\hline
+&&\\
+
+\hline
+\hline
+
+\end{tabular}
+\end{center}
+\caption{Comparación de nodos genertados para Greedy y A Star según el recorrido}\label{tablaAStar}
+\end{table}
+
+\clearpage
+
 
 \section*{Anexo B: Imágenes}
 

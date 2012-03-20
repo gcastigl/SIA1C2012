@@ -149,11 +149,11 @@ Ver \textbf{Figura 1} en la sección \textbf{Anexo B}.\\
 \end{itemize}
 
 \par Las reglas así definidas producen un factor de ramificación de $n^3$ lo que hace que, para tableros grandes (mayores a $5\times5$) se 
-tarde un tiempo muy considerable (en el orden de las horas) en encontrar la solución. Además este conjunto de rueglas tiene el problema 
+tarde un tiempo muy considerable (en el orden de las horas para estrategias de búsqueda no informadas) en encontrar la solución. Además este conjunto de rueglas tiene el problema 
 de ser mayormente conmutativas. Esto crea muchos estados redundantes. 
 Para subsanar este inconveniente se puede plantear el problema enunciando con un conjunto de reglas distinto, descripto a continuación:\\
 
-\emph{Poner un edificio de tamaño $x$ en el próximo lugar disponible de izquierda a derecha y de arriba hacia abajo, con $x \in [1, n]$.}\\
+\emph{Poner un edificio de tamaño $x$ en el próximo lugar disponible según el recorrido utilizado, con $x \in [1, n]$.}\\
 
 \par En un tablero de $n\times n$ el conjunto de reglas quedaría definido de la siguiente forma:\\
 
@@ -178,11 +178,11 @@ Para la segunda etapa del trabajo se decidió utilizar únicamente el segundo co
 
 \section{Heurísticas}
 
-\par Como se ha planteado el modelado del problema, tiene poco sentido hablar de una función heurística que estime el costo de un cierto nodo 
+\par Por cómo se ha planteado el modelado del problema, tiene poco sentido hablar de una función heurística que estime el costo de un cierto nodo 
 a la solución. Esto se debe a que la profundidad de la solución es sabida de antemano. Sin embargo, es válido plantear que si un nodo 
-no tiene solución porque ninguna asignación de valores de las variables o casilleros aún incompletos satisface las restricciones del problema. Por lo tanto, 
-se decidió asignar a la función heurística un costo unitario por cada casillero aún no asignado si el tablero aún parece tener solución, e infinito 
-si no se puede alcanzar la solución. Los nodos marcados con un valor de $h$ infinito permanecerán en la frontera y nunca serán explotados a menos que 
+no tiene solución, es debido a que ninguna asignación de valores de las variables o casilleros aún incompletos satisface las restricciones del problema. Por lo tanto, 
+se decidió asignar a la función heurística un costo unitario por cada casillero aún no asignado si el tablero aún parece tener solución, e \textit{infinito}
+si no se puede alcanzar la solución. Los nodos marcados con un valor de $h$ \textit{infinito} permanecerán en la frontera y nunca serán explotados a menos que 
 el problema no tenga solución.
 \par Se centró el estudio de los tableros sin soluciones en base a las restricciones dadas por los números fuera del tablero, numeradas a continuación.\\
 
@@ -195,16 +195,15 @@ el problema no tenga solución.
 \par Dado un tablero de dimensión $n$, si una restricción indica algún número distinto de $1$ , esa fila o columna trivialmente no podrá comenzar con $(n)$.\\
 \par Si se considera el caso general, si una restricción indica algún número $a$ mayor o igual que $1$ , esa fila o columna deberá tener un edificio con la altura máxima $(n)$ a, al menos, $a$ casilleros de distancia.  Si generalizamos este resultado, podemos obtener el siguiente resultado útil:\\\\
 \emph{Dado una fila o columna con restricción $n$, para cada edificio de altura $k$ tenemos $dist(k) >= a + k - n - 1 $, siendo $n$ la dimensión del tablero y $a$ la restricción a validar.}\\
-\par En otras palabras, el edificio de altura máxima debe estar a $n$ casilleros de distancia, el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación.
+\par En otras palabras, el edificio de altura máxima debe estar a $n$ casilleros de distancia, el de altura $n-1$ a distancia $n-1$ o mayor, y así sucesivamente. Esto implica que los edificios deben estar ordenados de menor a mayor si se da esta situación.\\
 
-\par Estas dos heurísticas previas se combinaron con las restricciones de  \textit{naturaleza Sudoku} del problema, es decir la restricción \texit{alldif} 
-que existe en cada fila y columna (es decir, todos los valores deben ser distintos) para intentar maximizar el hallazgo de nodos irresolubles.\\
+\par Estas dos heurísticas previas se combinaron con las restricciones de  \textit{naturaleza Sudoku} del problema, es decir la restricción \textit{alldif} que existe en cada fila y columna \textit{-todos los valores deben ser distintos-} para intentar maximizar el hallazgo de nodos irresolubles.\\
 
 \subsection{Valor heurístico de un estado}
 
 \par Si un estado no conducirá de ninguna manera a una solución, asignar el valor \textit{infinito} a ese estado. 
 \par Durante el desarrollo del trabajo se analizaron distintos valores heurísticos que se le puede asignar a aquellos estados que no han sido 
-identificados como irresolubles. A continuación se enumeraron las opciones:
+identificados como irresolubles. A continuación se enumerarán las opciones:
 
 \subsubsection{Costo simple}
 
@@ -266,11 +265,11 @@ de una manera más regular y contundente.
 \subsection{Comparación de recorridos}
 
 \par  Los distintos recorridos tuvieron distintos resultados. Los recorridos estáticos varían considerablemente su desempeño en diferentes tableros. El 
-recorrido \textit{MVR} fue el que obtuvo los mejores resultados e incluso fue capaz de resolver en tiempos considerables tableros de mayores dimensiones. 
-Sin embargo, cabe destacar que en ciertos tableros a pesar de que el recorrido \textit{MVR} generó menos estados que, por ejemplo, el secuencial, el tiempo de ejecución 
+recorrido \textit{MVR} fue el que obtuvo los mejores resultados e incluso fue capaz de resolver en tiempos aceptables tableros de mayores dimensiones. 
+Sin embargo, cabe destacar que en ciertos tableros a pesar de que el recorrido \textit{MVR} generó menos estados que, por ejemplo, el \textit{secuencial}, el tiempo de ejecución 
 fue mayor, algo previsible debido al costo de tener que calcular en cada estado cuál es el casillero con mayor restrictividad. 
 \par En vista del desmepeño superior 
-del \textit{mvr}, se concluyó que es, en promedio, más eficiente llenar los casilleros en orden de mayor a menor restrictividad.
+del \textit{MVR}, se concluyó que es, en promedio, más eficiente llenar los casilleros en orden de mayor a menor restrictividad.
 Por lo tanto se conllevó a plantear que la irregularidad de los otros recorridos se debe a la irregularidad en la restrictividad de los tableros. 
 Un tablero cuya primer fila puede ser determinada a través de las restricciones (por ejemplo, tener una $n$ como restricción) hará que el recorrido secuencial 
 complete los casilleros más restrictivos primero, mientras que los espirales no.
@@ -287,7 +286,7 @@ con mayor cantidad de retroceso o \textit{backtracking}.
 propiedades de las restricciones del problema para descartar la mayor cantidad de valores posibles, intentando de identificar a los tableros irresolubles como tales 
 lo antes (menor profundidad) posible.
 \par Resultó crucial elegir un recorrido o criterio de selección de variables o casilleros para evitar el problema de la conmutatividad de reglas. Los 
-recorridos estáticos varían su eficieincia en distintos tableros, y no cuentan con la regularidad del \textit{mvr}, pero tienen la ventaja de no 
+recorridos estáticos varían su eficieincia en distintos tableros, y no cuentan con la regularidad del \textit{MVR}, pero tienen la ventaja de no 
 tener que calcular en cada estado cuál es la próxima variable a completar. Sería interesante quizás analizar una correlación entre las restricciones 
 del tablero y la densidad de restrictividad del tablero, para entonces poder elegir recorrido estático más adecuado en función de estas últimas.
 \par El recorrido óptimo resultó ser el de \textit{minimum remaining values}, que intenta hacer \textit{fallar} lo antes posible al tablero (es decir, 

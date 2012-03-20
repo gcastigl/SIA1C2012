@@ -256,9 +256,10 @@ el algoritmo \textit{A*} tuvo mejores resultados. (reference! Explicacion?)
 \subsection{Comparación de heurísticas}
 
 
-\par La implementación de la última heurística, basada en restrictividad, redujo considerablemente la performance del algoritmo. Cabe destacar que no sólo incrementó el tiempo 
-de ejecución (hecho previsible por el cálculo extra de restrictividad), sino también la cantidad de nodos expltados. 
-Debido a esto se decidió optar por utilizar la heurística de asignarle \textit{infinito} a los tableros irresolubles, en combinación con la de calcular el número de casilleros libres.
+\par La implementación de la última heurística, basada en restrictividad, modificó considerablemente la performance del algoritmo. 
+Como muestran los resultados (reference! y corregir lo siguiente...) premiar estados con mayor restrictividad redujo la performance, pero marginalmente. Por 
+otro lado, favorecer estados con menor restrictividad en cuanto a la selección de valores provocó una gran mejora en ya sea tiempo y cantidad de nodos 
+generados, mejora más vistosa en tableros de mayor dimensión.
 \par Por otro lado, la identificación de estados irresolubles redujo considerablemente la cantidad de nodos generados, así como también el tiempo de ejecución.
 (reference!)
 
@@ -291,9 +292,10 @@ tener que calcular en cada estado cuál es la próxima variable a completar. Ser
 del tablero y la densidad de restrictividad del tablero, para entonces poder elegir recorrido estático más adecuado en función de estas últimas.
 \par El recorrido óptimo resultó ser el de \textit{minimum remaining values}, que intenta hacer \textit{fallar} lo antes posible al tablero (es decir, 
 identificar si el estado es irresoluble).
-\par En cuanto al manejo de restrictividad en las funciones heurísticas, no se halló una función que favorezca o penalice a estados con mayor o menor 
-restrictividad de las variables no asignadas. Por lo que, en vista de los resultados en este problema, se identificó que debe apuntar a mayor restrictividad 
-en la selección de variables, pero no se llegó a conclusión alguna en cuanto a las selección de valores.
+\par En cuanto al manejo de restrictividad en las funciones heurísticas, resultó óptimo elegir una función heurística que favorezca selección de valores 
+que produzcan una menor restrictividad de las variables no asignadas, a pesar de que se implementó como una heurística no admisible, resultó 
+óptima de todas maneras debido a la naturaleza del problema. Por lo que, en vista de los resultados, se identificó que debe apuntar a mayor restrictividad 
+en la selección de variables, poer menor restrictividad en cuanto a las selección de valores.
 (references, algo de greedy vs a* faltaria!)
 %----------------------------------------------------------------------
 % The bibliography. This bibliography was generated using the following

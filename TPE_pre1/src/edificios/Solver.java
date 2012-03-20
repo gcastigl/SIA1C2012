@@ -13,7 +13,8 @@ import edificios2.SequenceStrategy;
 import edificios2.SpiralStrategy;
 import gps.GPSEngine;
 import heuristics.Heuristic;
-import heuristics.RestrictionDensityHeuristic;
+import heuristics.HighRestrictionDensityHeuristic;
+import heuristics.LowRestrictionDensityHeuristic;
 import heuristics.SimpleHeuristic;
 
 import java.util.HashMap;
@@ -62,7 +63,7 @@ public class Solver {
 		System.out.println("\t=> Algorithm:\t\t" + "[BFS | DFS | IDFS | HIDFS | AStar | Greedy]");
 		System.out.println("\t=> Board:\t\t" + "res/boards/*");
 		System.out.println("\t=> Board iterator:\t" + "[Outspiral | Inspiral | MRV | Sequential]");
-		System.out.println("\t=> Heuristic:\t\t" + "[Simple | RestrictDensity]");
+		System.out.println("\t=> Heuristic:\t\t" + "[Simple | HighRes | LowRes ]");
 		System.out.print("\t=> Logging level:\t" + "[Min | Med | Max]");
 		System.out.println(" -- ** High logging level may reduce performance **");
 	}
@@ -137,7 +138,8 @@ public class Solver {
 	
 	private static void setDesiredHeursitic(BuildingProblem problem, String heuristic) {
 		Map<String, Heuristic> heuristics = new HashMap<String, Heuristic>();
-		heuristics.put("restrictdensity", new RestrictionDensityHeuristic());
+		heuristics.put("highres", new HighRestrictionDensityHeuristic());
+		heuristics.put("lowres", new LowRestrictionDensityHeuristic());
 		heuristics.put("simple", new SimpleHeuristic());
 		Heuristic h = heuristics.get(heuristic);
 		if (h == null) {

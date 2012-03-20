@@ -9,28 +9,46 @@ Sistemas de Inteligencia Artificial
 Ejecución
 ---------
 
-Para correr el General Problem Solver lo primero que debe hacer es correr el comando `ant` lo que creará el archivo `Edificios.jar`. Una vez hecho esto, usted debe declarar qué estrategia de búsqueda utilizará, qué archivo de nivel correrá el algoritmo (tableros) luego qué conjunto de reglas utilizar y por último, el nivel de LOG que se desea obtener (opcional). Ejemplos:
+Para correr el General Problem Solver lo primero que debe hacer es correr el comando `ant` lo que creará el archivo `Edificios.jar`. Una vez hecho esto, usted debe declarar qué estrategia de búsqueda utilizará, qué archivo de nivel correrá el algoritmo (tableros), qué forma de interar sobre el tablero se usará, la heurística deseada y el nivel de LOG que se desea obtener (opcional). Ejemplos:
 
-* `java -jar Edificios.jar DFS res/boards/board1 STD` -- Si desea utilizar Depth-first search como estrategia, cargar el tablero 'board1', no logguear nada y usar el conjunto de reglas STD (standard).
-* `java -jar Edificios.jar BFS res/boards/board3 RED MAX` -- Si desea utilizar Breadth-first search como estrategia, cargar el tablero 'board3', utilizar el conjunto de reglas RED (reduced) y tener un nivel máximo de logueo (el logging puede afectar la performance).
+* `java -jar Edificios.jar Greedy res/boards/board5x5 MRV Simple MED` -- Si desea utilizar Greedy search como estrategia, cargar el tablero 'board5x5', utilizar método de iteración MRV con heurística simple y nivel de log mediano.
 
 Generalizando
 
-* `java -jar Edificios.jar [DFS BFS IDFS] fileName [STD RED] [MIN MED MAX]` -- El parámetro que indica la estrategia de búsqueda no puede ser omitido como así tampoco el archivo con el tablero a resolver; en caso de omitir el último parámetro (nivel de log), el programa se ejecutará con el nivel mínimo de log. 
+* `java -jar Edificios.jar [DFS BFS IDFS AStar Greedy] filePath [OutSpiral InSpiral MRV Sequential] [Simple HighRes LowRes No] [MIN MED MAX]` -- Todos los parámetros son obligatorios y en caso de faltar alguno se mostrará por salida estándar los comandos de uso. 
 
 Los algoritmos disponibles:
 
 * `DFS` -- Depth-first search 
 * `BFS` -- Breadth-first search
 * `IDFS` --  Iterated DFS
+* `Greedy` --  Greedy search
+* `AStar` --  A Star
 
 Los problemas disponibles están dentro de la carpeta `/res/boards/` y tienen las siguientes características:
 
-* `board1` -- Tablero de 2x2 
-* `board2` -- Tablero de 3x3 
-* `board3` -- Tablero de 4x4 
-* `board4` -- Tablero de 5x5 
-* `board5` -- Tablero de 5x5 
+* `board2x3` -- Tablero de 3x3 
+* `board3x3` -- Tablero de 4x4 
+* `board4x4` -- Tablero de 5x5 
+* `board5x5` -- Tablero de 5x5 
+* `board6x6` -- Tablero de 6x6 
+* `board7x7` -- Tablero de 7x7 
+* `no_solution` -- Tablero de 4x4 sin solución
+
+Formas de recorrer el tablero:
+
+* `OutSpiral` --  Se recorre el tablero en forma de espiral empezando desde el centro
+* `InSpiral` --  Se recorre el tablero en forma de espiral empezando desde una esquina hacia el centro
+* `MRV` -- Próximo nodo con menor cantidad de valores legales (fail first). 
+* `Sequential` -- De izquierda a derecha de arriba hacia abajo. 
+
+
+Heurísticas:
+
+* `Simple` -- Chequea tableros irresolubles y devuelve cantidad de ceros. 
+* `HighRes` -- Premia a los tableros con altas restricciones. 
+* `LowRes` --  Premia a los tableros con bajas restricciones.
+* `No` --  Retorna sólo cantidad de ceros.
 
 Los niveles de log son:
 

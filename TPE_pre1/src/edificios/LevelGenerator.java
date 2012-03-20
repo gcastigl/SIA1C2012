@@ -6,7 +6,7 @@ public class LevelGenerator {
 
 	static int[][] m;
 	static int [] numbers;
-	static int dim = 7;
+	static int dim = 8;
 	
 
 	public static void main(String[] args) {

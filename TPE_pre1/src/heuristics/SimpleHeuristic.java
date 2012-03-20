@@ -13,7 +13,7 @@ public class SimpleHeuristic extends Heuristic{
 			return Integer.MAX_VALUE;
 		}
 		int n = board.getSize();
-		return n * n - board.getBuildingsOnBoard();
+		return 10 * (n * n - board.getBuildingsOnBoard());
 	}
 
 }

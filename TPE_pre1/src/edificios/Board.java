@@ -24,8 +24,6 @@ public class Board {
 				buildings[i][j] = b.buildings[i][j];
 			}
 		}
-		lastCol = b.lastCol;
-		lastRow = b.lastRow;
 	}
 
 	public void setLastCol(int lastCol) {
@@ -202,6 +200,8 @@ public class Board {
 
 	public Board duplicateAndSet(int row, int col, int height) {
 		Board clone = new Board(this);
+		clone.lastCol = col;
+		clone.lastRow = row;
 		clone.buildings[row][col] = height;
 		clone.buildingsOnBoard = buildingsOnBoard + 1;
 		return clone;

@@ -38,14 +38,18 @@ public abstract class GPSEngine {
 			if (open.size() <= 0) {
 				Logger.log("GSPEngine", "Algorithm failed - Empty open list", Logger.LEVEL_TRACE);
 				failed = true;
-			} else {
+			}
+			else {
 				GPSNode currentNode = removeHead();
 				closed.add(currentNode);
 				if (isGoal(currentNode)) {
 					BuildingState state = (BuildingState) currentNode.getState();
 					Logger.log("Solution", "\n\n" + state.getCurrentBoard(), Logger.LEVEL_TRACE);
 					finished = true;
-				} else {
+				} else if( currentNode.h() == Integer.MAX_VALUE){
+					failed = true;
+					
+				} else{
 					explosionCounter++;
 					explode(currentNode);
 				}

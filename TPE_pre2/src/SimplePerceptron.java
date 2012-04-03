@@ -21,9 +21,7 @@ public class SimplePerceptron {
 	public float[] evaluate(float[] input) {
 		float[] out = new float[outputLenght];
 		for (int i = 0; i < outputLenght; i++) {
-			float neuronOutput = neurons[i].evaluate(input);
-			float threshold = neurons[i].getThreshold();
-			out[i] = (neuronOutput < threshold) ? -1 : 1;
+			out[i] = neurons[i].evaluate(input);
 		}
 		return out;
 	}

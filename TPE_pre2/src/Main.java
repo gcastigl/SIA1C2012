@@ -1,37 +1,24 @@
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
 
 	public static void main(String[] args) {
 		SimplePerceptron perceptron = new SimplePerceptron(2, 1);
-		perceptron.getLayer()[0].t = 1.5f;
 		trainAnd(perceptron);
-		float[] eval = perceptron.evaluate(new float[] { 1, 1 });
+		float[] eval = perceptron.evaluate(new float[] { 1, 0 });
 		System.out.println(Arrays.toString(eval));
 	}
 
 	private static void trainAnd(SimplePerceptron perceptron) {
-		float[] input, expected;
-		System.out.println(perceptron);
-		// 1, 1
-		input = new float[] { 1, 1 };
-		expected = new float[] { 1 };
-		perceptron.train(input, expected);
-		System.out.println(perceptron);
-		// 0, 0
-		input = new float[] { 0, 0 };
-		expected = new float[] { 0 };
-		perceptron.train(input, expected);
-		System.out.println(perceptron);
-		// 1, 0
-		input = new float[] { 1, 0 };
-		expected = new float[] { 0 };
-		perceptron.train(input, expected);
-		System.out.println(perceptron);
-		// 1, 0
-		input = new float[] { 0, 1 };
-		expected = new float[] { 0 };
-		perceptron.train(input, expected);
-		System.out.println(perceptron);
+		System.out.println("Before training => " + perceptron);
+		Map<float[], float[]> trainng = new HashMap<float[], float[]>();
+		trainng.put(new float[] { 1, 1 }, new float[] { 1 });
+		trainng.put(new float[] { 0, 0 }, new float[] { 0 });
+		trainng.put(new float[] { 1, 0 }, new float[] { 0 });
+		trainng.put(new float[] { 0, 1 }, new float[] { 0 });
+		perceptron.train(trainng);
+		System.out.println("After training => " + perceptron);
 	}
 }

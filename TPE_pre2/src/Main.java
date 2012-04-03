@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		SimplePerceptron perceptron = new SimplePerceptron(2, 1);
 		trainAnd(perceptron);
-		float[] eval = perceptron.evaluate(new float[] { 1, 0 });
+		float[] eval = perceptron.evaluate(new float[] { 1, 1 });
 		System.out.println(Arrays.toString(eval));
 	}
 
@@ -18,7 +18,7 @@ public class Main {
 		trainng.put(new float[] { 0, 0 }, new float[] { 0 });
 		trainng.put(new float[] { 1, 0 }, new float[] { 0 });
 		trainng.put(new float[] { 0, 1 }, new float[] { 0 });
-		perceptron.train(trainng);
+		perceptron.train(trainng, 100);
 		System.out.println("After training => " + perceptron);
 	}
 }

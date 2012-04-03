@@ -26,20 +26,30 @@ public class SimplePerceptron {
 		return out;
 	}
 
-	public void train(Map<float[], float[]> triningSet) {
-		for (Entry<float[], float[]> traingEntry : triningSet.entrySet()) {
-			train(traingEntry.getKey(), traingEntry.getValue());
+	public void train(Map<float[], float[]> triningSet, int maxIterations) {
+		boolean updated = true;
+		int n = 0;
+		while (updated && n != maxIterations) {
+			updated = false;
+			for (Entry<float[], float[]> traingEntry : triningSet.entrySet()) {
+				updated |= train(traingEntry.getKey(), traingEntry.getValue());
+			}
+			n++;
 		}
+		System.out.println("Trained in " +  n + " iterations.");
 	}
 	
-	private void train(float[] inputValues, float[] outputValues) {
+	private boolean train(float[] input, float[] output) {
+		boolean updated = false;
 		for (int i = 0; i < outputLenght; i++) {
-			float output = neurons[i].evaluate(inputValues);
-			if (output != outputValues[i]) {
-				adjustWeights(neurons[i], outputValues[i], output, inputValues);
-				adjustThreshold(neurons[i], outputValues[i], output);					
+			float eval = neurons[i].evaluate(input);
+			if (eval != output[i]) {
+				adjustWeights(neurons[i], output[i], eval, input);
+				adjustThreshold(neurons[i], output[i], eval);
+				updated = true;
 			}
 		}
+		return updated;
 	}
 
 	private void adjustWeights(Neuron neuron, float expected, float output, float[] inputValues) {
@@ -47,7 +57,6 @@ public class SimplePerceptron {
 		for (int k = 0; k < weights.length; k++) {
 			float dw = n * (expected - output) * inputValues[k];
 			weights[k] += dw;
-			System.out.println("adjusted neuron w[" + k + "] by " + dw);
 		}
 	}
 	

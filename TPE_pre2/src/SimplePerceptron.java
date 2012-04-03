@@ -41,30 +41,12 @@ public class SimplePerceptron {
 		for (int i = 0; i < neurons.length; i++) {
 			float eval = neurons[i].evaluate(input);
 			if (eval != output[i]) {
-				adjustWeights(neurons[i], output[i], eval, input);
-				adjustThreshold(neurons[i], output[i], eval);
+				neurons[i].adjustWeights(n, output[i], eval, input);
+				neurons[i].adjustThreshold(n, output[i], eval);
 				updated = true;
 			}
 		}
 		return updated;
-	}
-
-	private void adjustWeights(Neuron neuron, float expected, float output, float[] inputValues) {
-		float[] weights = neuron.getWeights();
-		for (int k = 0; k < weights.length; k++) {
-			float dw = n * (expected - output) * inputValues[k];
-			weights[k] += dw;
-		}
-	}
-	
-	private void adjustThreshold(Neuron neuron, float expected, float output) {
-		float threshold = neuron.getThreshold();
-		threshold += (n * (expected - output) * -1);
-		neuron.setThreshold(threshold);
-	}
-
-	public Neuron[] getNeurons() {
-		return neurons;
 	}
 
 	@Override

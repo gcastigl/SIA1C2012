@@ -29,7 +29,7 @@ public class Main {
 		test.put(new float[] { 1, 0 }, new float[] { 0 });
 		test.put(new float[] { 0, 1 }, new float[] { 0 });
 		System.out.println("\nTesting perceptron: " + perceptron);
-		for (Entry<float[], float[]> testEntry: test.entrySet()) {			
+		for (Entry<float[], float[]> testEntry: test.entrySet()) {
 			float[] eval = perceptron.evaluate(testEntry.getKey());
 			System.out.println(Arrays.toString(testEntry.getKey()) + 
 				" - test passed? " + Arrays.equals(eval, testEntry.getValue()));

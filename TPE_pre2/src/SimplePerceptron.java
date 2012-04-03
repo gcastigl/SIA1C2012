@@ -14,7 +14,7 @@ public class SimplePerceptron {
 		this.outputLenght = outputLenght;
 		neurons = new Neuron[outputLenght];
 		for (int i = 0; i < outputLenght; i++) {
-			neurons[i] = new Neuron(inputLenght, 1.5f);
+			neurons[i] = new Neuron(inputLenght);
 		}
 	}
 

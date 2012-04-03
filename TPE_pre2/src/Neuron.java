@@ -5,9 +5,9 @@ public class Neuron {
 	private float[] w;
 	private float threshold;
 
-	public Neuron(int inputLenght, float threshold) {
+	public Neuron(int inputLenght) {
 		Random generator = new Random();
-		this.threshold = threshold;
+		this.threshold = generator.nextFloat();
 		w = new float[inputLenght];
 		for (int i = 0; i < inputLenght; i++) {
 			w[i] = generator.nextFloat() - 0.5f; // [-0.5 , 0.5]

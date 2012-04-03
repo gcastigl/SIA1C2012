@@ -7,11 +7,8 @@ public class SimplePerceptron {
 	private static float n = 0.2f;
 
 	private Neuron[] neurons;
-	private int inputLenght, outputLenght;
 
 	public SimplePerceptron(int inputLenght, int outputLenght) {
-		this.inputLenght = inputLenght;
-		this.outputLenght = outputLenght;
 		neurons = new Neuron[outputLenght];
 		for (int i = 0; i < outputLenght; i++) {
 			neurons[i] = new Neuron(inputLenght);
@@ -19,8 +16,8 @@ public class SimplePerceptron {
 	}
 
 	public float[] evaluate(float[] input) {
-		float[] out = new float[outputLenght];
-		for (int i = 0; i < outputLenght; i++) {
+		float[] out = new float[neurons.length];
+		for (int i = 0; i < neurons.length; i++) {
 			out[i] = neurons[i].evaluate(input);
 		}
 		return out;
@@ -41,7 +38,7 @@ public class SimplePerceptron {
 	
 	private boolean train(float[] input, float[] output) {
 		boolean updated = false;
-		for (int i = 0; i < outputLenght; i++) {
+		for (int i = 0; i < neurons.length; i++) {
 			float eval = neurons[i].evaluate(input);
 			if (eval != output[i]) {
 				adjustWeights(neurons[i], output[i], eval, input);
@@ -73,8 +70,6 @@ public class SimplePerceptron {
 	@Override
 	public String toString() {
 		String s = "SimplePerceptron{";
-		s += "input: " + inputLenght + ", ";
-		s += "output: " + outputLenght + ", ";
 		s += "Neurons: " + Arrays.toString(neurons) + ", ";
 		return s + "}";
 	}

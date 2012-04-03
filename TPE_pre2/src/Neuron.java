@@ -19,7 +19,7 @@ public class Neuron {
 		for (int i = 0; i < input.length; i++) {
 			total += w[i] * input[i];
 		}
-		return (total < threshold) ? -1 : 1;
+		return (total < threshold) ? 0 : 1;
 	}
 	
 	public float[] getWeights() {

@@ -1,0 +1,242 @@
+\documentclass[%
+    %draft,
+    %submission,
+    %compressed,
+    final,
+    %
+    %technote,
+    %internal,
+    %submitted,
+    %inpress,
+    reprint,
+    %
+    %titlepage,
+    notitlepage,
+    %anonymous,
+    narroweqnarray,
+    inline,
+    twoside,
+    invited
+    ]{ieee}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fancybox}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{subfigure}
+
+\newcommand{\latexiie}{\LaTeX2{\Large$_\varepsilon$}}
+
+%\usepackage{ieeetsp}    % if you want the "trans. sig. pro." style
+%\usepackage{ieeetc}    % if you want the "trans. comp." style
+%\usepackage{ieeeimtc}    % if you want the IMTC conference style
+
+% Use the `endfloat' package to move figures and tables to the end
+% of the paper. Useful for `submission' mode.
+%\usepackage {endfloat}
+
+% Use the `times' package to use Helvetica and Times-Roman fonts
+% instead of the standard Computer Modern fonts. Useful for the 
+% IEEE Computer Society transactions.
+%\usepackage{times}
+% (Note: If you have the commercial package `mathtime,' (from 
+% y&y (http://www.yandy.com), it is much better, but the `times' 
+% package works too). So, if you have it...
+%\usepackage {mathtime}
+
+% for any plug-in code... insert it here. For example, the CDC style...
+%\usepackage{ieeecdc}
+
+\begin{document}
+
+%----------------------------------------------------------------------
+% Title Information, Abstract and Keywords
+%----------------------------------------------------------------------
+\title[Redes Neuronales]{%
+       Redes Neuronales}
+
+% format author this way for journal articles.
+% MAKE SURE THERE ARE NO SPACES BEFORE A \member OR \authorinfo
+% COMMAND (this also means `don't break the line before these
+% commands).
+\author[Castiglione, Karpovsky, Sturla]{Gonzalo V. Castiglione, Alan E. Karpovsky, Martín Sturla\\\textit{Estudiantes 
+       Instituto Tecnológico de Buenos Aires (ITBA)}\\
+\\\textbf{12 de Abril de 2012}
+}
+
+
+
+\journal{Cátedra\ \ Sist.\ de\ Inteligencia\ Artificial,\ ITBA\ }
+\titletext{-\ 12, ABRIL\ 2012}
+\ieeecopyright{\copyright\ 2012 ITBA}
+\lognumber{}
+\pubitemident{}
+\loginfo{12 de Abril, 2012.}
+\firstpage{1}
+
+\confplacedate{Buenos Aires, Argentina, 12 de Abril, 2012}
+
+\maketitle               
+
+\begin{abstract} 
+El presente informe busca analizar y comparar distintas implementaciones y arquitecturas de redes neuronales con aprendizaje supervisado que resuelvan el problema del \textit{AND} y \textit{OR} lógico para $N$ bits con $2 \le N \le 5$ a través del uso de tres variantes de funciones de transferencia.
+
+\end{abstract}
+
+\begin{keywords}
+perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, conjunto de entrenamiento, conjunto de testeo
+\end{keywords}
+
+%----------------------------------------------------------------------
+% SECTION I: Introduccion%----------------------------------------------------------------------
+\section{Introducción}
+
+\PARstart Las redes neuronales son un paradigma de aprendizaje y procesamiento automático inspirado en la forma en que funciona el sistema nervioso de los animales y los seres humanos. Se trata de un sistema de interconexión de neuronas en una red que colabora para producir un estímulo de salida. Cabe destacarse que las redes neuronales no dejan de ser un modelo y es debido a esto que no tienen en cuenta muchas de las funciones y cualidades del cerebro humano.
+\par Una red neuronal se compone de unidades llamadas neuronas. Cada neurona recibe una serie de entradas a través de interconexiones y emite una salida. Esta salida viene dada por dos funciones:
+\begin{itemize}
+\item \textbf{Función de excitación}: Por lo general consiste en la sumatoria de cada entrada multiplicada por el peso de su interconexión (\textit{\textbf{suma pesada de las entradas}}). Si el peso de una conexión es positivo, la misma se denomina excitatoria; si es negativo, se denomina inhibitoria.
+\item \textbf{Función de transferencia}:  Se utiliza para acotar la salida de la neurona y generalmente viene dada por la interpretación que queramos darle a dichas salidas. Algunas de las más utilizadas son la \textit{función sigmoidea} (para obtener valores en el intervalo $[0,1]$) y la \textit{tangente hiperbólica} (para obtener valores en el intervalo $[-1,1]$).
+\end{itemize}
+
+%----------------------------------------------------------------------
+% SECTION II: Marco Teórico
+%----------------------------------------------------------------------
+
+\section{Desarrollo}
+
+\subsection{Modelado del problema}
+
+\par Se representó la red neuronal como una \textbf{matriz pesos}. Cada neurona es una fila de pesos, cada capa de neuronas es una matriz de pesos, la red neuronal, por consiguiente, es un vector de matrices. Lo interesante es que hallar el valor de la red neuronal con un cierto input se reduce a multiplicar el vector input por cada una de estas matrices. A su vez esta implementación facilita el manejo de errores.
+
+\section{Resultados}
+
+\subsection{AND lógico}
+
+\par Se decidió, para la implementación del \textit{AND} ......
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+  Capas & Función de &  Épocas & Error de\\
+ de la red & activación &  & aprendizaje\\
+
+\hline
+\hline
+
+[2;3;1] & Escalón & a & d\\
+\hline
+[2;3;1] & Lineal & b & e\\
+\hline
+[2;3;1] & Sigmóidea & c & f\\
+\hline
+
+\end{tabular}
+\end{center}
+\caption{Comparación de red para AND lógico}\label{tablaIDFS}
+\end{table}
+
+\subsection{OR lógico}
+
+\par Se decidió, para la implementación del \textit{AND} ......
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+  Capas & Función de &  Épocas & Error de\\
+ de la red & activación &  & aprendizaje\\
+
+\hline
+\hline
+
+[2;3;1] & Escalón & a & d\\
+\hline
+[2;3;1] & Lineal & b & e\\
+\hline
+[2;3;1] & Sigmóidea & c & f\\
+\hline
+
+\end{tabular}
+\end{center}
+\caption{Comparación de red para OR lógico}\label{tablaIDFS}
+\end{table}
+
+\section{Conclusión}
+
+\PARstart Es notable destacar 
+
+%----------------------------------------------------------------------
+% The bibliography. This bibliography was generated using the following
+% two lines:
+%\bibliographystyle{IEEEbib}
+%\bibliography{ieeecls}
+% where, the contents of the ieeecls.bib file was:
+%
+%@book{lamport,
+%        AUTHOR = "Leslie Lamport",
+%         TITLE = "A Document Preparation System: {\LaTeX} User's Guide
+%                  and Reference Manual",
+%       EDITION = "Second",
+%     PUBLISHER = "Addison-Wesley",
+%       ADDRESS = "Reading, MA",
+%          YEAR = 1994,
+%          NOTE = "Be sure to get the updated version for \LaTeX2e!"
+%}
+%
+%@book{goossens,
+%        AUTHOR = "Michel Goossens and Frank Mittelbach and
+%                  Alexander Samarin",
+%         TITLE = "The {\LaTeX} Companion",
+%     PUBLISHER = "Addison-Wesley",
+%       ADDRESS = "Reading, MA",
+%          YEAR = 1994,
+%}
+%
+% The ieeecls.bbl file was manually included here to make the distribution
+% of this paper easier. You need not do it for your own papers.
+
+%\clearpage
+
+%\begin{thebibliography}{1}
+
+%\bibitem{lamport1}
+%Fierens, P. (2011),
+%\newblock {\em Cuadrados mínimos: repaso},
+%\newblock Buenos Aires: Instituto Tecnológico de Buenos Aires.
+
+%\bibitem{lamport1}
+%Abdi, H.,
+%\newblock {\em  Least-squares: {Encyclopedia for research methods for the social sciences}},
+%\newblock Thousand Oaks (CA): Sage. pp, 2003.
+
+%\bibitem{lamport1}
+%Farebrother, R.W. (1988),
+%\newblock {\em Linear Least Squares Computations, STATISTICS: Textbooks and Monographs}, %\newblock New York: Marcel Dekker.
+
+%\bibitem{lamport1}
+%Lipson, M.; Lipschutz, S. (2001),
+%\newblock {\em Schaum's outline of theory and problems of linear algebra}, 
+%newblock New York: McGraw-Hill, pp. 69–80.
+
+
+%\end{thebibliography}
+
+%----------------------------------------------------------------------
+
+
+\clearpage
+
+%\VerbatimInput{./code/calculoAb.m}
+
+
+
+
+\end{document}

@@ -43,9 +43,8 @@ public abstract class GPSEngine {
 				GPSNode currentNode = removeHead();
 				closed.add(currentNode);
 				if (isGoal(currentNode)) {
-					BuildingState state = (BuildingState) currentNode.getState();
-					Logger.log("Solution", "\n\n" + state.getCurrentBoard(), Logger.LEVEL_TRACE);
 					finished = true;
+					System.out.println(currentNode.getState().toString());
 					
 				} else{
 					explosionCounter++;
@@ -124,4 +123,16 @@ public abstract class GPSEngine {
 	public abstract void addNode(GPSNode node);
 	
 	public abstract String getStrategyName();
+
+	public long getExplodedNodes() {
+		return closed.size();
+	}
+
+	public int getDeepness() {
+		return 0;
+	}
+
+	public int getOpenSize() {
+		return open.size();
+	}
 }

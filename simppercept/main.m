@@ -1,4 +1,4 @@
-function net = main()
+function net = main(trans)
 	epochs = 200;
 	i1 = { [-1,-1,-1,1] , 1};
 	i2 = { [-1,-1,-1,-1] , -1};
@@ -9,7 +9,7 @@ function net = main()
 	i7 = {[-1,1,-1,-1] , 1};
 	i8 = {[-1,-1,1,-1] , 1};
 	vals = {i1,i2,i3,i4,i5,i6,i7,i8};
-	net = crt_nr_nw(4,1,1,1);
+	net = crt_nr_nw(4,1,1,trans);
 	for i = 1:epochs
 		vec = get_randorder(8);
 		for j = 1:8

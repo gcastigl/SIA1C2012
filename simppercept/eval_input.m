@@ -6,8 +6,12 @@ function new_net = eval_input ( net, new_input)
 	end
 	net.values{2} = net.values{1} * net.weights;
 	for i = 1:size(net.values{2},2)
-		%TODO: cableo por ahora primer tipo
-		net.values{2}(i) = sign(net.values{2}(i));
+		if( net.trans_type == 1)
+			net.values{2}(i) = sign(net.values{2}(i));
+		endif
+		if(net.trans_type == 3)
+			net.values{2}(i) = tanh(net.beta * net.values{2}(i));
+		endif
 	endfor
 	new_net = net;
 endfunction

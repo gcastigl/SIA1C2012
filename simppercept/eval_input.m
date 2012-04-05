@@ -1,5 +1,7 @@
 function new_net = eval_input ( net, new_input)
 	%updates the values of the net given a new input
+	%does NOT modify weights, so it can be called with test inputs.
+	%check net.values{2} for output vector.
 	n = size(net.values{1},2 ) - 1;
 	for i= 1:n
 		net.values{1}(i) = new_input(i);

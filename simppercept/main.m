@@ -1,4 +1,5 @@
 function net = main(trans, lrn_base, lrn_type)
+	%main procedure, needs modularizing... necesitamos levantar la data de archivos IMO, esta horrible asi.
 	epochs = 500;
 	t1 = { [-1,-1,-1,1] , 1};
 	t2 = { [-1,-1,-1,-1] , -1};

@@ -1,4 +1,5 @@
 function new_net = update_weights(net, expected)
+	%updates the newtork's weight matrix (learning.)
 	deltas = expected - net.values{2};
 	n = size(net.weights);
 	lrn_rt = get_lrn_rt(net);

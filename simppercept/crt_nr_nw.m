@@ -11,5 +11,5 @@ function net = crt_nr_nw( in_len, out_len, lrn_type, trans_type)
 	net.lrn_decay = 0.85;
 	net.lrn_consist = 3;
 	net.lrn_sum = 0.005;
-	net.beta = 0.5;
+	net.beta = 1;
 endfunction

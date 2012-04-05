@@ -1,5 +1,5 @@
 function new_net = update_weights(net, expected)
-	deltas = net.values{2} - expected;
+	deltas = expected - net.values{2};
 	n = size(net.weights);
 	lrn_rt = get_lrn_rt(net);
 	for i = 1:n(1)

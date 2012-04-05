@@ -6,7 +6,7 @@ function new_net = eval_input ( net, new_input)
 	end
 	net.values{2} = net.values{1} * net.weights;
 	for i = 1:size(net.values{2},2)
-		if( net.trans_type == 1 || (net.trans_type == 2 && abs(net.values{2}(i)) < 1))
+		if( net.trans_type == 1 || (net.trans_type == 2 && abs(net.values{2}(i)) > 1))
 			net.values{2}(i) = sign(net.values{2}(i));
 		endif
 		if(net.trans_type == 3)

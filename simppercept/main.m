@@ -1,36 +1,45 @@
-function net = main(trans, lrn_base, lrn_type)
-	%main procedure, needs modularizing... necesitamos levantar la data de archivos IMO, esta horrible asi.
-	epochs = 500;
-	
+function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_name)
 
+	% Invoque main like main("AND", N, 500, "SIGMOID", 0.02, 1)
+	% This network will try to learn the AND operator with N bits in
+	% 500 epochs using the SIGMOID transfer function with a 0.02 etha and
+	% a constant learning rate.
 
-	%And training set
-	t1 = {[-1,-1,-1,1] ,  1};
-	t2 = {[-1,-1,-1,-1], -1};
-	t3 = {[1,1,1,1],      1};
-	t4 = {[-1,1,-1,1],    1};
-	t5 = {[1,1,-1,-1],    1};
-	t6 = {[1,-1,-1,-1],   1};
-	t7 = {[-1,1,-1,-1],   1};
-	t8 = {[-1,-1,1,-1],   1};
+	train_set = feval(strcat(tolower(operator_name), '_', num2str(N)));
 
-	%And TESTING set
-	i1 = {[-1,-1,-1,1],   1};
-	i2 = {[1, -1, 1, 1],  1};
-	i3 = {[-1,-1,1,1],    1};
-	i4 = {[-1,1,1,-1],    1};
+	train_set_len = length(train_set);
+	vals = train_set;
 
+	test_set_len = train_set_len;
+	tests = train_set;
 
-	train_set = 8;
-	vals = {t1,t2,t3,t4,t5,t6,t7,t8};
-	test_set = 4;
-	tests = {i1,i2,i3,i4};
+	if(strcmp(tolower(trans_name), 'sg'))
+		trans = 1;
+	elseif (strcmp(tolower(trans_name), 'lineal'))
+		trans = 2;
+	elseif (strcmp(tolower(trans_name), 'sigmoid'))
+		trans = 3;
+	else
+		printf('Using default transfer function = threshold\n');
+		trans = 1;
+	endif
 
+	if(strcmp(tolower(lrn_type_name), 'constant'))
+		lrn_type = 1;
+	elseif (strcmp(tolower(lrn_type_name), 'annealed'))
+		lrn_type = 2;
+	elseif (strcmp(tolower(lrn_type_name), 'dynamic'))
+		lrn_type = 3;
+	else
+		printf('Using default learning type = constant\n');
+		lrn_type = 1;
+	endif
 
 	% Create the network with i inputs and o outputs
-	i = 0;
-	o = 0;
-	net = crt_nr_nw(4,1,lrn_type,lrn_base,trans);
+	i = length(train_set{1}{1});
+	o = length(train_set{1}{2});
+	net = crt_nr_nw(i,o,lrn_type,lrn_base,trans);
+
 
 	errors = zeros(epochs,1);
 	test_errors = zeros(epochs,1);
@@ -38,9 +47,9 @@ function net = main(trans, lrn_base, lrn_type)
 
 	% Backpropagation over the network
 	for i = 1:epochs
-		vec = get_randorder(train_set); % Shuffle trainset
+		vec = get_randorder(train_set_len); % Shuffle trainset
 		err = 0;
-		for j = 1:train_set
+		for j = 1:train_set_len
 			
 			%Evaluate the input
 			net = eval_input(net, vals{vec(j)}{1});
@@ -51,14 +60,14 @@ function net = main(trans, lrn_base, lrn_type)
 			%Calculate error 
 			err += get_error(net, vals{vec(j)}{2});
 		end
-		errors(i) = err / train_set;
+		errors(i) = err / train_set_len;
 		terror = 0;
 
-		for  j = 1:test_set
+		for  j = 1:test_set_len
 			net = eval_input(net, tests{j}{1});
 			terror += get_error(net, tests{j}{2});
 		end
-		
+
 		test_errors(i) = terror;
 		net = update_lrn_rate(net, errors(i));
 		lrn_rates(i) = net.lrn_rt;

@@ -1,6 +1,6 @@
 function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_name)
 
-	% Invoque main like main("AND", N, 500, "SIGMOID", 0.02, 1)
+	% Invoque main like main("AND", N, 500, "SIGMOID", 0.02, "COSNTANT")
 	% This network will try to learn the AND operator with N bits in
 	% 500 epochs using the SIGMOID transfer function with a 0.02 etha and
 	% a constant learning rate.

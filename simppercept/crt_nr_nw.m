@@ -2,6 +2,7 @@ function net = crt_nr_nw( in_len, out_len, lrn_type, base_lrn_rate, trans_type)
 	%create a new simple perceptron.
 	% Requieres: input length, output length, learn type (static, annealed or dynamic),
 	% and cost_type (threshold, linear or sigmoid)
+	
 	net.weights = init_weights(in_len + 1, out_len);
 	net.values = { zeros(1, in_len + 1) , zeros(1, out_len) };
 	net.values{1}(in_len+1) = -1;

@@ -69,7 +69,7 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 
 	% Backpropagation over the network
 	printBlueColor();
-	printf('\nBackpropagation algorithm started: epoch 1 of %d\n', epochs);
+	printf('\nBackpropagation algorithm started: epoch 1 of %d, learning \"%s\" with \"%s\" transfer function\n', epochs, operator_name, lrn_type_name);
 	releasePrintColor();
 	for i = 1:epochs
 		vec = get_randorder(train_set_len); % Shuffle trainset
@@ -97,10 +97,32 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 		net = update_lrn_rate(net, errors(i));
 		lrn_rates(i) = net.lrn_rt;
 	end
-	% Plot the net stats
+
+	final_error = test_errors(epochs);
+
+	printGreenColor();
+	printf('\nNetwork stats:\n\n');
+	printYellowColor();
+	printf('\tElapsed epochs: %d\n', epochs);
+	printf('\tTotal error: %f\n', final_error);
+		if(final_error < (10**(-5)) ) 
+				printGreenColorNB();
+				printf('\tError is smaller than 10^{-5}\n');
+		else
+			if(test_errors(epochs) < (10**(-3)))
+				printGreenColorNB();
+				printf('\tError is smaller than 10^{-3}\n');
+			else
+				printRedColorNB();
+				printf('\tError is grater than 10^{-3} - try using a different \"eta\" or incrementing the number of epochs\n');
+			endif
+		endif
+	releasePrintColor();
+	
+	% Plot the network stats
 	clf;
 	hold on;
-	plot(1:epochs, errors, '-4; Step Error;');
+	% plot(1:epochs, errors, '-4; Step Error;'); % No sense to plot this error if we have the same training and eval set
 	plot(1:epochs, test_errors, '-1; Total error;')
 	plot(1:epochs, lrn_rates, '-2; Learning rate;');
 	title("Nueral Network evolution", 'FontSize', 25);

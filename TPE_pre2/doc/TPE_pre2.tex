@@ -68,7 +68,7 @@
 % commands).
 \author[Castiglione, Karpovsky, Sturla]{Gonzalo V. Castiglione, Alan E. Karpovsky, Martín Sturla\\\textit{Estudiantes 
        Instituto Tecnológico de Buenos Aires (ITBA)}\\
-\\\textbf{12 de Abril de 2012}
+\textbf{12 de Abril de 2012}
 }
 
 
@@ -98,12 +98,7 @@ perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, c
 % SECTION I: Introduccion%----------------------------------------------------------------------
 \section{Introducción}
 
-\PARstart Las redes neuronales son un paradigma de aprendizaje y procesamiento automático inspirado en la forma en que funciona el sistema nervioso de los animales y los seres humanos. Se trata de un sistema de interconexión de neuronas en una red que colabora para producir un estímulo de salida. Cabe destacarse que las redes neuronales no dejan de ser un modelo y es debido a esto que no tienen en cuenta muchas de las funciones y cualidades del cerebro humano.
-\par Una red neuronal se compone de unidades llamadas neuronas. Cada neurona recibe una serie de entradas a través de interconexiones y emite una salida. Esta salida viene dada por dos funciones:
-\begin{itemize}
-\item \textbf{Función de excitación}: Por lo general consiste en la sumatoria de cada entrada multiplicada por el peso de su interconexión (\textit{\textbf{suma pesada de las entradas}}). Si el peso de una conexión es positivo, la misma se denomina excitatoria; si es negativo, se denomina inhibitoria.
-\item \textbf{Función de transferencia}:  Se utiliza para acotar la salida de la neurona y generalmente viene dada por la interpretación que queramos darle a dichas salidas. Algunas de las más utilizadas son la \textit{función sigmoidea} (para obtener valores en el intervalo $[0,1]$) y la \textit{tangente hiperbólica} (para obtener valores en el intervalo $[-1,1]$).
-\end{itemize}
+\PARstart Las redes neuronales son un paradigma de aprendizaje y procesamiento automático inspirado en la forma en que funciona el sistema nervioso de los animales. Se trata de un sistema de interconexión de neuronas en una red que colabora para producir un estímulo de salida. Cabe destacarse que las redes neuronales no dejan de ser un modelo y es debido a esto que no tienen en cuenta muchas de las funciones y cualidades del cerebro humano.
 
 %----------------------------------------------------------------------
 % SECTION II: Marco Teórico
@@ -135,47 +130,15 @@ Es de interés destacar que, entre época y época, se decidió mezclar los patr
 
 \section{Resultados}
 
-\subsection{AND lógico}
+\par A modo de ejemplo, en la sección \textit{\textbf{Anexo A}} se puede observar una tabla comparativa entre los distintos tipos de funciones de transferencia para un $\eta$ pequeño, con tipo de aprendizaje constante. Se decidió duplicar la cantidad de épocas tomadas inicialmente a medida que se incrementaba la cantidad de \textit{inputs}.
 
-\par Como se puede apreciar en las tablas de la sección \textit{\textbf{Anexo A}}, utilizando unidades escalón, el \textit{AND} lógico tarda muy pocas épocas en presentar un error menor que $10^{-3}$. Es interesante compararlo con los resultados obtenidos al utilizar las funciones de transferencia lineales y sigmóideas: fijando el $\eta$ y el tipo de aprendizaje, se observa que para estas últimas dos funciones de transferencia se requieren, en el caso de un \textit{AND} 3-ario, más de 300 o 400 épocas para alcanzar dicho cometido $(E < 10^{-3} )$.
-
-
+\par Como se puede apreciar en las tablas, utilizando unidades escalón, tanto el \textit{AND} como el \textit{OR} lógico tarda muy pocas épocas en presentar un error menor que $10^{-3}$, a diferencia de las pruebas realizadas con la simoidea y lineal.
 
 \section{Conclusión}
 
-\PARstart Luego de realizar numerosas pruebas variando los parámetros de configuración de la red neuronal, podemos concluír que hemos tenido mejores resultados mejores resultados utilizando $\beta=1$ y seteando $\eta$ con valores altos. Esto puede deberse posiblemente a la naturaleza planar del problema.
+\PARstart Luego de realizar numerosas pruebas variando los parámetros de configuración de la red neuronal, podemos concluír que hemos tenido mejores resultados utilizando $\beta=1$ y seteando $\eta$ con valores altos. Esto puede deberse posiblemente a la naturaleza planar del problema.
 
-%----------------------------------------------------------------------
-% The bibliography. This bibliography was generated using the following
-% two lines:
-%\bibliographystyle{IEEEbib}
-%\bibliography{ieeecls}
-% where, the contents of the ieeecls.bib file was:
-%
-%@book{lamport,
-%        AUTHOR = "Leslie Lamport",
-%         TITLE = "A Document Preparation System: {\LaTeX} User's Guide
-%                  and Reference Manual",
-%       EDITION = "Second",
-%     PUBLISHER = "Addison-Wesley",
-%       ADDRESS = "Reading, MA",
-%          YEAR = 1994,
-%          NOTE = "Be sure to get the updated version for \LaTeX2e!"
-%}
-%
-%@book{goossens,
-%        AUTHOR = "Michel Goossens and Frank Mittelbach and
-%                  Alexander Samarin",
-%         TITLE = "The {\LaTeX} Companion",
-%     PUBLISHER = "Addison-Wesley",
-%       ADDRESS = "Reading, MA",
-%          YEAR = 1994,
-%}
-%
-% The ieeecls.bbl file was manually included here to make the distribution
-% of this paper easier. You need not do it for your own papers.
-
-%\clearpage
+\par Al oservar los gráficos de error obtenidos al realizar pruebas con funciones sigmoideas y lineales, notamos que a largo plazo, el error tiene a estancarse en un determinado nivel. Motivo por el cual se decidió probar con un $\eta$ variable (\textit{annealed} y \textit{dynamic}), obteniendo resultados más precisos. Este fenómeno puede ser observado en el \textit{\textbf{Anexo B}} donde se compara el error obtenido con un $\eta$ constante versus un $\eta$ dinámico.
 
 %\begin{thebibliography}{1}
 
@@ -207,6 +170,10 @@ Es de interés destacar que, entre época y época, se decidió mezclar los patr
 \clearpage
 \onecolumn
 \section*{Anexo A: Tablas}
+ 
+\begin{center}
+\textbf{\emph{AND}}
+\end{center}
 
 \begin{table}[H]
 \begin{center}
@@ -218,41 +185,103 @@ Bits &  Eta & Función de &  Épocas & Error de\\
 \hline
 \hline
 
-2 & a & Escalón & a & d\\
+2 & 0.02 & Escalón & 50 & 0\\
 \hline
-2 & b & Lineal & b & e\\
+2 & 0.02 & Lineal & 50 & 0.287\\
 \hline
-2 & c & Sigmóidea & c & f\\
-\hline
-\hline
-3 & a & Escalón & a & d\\
-\hline
-3 & b & Lineal & b & e\\
-\hline
-3 & c & Sigmóidea & c & f\\
+2 & 0.02 & Sigmóidea & 50 & 0.571\\
 \hline
 \hline
-4 & a & Escalón & a & d\\
+3 & 0.02 & Escalón & 100 & 0\\
 \hline
-4 & b & Lineal & b & e\\
+3 & 0.02 & Lineal & 100 & 0.256\\
 \hline
-4 & c & Sigmóidea & c & f\\
+3 & 0.02 & Sigmóidea & 100 & 0.581\\
 \hline
 \hline
-5 & a & Escalón & a & d\\
+4 & 0.02 & Escalón & 200 & 0\\
 \hline
-5 & b & Lineal & b & e\\
+4 & 0.02 & Lineal & 200 & 0.181\\
 \hline
-5 & c & Sigmóidea & c & f\\
+4 & 0.02 & Sigmóidea & 200 & 0.523\\
+\hline
+\hline
+5 & 0.02 & Escalón & 400 & 0\\
+\hline
+5 & 0.02 & Lineal & 400 & 0.089\\
+\hline
+5 & 0.02 & Sigmóidea & 400 & 0.421\\
 \hline
 
 \end{tabular}
 \end{center}
-\caption{Comparación de red para AND lógico con tipo de aprendizaje constante}\label{tablaIDFS}
+\caption{Comparación de errores de la salida de la red para AND lógico con tipo de aprendizaje constante}\label{tablaIDFS}
 \end{table}
 
+\begin{center}
+\textbf{\emph{OR}}
+\end{center}
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Bits &  Eta & Función de &  Épocas & Error de\\
+ & $\eta$ & activación &  & aprendizaje\\
+
+\hline
+\hline
+
+2 & 0.02 & Escalón & 50 & 0\\
+\hline
+2 & 0.02 & Lineal & 50 & 0.310\\
+\hline
+2 & 0.02 & Sigmóidea & 50 & 0.545\\
+\hline
+\hline
+3 & 0.02 & Escalón & 100 & 0\\
+\hline
+3 & 0.02 & Lineal & 100 & 0.258\\
+\hline
+3 & 0.02 & Sigmóidea & 100 & 0.568\\
+\hline
+\hline
+4 & 0.02 & Escalón & 200 & 0\\
+\hline
+4 & 0.02 & Lineal & 200 & 0.181\\
+\hline
+4 & 0.02 & Sigmóidea & 200 & 0.520\\
+\hline
+\hline
+5 & 0.02 & Escalón & 400 & 0\\
+\hline
+5 & 0.02 & Lineal & 400 & 0.089\\
+\hline
+5 & 0.02 & Sigmóidea & 400 & 0.425\\
+\hline
+
+\end{tabular}
+\end{center}
+\caption{Comparación de errores de la salida de la red para OR lógico con tipo de aprendizaje constante}\label{tablaIDFS}
+\end{table}
+
+\clearpage
 
 \section*{Anexo B: Gráficos}
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.85]{./images/g1.png}
+\label{modelado}
+\end{center}
+\end{figure}
+
+\begin{center}
+\par Figura 1: Curva de error con eta constante vs. eta dinámico
+\end{center}
+
+
 
 %\VerbatimInput{./code/calculoAb.m}
 

@@ -72,6 +72,14 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 		net = update_lrn_rate(net, errors(i));
 		lrn_rates(i) = net.lrn_rt;
 	end
-
-	plot(1:epochs, errors, 1:epochs, test_errors, 1:epochs, lrn_rates);
+	% Plot the net stats
+	clf;
+	hold on;
+	plot(1:epochs, errors, '-4; Step Error;');
+	plot(1:epochs, test_errors, '-1; Total error;')
+	plot(1:epochs, lrn_rates, '-2; Learning rate;');
+	title("Nueral Network evolution", 'FontSize', 25);
+	xlabel("Epochs number", 'FontSize', 20);
+	%ylabel("Error", 'FontSize', 20);
+	print('-dpng', '../TPE_pre2/images/evolution.png');
 endfunction

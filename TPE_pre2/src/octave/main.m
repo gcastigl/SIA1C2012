@@ -1,10 +1,18 @@
 function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_name)
 
-	% Invoque main like main("AND", N, 500, "SIGMOID", 0.02, "COSNTANT")
+	% Invoque main like main("AND", N, 500, "SIGMOID", 0.02, "CONSTANT")
 	% This network will try to learn the AND operator with N bits in
 	% 500 epochs using the SIGMOID transfer function with a 0.02 etha and
 	% a constant learning rate.
-
+	if (strcmp(tolower(operator_name), 'help'))
+		printGreenColor();
+		printf('\n***Invoque main like main("AND", N, epochs, TRANSFORMATION, eta, LEARN_TYPE)***\n')
+		printf('\nTRANSFORMATION = [Sg, Linear, Sigmoid]\n');
+		printf('\nLEARN_TYPE = [Constant, Annealed, Dynamic]\n');
+		releasePrintColor();
+		return;
+	endif
+	
 	train_set = feval(strcat(tolower(operator_name), '_', num2str(N)));
 
 	train_set_len = length(train_set);
@@ -12,7 +20,7 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 
 	test_set_len = train_set_len;
 	tests = train_set;
-
+	
 	if(strcmp(tolower(trans_name), 'sg'))
 		printGreenColor();
 		printf('\nUsing THRESHOLD transfer function\n');
@@ -128,5 +136,6 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 	title("Nueral Network evolution", 'FontSize', 25);
 	xlabel("Epochs number", 'FontSize', 20);
 	%ylabel("Error", 'FontSize', 20);
-	print('-dpng', '../TPE_pre2/images/evolution.png');
+	mkdir("./images/");
+	print('-dpng', './images/evolution.png');
 endfunction

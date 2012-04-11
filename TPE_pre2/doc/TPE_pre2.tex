@@ -115,6 +115,10 @@ perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, c
 
 \par Se representó la red neuronal como una \textbf{matriz de pesos}. Cada neurona es una fila de pesos, cada capa de neuronas es una matriz de pesos, la red neuronal, por consiguiente, es un vector de matrices. Lo interesante es que hallar el valor de la red neuronal con un cierto input se reduce a multiplicar el vector input por cada una de estas matrices. A su vez esta implementación facilita el manejo de errores.
 
+\subsection{Features}
+
+\par Se implementaron tres tipos de funciones para modificar la variable $\eta$ \textit{(learn rate)}: La primera de ellas es a valor \textbf{constante}, es decir que $\eta$ nunca es modificada, la segunda es \textbf{\textit{annealed}} que reduce $\eta$ exponencialmente y por último se tiene un \textit{learning rate} \textbf{dinámico} que lo que hace es ver si el error se reduce consistentemente y, en tal caso, incrementa el $\eta$ sin superar un valor máximo preestablecido $(0.5)$, caso contrario, $\eta$ es reducida exponencialmente.
+
 \section{Resultados}
 
 \subsection{AND lógico}

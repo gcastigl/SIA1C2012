@@ -14,24 +14,46 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 	tests = train_set;
 
 	if(strcmp(tolower(trans_name), 'sg'))
+		printGreenColor();
+		printf('\nUsing THRESHOLD transfer function\n');
+		releasePrintColor();
 		trans = 1;
-	elseif (strcmp(tolower(trans_name), 'lineal'))
+	elseif (strcmp(tolower(trans_name), 'linear'))
+		printGreenColor();
+		printf('\nUsing LINEAR transfer function\n');
+		releasePrintColor();
 		trans = 2;
 	elseif (strcmp(tolower(trans_name), 'sigmoid'))
+		printGreenColor();
+		printf('\nUsing SIGMOID transfer function\n');
+		releasePrintColor();
 		trans = 3;
 	else
-		printf('Using default transfer function = threshold\n');
+		printRedColor();
+		printf('\nError: Unrecognized transfer function.\n\tUsing default transfer function = THRESHOLD\n');
+		releasePrintColor();
 		trans = 1;
 	endif
 
 	if(strcmp(tolower(lrn_type_name), 'constant'))
+		printGreenColor();
+		printf('\nUsing CONSTANT learning type\n');
+		releasePrintColor();		
 		lrn_type = 1;
 	elseif (strcmp(tolower(lrn_type_name), 'annealed'))
+		printGreenColor();
+		printf('\nUsing ANNEALED learning type\n');
+		releasePrintColor();
 		lrn_type = 2;
 	elseif (strcmp(tolower(lrn_type_name), 'dynamic'))
+		printGreenColor();
+		printf('\nUsing DYNAMIC learning type\n');
+		releasePrintColor();
 		lrn_type = 3;
 	else
-		printf('Using default learning type = constant\n');
+		printRedColor();
+		printf('\nError: Unrecognized learning type.\n\tUsing default learning type = CONSTANT\n');
+		releasePrintColor();
 		lrn_type = 1;
 	endif
 
@@ -46,6 +68,9 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 	lrn_rates = zeros(epochs,1);
 
 	% Backpropagation over the network
+	printBlueColor();
+	printf('\nBackpropagation algorithm started: epoch 1 of %d\n', epochs);
+	releasePrintColor();
 	for i = 1:epochs
 		vec = get_randorder(train_set_len); % Shuffle trainset
 		err = 0;

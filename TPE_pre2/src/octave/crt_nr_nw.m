@@ -4,6 +4,8 @@ function net = crt_nr_nw( in_len, out_len, lrn_type, base_lrn_rate, trans_type)
 	% and cost_type (threshold, linear or sigmoid)
 	
 	net.weights = init_weights(in_len + 1, out_len);
+	% values{1} ENTRADAS
+	% values{2} SALIDAS
 	net.values = { zeros(1, in_len + 1) , zeros(1, out_len) };
 	net.values{1}(in_len+1) = -1;
 	net.lrn_type = lrn_type;

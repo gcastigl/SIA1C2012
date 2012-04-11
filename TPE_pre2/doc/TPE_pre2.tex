@@ -113,69 +113,37 @@ perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, c
 
 \subsection{Modelado del problema}
 
-\par Se representó la red neuronal como una \textbf{matriz de pesos}. Cada neurona es una fila de pesos, cada capa de neuronas es una matriz de pesos, la red neuronal, por consiguiente, es un vector de matrices. Lo interesante es que hallar el valor de la red neuronal con un cierto input se reduce a multiplicar el vector input por cada una de estas matrices. A su vez esta implementación facilita el manejo de errores.
+\par Se representó la red neuronal como una \textbf{matriz de pesos}. Cada neurona es una fila de pesos, cada capa de neuronas es una matriz de pesos, la red neuronal, por consiguiente, es un vector de matrices. Lo interesante es que hallar el valor de la red neuronal con un cierto input se reduce a multiplicar el vector input por cada una de estas matrices. A su vez esta implementación facilita el manejo de errores.\\
+
+\par Para las unidades escalón el error está definido como la \textbf{Distancia Hamming Levenshtein}, para los otros tipos de unidades se decidió utilizar el \textbf{error cuadrático medio}.
 
 \subsection{Features}
 
 \par Se implementaron tres tipos de funciones para modificar la variable $\eta$ \textit{(learn rate)}: La primera de ellas es a valor \textbf{constante}, es decir que $\eta$ nunca es modificada, la segunda es \textbf{\textit{annealed}} que reduce $\eta$ exponencialmente y por último se tiene un \textit{learning rate} \textbf{dinámico} que lo que hace es ver si el error se reduce consistentemente y, en tal caso, incrementa el $\eta$ sin superar un valor máximo preestablecido $(0.5)$, caso contrario, $\eta$ es reducida exponencialmente.
 
+\subsection{Ejecución}
+
+\par La implementación considera la llamada a una única función \textit{main} a la que se le pasan los siguientes parámetros de configuración: operación lógica (AND / OR), cantidad de bits (entre 2 y 5), cantidad de épocas, eta ($\eta$), tipo de aprendizaje \textit{constant, annealed, dynamic} en ese órden.
+Por ejemplo la siguiente llamada:
+
+\begin{verbatim}
+main('AND', N, 500, 'SIGMOID', 0.02, 'COSNTANT')
+\end{verbatim}
+
+Le pasará al perceptrón simple el problema del AND lógico de N bits, con la función de transferencia sigmoidea, $\eta=0.02$, tipo de aprendizaje constante y correrá por 500 épocas.\\
+Es de interés destacar que, entre época y época, se decidió mezclar los patrones del conjunto de entrenamiento.
+
 \section{Resultados}
 
 \subsection{AND lógico}
 
-\par Se decidió, para la implementación del \textit{AND} ......
+\par Como se puede apreciar en las tablas de la sección \textit{\textbf{Anexo A}}, utilizando unidades escalón, el \textit{AND} lógico tarda muy pocas épocas en presentar un error menor que $10^{-3}$. Es interesante compararlo con los resultados obtenidos al utilizar las funciones de transferencia lineales y sigmóideas: fijando el $\eta$ y el tipo de aprendizaje, se observa que para estas últimas dos funciones de transferencia se requieren, en el caso de un \textit{AND} 3-ario, más de 300 o 400 épocas para alcanzar dicho cometido $(E < 10^{-3} )$.
 
-\begin{table}[H]
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-  Capas & Función de &  Épocas & Error de\\
- de la red & activación &  & aprendizaje\\
 
-\hline
-\hline
-
-[2;3;1] & Escalón & a & d\\
-\hline
-[2;3;1] & Lineal & b & e\\
-\hline
-[2;3;1] & Sigmóidea & c & f\\
-\hline
-
-\end{tabular}
-\end{center}
-\caption{Comparación de red para AND lógico}\label{tablaIDFS}
-\end{table}
-
-\subsection{OR lógico}
-
-\par Se decidió, para la implementación del \textit{AND} ......
-
-\begin{table}[H]
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-  Capas & Función de &  Épocas & Error de\\
- de la red & activación &  & aprendizaje\\
-
-\hline
-\hline
-
-[2;3;1] & Escalón & a & d\\
-\hline
-[2;3;1] & Lineal & b & e\\
-\hline
-[2;3;1] & Sigmóidea & c & f\\
-\hline
-
-\end{tabular}
-\end{center}
-\caption{Comparación de red para OR lógico}\label{tablaIDFS}
-\end{table}
 
 \section{Conclusión}
 
-\PARstart Es notable destacar 
+\PARstart Luego de realizar numerosas pruebas variando los parámetros de configuración de la red neuronal, podemos concluír que hemos tenido mejores resultados mejores resultados utilizando $\beta=1$ y seteando $\eta$ con valores altos. Esto puede deberse posiblemente a la naturaleza planar del problema.
 
 %----------------------------------------------------------------------
 % The bibliography. This bibliography was generated using the following
@@ -237,6 +205,54 @@ perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, c
 
 
 \clearpage
+\onecolumn
+\section*{Anexo A: Tablas}
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Bits &  Eta & Función de &  Épocas & Error de\\
+ & $\eta$ & activación &  & aprendizaje\\
+
+\hline
+\hline
+
+2 & a & Escalón & a & d\\
+\hline
+2 & b & Lineal & b & e\\
+\hline
+2 & c & Sigmóidea & c & f\\
+\hline
+\hline
+3 & a & Escalón & a & d\\
+\hline
+3 & b & Lineal & b & e\\
+\hline
+3 & c & Sigmóidea & c & f\\
+\hline
+\hline
+4 & a & Escalón & a & d\\
+\hline
+4 & b & Lineal & b & e\\
+\hline
+4 & c & Sigmóidea & c & f\\
+\hline
+\hline
+5 & a & Escalón & a & d\\
+\hline
+5 & b & Lineal & b & e\\
+\hline
+5 & c & Sigmóidea & c & f\\
+\hline
+
+\end{tabular}
+\end{center}
+\caption{Comparación de red para AND lógico con tipo de aprendizaje constante}\label{tablaIDFS}
+\end{table}
+
+
+\section*{Anexo B: Gráficos}
 
 %\VerbatimInput{./code/calculoAb.m}
 

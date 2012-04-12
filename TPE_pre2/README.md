@@ -18,3 +18,6 @@ Para correr el Perceptron Simple lo primero que se debe estar parado sobre la ru
 ejemplo: main("AND", 4, 500, "SIGMOID", 0.02, "CONSTANT")
 
 Se entrenara a la redcon un AND de 4 bits, 500 epocas, con una funcionde transformacion sigmoidea, con un eta contante con valos 0.02.
+
+
+En caso de querere consultar el menu de ayuda, puede invocarse main('help') y mostrara la forma de invocacion y los operadores validos para cada tipo de seleccion.

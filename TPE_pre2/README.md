@@ -9,9 +9,9 @@ Ejecución
 Para correr el Perceptrón Simple primero se debe estar parado sobre la rúta en donde se encuentran los archivos `.m` de de carpeta `src` de la carpeta `TPE_pre2` y ejectutar el programa `octave`. Una vez hecho esto, se debe invocar al programa `main` especificando los siguientes parámetros:
 
 * 1 - operator_name: puede ser AND o OR
-* 2 - N: cantidad de bits a utilizar con el operador elejido (2 - 5)
+* 2 - N: cantidad de bits a utilizar con el operador elegido (2 - 5)
 * 3 - epochs: cantidad de épocas
-* 4 - trans_name: nombre de la función de transformacion (Sg, Linear, Sigmoid)
+* 4 - trans_name: nombre de la función de transformación (Sg, Linear, Sigmoid)
 * 5 - lrn_base: un decimal indicando el `eta` a utilizar.
 * 6 - lrn_type_name: metodo para actualizar el `lrn_base` al final de cada epoca (Constant, Annealed, Dynamic)
 

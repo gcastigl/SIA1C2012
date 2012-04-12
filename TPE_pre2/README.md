@@ -6,7 +6,7 @@ Trabajos prácticos de la materia S.I.A del ITBA - 1er cuatrimestre 2012.
 Ejecución
 ---------
 
-Para correr el Perceptron Simple lo primero que se debe estar parado sobre la ruta en donde se encuentran los archivos `.m` de de carpeta `src` y ejectutar el programa `octave`. Una vez hecho esto, se debe invocar al programa `mian` especificando los siguientes parametros:
+Para correr el Perceptron Simple primero se debe estar parado sobre la ruta en donde se encuentran los archivos `.m` de de carpeta `src` de la carpeta `TPE_pre2` y ejectutar el programa `octave`. Una vez hecho esto, se debe invocar al programa `mian` especificando los siguientes parametros:
 
 1 - operator_name: puede ser AND o OR
 2 - N: cantidad de bits a utilizar con el operador elejido (2 - 5)

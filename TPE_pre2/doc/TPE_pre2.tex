@@ -86,7 +86,9 @@
 \maketitle               
 
 \begin{abstract} 
-El presente informe busca analizar y comparar distintas implementaciones y arquitecturas de redes neuronales con aprendizaje supervisado que resuelvan el problema del \textit{AND} y \textit{OR} lógico para $N$ bits con $2 \le N \le 5$ a través del uso de tres variantes de funciones de transferencia.
+El presente informe busca analizar  redes neuronales 
+con aprendizaje supervisado que resuelvan el problema del \textit{AND} y \textit{OR} lógico para $N$ bits 
+con $2 \le N \le 5$ a través del uso de tres variantes de funciones de transferencia.
 
 \end{abstract}
 
@@ -98,7 +100,10 @@ perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, c
 % SECTION I: Introduccion%----------------------------------------------------------------------
 \section{Introducción}
 
-\PARstart Las redes neuronales son un paradigma de aprendizaje y procesamiento automático inspirado en la forma en que funciona el sistema nervioso de los animales. Se trata de un sistema de interconexión de neuronas en una red que colabora para producir un estímulo de salida. Cabe destacarse que las redes neuronales no dejan de ser un modelo y es debido a esto que no tienen en cuenta muchas de las funciones y cualidades del cerebro humano.
+\PARstart Las redes neuronales son un paradigma de aprendizaje y procesamiento automático inspirado 
+en la forma en que funciona el sistema nervioso de los animales. Se trata de un sistema de interconexión de 
+neuronas en una red que colabora para producir un estímulo de salida. Cabe destacarse que las redes neuronales no 
+dejan de ser un modelo y es debido a esto que no tienen en cuenta muchas de las funciones y cualidades del cerebro humano.
 
 %----------------------------------------------------------------------
 % SECTION II: Marco Teórico
@@ -108,13 +113,22 @@ perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, c
 
 \subsection{Modelado del problema}
 
-\par Se representó la red neuronal como una \textbf{matriz de pesos}. Cada neurona es una fila de pesos, cada capa de neuronas es una matriz de pesos, la red neuronal, por consiguiente, es un vector de matrices. Lo interesante es que hallar el valor de la red neuronal con un cierto input se reduce a multiplicar el vector input por cada una de estas matrices. A su vez esta implementación facilita el manejo de errores.\\
+\par Se representó la red neuronal como una \textbf{matriz de pesos}. Cada neurona es una columna de pesos, cada capa de 
+neuronas es una matriz de pesos, la red neuronal, por consiguiente, es un vector de matrices (en particular un 
+perceptrón simple es solo una matriz). Lo interesante es que hallar 
+el valor de la red neuronal con un cierto input se reduce a multiplicar el vector entrada por cada una de estas matrices. Cabe destacar 
+que al vector de entrada se le agrega siempre un $-1$ como último valor para el sesgo.
+A su vez esta implementación facilita el manejo de errores.\\
 
-\par Para las unidades escalón el error está definido como la \textbf{Distancia Hamming Levenshtein}, para los otros tipos de unidades se decidió utilizar el \textbf{error cuadrático medio}.
+\par Para las unidades escalón el error está definido como la \textbf{Distancia Hamming Levenshtein}, 
+para los otros tipos de unidades se decidió utilizar el \textbf{error cuadrático medio}.
 
 \subsection{Features}
 
-\par Se implementaron tres tipos de funciones para modificar la variable $\eta$ \textit{(learn rate)}: La primera de ellas es a valor \textbf{constante}, es decir que $\eta$ nunca es modificada, la segunda es \textbf{\textit{annealed}} que reduce $\eta$ exponencialmente y por último se tiene un \textit{learning rate} \textbf{dinámico} que lo que hace es ver si el error se reduce consistentemente y, en tal caso, incrementa el $\eta$ sin superar un valor máximo preestablecido $(0.5)$, caso contrario, $\eta$ es reducida exponencialmente.
+\par Se implementaron tres tipos de funciones para modificar la variable $\eta$ \textit{(learn rate)}: 
+La primera de ellas es a valor \textbf{constante}, , la segunda es \textbf{\textit{annealed}} que reduce $\eta$ exponencialmente y por último se 
+tiene un \textit{learning rate} \textbf{adaptative} que modifica $\eta$ en función de los últimos errores obtenidos. El crecimiento es aritmético, con cota 
+en $\eta =0.5$, la reducción exponencial.
 
 \subsection{Ejecución}
 
@@ -126,19 +140,27 @@ main('AND', N, 500, 'SIGMOID', 0.02, 'COSNTANT')
 \end{verbatim}
 
 Le pasará al perceptrón simple el problema del AND lógico de N bits, con la función de transferencia sigmoidea, $\eta=0.02$, tipo de aprendizaje constante y correrá por 500 épocas.\\
-Es de interés destacar que, entre época y época, se decidió mezclar los patrones del conjunto de entrenamiento.
+Cabe destacar que el conjunto de entrenamiento está compuesto por todos los casos posibles (al igual que el de testeo) y en cada época se altera el orden de 
+dicho conjunto.
 
 \section{Resultados}
 
-\par A modo de ejemplo, en la sección \textit{\textbf{Anexo A}} se puede observar una tabla comparativa entre los distintos tipos de funciones de transferencia para un $\eta$ pequeño, con tipo de aprendizaje constante. Se decidió duplicar la cantidad de épocas tomadas inicialmente a medida que se incrementaba la cantidad de \textit{inputs}.
+\par A modo de ejemplo, en la sección \textit{\textbf{Anexo A}} se puede observar una tabla comparativa entre los distintos tipos de funciones 
+de transferencia para un $\eta$ pequeño, con tipo de aprendizaje constante. Se decidió duplicar la cantidad de épocas tomadas inicialmente a
+ medida que se incrementaba la cantidad de \textit{inputs}.
 
-\par Como se puede apreciar en las tablas, utilizando unidades escalón, tanto el \textit{AND} como el \textit{OR} lógico tarda muy pocas épocas en presentar un error menor que $10^{-3}$, a diferencia de las pruebas realizadas con la simoidea y lineal.
+\par Como se puede apreciar en las tablas, las unidades escalón probaron ser las más rápidas en reducir el error.
 
 \section{Conclusión}
 
-\PARstart Luego de realizar numerosas pruebas variando los parámetros de configuración de la red neuronal, podemos concluír que hemos tenido mejores resultados utilizando $\beta=1$ y seteando $\eta$ con valores altos. Esto puede deberse posiblemente a la naturaleza planar del problema.
+\PARstart Luego de realizar numerosas pruebas variando los parámetros de configuración de la red neuronal, 
+podemos concluír que hemos tenido mejores resultados utilizando $\beta=1$ y utilizando valores más altos de $\eta$. 
+Esto puede deberse posiblemente a la naturaleza planar del problema.
 
-\par Al oservar los gráficos de error obtenidos al realizar pruebas con funciones sigmoideas y lineales, notamos que a largo plazo, el error tiene a estancarse en un determinado nivel. Motivo por el cual se decidió probar con un $\eta$ variable (\textit{annealed} y \textit{dynamic}), obteniendo resultados más precisos. Este fenómeno puede ser observado en el \textit{\textbf{Anexo B}} donde se compara el error obtenido con un $\eta$ constante versus un $\eta$ dinámico.
+\par Al oservar los gráficos de error obtenidos al realizar pruebas con funciones sigmoideas y lineales, 
+notamos que el error tiende a cero, pero lo hace más rápido utilizando el $eta$ en modo \textit{adaptative}
+. Este fenómeno puede ser observado en el \textit{\textbf{Anexo B}} donde se compara 
+el error obtenido con un $\eta$ constante versus un $\eta$ adaptativo.
 
 %\begin{thebibliography}{1}
 

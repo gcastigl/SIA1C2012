@@ -6,12 +6,12 @@ function toterr = get_error(net, expected)
 
 	toterr = 0;
 	if(net.trans_type == 1)
-		for i = 1:size(net.values{2},2)
-			if( net.values{2}(i) != expected(i))
+		for i = 1:size(net.values{size(net.arch,2)},2)
+			if( net.values{size(net.arch,2)}(i) != expected(i))
 				toterr = toterr +1;
 			endif
 		end
 	else
-		toterr = sumsq( net.values{2} - expected);
+		toterr = sumsq( net.values{size(net.arch,2)} - expected);
 	endif
 endfunction 

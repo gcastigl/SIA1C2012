@@ -68,7 +68,7 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 	% Create the network with i inputs and o outputs
 	i = length(train_set{1}{1});
 	o = length(train_set{1}{2});
-	net = crt_nr_nw(i,o,lrn_type,lrn_base,trans);
+	net = crt_nr_nw([i,3,o],lrn_type,lrn_base,trans);
 
 
 	errors = zeros(epochs,1);
@@ -84,11 +84,14 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 		err = 0;
 		for j = 1:train_set_len
 			
-			%Evaluate the input
+			%Ev	aluate the input
 			net = eval_input(net, vals{vec(j)}{1});
 
-			%Compare output with desired value
-			net = update_weights(net, vals{vec(j)}{2});
+			%get the delta values of  the network
+			deltas  = get_deltas(net, vals{vec(j)}{2});
+			
+			%update weights with the delta values
+			net = update_weights(net, deltas);
 
 			%Calculate error 
 			err += get_error(net, vals{vec(j)}{2});

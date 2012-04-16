@@ -1,15 +1,13 @@
-function new_net = update_weights(net, expected)
+function new_net = update_weights(net,deltas)
 	%updates the newtorks weight matrix (learning.)
-	deltas = expected - net.values{2};
-	n = size(net.weights);
-	lrn_rt = get_lrn_rt(net);
-	for i = 1:n(1)
-		for j = 1:n(2)
-			dw = lrn_rt * deltas(j) * net.values{1}(i);
-			if( net.trans_type == 3)
-				dw = dw * net.beta * ( 1 - net.values{2}(j) * net.values{2}(j));
-			endif
-			net.weights(i,j) = net.weights(i,j) + dw;
+	for k = 1:size(net.weights,1)
+		n = size(net.weights{k});
+		lrn_rt = get_lrn_rt(net);
+		for i = 1:n(1)
+			for j = 1:n(2)
+				dw = lrn_rt * deltas{k}(j) * net.values{k}(i);
+				net.weights{k}(i,j) = net.weights{k}(i,j) + dw;
+			end
 		end
 	end
 	new_net = net;

@@ -1,6 +1,9 @@
-function weights = init_weights( in_len, out_len )
+function weights = init_weights( arch )
 	%returns a matrix with random values between -0.25 and 0.25
-	weights = rand( in_len, out_len);
-	weights= weights .- 0.5;
-	weights = weights ./2;
+	weights = cell(size(arch,2) -1,1);
+	for i = 1:(size(arch,2)-1)
+		weights{i} = rand( arch(i) +1 , arch(i+1));
+		weights{i}= weights{i} .- 0.5;
+		weights{i} = weights{i} ./2;
+	end
 endfunction

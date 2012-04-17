@@ -146,10 +146,10 @@ function net = main(operator_name, N, hidden_layers, epochs, trans_name, lrn_bas
 	clf;
 	hold on;
 	% plot(1:epochs, errors, '-4; Step Error;'); % No sense to plot this error if we have the same training and eval set
-	plot(1:epochs, test_errors, '-1; Total error;')
-	plot(1:epochs, lrn_rates, '-2; Learning rate;');
-	title("Nueral Network evolution", 'FontSize', 25);
-	xlabel("Epochs number", 'FontSize', 20);
+	plot(1:epochs, test_errors, '-1; Error total;')
+	plot(1:epochs, lrn_rates, '*3; Tasa de aprendizaje;');
+	title("Evolución de la Red Neuronal", 'FontSize', 25);
+	xlabel("Número de épocas", 'FontSize', 20);
 	%ylabel("Error", 'FontSize', 20);
 	mkdir("./images/");
 	print('-dpng', './images/evolution.png');

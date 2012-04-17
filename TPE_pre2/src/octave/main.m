@@ -71,7 +71,7 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 	% Create the network with i inputs and o outputs
 	i = length(train_set{1}{1});
 	o = length(train_set{1}{2});
-	net = crt_nr_nw([i,6,3,o],lrn_type,lrn_base,trans);
+	net = crt_nr_nw([i,3,o],lrn_type,lrn_base,trans);
 
 
 	errors = zeros(epochs,1);

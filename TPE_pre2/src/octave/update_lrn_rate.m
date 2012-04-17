@@ -28,7 +28,14 @@ function new_net = update_lrn_rate ( net, error)
 				endif
 			endif
 		endif
+		%check for local minimum
 	endif
-	net.prev_err = error;
+	if(net.lrn_type == 3 && error > 1 && net.lrn_rt < 0.05)
+		%error is higher than 1, net lrn rate is LOW, local minimum spotted!
+		net.prev_err = Inf;
+		net.lrn_rt = 1;
+	else
+		net.prev_err = error;
+	endif
 	new_net = net;
 endfunction

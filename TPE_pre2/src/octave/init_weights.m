@@ -4,6 +4,5 @@ function weights = init_weights( arch )
 	for i = 1:(size(arch,2)-1)
 		weights{i} = rand( arch(i) +1 , arch(i+1));
 		weights{i}= weights{i} .- 0.5;
-		weights{i} = weights{i} ./2;
 	end
 endfunction

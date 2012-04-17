@@ -68,7 +68,7 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 	% Create the network with i inputs and o outputs
 	i = length(train_set{1}{1});
 	o = length(train_set{1}{2});
-	net = crt_nr_nw([i,2,o],lrn_type,lrn_base,trans);
+	net = crt_nr_nw([i,3,o],lrn_type,lrn_base,trans);
 
 
 	errors = zeros(epochs,1);
@@ -128,6 +128,15 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 				printf('\tError is grater than 10^{-3} - try using a different \"eta\" or incrementing the number of epochs\n');
 			endif
 		endif
+	printf('\tFinal outputs:');
+	for i = 1:size(train_set,1)
+		printf('\t[');
+		for j = 1:size(train_set{i}{1},2)
+			printf('%d,',train_set{i}{1}(j));
+		end
+		net = eval_input(net,train_set{i}{1});
+		printf(']\tResult:%g Excpected: %g\n', net.values{size(net.values,1)}(1), train_set{i}{2}(1));
+	end
 	releasePrintColor();
 	
 	% Plot the network stats

@@ -13,10 +13,13 @@ function new_net = update_lrn_rate ( net, error)
 		endif
 	endif
 	if(net.lrn_type == 3)
-		if(error >= net.prev_err)
+		if(error > net.prev_err)
 			net.counter = 0;
 			net.lrn_rt = net.lrn_decay * net.lrn_rt;
-		else
+			if( net.lrn_rt < 0.02)
+				net.lrn_rt = 0.02;
+			endif
+		elseif( error < net.prev_err)
 			net.counter +=1;
 			if(net.counter >= net.lrn_consist)
 				net.lrn_rt = net.lrn_rt + net.lrn_sum;

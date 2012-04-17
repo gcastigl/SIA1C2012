@@ -1,5 +1,6 @@
 function deltas = get_deltas(net, expected)
-	layers = size(net.arch,2);
+	layers = size(net.arch,2); % Number of layers (including INPUT and OUTPUT)
+
 	%first calculate delta for output layer.
 	for i= 1:net.arch(layers)
 		d = expected(i) - net.values{layers}(i);
@@ -13,7 +14,12 @@ function deltas = get_deltas(net, expected)
 		%dont bother propagating; is a simple perceptron
 		return;
 	endif
+
 	l = layers - 2;
+	
+	% For each layer "l", for each neuron in "l", calculate the delta for the layer "l+1"
+	% Start from the end and go down to the input.
+
 	while(l != 0)
 		%first calculate g'(h). Notice that in some trans functions this does not apply (i.e.: deriv = 1)
 		for i = 1:net.arch(l+1)

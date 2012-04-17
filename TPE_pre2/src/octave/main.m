@@ -1,15 +1,15 @@
-function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_name)
+function net = main(operator_name, N, hidden_layers, epochs, trans_name, lrn_base, lrn_type_name)
 
-	% Invoque main like main("AND", N, 500, "SIGMOID", 0.02, "CONSTANT")
-	% This network will try to learn the AND operator with N bits in
-	% 500 epochs using the SIGMOID transfer function with a 0.02 etha and
+	% Invoque main like main("AND", N, 500, [2 4], "SIGMOID", 0.02, "CONSTANT")
+	% This network will try to learn the AND operator with N bits, with an architecture of 2 hidden
+	% layers with 2 and 4 neurons in each layer respectively.
+	% Algorithm will run 500 epochs using the SIGMOID transfer function with a 0.02 etha and
 	% a constant learning rate.
-
-
 
 	if (strcmp(tolower(operator_name), 'help'))
 		printGreenColor();
-		printf('\n***Invoque main like main("AND", N, epochs, TRANSFORMATION, eta, LEARN_TYPE)***\n')
+		printf('\n***Invoque main like main("AND", N, HIDDEN_LAYERS, epochs, TRANSFORMATION, eta, LEARN_TYPE)***\n')
+		printf('\nHIDDEN_LAYERS = [2 4] for two layers with 2 and 4 neurons in each layer respectively\n');
 		printf('\nTRANSFORMATION = [Sg, Linear, Sigmoid]\n');
 		printf('\nLEARN_TYPE = [Constant, Annealed, Dynamic]\n');
 		releasePrintColor();
@@ -71,8 +71,7 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 	% Create the network with i inputs and o outputs
 	i = length(train_set{1}{1});
 	o = length(train_set{1}{2});
-	net = crt_nr_nw([i,3,o],lrn_type,lrn_base,trans);
-
+	net = crt_nr_nw([i,hidden_layers,o],lrn_type,lrn_base,trans);
 
 	errors = zeros(epochs,1);
 	test_errors = zeros(epochs,1);
@@ -82,18 +81,19 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 	printBlueColor();
 	printf('\nBackpropagation algorithm started: epoch 1 of %d, learning \"%s\" with \"%s\" transfer function\n', epochs, operator_name, lrn_type_name);
 	releasePrintColor();
-	for i = 1:epochs
+	
+	for i = 1:epochs % Iterate over epochs
 		vec = get_randorder(train_set_len); % Shuffle trainset
 		err = 0;
-		for j = 1:train_set_len
+		for j = 1:train_set_len % Iterate over each training pattern
 			
-			%Ev	aluate the input
+			%Evaluate the input
 			net = eval_input(net, vals{vec(j)}{1});
 
-			%get the delta values of  the network
+			%Get the delta values of the network
 			deltas  = get_deltas(net, vals{vec(j)}{2});
 			
-			%update weights with the delta values
+			%Update weights with the delta values
 			net = update_weights(net, deltas);
 
 			%Calculate error 

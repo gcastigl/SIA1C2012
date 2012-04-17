@@ -1,0 +1,289 @@
+\documentclass[%
+    %draft,
+    %submission,
+    %compressed,
+    final,
+    %
+    %technote,
+    %internal,
+    %submitted,
+    %inpress,
+    reprint,
+    %
+    %titlepage,
+    notitlepage,
+    %anonymous,
+    narroweqnarray,
+    inline,
+    twoside,
+    invited
+    ]{ieee}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{moreverb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fancybox}
+\usepackage{float}
+\usepackage{fancyvrb}
+\usepackage{subfigure}
+
+\newcommand{\latexiie}{\LaTeX2{\Large$_\varepsilon$}}
+
+%\usepackage{ieeetsp}    % if you want the "trans. sig. pro." style
+%\usepackage{ieeetc}    % if you want the "trans. comp." style
+%\usepackage{ieeeimtc}    % if you want the IMTC conference style
+
+% Use the `endfloat' package to move figures and tables to the end
+% of the paper. Useful for `submission' mode.
+%\usepackage {endfloat}
+
+% Use the `times' package to use Helvetica and Times-Roman fonts
+% instead of the standard Computer Modern fonts. Useful for the 
+% IEEE Computer Society transactions.
+%\usepackage{times}
+% (Note: If you have the commercial package `mathtime,' (from 
+% y&y (http://www.yandy.com), it is much better, but the `times' 
+% package works too). So, if you have it...
+%\usepackage {mathtime}
+
+% for any plug-in code... insert it here. For example, the CDC style...
+%\usepackage{ieeecdc}
+
+\begin{document}
+
+%----------------------------------------------------------------------
+% Title Information, Abstract and Keywords
+%----------------------------------------------------------------------
+\title[Redes Neuronales]{%
+       Redes Neuronales}
+
+% format author this way for journal articles.
+% MAKE SURE THERE ARE NO SPACES BEFORE A \member OR \authorinfo
+% COMMAND (this also means `don't break the line before these
+% commands).
+\author[Castiglione, Karpovsky, Sturla]{Gonzalo V. Castiglione, Alan E. Karpovsky, Martín Sturla\\\textit{Estudiantes 
+       Instituto Tecnológico de Buenos Aires (ITBA)}\\
+\textbf{12 de Abril de 2012}
+}
+
+
+\journal{Cátedra\ \ Sist.\ de\ Inteligencia\ Artificial,\ ITBA\ }
+\titletext{-\ 12, ABRIL\ 2012}
+\ieeecopyright{\copyright\ 2012 ITBA}
+\lognumber{}
+\pubitemident{}
+\loginfo{12 de Abril, 2012.}
+\firstpage{1}
+
+\confplacedate{Buenos Aires, Argentina, 12 de Abril, 2012}
+
+\maketitle               
+
+\begin{abstract} 
+El presente informe busca analizar  redes neuronales multicapa
+con aprendizaje supervisado que resuelvan el problema del \textit{Simetría} y \textit{Paridad} lógica para $N$ bits 
+con $2 \le N \le 5$ a través del uso de tres variantes de funciones de transferencia.
+
+\end{abstract}
+
+\begin{keywords}
+perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, conjunto de entrenamiento, conjunto de testeo
+\end{keywords}
+
+%----------------------------------------------------------------------
+% SECTION I: Introduccion%----------------------------------------------------------------------
+\section{Introducción}
+
+\par Se analizó el comportamiento de distintas redes neuronales multicapa para el problema de la paridad y simetría booleana. Con este fin se implementó un algoritmo que permite definir la arquitectura y las propiedades de la red neuronal a generar de manera de hacer más simple y práctico su estudio. En las secciones próximas se explicará el desarrollo y modelado del problema como así también los resultados obtenidos.
+
+%----------------------------------------------------------------------
+% SECTION II: Marco Teórico
+%----------------------------------------------------------------------
+
+\section{Desarrollo}
+
+\subsection{Modelado del problema}
+
+\par Se representó la red neuronal como una \textbf{matriz de pesos}. Cada neurona es una columna de pesos, cada capa de 
+neuronas es una matriz de pesos, la red neuronal, por consiguiente, es un vector de matrices (en particular un 
+perceptrón simple es solo una matriz). Lo interesante es que hallar 
+el valor de la red neuronal con un cierto input se reduce a multiplicar el vector entrada por cada una de estas matrices. Cabe destacar 
+que al vector de entrada se le agrega siempre un $-1$ como último valor para el sesgo.
+A su vez esta implementación facilita el manejo de errores.\\
+
+\par Para las unidades escalón el error está definido como la \textbf{Distancia Hamming Levenshtein}, para los otros tipos de unidades se decidió utilizar el \textbf{error cuadrático medio}.
+
+\subsection{Features}
+
+\par Se implementaron tres tipos de funciones para modificar la variable $\eta$ \textit{(learn rate)}: 
+La primera de ellas es a valor \textbf{constante}, , la segunda es \textbf{\textit{annealed}} que reduce $\eta$ exponencialmente y por último se 
+tiene un \textit{learning rate} \textbf{adaptative} que modifica $\eta$ en función de los últimos errores obtenidos. El crecimiento es aritmético, con cota 
+en $\eta =0.5$, la reducción exponencial.
+
+\par Debido a la existencia de mínimos locales se desarrolló un algoritmo  \textbf{\textit{persistent search}} que lo que hace es, dado un cierto error, entrenar la red neuronal la cantidad de épocas especificada y verificar si el error obtenido es mayor al deseado. En cuyo caso reinicia el algoritmo, asigna los pesos al azar y vuelve a comenzar el entrenamiento.
+\par Otra estrategia que se utilizó para subsanar este problema es la de darle un impulso a $\eta$ al detectar que el algoritmo está estancado en un mínimo local.
+
+\section{Resultados}
+
+\par En base a las pruebas podemos concluír que utilizando una función de transferencia \textit{lineal}, la red no aprenderá el problema. Esto se debe a que cada capa realiza una transformación lineal de la salida de la capa anterior y una transformacion lineal de una transformación lineal es lineal. Es decir que no existen coeficientes $a_1, a_2, \cdots, a_n$ que resuelvan, por ejemplo, mi ecuación de paridad para $n$ bits, lo que hará que se tienda a un mínimo local (en 0) o diverger en una secuencia alterna por lo que el error subirá indefinidamente.
+
+\par A su vez, para las funciones escalón o no lineales se observó que es posible que ciertas arquitecturas tiendan a atascarse mas en minimos locales u otras quizas resuelvan el problema.
+\par Por lo visto en clase, para un XOR de $N$ bits, la arquitectura óptima resulta ser una única capa oculta con $N$ neuronas. Asimismo para el problema de simetría se sugiere utilizar una única capa oculta con 2 neuronas, independientemente de la cantidad de bits que contenga la entrada.
+
+\section{Conclusión}
+
+
+%\begin{thebibliography}{1}
+
+%\bibitem{lamport1}
+%Fierens, P. (2011),
+%\newblock {\em Cuadrados mínimos: repaso},
+%\newblock Buenos Aires: Instituto Tecnológico de Buenos Aires.
+
+%\bibitem{lamport1}
+%Abdi, H.,
+%\newblock {\em  Least-squares: {Encyclopedia for research methods for the social sciences}},
+%\newblock Thousand Oaks (CA): Sage. pp, 2003.
+
+%\bibitem{lamport1}
+%Farebrother, R.W. (1988),
+%\newblock {\em Linear Least Squares Computations, STATISTICS: Textbooks and Monographs}, %\newblock New York: Marcel Dekker.
+
+%\bibitem{lamport1}
+%Lipson, M.; Lipschutz, S. (2001),
+%\newblock {\em Schaum's outline of theory and problems of linear algebra}, 
+%newblock New York: McGraw-Hill, pp. 69–80.
+
+
+%\end{thebibliography}
+
+%----------------------------------------------------------------------
+
+
+\clearpage
+\onecolumn
+\section*{Anexo A: Tablas}
+ 
+\begin{center}
+\textbf{\emph{AND}}
+\end{center}
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Bits &  Eta & Función de &  Épocas & Error de\\
+ & $\eta$ & activación &  & aprendizaje\\
+
+\hline
+\hline
+
+2 & 0.02 & Escalón & 50 & 0\\
+\hline
+2 & 0.02 & Lineal & 50 & 0.287\\
+\hline
+2 & 0.02 & Sigmóidea & 50 & 0.571\\
+\hline
+\hline
+3 & 0.02 & Escalón & 100 & 0\\
+\hline
+3 & 0.02 & Lineal & 100 & 0.256\\
+\hline
+3 & 0.02 & Sigmóidea & 100 & 0.581\\
+\hline
+\hline
+4 & 0.02 & Escalón & 200 & 0\\
+\hline
+4 & 0.02 & Lineal & 200 & 0.181\\
+\hline
+4 & 0.02 & Sigmóidea & 200 & 0.523\\
+\hline
+\hline
+5 & 0.02 & Escalón & 400 & 0\\
+\hline
+5 & 0.02 & Lineal & 400 & 0.089\\
+\hline
+5 & 0.02 & Sigmóidea & 400 & 0.421\\
+\hline
+
+\end{tabular}
+\end{center}
+\caption{Comparación de errores de la salida de la red para AND lógico con tipo de aprendizaje constante}\label{tablaIDFS}
+\end{table}
+
+\begin{center}
+\textbf{\emph{OR}}
+\end{center}
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Bits &  Eta & Función de &  Épocas & Error de\\
+ & $\eta$ & activación &  & aprendizaje\\
+
+\hline
+\hline
+
+2 & 0.02 & Escalón & 50 & 0\\
+\hline
+2 & 0.02 & Lineal & 50 & 0.310\\
+\hline
+2 & 0.02 & Sigmóidea & 50 & 0.545\\
+\hline
+\hline
+3 & 0.02 & Escalón & 100 & 0\\
+\hline
+3 & 0.02 & Lineal & 100 & 0.258\\
+\hline
+3 & 0.02 & Sigmóidea & 100 & 0.568\\
+\hline
+\hline
+4 & 0.02 & Escalón & 200 & 0\\
+\hline
+4 & 0.02 & Lineal & 200 & 0.181\\
+\hline
+4 & 0.02 & Sigmóidea & 200 & 0.520\\
+\hline
+\hline
+5 & 0.02 & Escalón & 400 & 0\\
+\hline
+5 & 0.02 & Lineal & 400 & 0.089\\
+\hline
+5 & 0.02 & Sigmóidea & 400 & 0.425\\
+\hline
+
+\end{tabular}
+\end{center}
+\caption{Comparación de errores de la salida de la red para OR lógico con tipo de aprendizaje constante}\label{tablaIDFS}
+\end{table}
+
+\clearpage
+
+\section*{Anexo B: Gráficos}
+
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.85]{./images/g1.png}
+\label{modelado}
+\end{center}
+\end{figure}
+
+\begin{center}
+\par Figura 1: Curva de error con eta constante vs. eta dinámico
+\end{center}
+
+
+
+%\VerbatimInput{./code/calculoAb.m}
+
+
+
+
+\end{document}

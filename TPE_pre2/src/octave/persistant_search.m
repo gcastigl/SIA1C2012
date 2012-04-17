@@ -1,4 +1,4 @@
-function persistant_search(operator_name, N, epochs, trans_name, lrn_base, lrn_type_name, error)
+function persistent_search(operator_name, N, epochs, trans_name, lrn_base, lrn_type_name, error)
 
 	% Invoque main like main("AND", N, 500, "SIGMOID", 0.02, "CONSTANT", 0.1)
 	% This network will try to learn the AND operator with N bits in

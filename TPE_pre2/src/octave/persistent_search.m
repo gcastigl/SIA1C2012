@@ -1,16 +1,15 @@
-function persistent_search(operator_name, N, epochs, trans_name, lrn_base, lrn_type_name, error)
+function net = main(operator_name, N, hidden_layers, epochs, trans_name, lrn_base, lrn_type_name, error)
 
-	% Invoque main like main("AND", N, 500, "SIGMOID", 0.02, "CONSTANT", 0.1)
-	% This network will try to learn the AND operator with N bits in
-	% 500 epochs using the SIGMOID transfer function with a 0.02 etha and
-	% a constant learning rate. IF the final error is higher than ERROR, 
-	% it will restart the process.
-
-
+	% Invoque main like main("AND", N, 500, [2 4], "SIGMOID", 0.02, "CONSTANT")
+	% This network will try to learn the AND operator with N bits, with an architecture of 2 hidden
+	% layers with 2 and 4 neurons in each layer respectively.
+	% Algorithm will run 500 epochs using the SIGMOID transfer function with a 0.02 etha and
+	% a constant learning rate.
 
 	if (strcmp(tolower(operator_name), 'help'))
 		printGreenColor();
-		printf('\n***Invoque main like main("AND", N, epochs, TRANSFORMATION, eta, LEARN_TYPE)***\n')
+		printf('\n***Invoque main like main("AND", N, HIDDEN_LAYERS, epochs, TRANSFORMATION, eta, LEARN_TYPE)***\n')
+		printf('\nHIDDEN_LAYERS = [2 4] for two layers with 2 and 4 neurons in each layer respectively\n');
 		printf('\nTRANSFORMATION = [Sg, Linear, Sigmoid]\n');
 		printf('\nLEARN_TYPE = [Constant, Annealed, Dynamic]\n');
 		releasePrintColor();
@@ -75,7 +74,7 @@ function persistent_search(operator_name, N, epochs, trans_name, lrn_base, lrn_t
 	curr_error = Inf;
 	times = 0;
 	while( curr_error > error)
-		net = crt_nr_nw([inp,3,out],lrn_type,lrn_base,trans);
+		net = crt_nr_nw([inp,hidden_layers,out],lrn_type,lrn_base,trans);
 		errors = zeros(epochs,1);
 		for i = 1:epochs
 			vec = get_randorder(train_set_len); % Shuffle trainset

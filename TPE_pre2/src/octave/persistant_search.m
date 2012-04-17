@@ -94,24 +94,23 @@ function persistant_search(operator_name, N, epochs, trans_name, lrn_base, lrn_t
 				%Calculate error 
 				err += get_error(net, vals{vec(j)}{2});
 			end
-
-			
-
 			net = update_lrn_rate(net, err / train_set_len);
-		end
-
-		curr_error = 0;
-		for  j = 1:test_set_len
+			curr_error = 0;
+			for  j = 1:test_set_len
 				net = eval_input(net, tests{j}{1});
 				curr_error += get_error(net, tests{j}{2});
+			end
+			if(curr_error <= error)
+				break;
+			endif
 		end
-	times +=1;
+		times +=1;
 	end
 		printGreenColor();
 		printf('\nNetwork stats:\n\n');
 		printYellowColor();
-		printf('\tElapsed epochs: %d\n', epochs);
-		printf('\tTotal retries: %d\n', times);
+		printf('\tElapsed epochs: %d\n', i);
+		printf('\tTotal tries: %d\n', times);
 		printf('\tTotal error: %f\n', curr_error);
 		printf('\tFinal outputs:');
 		for i = 1:size(train_set,1)

@@ -10,17 +10,16 @@ function new_net = eval_input ( net, new_input)
 	end
 
 	
-		
-	for i = 1:(size(net.values,1)-1)
+	s = size(net.values,1)-1;
+	for i = 1:s
 		%calculate output of (i+1)th layer
 		auxvalues = net.values{i} * net.weights{i};
 		for j = 1:size(auxvalues,2)
 			% copy it to our value matrix. Notice bias isn't changed. Also apply function.
 			value = auxvalues(j);
-			if( net.trans_type == 1 || (net.trans_type == 2 && abs(value) > 1))
+			if( i == s && ( net.trans_type == 1 || (net.trans_type == 2 && abs(value) > 1)))
 				value = sign(value);
-			endif
-			if(net.trans_type == 3)
+			elseif(net.trans_type == 3 || net.trans_type ==  1)
 				value = tanh(net.beta * value);
 			endif
 			net.values{i+1}(j) = value;

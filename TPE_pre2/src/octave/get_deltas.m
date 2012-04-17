@@ -18,7 +18,7 @@ function deltas = get_deltas(net, expected)
 		%first calculate g'(h). Notice that in some trans functions this does not apply (i.e.: deriv = 1)
 		for i = 1:net.arch(l+1)
 			deriv = 1;
-			if( net.trans_type == 3 && i != size(net.values{l+1},2))
+			if( net.trans_type == 3 || net.trans_type == 1)
 					deriv = deriv * net.beta * ( 1 - net.values{l+1}(i) * net.values{l+1}(i));
 			endif
 			%now calculate sumnation of weights * deltas of the previous layer to update current layer.

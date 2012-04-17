@@ -17,10 +17,9 @@ function new_net = eval_input ( net, new_input)
 		for j = 1:size(auxvalues,2)
 			% copy it to our value matrix. Notice bias isn't changed. Also apply function.
 			value = auxvalues(j);
-			if( net.trans_type == 1 )
+			if( net.trans_type == 1 || (net.trans_type == 2 && abs(value) > 1))
 				value = sign(value);
 			endif
-
 			if(net.trans_type == 3)
 				value = tanh(net.beta * value);
 			endif

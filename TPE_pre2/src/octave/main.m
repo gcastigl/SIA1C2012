@@ -4,6 +4,9 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 	% This network will try to learn the AND operator with N bits in
 	% 500 epochs using the SIGMOID transfer function with a 0.02 etha and
 	% a constant learning rate.
+
+
+
 	if (strcmp(tolower(operator_name), 'help'))
 		printGreenColor();
 		printf('\n***Invoque main like main("AND", N, epochs, TRANSFORMATION, eta, LEARN_TYPE)***\n')
@@ -68,7 +71,7 @@ function net = main(operator_name, N, epochs, trans_name, lrn_base, lrn_type_nam
 	% Create the network with i inputs and o outputs
 	i = length(train_set{1}{1});
 	o = length(train_set{1}{2});
-	net = crt_nr_nw([i,3,o],lrn_type,lrn_base,trans);
+	net = crt_nr_nw([i,6,3,o],lrn_type,lrn_base,trans);
 
 
 	errors = zeros(epochs,1);

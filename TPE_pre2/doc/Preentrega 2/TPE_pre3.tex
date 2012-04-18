@@ -1,5 +1,5 @@
 \documentclass[%
-    %draft,
+		%draft,
     %submission,
     %compressed,
     final,
@@ -99,7 +99,9 @@ perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, c
 % SECTION I: Introduccion%----------------------------------------------------------------------
 \section{Introducción}
 
-\par Se analizó el comportamiento de distintas redes neuronales multicapa para el problema de la paridad y simetría booleana. Con este fin se implementó un algoritmo que permite definir la arquitectura y las propiedades de la red neuronal a generar de manera de hacer más simple y práctico su estudio. En las secciones próximas se explicará el desarrollo y modelado del problema como así también los resultados obtenidos.
+\par Se analizó el comportamiento de distintas redes neuronales multicapa para el problema de la paridad y simetría booleana. 
+Con este fin se implementó un algoritmo que permite definir la arquitectura y las propiedades de la red neuronal a generar de 
+manera de hacer más simple y práctico su estudio. 
 
 %----------------------------------------------------------------------
 % SECTION II: Marco Teórico
@@ -110,35 +112,46 @@ perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, c
 \subsection{Modelado del problema}
 
 \par Se representó la red neuronal como una \textbf{matriz de pesos}. Cada neurona es una columna de pesos, cada capa de 
-neuronas es una matriz de pesos, la red neuronal, por consiguiente, es un vector de matrices (en particular un 
-perceptrón simple es solo una matriz). Lo interesante es que hallar 
-el valor de la red neuronal con un cierto input se reduce a multiplicar el vector entrada por cada una de estas matrices. Cabe destacar 
-que al vector de entrada se le agrega siempre un $-1$ como último valor para el sesgo.
-A su vez esta implementación facilita el manejo de errores.\\
+neuronas es una matriz de pesos, la red neuronal, por consiguiente, es un vector de matrices. Lo interesante es que hallar 
+la salida de la red neuronal con una cierta entrada se reduce a multiplicar el vector entrada por cada una de estas matrices. Cabe destacar 
+que al vector y a todos los pasos intermedios se les agrega siempre un $-1$ como último valor para el sesgo.\\
 
-\par Para las unidades escalón el error está definido como la \textbf{Distancia Hamming Levenshtein}, para los otros tipos de unidades se decidió utilizar el \textbf{error cuadrático medio}.
+\par Para las unidades escalón el error está definido como la \textbf{Distancia Hamming Levenshtein}, para los 
+otros tipos de unidades se decidió utilizar el \textbf{error cuadrático medio}.
 
 \subsection{Features}
 
 \par Se implementaron tres tipos de funciones para modificar la variable $\eta$ \textit{(learn rate)}: 
 La primera de ellas es a valor \textbf{constante}, , la segunda es \textbf{\textit{annealed}} que reduce $\eta$ exponencialmente y por último se 
 tiene un \textit{learning rate} \textbf{adaptative} que modifica $\eta$ en función de los últimos errores obtenidos. El crecimiento es aritmético, con cota 
-en $\eta =0.5$, la reducción exponencial.
+en $\eta =0.5$, la reducción es exponencial.
 
-\par Debido a la existencia de mínimos locales se desarrolló un algoritmo  \textbf{\textit{persistent search}} que lo que hace es, dado un cierto error, entrenar la red neuronal la cantidad de épocas especificada y verificar si el error obtenido es mayor al deseado. En cuyo caso reinicia el algoritmo, asigna los pesos al azar y vuelve a comenzar el entrenamiento.
-\par Otra estrategia que se utilizó para subsanar este problema es la de darle un impulso a $\eta$ al detectar que el algoritmo está estancado en un mínimo local.
+\par Debido a la existencia de mínimos locales se desarrolló un algoritmo  \textbf{\textit{persistent search}} que dado un cierto error, entrena
+ la red neuronal la cantidad de épocas especificada y verificar si el error obtenido es mayor al deseado. En cuyo caso 
+reinicia el algoritmo, asigna los pesos al azar y vuelve a comenzar el entrenamiento.
+\par Otra estrategia que se utilizó para subsanar este problema es la de darle un impulso a $\eta$ al detectar que el algoritmo está estancado 
+en un mínimo local, haciendo que los valores de los pesos cambien significativamente en un paso (sería análogo a agregar poco ruido a todas la matrices).
 
 \section{Resultados}
 
-\par A modo de ejemplo, en la sección \textit{\textbf{Anexo A: Gráficos}} se muestran tres gráficos de los resultados obtenidos: En la \textit{Figura 1} se visualiza un estancamiento en un mínimo local debido al uso de unidades lineales, en la \textit{Figura 2} se puede aprenciar cómo un $\eta$ dinámico puede, en algunos casos, ayudar a salir del mínimo local y por último en la \textit{Figura 3} se propone un ejemplo que ilustra cómo el $\eta$ varía a medida que el error decrece consitentemente.
+\par A modo de ejemplo, en la sección \textit{\textbf{Anexo A: Gráficos}} se muestran tres gráficos de los resultados obtenidos: En la \textit{Figura 1} 
+se visualiza un estancamiento en un mínimo local debido al uso de unidades lineales, en la \textit{Figura 2} se puede apreciar 
+cómo un $\eta$ dinámico puede, en algunos casos, ayudar a salir del mínimo local y por último en la \textit{Figura 3} se propone un ejemplo 
+que ilustra cómo el $\eta$ varía a medida que el error decrece consitentemente.
 
 
 \section{Conclusión}
 
-\par En base a las pruebas podemos concluír que utilizando una función de transferencia \textit{lineal}, la red no aprenderá el problema. Esto se debe a que cada capa realiza una transformación lineal de la salida de la capa anterior y una transformacion lineal de una transformación lineal es lineal. Es decir que no existen coeficientes $a_1, a_2, \cdots, a_n$ que resuelvan, por ejemplo, mi ecuación de paridad para $n$ bits, lo que hará que se tienda a un mínimo local (en 0) o diverger en una secuencia alterna por lo que el error subirá indefinidamente.
+\par En base a las pruebas podemos concluír que utilizando una función de transferencia \textit{lineal}, la red no aprenderá el problema. 
+Esto se debe a que cada capa realiza una combinación lineal de la salida de la capa anterior, por lo que el resultado es combinación lineal de la entrada. 
+Es decir que no existen coeficientes $a_1, a_2, \cdots, a_n$ que resuelvan, por ejemplo, la ecuación de paridad para $n$ bits, 
+lo que hará que se tienda a un mínimo local o diverger en una secuencia alterna por lo que el error se incrementará indefinidamente, dependiendo del 
+punto inicial y del valor de $\eta$.
 
-\par A su vez, para las funciones escalón o no lineales se observó que es posible que ciertas arquitecturas tiendan a atascarse mas en minimos locales u otras quizas resuelvan el problema.
-\par Por lo visto en clase, para un XOR de $N$ bits, la arquitectura óptima resulta ser una única capa oculta con $N$ neuronas. Asimismo para el problema de simetría se sugiere utilizar una única capa oculta con 2 neuronas, independientemente de la cantidad de bits que contenga la entrada.
+\par A su vez, para las funciones escalón o no lineales se observó que es posible que ciertas arquitecturas tiendan a atascarse más en mínimos 
+locales que otras. Para un XOR de $N$ bits, la arquitectura óptima resulta ser una única capa oculta con $N$ neuronas. 
+Asimismo para el problema de simetría se sugiere utilizar una única capa oculta con 2 neuronas, 
+independientemente de la cantidad de bits que contenga la entrada.
 
 
 %\begin{thebibliography}{1}
@@ -192,7 +205,7 @@ en $\eta =0.5$, la reducción exponencial.
 \end{figure}
 
 \begin{center}
-\par Figura 2: Escape de mínimo local utilizando eta dinámico para el problema de paridad de 4 bits usando 500 épocas y una arquitectura de una capa oculta con 4 neuronas.
+\par Figura 2: Escape de mínimo local utilizando eta dinámico para el problema de paridad de 3 bits usando 500 épocas y una arquitectura de una capa oculta con 3 neuronas.
 \end{center}
 
 \clearpage
@@ -205,7 +218,7 @@ en $\eta =0.5$, la reducción exponencial.
 \end{figure}
 
 \begin{center}
-\par Figura 3: Muestra cómo se incrementa hasta el valor máximo eta cuando la red neuronal resuelve el problema con el error deseado y todavía quedan épocas.
+\par Figura 3: Muestra cómo se incrementa hasta el valor máximo eta cuando la red neuronal resuelve el problema con el error deseado.
 \end{center}
 
 

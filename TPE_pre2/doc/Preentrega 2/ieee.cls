@@ -716,7 +716,7 @@
 \def\submittedmsg{SUBMITTED FOR PUBLICATION TO:}
 \def\acceptedmsg{ACCEPTED FOR PUBLICATION:}
 \def\inpressmsg{(IN PRESS)}
-\def\reprintmsg{REPRINTED FROM:}
+\def\reprintmsg{}
 
 % default cover page style (optional cover page)
 % ----------------------------------------------

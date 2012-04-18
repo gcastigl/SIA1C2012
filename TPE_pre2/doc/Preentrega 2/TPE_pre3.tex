@@ -68,19 +68,19 @@
 % commands).
 \author[Castiglione, Karpovsky, Sturla]{Gonzalo V. Castiglione, Alan E. Karpovsky, Martín Sturla\\\textit{Estudiantes 
        Instituto Tecnológico de Buenos Aires (ITBA)}\\
-\textbf{12 de Abril de 2012}
+\textbf{19 de Abril de 2012}
 }
 
 
 \journal{Cátedra\ \ Sist.\ de\ Inteligencia\ Artificial,\ ITBA\ }
-\titletext{-\ 12, ABRIL\ 2012}
+\titletext{-\ 19, ABRIL\ 2012}
 \ieeecopyright{\copyright\ 2012 ITBA}
 \lognumber{}
 \pubitemident{}
-\loginfo{12 de Abril, 2012.}
+\loginfo{19 de Abril, 2012.}
 \firstpage{1}
 
-\confplacedate{Buenos Aires, Argentina, 12 de Abril, 2012}
+\confplacedate{Buenos Aires, Argentina, 19 de Abril, 2012}
 
 \maketitle               
 
@@ -130,12 +130,15 @@ en $\eta =0.5$, la reducción exponencial.
 
 \section{Resultados}
 
+\par A modo de ejemplo, en la sección \textit{\textbf{Anexo A: Gráficos}} se muestran tres gráficos de los resultados obtenidos: En la \textit{Figura 1} se visualiza un estancamiento en un mínimo local debido al uso de unidades lineales, en la \textit{Figura 2} se puede aprenciar cómo un $\eta$ dinámico puede, en algunos casos, ayudar a salir del mínimo local y por último en la \textit{Figura 3} se propone un ejemplo que ilustra cómo el $\eta$ varía a medida que el error decrece consitentemente.
+
+
+\section{Conclusión}
+
 \par En base a las pruebas podemos concluír que utilizando una función de transferencia \textit{lineal}, la red no aprenderá el problema. Esto se debe a que cada capa realiza una transformación lineal de la salida de la capa anterior y una transformacion lineal de una transformación lineal es lineal. Es decir que no existen coeficientes $a_1, a_2, \cdots, a_n$ que resuelvan, por ejemplo, mi ecuación de paridad para $n$ bits, lo que hará que se tienda a un mínimo local (en 0) o diverger en una secuencia alterna por lo que el error subirá indefinidamente.
 
 \par A su vez, para las funciones escalón o no lineales se observó que es posible que ciertas arquitecturas tiendan a atascarse mas en minimos locales u otras quizas resuelvan el problema.
 \par Por lo visto en clase, para un XOR de $N$ bits, la arquitectura óptima resulta ser una única capa oculta con $N$ neuronas. Asimismo para el problema de simetría se sugiere utilizar una única capa oculta con 2 neuronas, independientemente de la cantidad de bits que contenga la entrada.
-
-\section{Conclusión}
 
 
 %\begin{thebibliography}{1}
@@ -167,117 +170,44 @@ en $\eta =0.5$, la reducción exponencial.
 
 \clearpage
 \onecolumn
-\section*{Anexo A: Tablas}
- 
-\begin{center}
-\textbf{\emph{AND}}
-\end{center}
 
-\begin{table}[H]
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-Bits &  Eta & Función de &  Épocas & Error de\\
- & $\eta$ & activación &  & aprendizaje\\
-
-\hline
-\hline
-
-2 & 0.02 & Escalón & 50 & 0\\
-\hline
-2 & 0.02 & Lineal & 50 & 0.287\\
-\hline
-2 & 0.02 & Sigmóidea & 50 & 0.571\\
-\hline
-\hline
-3 & 0.02 & Escalón & 100 & 0\\
-\hline
-3 & 0.02 & Lineal & 100 & 0.256\\
-\hline
-3 & 0.02 & Sigmóidea & 100 & 0.581\\
-\hline
-\hline
-4 & 0.02 & Escalón & 200 & 0\\
-\hline
-4 & 0.02 & Lineal & 200 & 0.181\\
-\hline
-4 & 0.02 & Sigmóidea & 200 & 0.523\\
-\hline
-\hline
-5 & 0.02 & Escalón & 400 & 0\\
-\hline
-5 & 0.02 & Lineal & 400 & 0.089\\
-\hline
-5 & 0.02 & Sigmóidea & 400 & 0.421\\
-\hline
-
-\end{tabular}
-\end{center}
-\caption{Comparación de errores de la salida de la red para AND lógico con tipo de aprendizaje constante}\label{tablaIDFS}
-\end{table}
-
-\begin{center}
-\textbf{\emph{OR}}
-\end{center}
-
-\begin{table}[H]
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-Bits &  Eta & Función de &  Épocas & Error de\\
- & $\eta$ & activación &  & aprendizaje\\
-
-\hline
-\hline
-
-2 & 0.02 & Escalón & 50 & 0\\
-\hline
-2 & 0.02 & Lineal & 50 & 0.310\\
-\hline
-2 & 0.02 & Sigmóidea & 50 & 0.545\\
-\hline
-\hline
-3 & 0.02 & Escalón & 100 & 0\\
-\hline
-3 & 0.02 & Lineal & 100 & 0.258\\
-\hline
-3 & 0.02 & Sigmóidea & 100 & 0.568\\
-\hline
-\hline
-4 & 0.02 & Escalón & 200 & 0\\
-\hline
-4 & 0.02 & Lineal & 200 & 0.181\\
-\hline
-4 & 0.02 & Sigmóidea & 200 & 0.520\\
-\hline
-\hline
-5 & 0.02 & Escalón & 400 & 0\\
-\hline
-5 & 0.02 & Lineal & 400 & 0.089\\
-\hline
-5 & 0.02 & Sigmóidea & 400 & 0.425\\
-\hline
-
-\end{tabular}
-\end{center}
-\caption{Comparación de errores de la salida de la red para OR lógico con tipo de aprendizaje constante}\label{tablaIDFS}
-\end{table}
-
-\clearpage
-
-\section*{Anexo B: Gráficos}
-
+\section*{Anexo A: Gráficos}
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.85]{./images/g1.png}
+\includegraphics[scale=0.30]{./images/LinearConstante.png}
 \label{modelado}
 \end{center}
 \end{figure}
 
 \begin{center}
-\par Figura 1: Curva de error con eta constante vs. eta dinámico
+\par Figura 1: Ejemplo de estancamiento en mínimo local debido a la utilización de una función de transferencia lineal.
 \end{center}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.30]{./images/escapeminlocal.png}
+\label{modelado}
+\end{center}
+\end{figure}
+
+\begin{center}
+\par Figura 2: Escape de mínimo local utilizando eta dinámico para el problema de paridad de 4 bits usando 500 épocas y una arquitectura de una capa oculta con 4 neuronas.
+\end{center}
+
+\clearpage
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.30]{./images/incremento.png}
+\label{modelado}
+\end{center}
+\end{figure}
+
+\begin{center}
+\par Figura 3: Muestra cómo se incrementa hasta el valor máximo eta cuando la red neuronal resuelve el problema con el error deseado y todavía quedan épocas.
+\end{center}
+
 
 
 

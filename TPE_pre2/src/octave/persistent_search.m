@@ -1,14 +1,15 @@
 function net = main(operator_name, N, hidden_layers, epochs, trans_name, lrn_base, lrn_type_name, error)
 
-	% Invoque main like main("AND", N, 500, [2 4], "SIGMOID", 0.02, "CONSTANT")
+	% Invoque main like main("AND", N, 500, [2 4], "SIGMOID", 0.02, "CONSTANT", 0.001)
 	% This network will try to learn the AND operator with N bits, with an architecture of 2 hidden
 	% layers with 2 and 4 neurons in each layer respectively.
 	% Algorithm will run 500 epochs using the SIGMOID transfer function with a 0.02 etha and
 	% a constant learning rate.
+	% The last parameter specifies the desired error: algorithm will restart until the desired error is adquired
 
 	if (strcmp(tolower(operator_name), 'help'))
 		printGreenColor();
-		printf('\n***Invoque main like main("AND", N, HIDDEN_LAYERS, epochs, TRANSFORMATION, eta, LEARN_TYPE)***\n')
+		printf('\n***Invoque main like main("AND", N, HIDDEN_LAYERS, epochs, TRANSFORMATION, eta, LEARN_TYPE, error)***\n')
 		printf('\nHIDDEN_LAYERS = [2 4] for two layers with 2 and 4 neurons in each layer respectively\n');
 		printf('\nTRANSFORMATION = [Sg, Linear, Sigmoid]\n');
 		printf('\nLEARN_TYPE = [Constant, Annealed, Dynamic]\n');

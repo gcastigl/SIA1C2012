@@ -128,7 +128,7 @@ en $\eta =0.5$, la reducción es exponencial.
 
 \par Debido a la existencia de mínimos locales se desarrolló un algoritmo  \textbf{\textit{persistent search}} que dado un cierto error, entrena
  la red neuronal la cantidad de épocas especificada y verificar si el error obtenido es mayor al deseado. En cuyo caso 
-reinicia el algoritmo, asigna los pesos al azar y vuelve a comenzar el entrenamiento.
+reinicia el algoritmo, asigna los pesos al azar y vuelve a comenzar el entrenamiento.\\
 \par Otra estrategia que se utilizó para subsanar este problema es la de darle un impulso a $\eta$ al detectar que el algoritmo está estancado 
 en un mínimo local, haciendo que los valores de los pesos cambien significativamente en un paso (sería análogo a agregar poco ruido a todas la matrices).
 
@@ -146,7 +146,7 @@ que ilustra cómo el $\eta$ varía a medida que el error decrece consitentemente
 Esto se debe a que cada capa realiza una combinación lineal de la salida de la capa anterior, por lo que el resultado es combinación lineal de la entrada. 
 Es decir que no existen coeficientes $a_1, a_2, \cdots, a_n$ que resuelvan, por ejemplo, la ecuación de paridad para $n$ bits, 
 lo que hará que se tienda a un mínimo local o diverger en una secuencia alterna por lo que el error se incrementará indefinidamente, dependiendo del 
-punto inicial y del valor de $\eta$.
+punto inicial y del valor de $\eta$.\\
 
 \par A su vez, para las funciones escalón o no lineales se observó que es posible que ciertas arquitecturas tiendan a atascarse más en mínimos 
 locales que otras. Para un XOR de $N$ bits, la arquitectura óptima resulta ser una única capa oculta con $N$ neuronas. 

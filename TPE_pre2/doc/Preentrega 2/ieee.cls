@@ -216,7 +216,7 @@
 \DeclareOption{anonymous}{\@nontrue\AtBeginDocument{\glpexclude{biography}}
 	\typeout{ieee: Omit author information from paper.}}
 \DeclareOption{invited}{\@nvitedtrue%
-	\typeout{ieee: Entrega Preliminar 2 - Informe.}}
+	\typeout{ieee: Entrega Preliminar 3 - Informe.}}
 
 \DeclareOption{9pt}{\ixpttrue%
 	\typeout{ieee: Trying to emulate old `9pt' document class.}}
@@ -1014,7 +1014,7 @@ page \thepage \space undefined}}%
         \noindent{\large\lineskip .5em%
         \begin{tabular}[t]{@{}c@{}}\@author\end{tabular}}%
       \fi\par%
-      \if@nvited\vskip1.0em\noindent\emph{\large Entrega Preliminar 2 - Informe}\par\fi
+      \if@nvited\vskip1.0em\noindent\emph{\large Entrega Preliminar 3 - Informe}\par\fi
     \fi
     \ifrepr@nt
       \ifx\@lognumber\undefined\typeout{ieee: Warning! No 

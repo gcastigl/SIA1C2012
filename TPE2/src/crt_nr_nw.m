@@ -29,10 +29,10 @@ function net = crt_nr_nw( arch, lrn_type, base_lrn_rate, trans_type)
 	net.lrn_type = lrn_type;
 	net.trans_type = trans_type;
 	net.lrn_rt = base_lrn_rate;
-	net.lrn_decay = 0.85;
+	net.lrn_decay = 0.55;
 	net.lrn_consist = 3;
 	net.lrn_sum = 0.005;
 	net.counter = 0;
 	net.prev_err = 99999999;
-	net.beta = 1;
+	net.beta = 0.7;
 endfunction

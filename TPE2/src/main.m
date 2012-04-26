@@ -84,35 +84,35 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	printBlueColor();
 	printf('\nBackpropagation algorithm started: epoch 1 of %d, learning \"%s\" with \"%s\" transfer function\n', epochs, file_name, lrn_type_name);
 	releasePrintColor();
-	
+	clf;
 	for i = 1:epochs % Iterate over epochs
 		vec = get_randorder(train_set_len); % Shuffle trainset
 		err = 0;
 		for j = 1:train_set_len % Iterate over each training pattern
-			
 			%Evaluate the input
 			net = eval_input(net, vals{vec(j)}{1});
-
 			%Get the delta values of the network
 			deltas  = get_deltas(net, vals{vec(j)}{2});
-			
 			%Update weights with the delta values
 			net = update_weights(net, deltas);
-
+			% store calculated z for the net
+			zeta(j) =  net.values{size(net.arch,2)};
 			%Calculate error 
-			err += get_error(net, vals{vec(j)}{2});
+			err += get_error(net, vals{vec(j)}{2});			
 		end
 		errors(i) = err / train_set_len;
 		terror = 0;
-
 		for  j = 1:test_set_len
 			net = eval_input(net, tests{j}{1});
 			terror += get_error(net, tests{j}{2});
 		end
-
 		test_errors(i) = terror;
 		net = update_lrn_rate(net, errors(i));
 		lrn_rates(i) = net.lrn_rt;
+		figure(1);
+		plotSamples3D(vec, zeta, points, vals);
+		figure(2);
+		plotStats2D(epochs, test_errors, lrn_rates, i);
 	end
 
 	final_error = test_errors(epochs);
@@ -144,16 +144,5 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		printf(']\tResult:%g Excpected: %g\n', net.values{size(net.values,1)}(1), train_set{i}{2}(1));
 	end
 	releasePrintColor();
-	
-	% Plot the network stats
-	clf;
-	hold on;
-	% plot(1:epochs, errors, '-4; Step Error;'); % No sense to plot this error if we have the same training and eval set
-	plot(1:epochs, test_errors, '-1; Error total;')
-	plot(1:epochs, lrn_rates, '*3; Tasa de aprendizaje;');
-	title("Evolución de la Red Neuronal", 'FontSize', 25);
-	xlabel("Número de épocas", 'FontSize', 20);
-	%ylabel("Error", 'FontSize', 20);
-	mkdir("./images/");
-	print('-dpng', './images/evolution.png');
+	% plotStats2D(epochs, test_errors, lrn_rates, epochs);
 endfunction

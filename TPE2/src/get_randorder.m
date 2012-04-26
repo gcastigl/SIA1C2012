@@ -3,7 +3,6 @@ function vec = get_randorder(len)
 	for i = 1:len
 		vec(i) = i;
 	end
-
 	for i = 1:len
 		rand1 = ceil(rand() * len);
 		rand2 = ceil(rand() * len);
@@ -11,5 +10,4 @@ function vec = get_randorder(len)
 		vec(rand1) = vec(rand2);
 		vec(rand2) = aux;
 	end
-	
 endfunction

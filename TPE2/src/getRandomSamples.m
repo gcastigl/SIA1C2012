@@ -1,7 +1,4 @@
-function train_set = getRandomSamples(file, percentage)
-
-	points = load(file);
-
+function train_set = getRandomSamples(points, percentage)
 	x = points(:,1);
 	y = points(:,2);
 	answ = points(:,3);

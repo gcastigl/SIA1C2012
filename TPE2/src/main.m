@@ -17,14 +17,15 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	endif
 	
 	train_percentage = 0.5; % Percentage of the number of points that will be used for training 
-
-	train_set = getRandomSamples(file_name, train_percentage);
+  
+	points = load(file_name);
+	train_set = getRandomSamples(points, train_percentage);
 
 	train_set_len = length(train_set);
 	vals = train_set;
 
 	test_set_len = train_set_len;
-	tests = getRandomSamples(file_name, 1-train_percentage);
+	tests = getRandomSamples(points, 1-train_percentage);
 	
 	if(strcmp(tolower(trans_name), 'sg'))
 		printGreenColor();

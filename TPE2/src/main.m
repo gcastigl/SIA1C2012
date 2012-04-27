@@ -100,6 +100,8 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	printf('\nBackpropagation algorithm started: epoch 1 of %d, learning \"%s\" with \"%s\" transfer function\n', epochs, file_name, lrn_type_name);
 	releasePrintColor();
 	clf;
+	framesPerEpochs = 3;
+	skippedFrames = 0;
 	for i = 1:epochs % Iterate over epochs
 		vec = get_randorder(train_set_len); % Shuffle trainset
 		err = 0;
@@ -110,10 +112,10 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 			deltas  = get_deltas(net, vals{vec(j)}{2});
 			%Update weights with the delta values
 			net = update_weights(net, deltas);
+			%Calculate error 
+			err += get_error(net, vals{vec(j)}{2});
 			% store calculated z for the net
 			zeta(j) =  net.values{size(net.arch,2)};
-			%Calculate error 
-			err += get_error(net, vals{vec(j)}{2});			
 		end
 		errors(i) = err / train_set_len;
 		terror = 0;
@@ -124,10 +126,16 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		test_errors(i) = terror;
 		net = update_lrn_rate(net, errors(i));
 		lrn_rates(i) = net.lrn_rt;
-		figure(1);
-		plotSamples3D(vec, zeta, points, vals);
-		figure(2);
-		plotStats2D(epochs, test_errors, lrn_rates, i);
+		if (skippedFrames == framesPerEpochs)
+		  skippedFrames = 0;
+		  figure(1);
+		  plotSamples3D(vec, zeta, points, vals);
+		  figure(2);
+		  plotStats2D(epochs, test_errors, lrn_rates, i);
+		else
+		 skippedFrames++;
+		end
+		
 	end
 
 	final_error = test_errors(epochs);

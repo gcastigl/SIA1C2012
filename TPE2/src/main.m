@@ -167,5 +167,5 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		printf(']\tResult:%g Excpected: %g\n', net.values{size(net.values,1)}(1), train_set{i}{2}(1));
 	end
 	releasePrintColor();
-	% plotStats2D(epochs, test_errors, lrn_rates, epochs);
+	plotStats2D(epochs, test_errors, lrn_rates, epochs);
 endfunction

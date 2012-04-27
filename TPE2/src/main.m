@@ -33,6 +33,9 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		printf('\nUsing SIGMOID transfer function\n');
 		releasePrintColor();
 		trans = 3;
+		%normalize net input to [-1:1] interval
+		points(:,1)./abs(max(points(:,1)));
+		points(:,2)./abs(max(points(:,2)));
 	elseif (strcmp(tolower(trans_name), 'sigmoid_exp'))
 		printGreenColor();
 		printf('\nUsing SIGMOID EXPONENTIAL transfer function\n');

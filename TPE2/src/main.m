@@ -16,16 +16,7 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		return;
 	endif
 	
-	train_percentage = 0.5; % Percentage of the number of points that will be used for training 
-  
 	points = load(file_name);
-	train_set = getRandomSamples(points, train_percentage);
-
-	train_set_len = length(train_set);
-	vals = train_set;
-
-	test_set_len = train_set_len;
-	tests = getRandomSamples(points, 1-train_percentage);
 	
 	if(strcmp(tolower(trans_name), 'sg'))
 		printGreenColor();
@@ -82,7 +73,16 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		releasePrintColor();
 		lrn_type = 1;
 	endif
-
+	
+	train_percentage = 0.7; % Percentage of the number of points that will be used for training 
+	testAndTrainSets = getRandomSamples(points, train_percentage);
+	train_set = testAndTrainSets{1};
+	train_set_len = length(train_set);
+	vals = train_set;
+	
+	tests = testAndTrainSets{2};
+	test_set_len = length(tests);
+	
 	% Create the network with i inputs and o outputs
 	i = length(train_set{1}{1});
 	o = length(train_set{1}{2});

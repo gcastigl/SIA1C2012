@@ -42,6 +42,18 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		printf('\nUsing SIGMOID transfer function\n');
 		releasePrintColor();
 		trans = 3;
+	elseif (strcmp(tolower(trans_name), 'sigmoid_exp'))
+		printGreenColor();
+		printf('\nUsing SIGMOID EXPONENTIAL transfer function\n');
+		releasePrintColor();
+		trans = 4;
+		%normalize net input to [0:1] interval
+		points(:,1)./abs(max(points(:,1)));
+		points(:,1).+1;
+		points(:,1)./2;
+		points(:,2)./abs(max(points(:,2)));
+		points(:,2).+1;
+		points(:,2)./2;
 	else
 		printRedColor();
 		printf('\nError: Unrecognized transfer function.\n\tUsing default transfer function = THRESHOLD\n');

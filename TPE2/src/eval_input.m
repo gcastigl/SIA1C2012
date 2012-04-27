@@ -12,18 +12,28 @@ function new_net = eval_input ( net, new_input)
 	
 	s = size(net.values,1)-1;
 	for i = 1:s
-		%calculate output of (i+1)th layer
+		% Calculate output of (i+1)th layer
 		auxvalues = net.values{i} * net.weights{i};
 		for j = 1:size(auxvalues,2)
-			% copy it to our value matrix. Notice bias isn't changed. Also apply function.
+			% Copy it to our value matrix. Notice bias isn't changed. Also apply function.
 			value = auxvalues(j);
 			if( i == s && ( net.trans_type == 1 || (net.trans_type == 2 && abs(value) > 1)))
 				value = sign(value);
-			elseif(net.trans_type == 3 || net.trans_type ==  1)
+			else if(net.trans_type ==  1) % Threshold function
 				value = tanh(net.beta * value);
+			elseif(net.trans_type == 3)  % Sigmoid (tanh) function
+				if(i == s) % Use tanh() except in the output layer
+					value = 1 / (1 + exp(- net.beta * value));
+				else
+					value = tanh(net.beta * value);
+				end
+			elseif(net.trans_type == 4) % Sigmoid (exponential) function
+				value = 1 / (1 + exp(- net.beta * value));
+			end
 			endif
 			net.values{i+1}(j) = value;
 		end
 	end
+	
 	new_net = net;
 endfunction

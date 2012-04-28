@@ -77,7 +77,7 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		lrn_type = 1;
 	endif
 	
-	train_percentage = 0.7; % Percentage of the number of points that will be used for training 
+	train_percentage = 0.7; % Percentage of the number of sampoles that will be used for training 
 	testAndTrainSets = getRandomSamples(points, train_percentage);
 	train_set = testAndTrainSets{1};
 	train_set_len = length(train_set);
@@ -100,7 +100,7 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	printf('\nBackpropagation algorithm started: epoch 1 of %d, learning \"%s\" with \"%s\" transfer function\n', epochs, file_name, lrn_type_name);
 	releasePrintColor();
 	clf;
-	framesPerEpochs = 3;
+	framesPerEpochs = 1;
 	skippedFrames = 0;
 	for i = 1:epochs % Iterate over epochs
 		vec = get_randorder(train_set_len); % Shuffle trainset

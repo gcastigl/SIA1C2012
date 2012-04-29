@@ -12,17 +12,6 @@ function net = crt_nr_nw( arch, lrn_type, base_lrn_rate, trans_type)
 
 
 
-	%initialize values
-	% values{1} ENTRADAS
-	% values[2..n-1} SALIDAS CAPAS OCULTAS
-	% values{n} SALIDAS
-	layers = size(arch,2);
-	net.values = cell(layers,1);
-	for i = 1:layers-1
-		net.values{i} = zeros(1,arch(i) + 1); %bias
-		net.values{i}(arch(i)+1) = -1;
-	end	
-	net.values{layers} = zeros(1,arch(layers)); %output layer, no bias
 
 
 	%initialize other useful variables
@@ -35,4 +24,5 @@ function net = crt_nr_nw( arch, lrn_type, base_lrn_rate, trans_type)
 	net.counter = 0;
 	net.prev_err = 99999999;
 	net.beta = 0.7;
+	net.mom_coef = 0.9;
 endfunction

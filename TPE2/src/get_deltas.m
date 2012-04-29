@@ -1,11 +1,11 @@
-function deltas = get_deltas(net, expected)
+function deltas = get_deltas(net, values, expected)
 	layers = size(net.arch,2); % Number of layers (including INPUT and OUTPUT)
 
 	%first calculate delta for output layer.
 	for i= 1:net.arch(layers)
-		d = expected(i) - net.values{layers}(i);
+		d = expected(i) - values{layers}(i);
 		if( net.trans_type == 3)
-					d = d * net.beta * ( 1 - net.values{layers}(i) * net.values{layers}(i));
+					d = d * net.beta * ( 1 - values{layers}(i) * values{layers}(i));
 		endif
 		deltas{layers-1}(i) = d;
 	end
@@ -25,7 +25,7 @@ function deltas = get_deltas(net, expected)
 		for i = 1:net.arch(l+1)
 			deriv = 1;
 			if( net.trans_type == 3 || net.trans_type == 1)
-					deriv = deriv * net.beta * ( 1 - net.values{l+1}(i) * net.values{l+1}(i));
+					deriv = deriv * net.beta * ( 1 - values{l+1}(i) * values{l+1}(i));
 			endif
 			%now calculate sumnation of weights * deltas of the previous layer to update current layer.
 			acum = 0;

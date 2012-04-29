@@ -1,4 +1,4 @@
-function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_type_name, interactive)
+function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_type_name, interactive, noise)
 
 	% Invoque main like main(filePath, 500, [2 4], "SIGMOID", 0.02, "CONSTANT")
 	% This network will try to learn the file_path function, with an architecture of 2 hidden
@@ -102,26 +102,45 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	clf;
 	framesPerEpochs = 1;
 	skippedFrames = 0;
+	first = 1;
+	batch_size = train_set_len/2; %size of batch
 	for i = 1:epochs % Iterate over epochs
 		vec = get_randorder(train_set_len); % Shuffle trainset
 		err = 0;
 		for j = 1:train_set_len % Iterate over each training pattern
 			%Evaluate the input
-			net = eval_input(net, vals{vec(j)}{1});
+			values = eval_input(net, vals{vec(j)}{1});
+			values_vector{mod(j - 1,batch_size) + 1} = values;
 			%Get the delta values of  the network
-			deltas  = get_deltas(net, vals{vec(j)}{2});
-			%Update weights with the delta values
-			net = update_weights(net, deltas);
+			deltas  = get_deltas(net, values, vals{vec(j)}{2});
+			delta_vector{mod(j - 1,batch_size) + 1} = deltas;
+			
+			%if batch_size has been reached...
+			if( mod(j - 1, batch_size) == (batch_size - 1)  || j == train_set_len)
+				if( first == 1)
+					dws = get_weight_changes(net, delta_vector, values_vector);
+					first = 0;
+				else
+					dws = get_weight_changes( net, delta_vector, values_vector,  dws);
+				endif
+				clear delta_vector;
+				clear values_vector;
+				net = update_weights(net, dws);
+				if( noise == 1 && rand() < 0.2)
+					net = add_noise(net);
+					i
+				endif
+			endif
 			%Calculate error 
-			err += get_error(net, vals{vec(j)}{2});
+			err += get_error(values ,vals{vec(j)}{2}, net.trans_type);
 			% store calculated z for the net
-			zeta(j) =  net.values{size(net.arch,2)};
+			zeta(j) =  values{size(net.arch,2)};
 		end
 		errors(i) = err / train_set_len;
 		terror = 0;
 		for  j = 1:test_set_len
-			net = eval_input(net, tests{j}{1});
-			terror += get_error(net, tests{j}{2});
+			values = eval_input(net, tests{j}{1});
+			terror += get_error(values, tests{j}{2}, net.trans_type);
 		end
 		test_errors(i) = terror / test_set_len;
 		net = update_lrn_rate(net, errors(i), 0.001);
@@ -159,15 +178,6 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 				printf('\tError is grater than 10^{-3} - try using a different \"eta\" or incrementing the number of epochs\n');
 			endif
 		endif
-	printf('\tFinal outputs:');
-	for i = 1:size(train_set,1)
-		printf('\t[');
-		for j = 1:size(train_set{i}{1},2)
-			printf('%d,',train_set{i}{1}(j));
-		end
-		net = eval_input(net,train_set{i}{1});
-		printf(']\tResult:%g Excpected: %g\n', net.values{size(net.values,1)}(1), train_set{i}{2}(1));
-	end
 	releasePrintColor();
 	plotStats2D(epochs, test_errors, errors,lrn_rates, epochs);
 endfunction

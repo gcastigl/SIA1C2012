@@ -1,4 +1,4 @@
-function new_net = update_lrn_rate ( net, error)
+function new_net = update_lrn_rate ( net, error, target_error)
 	%Updates the learn rate according to learn strategy
 	%1 = CONSTANT, does nothing.
 	%2 = ANNEALED, exponential decay over time
@@ -30,7 +30,7 @@ function new_net = update_lrn_rate ( net, error)
 		endif
 		%check for local minimum
 	endif
-	if(net.lrn_type == 3 && error > 1 && net.lrn_rt < 0.05)
+	if(net.lrn_type == 3 && error > 5*target_error && net.lrn_rt < 0.05)
 		%error is higher than 1, net lrn rate is LOW, local minimum spotted!
 		net.prev_err = Inf;
 		net.lrn_rt = 1;

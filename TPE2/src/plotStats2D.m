@@ -1,9 +1,10 @@
- function ret = plotStats2D(epochs, test_errors, lrn_rates, maxIndex)
+ function ret = plotStats2D(epochs, test_errors, errors, lrn_rates, maxIndex)
   % Plot the network stats
   clf;
   hold on;
   % plot(1:epochs, errors, '-4; Step Error;'); % No sense to plot this error if we have the same training and eval set
-  plot(1:maxIndex, test_errors'(1, 1:maxIndex), '-1; Error total;')
+  plot(1:maxIndex, test_errors'(1, 1:maxIndex), '-1; Error testeo;');
+	plot(1:maxIndex, errors'(1, 1:maxIndex), '-2; Error entrenamiento;');
   plot(1:maxIndex,lrn_rates'(1, 1:maxIndex), '-3; Tasa de aprendizaje;');
   plot(epochs, 0);
   title("Evolucion de la Red Neuronal", 'FontSize', 25);

@@ -1,4 +1,4 @@
-function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_type_name)
+function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_type_name, interactive)
 
 	% Invoque main like main(filePath, 500, [2 4], "SIGMOID", 0.02, "CONSTANT")
 	% This network will try to learn the file_path function, with an architecture of 2 hidden
@@ -108,7 +108,7 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		for j = 1:train_set_len % Iterate over each training pattern
 			%Evaluate the input
 			net = eval_input(net, vals{vec(j)}{1});
-			%Get the delta values of the network
+			%Get the delta values of  the network
 			deltas  = get_deltas(net, vals{vec(j)}{2});
 			%Update weights with the delta values
 			net = update_weights(net, deltas);
@@ -123,18 +123,20 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 			net = eval_input(net, tests{j}{1});
 			terror += get_error(net, tests{j}{2});
 		end
-		test_errors(i) = terror;
-		net = update_lrn_rate(net, errors(i));
+		test_errors(i) = terror / test_set_len;
+		net = update_lrn_rate(net, errors(i), 0.001);
 		lrn_rates(i) = net.lrn_rt;
-		if (skippedFrames == framesPerEpochs)
-		  skippedFrames = 0;
-		  figure(1);
-		  plotSamples3D(vec, zeta, points, vals);
-		  figure(2);
-		  plotStats2D(epochs, test_errors, lrn_rates, i);
-		else
-		 skippedFrames++;
-		end
+		if(interactive  == 1)
+			if (skippedFrames == framesPerEpochs)
+			skippedFrames = 0;
+			figure(1);
+			plotSamples3D(vec, zeta, points, vals);
+			figure(2);
+			plotStats2D(epochs, test_errors, errors, lrn_rates, i);
+			else
+			skippedFrames++;
+			end
+		endif
 		
 	end
 
@@ -167,5 +169,5 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		printf(']\tResult:%g Excpected: %g\n', net.values{size(net.values,1)}(1), train_set{i}{2}(1));
 	end
 	releasePrintColor();
-	plotStats2D(epochs, test_errors, lrn_rates, epochs);
+	plotStats2D(epochs, test_errors, errors,lrn_rates, epochs);
 endfunction

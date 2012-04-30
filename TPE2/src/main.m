@@ -1,10 +1,15 @@
 function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_type_name, interactive, noise)
 
-	% Invoque main like main(filePath, 500, [2 4], "SIGMOID", 0.02, "CONSTANT")
+	% Invoque main like main(filePath, 500, [2 4], "SIGMOID", 0.02, "CONSTANT", 1, 0)
 	% This network will try to learn the file_path function, with an architecture of 2 hidden
 	% layers with 2 and 4 neurons in each layer respectively.
 	% Algorithm will run 500 epochs using the SIGMOID transfer function with a 0.02 etha and
-	% a constant learning rate.
+	% a constant learning rate. Also it will be interactive and won't use noise.
+	%
+	% The interactive argument flag tells the algorihm if we want to plot the network learning in 
+	% real time (interactive = 1) or if we want to only plot the final output (interactive = 0).
+	% The noise argument flag is set to 1 if we want to use noise and is set to 0 if we dont.
+	
 
 	if (strcmp(tolower(file_name), 'help'))
 		printGreenColor();
@@ -50,9 +55,9 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		points(:,2)./2;
 	else
 		printRedColor();
-		printf('\nError: Unrecognized transfer function.\n\tUsing default transfer function = THRESHOLD\n');
+		printf('\nError: Unrecognized transfer function.\n\tUsing default transfer function = tanh()\n');
 		releasePrintColor();
-		trans = 1;
+		trans = 3;
 	endif
 
 	if(strcmp(tolower(lrn_type_name), 'constant'))

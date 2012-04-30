@@ -8,6 +8,7 @@ function new_net = update_weights(net, dws)
 		for i = 1:n(1) % For each weight 
 			for j = 1:n(2)
 				net.weights{k}(i,j) += dws{k}(i,j);
+				net.weights{k}(i,j) *= net.boolweights{k}(i,j);
 			end
 		end
 	end

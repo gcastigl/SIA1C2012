@@ -8,12 +8,24 @@ function values = eval_input ( net, new_input)
 		values{1}(i) = new_input(i);
 	end
 	values{1}(n+1) = -1;
-
-	
 	s = size(net.arch,2)-1;
 	for i = 1:s
+		
 		% Calculate output of (i+1)th layer
-		auxvalues = values{i} * net.weights{i};
+		%auxvalues = values{i} * net.weights{i}; code emulates this but takes into account "broken" links
+		c = size(values{i},2);
+		r = size(net.weights{i},2);
+		auxvalues = zeros(r);
+		for k = 1:r
+			sum = 0;
+			for j = 1:c
+				sum += values{i}(j) * net.weights{i}(j,k) * net.boolweights{i}(j,k);
+			end
+			auxvalues(k) = sum;
+		end
+
+
+
 		for j = 1:size(auxvalues,2)
 			value = auxvalues(j);
 			if( i == s && ( net.trans_type == 1 || (net.trans_type == 2 && abs(value) > 1)))

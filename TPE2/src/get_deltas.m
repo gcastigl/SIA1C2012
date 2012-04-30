@@ -30,7 +30,7 @@ function deltas = get_deltas(net, values, expected)
 			%now calculate sumnation of weights * deltas of the previous layer to update current layer.
 			acum = 0;
 			for j = 1:net.arch(l+2)
-				acum += deltas{l+1}(j) * net.weights{l+1}(i,j);
+				acum += deltas{l+1}(j) * net.weights{l+1}(i,j) * net.boolweights{l+1}(i,j);
 			end
 			deltas{l}(i) = deriv * acum;
 		end

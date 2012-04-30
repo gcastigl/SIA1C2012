@@ -17,6 +17,7 @@ function dws = get_weight_changes(net, deltas, values, prev)
 				if(nargin == 4)
 					dws{k}(i,j) += net.mom_coef * prev{k}(i,j);
 				endif
+				dws{k}(i,j) *= net.boolweights{k}(i,j);
 			end
 		end
 	end

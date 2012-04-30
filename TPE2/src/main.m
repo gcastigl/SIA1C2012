@@ -167,6 +167,7 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	printf('\tElapsed epochs: %d\n', epochs);
 	printf('\t Standard deviation for test set: %f\n', sqrt(final_error));
 	printf('\t Standard deviatino for training set: %f\n', sqrt(errors(epochs)));
+	%plotSamples3D(vec, zeta, points, vals);
 		if(final_error < (10**(-5)) ) 
 				printGreenColorNB();
 				printf('\tError is smaller than 10^{-5}\n');

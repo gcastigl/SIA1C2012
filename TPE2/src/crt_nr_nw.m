@@ -5,14 +5,11 @@ function net = crt_nr_nw( arch, lrn_type, base_lrn_rate, trans_type)
 	
 
 	%initialize weights
-	net.weights = init_weights(arch);
-
+	[w b] = init_weights(arch);
+	net.weights = w;
+	net.boolweights = b;
 	%store net architecture. redundant info, but may be useful
 	net.arch = arch;
-
-
-
-
 
 	%initialize other useful variables
 	net.lrn_type = lrn_type;

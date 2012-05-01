@@ -1,4 +1,4 @@
-function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_type_name, interactive, noise)
+function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_type_name, interactive, noise, symmetry)
 
 	% Invoque main like main(filePath, 500, [2 4], "SIGMOID", 0.02, "CONSTANT", 1, 0)
 	% This network will try to learn the file_path function, with an architecture of 2 hidden
@@ -94,7 +94,7 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	% Create the network with i inputs and o outputs
 	i = length(train_set{1}{1});
 	o = length(train_set{1}{2});
-	net = crt_nr_nw([i,hidden_layers,o],lrn_type,lrn_base,trans);
+	net = crt_nr_nw([i,hidden_layers,o],lrn_type,lrn_base,trans, symmetry);
 
 	errors = zeros(epochs,1);
 	test_errors = zeros(epochs,1);
@@ -165,13 +165,38 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	end
 
 	final_error = test_errors(epochs);
-
+	train_errs = zeros(1,train_set_len);
+	test_errs = zeros(1,test_set_len);
+	img_size = size(vals{1}{2},2);
+	m = size(net.arch, 2);
+	for i = 1:train_set_len
+		v = eval_input(net, vals{i}{1});
+		aux = 0;
+		for k = 1:img_size
+			aux += abs( vals{i}{2} - v{m}(k)); 
+		end
+		aux /= img_size;
+		train_errs(i) = aux;
+	end
+	for i = 1:test_set_len
+		v = eval_input(net, tests{i}{1});
+		aux = 0;
+		for k = 1:img_size
+			aux += abs( tests{i}{2} - v{m}(k)); 
+		end
+		aux /= img_size;
+		test_errs(i) = aux;
+	end
 	printGreenColor();
 	printf('\nNetwork stats:\n\n');
 	printYellowColor();
 	printf('\tElapsed epochs: %d\n', epochs);
-	printf('\t Standard deviation for test set: %f\n', sqrt(final_error));
-	printf('\t Standard deviatino for training set: %f\n', sqrt(errors(epochs)));
+	printf('\t Mean absolute value error for train set: %f\n', mean(train_errs));
+	printf('\t Standard deviation for AVE in train set: %f\n', std(train_errs));
+	printf('\t Mean absolute value error for test set: %f\n', mean(test_errs));
+	printf('\t Standard deviation for AVE in test set: %f\n', std(test_errs));
+	printf('\t Precision for 0.05 error: Train: %f, Generalization: %f \n', get_precision(train_errs, train_set_len, 0.05) , get_precision(test_errs, test_set_len, 0.05));
+	printf('\t Precision for 0.01 error: Train: %f, Generalization: %f \n', get_precision(train_errs, train_set_len, 0.01) , get_precision(test_errs, test_set_len, 0.01));
 	%plotSamples3D(vec, zeta, points, vals);
 		if(final_error < (10**(-5)) ) 
 				printGreenColorNB();

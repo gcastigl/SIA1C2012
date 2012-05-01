@@ -1,4 +1,4 @@
-function [weights, boolweights] = init_weights( arch )
+function [weights, boolweights] = init_weights( arch , symmetry)
 	%returns a matrix with random values between -0.25 and 0.25
 	weights = cell(size(arch,2) -1,1);
 	boolweights = cell(size(arch,2) -1,1);
@@ -9,10 +9,10 @@ function [weights, boolweights] = init_weights( arch )
 	end
 	%break the symmetry
 	coef = 2;
-	for k = ((arch(1)/2)+1):arch(1)
+	for k = 2:arch(1)
 		for i = 1:arch(2)
 			if( mod(i,coef) == 0)
-				boolweights{1}(k,i) = 0;
+				boolweights{1}(k,i) = symmetry;
 			endif
 		end
 		coef +=1;

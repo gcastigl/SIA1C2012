@@ -1,11 +1,11 @@
-function net = crt_nr_nw( arch, lrn_type, base_lrn_rate, trans_type)
+function net = crt_nr_nw( arch, lrn_type, base_lrn_rate, trans_type, symmetry)
 	%create a new simple perceptron.
 	% Requieres: input length, output length, learn type (static, annealed or dynamic),
 	% and cost_type (threshold, linear or sigmoid)
 	
 
 	%initialize weights
-	[w b] = init_weights(arch);
+	[w b] = init_weights(arch, symmetry);
 	net.weights = w;
 	net.boolweights = b;
 	%store net architecture. redundant info, but may be useful

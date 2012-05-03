@@ -1,7 +1,6 @@
 1
 	[4 2], 50, 'sigmoid', 0.5, 'dynamic', 0, 1, 1, 1
 	test set 30
-	
 2
 	[30 15], 50, 'sigmoid', 0.5, 'dynamic', 0, 1, 1, 1
 	test set 60
@@ -13,8 +12,13 @@
 	test set 60	
 5
 	[4 4], 50, 'sigmoid', 0.5, 'dynamic', 0, 1, 1, 1
-	test set 60	
-	
-	6
+	test set 60
+6
 	[10 10], 50, 'sigmoid', 0.5, 'dynamic', 0, 1, 1, 1
 	test set 30
+	
+7
+	[10 10], 100, 'sigmoid', 0.5, 'dynamic', 0, 1, 1, 1
+	test set 60
+8
+	[50 30] sigmoid 0.2 dynamic 0 1 1

@@ -140,7 +140,7 @@ g(x) = tanh(x)
 y la función exponencial
 
 \begin{equation}
-g(x) = \frac{1}{1+e^{-x}}
+g(x) = \frac{1}{1+e^{-2 \beta x}}
 \end{equation}
 
 \subsection{Normalización de datos}
@@ -183,7 +183,10 @@ Si, por ejemplo, el desvío es igual a 0, significará que todos los valores tie
 
 \section{Resultados}
 
-\par 
+\par De todas formas, los resultados obtenidos no pueden ser descartados y/o tomados como óptimos o absulutos. Esto se debe a que el problema presenta numerosas variables que pueden incidir en el resultado del aprendizaje de una red neuronal: los distintos valores que pueden tomar $\beta$ y $\eta$, la arquitectura utilizada, la cantidad de épocas, la presencia de ruido aleatorio, las conexiones muertas para romper simetría, etc.
+\par Además, debido a la aleatoriedad de la elección de los puntos a utilizar en el conjunto de entrenamiento y la inicialización de los pesos de a red al azar, no podemos dar por descartadas malos resultados ya que es posible que, por ejemplo, se hayan seleccionado puntos poco representativos de la función o que los pesos no se hayan inicializado de la forma óptima.
+\par Una forma de subsanar esta problemática sería correr numerosas veces cada caso de testeo antes de poder sacar una conclusión pero debido a la complejidad temporal del problema, realizar esto requeriría más tiempo del disponible.
+
 
 
 \section{Conclusión}

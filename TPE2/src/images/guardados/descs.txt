@@ -22,3 +22,7 @@
 	test set 60
 8
 	[50 30] sigmoid 0.2 dynamic 0 1 1
+	test set 60
+9
+	[4 4] 50 sigmoid 0.2 dynamic 0 1 1
+	test set 40

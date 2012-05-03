@@ -85,9 +85,8 @@
 \maketitle               
 
 \begin{abstract} 
-El presente informe busca analizar  redes neuronales multicapa
-con aprendizaje supervisado que resuelvan el problema del \textit{Simetría} y \textit{Paridad} lógica para $N$ bits 
-con $2 \le N \le 5$ a través del uso de tres variantes de funciones de transferencia.
+El presente informe busca analizar redes neuronales multicapa utilizando funciones de activacion exponencial y tangente hiperbolica. 
+Para la resolucion de del problema dado.
 
 \end{abstract}
 
@@ -99,9 +98,9 @@ perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, c
 % SECTION I: Introduccion%----------------------------------------------------------------------
 \section{Introducción}
 
-\par Se analizó el comportamiento de distintas redes neuronales multicapa para el problema de la generalización de una función matemática a partir de un conjunto de datos (puntos de la función).
+\par Se analizó el comportamiento de distintas redes neuronales multicapa para el problema de la generalización de una función matemática a partir de un conjunto de datos (puntos de la función).\\
 Con este fin se implementó un algoritmo que permite definir la arquitectura y las propiedades de la red neuronal a generar de manera de hacer más simple y práctico su estudio. \\
-\par Asimismo se optó por escribir funciones que permitan tomar subconjuntos de forma aleatoria del conjunto de muestras de entrada, dado un determinado porcentaje. Esto es verdaderamente util si se quiere probar el poder de generalización de la red: Se toma, por ejemplo, un conjunto de entrenamiento con el $70\%$ de los valores de entrada y el $30\%$ restabte de los puntos se asignan al conjunto de testeo.
+\par Asimismo se optó por escribir funciones que permitan tomar subconjuntos de forma aleatoria del conjunto de muestras de entrada, dado un determinado porcentaje. Esto es verdaderamente util si se quiere probar el poder de generalización de la red: Se toma, por ejemplo, un conjunto de entrenamiento con el $70\%$ de los valores de entrada y el $30\%$ restante de los puntos se asignan al conjunto de testeo (siempre se toman disjuntos).
 
 %----------------------------------------------------------------------
 % SECTION II: Marco Teórico
@@ -119,16 +118,19 @@ que al vector y a todos los pasos intermedios se les agrega siempre un $-1$ como
 \subsection{Mejoras}
 
 \par Se implementaron tres tipos de funciones para modificar la variable $\eta$ \textit{(learn rate)}: 
-La primera de ellas es a valor \textbf{constante}, , la segunda es \textbf{\textit{annealed}} que reduce $\eta$ exponencialmente y por último se tiene un \textit{learning rate} \textbf{adaptative} que modifica $\eta$ en función de los últimos errores obtenidos. El crecimiento es aritmético, con cota en $\eta =0.5$, la reducción es exponencial.\\
+La primera de ellas es a valor \textbf{constante}, la segunda es \textbf{\textit{annealed}} que reduce $\eta$ exponencialmente y 
+por último se tiene un \textit{learning rate} \textbf{adaptative} que modifica $\eta$ en función de los últimos errores obtenidos. 
+El crecimiento es aritmético, con cota en $\eta =0.5$, la reducción es exponencial.\\
 
 \par Debido a la existencia de mínimos locales se desarrolló un algoritmo  \textbf{\textit{persistent search}} que dado un cierto error, entrena
- la red neuronal la cantidad de épocas especificada y verificar si el error obtenido es mayor al deseado. En cuyo caso reinicia el algoritmo, asigna los pesos al azar y vuelve a comenzar el entrenamiento.\\
+ la red neuronal la cantidad de épocas especificada y verifica si el error obtenido es mayor al deseado. En cuyo caso reinicia el algoritmo, asigna 
+los pesos al azar y vuelve a comenzar el entrenamiento.\\
 \par Otra estrategia que se utilizó para subsanar este problema es la de darle un impulso a $\eta$ al detectar que el algoritmo está estancado 
 en un mínimo local, haciendo que los valores de los pesos cambien significativamente en un paso (sería análogo a agregar poco ruido a todas la matrices).
 
 \par{Funciones de activación}
 
-\par Para todos los casos de prueba se entrenó a la red utilizando como función de activación la función tangente hiperbólica
+\par Para todos los casos de prueba se entrenó a la red utilizando la función de activación la función tangente hiperbólica
 
 \begin{equation}
 g(x) = tanh(x)
@@ -144,12 +146,13 @@ g(x) = \frac{1}{1+e^{-x}}
 \subsection{Normalización de datos}
 
 \par En este problema en particular, los valores de las muestras de entrada $f(x,y) = z$ tenían las siguientes características: Aproximadamente $x\in [-3,3]$, $y\in [-3,3]$ y $z\in [0,1]$. 
-Como se comentó anteriormente, la red neuronal puede funcionar con la función de activación tangente hiperbólica en todas sus capas o con la función exponencial. En el caso de optar por utilizar la primera de ellas, la imagen de la función tangente hiperbólica es $(-1,1)$ y debido a esto se optó por normalizar los datos $x$ e $y$ y llevarlos al $(-1,1)$. Para hacer esto se dividió al vector  $\vec{x}$ por el máximo número en valor absoluto y se realizó el procedimiento análogo para el vector $\vec{y}$ ($\vec{x}$ contiene todos los puntos $x$ de las muestras de entrada e $\vec{y}$ los puntos $y$).\\
+Como se comentó anteriormente, la red neuronal puede funcionar con la función de activación tangente hiperbólica en todas sus capas o con la función exponencial. En el caso de optar por utilizar la primera de ellas, la imagen de la función tangente hiperbólica es $(-1,1)$ y debido a esto se debieron normalizar los valores de $x$ e $y$ y llevarlos al $(-1,1)$. Para hacer esto se dividió al vector  $\vec{x}$ por el máximo número en valor absoluto y se realizó el procedimiento análogo para el vector $\vec{y}$ ($\vec{x}$ contiene todos los puntos $x$ de las muestras de entrada e $\vec{y}$ los puntos $y$).\\
 \par Asimismo, teniendo en cuenta que $z$ toma valores entre $0$ y $1$, se decidió utilizar la función de activación exponencial en la capa de salida. Como cada capa es independiente de las demás, pueden utilizarse distintas funciones de activación en cada capa (lógicamente utilizando la misma función para todas las neuronas de una misma capa). Realizando esta pequeña modificación subsanamos el problema de comparar valores que están entre $(-1,1)$ (salida de la red neuronal con función de activación tangente hiperbólica en la última capa) con valores de $z$ que están entre $(0,1)$.
 
 \subsection{Ruptura de simetría}
 
-\par A diferencia de los problemas tratados anteriormente como ser \textit{AND}, \textit{OR}, \textit{Simetría} y \textit{Paridad}, el problema del aprendizaje de una función desconocida no es simétrico. Debido a esta cualidad del problema, lo que se hizo fue agregar conexiones rotas/muertas en la primer capa. Estas conexiones tienen peso $0$ y nos permiten diferenciar los dos inputs, ya que no necesariamente $f(x, y) = f(y,x)$.
+\par A diferencia de los problemas tratados anteriormente como ser \textit{AND}, \textit{OR}, \textit{Simetría} y \textit{Paridad}, el problema del aprendizaje de una función desconocida no es simétrico. Debido a esta cualidad del problema, lo que se hizo fue agregar conexiones rotas/muertas en la primer capa. Estas conexiones rotas tienen peso 
+$0$ y permiten diferenciar los dos inputs, ya que no necesariamente $f(x, y) = f(y,x)$.
 
 \section{Cálculo del error}
 

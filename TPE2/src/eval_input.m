@@ -39,7 +39,7 @@ function values = eval_input ( net, new_input)
 					value = tanh(net.beta * value);
 				end
 			elseif(net.trans_type == 4) % Sigmoid (exponential) function
-				value = 1 / (1 + exp(- net.beta * value));
+				value = 1 / (1 + exp(- 2 * net.beta * value));
 			end
 			endif
 			values{i+1}(j) = value;

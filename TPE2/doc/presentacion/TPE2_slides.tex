@@ -1,0 +1,90 @@
+
+\documentclass{beamer}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{beamerthemesplit}
+
+\usetheme{Warsaw} 
+
+\title{Redes neuronales multicapa}
+\subtitle{Castiglione, Karpovsky, Sturla }
+\author{Sistemas de Inteligencia Artificial}
+\date{3 de Mayo de 2012}
+
+\AtBeginSection[]
+{
+  \begin{frame}{Tabla de contenidos}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section[Outline]{}
+\frame{\tableofcontents}
+
+\section{Introducción}
+\subsection{Overview of the Beamer Class}
+\frame
+{
+  \frametitle{Features of the Beamer Class}
+
+  \begin{itemize}
+  \item<1-> Normal LaTeX class.
+  \item<2-> Easy overlays.
+  \item<3-> No external programs needed.      
+  \end{itemize}
+}
+
+
+\section{Dos}
+\begin{frame}{A sample slide}
+\par asfas
+\end{frame}
+\section{Tres}
+\begin{frame}{A sample slide}
+\par asfas
+\end{frame}
+\section{Cccc}
+\begin{frame}{A sample slide}
+
+\begin{theorem}[The Poincar\'e inequality]
+Suppose $\Omega\in\mathbf{R}^n$ is a bounded domain with smooth
+boundary.  Then there exists a $\lambda>0$, depending only on
+$\Omega$, such that for any function $f$ in the Sobolev space
+$H^1_0(\Omega)$ we have:
+
+\[
+  \int_\Omega |\nabla u|^2 \,dx \ge 
+  \lambda \int_\Omega |u|^2 \,dx .
+\]
+\end{theorem}
+
+Here is what \emph{itemized} and \emph{enumerated} lists look like:
+
+\begin{columns}
+  \begin{column}{0.45\textwidth}
+  \begin{itemize}
+    \item itemized item 1
+    \item itemized item 2
+    \item itemized item 3
+  \end{itemize}
+  \end{column}
+
+  \begin{column}{0.45\textwidth}
+  \begin{enumerate}
+    \item enumerated item 1
+    \item enumerated item 2
+    \item enumerated item 3
+  \end{enumerate}
+  \end{column}
+\end{columns}
+
+\end{frame}
+
+\end{document}

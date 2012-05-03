@@ -116,8 +116,6 @@ neuronas es una matriz de pesos, la red neuronal, por consiguiente, es un vector
 la salida de la red neuronal con una cierta entrada se reduce a multiplicar el vector entrada por cada una de estas matrices. Cabe destacar 
 que al vector y a todos los pasos intermedios se les agrega siempre un $-1$ como último valor para el sesgo.\\
 
-\par Se decidió utilizar el \textbf{error cuadrático medio}.
-
 \subsection{Mejoras}
 
 \par Se implementaron tres tipos de funciones para modificar la variable $\eta$ \textit{(learn rate)}: 
@@ -143,8 +141,6 @@ y la función exponencial
 g(x) = \frac{1}{1+e^{-x}}
 \end{equation}
 
-
-
 \subsection{Normalización de datos}
 
 \par En este problema en particular, los valores de las muestras de entrada $f(x,y) = z$ tenían las siguientes características: Aproximadamente $x\in [-3,3]$, $y\in [-3,3]$ y $z\in [0,1]$. 
@@ -154,6 +150,32 @@ Como se comentó anteriormente, la red neuronal puede funcionar con la función 
 \subsection{Ruptura de simetría}
 
 \par A diferencia de los problemas tratados anteriormente como ser \textit{AND}, \textit{OR}, \textit{Simetría} y \textit{Paridad}, el problema del aprendizaje de una función desconocida no es simétrico. Debido a esta cualidad del problema, lo que se hizo fue agregar conexiones rotas/muertas en la primer capa. Estas conexiones tienen peso $0$ y nos permiten diferenciar los dos inputs, ya que no necesariamente $f(x, y) = f(y,x)$.
+
+\section{Cálculo del error}
+
+\par Para los gráficos se optó por mostrar la \textbf{diferencia cuadrática media} calculada como sigue:\\
+
+\begin{equation}
+\sum\limits_{i}\frac{(S_i - O_i)^{2}}{N}
+\end{equation}
+
+\par En cuanto al error, se calcula el \textbf{error promedio} de la siguiente forma:
+
+\begin{equation}
+e = \sum\limits_{i}\frac{|S_i - O_i|}{N}
+\end{equation}
+
+
+Entonces, esto nos está diciendo, por ejemplo que, si esta sumatoria es igual a 0.01, cada valor tiene un error promedio de 0.01.
+
+\par Por ultimo calculamos la \textbf{desviación del error}:\\
+
+\begin{equation}
+\sqrt{\sum\limits_{i}\frac{((\|S_i - O_i\| - e))^2}{N}}
+\end{equation}
+
+Si, por ejemplo, el desvío es igual a 0, significará que todos los valores tienen un error de
+0.01. Es decir el error es fijo. Si es alto significa que hay algunos valores muy precisos (error casi 0) y otros con valor muy grande. Es decir el error es variado.
 
 
 \section{Resultados}
@@ -165,30 +187,6 @@ Como se comentó anteriormente, la red neuronal puede funcionar con la función 
 
 
 
-
-%\begin{thebibliography}{1}
-
-%\bibitem{lamport1}
-%Fierens, P. (2011),
-%\newblock {\em Cuadrados mínimos: repaso},
-%\newblock Buenos Aires: Instituto Tecnológico de Buenos Aires.
-
-%\bibitem{lamport1}
-%Abdi, H.,
-%\newblock {\em  Least-squares: {Encyclopedia for research methods for the social sciences}},
-%\newblock Thousand Oaks (CA): Sage. pp, 2003.
-
-%\bibitem{lamport1}
-%Farebrother, R.W. (1988),
-%\newblock {\em Linear Least Squares Computations, STATISTICS: Textbooks and Monographs}, %\newblock New York: Marcel Dekker.
-
-%\bibitem{lamport1}
-%Lipson, M.; Lipschutz, S. (2001),
-%\newblock {\em Schaum's outline of theory and problems of linear algebra}, 
-%newblock New York: McGraw-Hill, pp. 69–80.
-
-
-%\end{thebibliography}
 
 %----------------------------------------------------------------------
 

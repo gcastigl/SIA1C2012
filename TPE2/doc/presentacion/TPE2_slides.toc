@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.10pt}
+\select@language {spanish}
+\beamer@sectionintoc {2}{Introducci\IeC {\'o}n}{3}{0}{1}
+\beamer@subsectionintoc {2}{1}{Overview of the Beamer Class}{4}{0}{1}
+\beamer@sectionintoc {3}{Dos}{7}{0}{2}
+\beamer@sectionintoc {4}{Tres}{9}{0}{3}
+\beamer@sectionintoc {5}{Cccc}{11}{0}{4}

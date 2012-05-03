@@ -97,15 +97,17 @@ Derivada:
 
 \end{frame}
 
-\begin{frame}{Ruptura de la simetría}
-\par asfas
-\end{frame}
 
+\subsection{Arquitecturas}
 
-\subsection{Simetría}
-
-\begin{frame}{Ruptura de la simetría}
-\par asfsas
+\begin{frame}{Arquitecturas estudiadas}
+\begin{itemize}
+\item Perceptron simple?
+\item Pocas neuronas, pocas capas
+\item Muchas neuronas, muchas capas
+\item Punto intermedio
+\item Conexiones muertas/rotas
+\end{itemize}
 \end{frame}
 
 \subsection{Cálculo del error}
@@ -123,55 +125,90 @@ Derivada:
 
 \subsection{Eta dinámico}
 \begin{frame}{Eta dinámico ($\eta$ adaptativo)}
-\par Sefasfas
+\par Incrementar $\eta$ si el error sube consistenemente incrementar eta aritméticamente: quizás se está siendo muy conservador.
+\par Si el error incrementa, reducir $\eta$ exponencialmente.
 \end{frame}
 
 \subsection{Ruido y momentum}
-\begin{frame}{Ruido y momentum}
-\par Seasfasfasfa
+\begin{frame}{Momentum}
+\[w_{ij}(t+1)= - \frac{\partial E}{\partial w{ij}} + \alpha w(t)\]
+\par Cambios dependen de cambios anteriores. Idea de dirección general del error. 
+\par Olvido exponencial de cambios anteriores.
+\par Se aplica a cada batch / lote
+\end{frame}
+\begin{frame}{Ruido}
+\par Idea: Escape del mínimo local.
+\par Robustez de la red neuronal: debería poder soportar ruido.
 \end{frame}
 
 \section{Resultados}
 
-\begin{frame}{Resultados}
-\par Se
+\begin{frame}{Resultados 1}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.40]{../images/6.png}
+\label{modelado}
+\end{center}
+\end{figure}
+
+\begin{center}
+\par Figura 1: Arq [200 100], eta adaptativo, tangente hiperbólica
+\end{center}
+\end{frame}
+
+\begin{frame}{Resultados 2}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.40]{../images/nice.png}
+\label{modelado}
+\end{center}
+\end{figure}
+
+\begin{center}
+\par Figura 2: Arq [50 30] 200 epocas, tangente hiperbólica.
+\end{center}
+\end{frame}
+
+\begin{frame}{Resultados 3}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.40]{../images/9.png}
+\label{modelado}
+\end{center}
+\end{figure}
+
+\begin{center}
+\par Figura 3: Arq [4 4] 200 épocas eta adaptativo, tanh.
+\end{center}
 \end{frame}
 
 \section{Conclusiones}
-\begin{frame}{A sample slide}
+\begin{frame}{Conclusión}
 
-\begin{theorem}[The Poincar\'e inequality]
-Suppose $\Omega\in\mathbf{R}^n$ is a bounded domain with smooth
-boundary.  Then there exists a $\lambda>0$, depending only on
-$\Omega$, such that for any function $f$ in the Sobolev space
-$H^1_0(\Omega)$ we have:
+\begin{itemize}
+\item Para la resolucion de problemas no siempre es necesaria una mayor cantidad de neuronas para 
+lograr una precisión aceptable (puede llevar a malas generalizaciones y tiempo de más 
+hasta alcanzar el error desdeado). Esto puede observarse en la figura 1 del \textbf{Anexo A}\\
+\item El aprendizaje de las redes y la velocidad de convergencia dependen exclusivamente de la naturaleza del problema 
+y de los parámetros adecuados para dicho problema en particular.\\
+\item Las mejoras al algoritmo de back propagation, no garantizan mejoras en la velocidad de convergencia para 
+todos los problemas.\\
+\item Momentum no siempre puede acelerar la convergencia.\\
+\item La función de activación \textit{exponencial} es más propensa a atascarse en mínimos.
+\end{itemize}
 
-\[
-  \int_\Omega |\nabla u|^2 \,dx \ge 
-  \lambda \int_\Omega |u|^2 \,dx .
-\]
-\end{theorem}
+\end{frame}
 
-Here is what \emph{itemized} and \emph{enumerated} lists look like:
+\begin{frame}{Conclusión cont.}
+\begin{itemize}
 
-\begin{columns}
-  \begin{column}{0.45\textwidth}
-  \begin{itemize}
-    \item itemized item 1
-    \item itemized item 2
-    \item itemized item 3
-  \end{itemize}
-  \end{column}
-
-  \begin{column}{0.45\textwidth}
-  \begin{enumerate}
-    \item enumerated item 1
-    \item enumerated item 2
-    \item enumerated item 3
-  \end{enumerate}
-  \end{column}
-\end{columns}
-
+\item Tomar demasiados patrones de entrenamiento pueden perjudicar la capacidad de la red de generalizar, 
+sin embargo muy pocos pueden provocarlo también (muestra no representativa).\\
+\item Momentum no siempre puede acelerar la convergencia.\\
+\item La función de activación \textit{exponencial} es más propensa a atascarse en mínimos.
+\item Tomar demasiados patrones de entrenamiento pueden perjudicar la capacidad de la red de generalizar, 
+sin embargo muy pocos pueden provocarlo también (muestra no representativa).\\
+\end{itemize}
 \end{frame}
 
 \end{document}

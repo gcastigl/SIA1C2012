@@ -68,30 +68,30 @@
 % commands).
 \author[Castiglione, Karpovsky, Sturla]{Gonzalo V. Castiglione, Alan E. Karpovsky, Martín Sturla\\\textit{Estudiantes 
        Instituto Tecnológico de Buenos Aires (ITBA)}\\
-\textbf{19 de Abril de 2012}
+\textbf{3 de Mayo de 2012}
 }
 
 
 \journal{Cátedra\ \ Sist.\ de\ Inteligencia\ Artificial,\ ITBA\ }
-\titletext{-\ 19, ABRIL\ 2012}
+\titletext{-\ 3, MAYO\ 2012}
 \ieeecopyright{\copyright\ 2012 ITBA}
 \lognumber{}
 \pubitemident{}
-\loginfo{19 de Abril, 2012.}
+\loginfo{3 de Mayo, 2012.}
 \firstpage{1}
 
-\confplacedate{Buenos Aires, Argentina, 19 de Abril, 2012}
+\confplacedate{Buenos Aires, Argentina, 3 de Mayo, 2012}
 
 \maketitle               
 
 \begin{abstract} 
-El presente informe busca analizar redes neuronales multicapa utilizando funciones de activacion exponencial y tangente hiperbolica, 
+El presente informe busca analizar redes neuronales multicapa utilizando funciones de activacion exponencial y tangente hiperbólica, 
 para la resolucion del problema dado.
 
 \end{abstract}
 
 \begin{keywords}
-perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, conjunto de entrenamiento, conjunto de testeo
+Perceptrón, función de transferencia, red neuronal, aprendizaje supervisado, conjunto de entrenamiento, conjunto de testeo
 \end{keywords}
 
 %----------------------------------------------------------------------
@@ -142,7 +142,7 @@ Como función de costo se decidió implementar únicamente la diferencia cuadrá
 \par Para todos los casos de prueba se entrenó a la red utilizando la función de activación la función tangente hiperbólica
 
 \begin{equation}
-f(x) = tanh(x)
+f(x) = tanh(\beta x)
 \end{equation}
 
 
@@ -158,7 +158,7 @@ g(x) = \frac{f(x) + 1}{2}
 \end{equation}
 En otras palabras el comportamiento de las funciones es muy similar, simplemente su imagen es distinta. Nótese que las 
 expresiones de los cambios en los pesos de las neuronas tienen como factor el valor  obtenido 
-por la función de activación. Dado que la función exponencial satura en $0$ para valores negativos grandes, esto 
+por la función de activación. Dado que la función exponencial satura en $0$ para valores negativos grandes, se 
 hace que sea muy difícil cambiar los pesos una vez que comienza la saturación.
 
 \subsection{Normalización de datos}
@@ -244,7 +244,7 @@ ciertas cotas.
 se puede apreciar gráficamente con curvas del error de entrenamiento y posterior testeo muy similares. 
 
 \par Ejemplos particulares de dichas redes incluyen arquitecturas con, por ejemplo, 4 neuronas en la primer capa oculta y 4
-en la segunda ( para el problema en cuestión). Ver \textbf{Anexo a} gráfico $1$.
+en la segunda ( para el problema en cuestión). Ver \textbf{Anexo a} figura $1$.
 
 \subsubsection{Arquitecturas con muchas neuronas y muchas capas}
 
@@ -255,7 +255,7 @@ a crecer. El fenómeno que ocurre es análogo a querer aproximar ocho puntos sob
 de grado $7$; se puede interpolar perfectamente, el error de los puntos sería $0$, pero al tomar otros puntos sobre 
 la línea recta el error sería particularmente alto.
 
-\par Cabe destacar que dichas redes demoran considerablemente más en efectuar entrenarse en 
+\par Cabe destacar que dichas redes demoran considerablemente más en entrenarse en 
 una cierta cantidad de épocas debido 
 a la complejidad de efectuar un algoritmo \textit{back-propagation} en redes grandes. 
 
@@ -267,16 +267,18 @@ el error sea relativamente bajo ( es decir, la precisión dado un cierto error r
 el conjunto de aprendizaje o entrenamiento y testeo). También se observó que redes más pequeñas son más veloces ( 
 no solo en término de tiempo, sino de épocas) en reducir el error.
 
-\par Los fenómenos mencionados pueden ser observados en el \textbf{Anexo A} , gráficos $1$ y $2$. El primero 
+\par Los fenómenos mencionados pueden ser observados en el \textbf{Anexo A} , figuras $1$ y $2$. El primero 
 muestra como el error de entrenamiento y testeo se separan considerablemente de por momentos (peor generalización) y 
 por otro lado la tendencia a reducir el error es más lenta.
 
 \subsubsection{Arquitecturas no simétricas}
 
-\par Dado que la teoría detrás de las redes neuronales no exige que las redes sean completas ( es decir, que todas 
-las entre dos capas están conectadas todas entre sí), se decidió a manera experimental probar con arquitecturas no simétricas, 
+\par La teoría detrás de las redes neuronales no exige que las redes sean completas ( es decir, que todas 
+las neuronas entre dos capas están conectadas todas entre sí). Las redes deberían incluso, debido a su robustez, poder soportar 
+que se rompa una conexión durante el entrenamiento y adaptarse. Debido a esto, 
+se decidió a manera experimental probar con arquitecturas no simétricas, 
 es decir, arquitecturas en las cuales la primer capa no es completa ( existen conexiones muertas), con condiciones razonables ( que la salida sea 
-alcanzable desde toda entrada, por ejemplo).
+alcanzable desde toda entrada, por ejemplo). 
 \par Dicha implementación no generó mejoras consistentes como para preferirla sobre redes simétricas, pero tampoco 
 obtuvieron resultados consistentemente peores como para descartarlas por completo.
 
@@ -295,25 +297,31 @@ e = \sum\limits_{i}\frac{|S_i - O_i|}{N}
 \end{equation}
 
 
-Entonces, esto nos está diciendo, por ejemplo que, si esta sumatoria es igual a 0.01, cada valor tiene un error promedio de 0.01.
+Entonces, esto está diciendo, por ejemplo que, si la sumatoria es igual a 0.01, cada valor tiene un error promedio de 0.01.
 
-\par Por ultimo calculamos la \textbf{desviación del valor absoluto error}:\\
+\par Por ultimo se calculó la \textbf{desviación del valor absoluto error}:\\
 
 \begin{equation}
 \sqrt{\sum\limits_{i}\frac{((\|S_i - O_i\| - e))^2}{N}}
 \end{equation}
 
 Si, por ejemplo, el desvío es igual a 0, significaría que todos los valores tienen un error de
-0.01. Es decir el error es fijo. Si es alto significa que hay algunos valores muy precisos (error casi 0) y otros con errores grande. Es decir el error es variado.
+0.01. Es decir el error es fijo. Si es alto significa que hay algunos valores muy precisos (error casi 0) y otros con errores grandes. Es decir el error es variado.
 
 \section{Resultados}
 
 \par En las pruebas realizadas con el factor de momentum activado se observó que la red no se estanca tan fácilmente en mínimos locales. Sin embargo, en algunos casos, puede demorar la convergencia de la red hacia los valores deseados, 
 debido a la memorización de cambios quizás no deseados.\\
 
+\par Las arquitecturas con una cantidad moderada de neuronas en dos capas fueron las que dieron los 
+mejores resultados. 
+Con una arquitectura con $50$ neuronas en la primer capa oculta y $30$ en la segunda, se logró alcanzar un error medio de 
+$0.046$ y desviación de $0.018$ en tan solo 200 épocas. Esto se tradujo a un coeficiente superior a $0.8$ tanto para el conjunto de entrenamiento 
+y el de testeo para un error de $0.05$.
+
 \par Asimismo se observó que la función de activación tangente hiperbólica resultó obtener una mejor performance en comparación con la función sigmoidea exponencial.
 
-\par Por su parte es notoria la diferencia en cantidad de épocas de la red funcionando con un $\eta$ adaptativo versus la red funcionando sin este. Mejor aún, la reducción en el número de épocas utilizando $\eta$ adaptativo es de aproximadamente un $20\%$.\\
+\par Por su parte es notoria la diferencia en cantidad de épocas de la red funcionando con un $\eta$ adaptativo versus la red funcionando sin este. Mejor aún, la reducción en el número de épocas utilizando $\eta$ adaptativo es superior al $25\%$.\\
 
 \par De todas formas, los resultados obtenidos no pueden ser descartados y/o tomados como óptimos o 
 absulutos. Esto se debe a que el problema presenta numerosas variables 
@@ -336,7 +344,7 @@ hasta alcanzar el error desdeado). Esto puede observarse en la figura 1 del \tex
 y de los parámetros adecuados para dicho problema en particular.\\
 \item Las mejoras al algoritmo de back propagation, no garantizan mejoras en la velocidad de convergencia para 
 todos los problemas.\\
-\item Momentum no siempre puede acelerar la convergencia.
+\item Momentum no siempre puede acelerar la convergencia.\\
 \item La función de activación \textit{exponencial} es más propensa a atascarse en mínimos.
 \item Tomar demasiados patrones de entrenamiento pueden perjudicar la capacidad de la red de generalizar, 
 sin embargo muy pocos pueden provocarlo también (muestra no representativa).\\
@@ -372,7 +380,7 @@ La tendencia muestra que el error baja, pero lentamente.
 
 \begin{center}
 \par Figura 2: Ejemplo red neuronal con una arquitectura de [50 30] entrenada 200 épocas con learning rate adaptativo y función de activación tangente hiperbólica. 
-Se alcanzó un error medio de aproximadamente 0.05 y desviación 0.02.
+Se alcanzó un error medio de aproximadamente 0.05 y desviación 0.018.
 \end{center}
 \clearpage
 

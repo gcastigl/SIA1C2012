@@ -1,4 +1,4 @@
-\beamer@endinputifotherversion {3.10pt}
+\beamer@endinputifotherversion {3.07pt}
 \headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
 \headcommand {\beamer@framepages {1}{1}}
 \headcommand {\sectionentry {1}{Outline}{2}{Outline}{0}}
@@ -27,42 +27,48 @@
 \headcommand {\beamer@subsectionentry {0}{3}{2}{8}{Funciones de activaci\IeC {\'o}n}}\headcommand {\beamer@subsectionpages {7}{7}}
 \headcommand {\slideentry {3}{2}{1}{8/8}{Funciones de activaci\IeC {\'o}n}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\slideentry {3}{2}{2}{9/9}{Funciones de activaci\IeC {\'o}n}{0}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{9}{Arquitecturas}}\headcommand {\beamer@subsectionpages {8}{8}}
+\headcommand {\slideentry {3}{3}{1}{9/9}{Arquitecturas}{0}}
 \headcommand {\beamer@framepages {9}{9}}
-\headcommand {\beamer@subsectionentry {0}{3}{3}{10}{Simetr\IeC {\'\i }a}}\headcommand {\beamer@subsectionpages {8}{9}}
-\headcommand {\slideentry {3}{3}{1}{10/10}{Simetr\IeC {\'\i }a}{0}}
+\headcommand {\beamer@subsectionentry {0}{3}{4}{10}{C\IeC {\'a}lculo del error}}\headcommand {\beamer@subsectionpages {9}{9}}
+\headcommand {\beamer@subsectionentry {0}{3}{5}{10}{Conjuntos de entrenamiento y testeo}}\headcommand {\beamer@subsectionpages {10}{9}}
+\headcommand {\slideentry {3}{5}{1}{10/10}{Conjuntos de entrenamiento y testeo}{0}}
 \headcommand {\beamer@framepages {10}{10}}
-\headcommand {\beamer@subsectionentry {0}{3}{4}{11}{C\IeC {\'a}lculo del error}}\headcommand {\beamer@subsectionpages {10}{10}}
-\headcommand {\beamer@subsectionentry {0}{3}{5}{11}{Conjuntos de entrenamiento y testeo}}\headcommand {\beamer@subsectionpages {11}{10}}
-\headcommand {\slideentry {3}{5}{1}{11/11}{Conjuntos de entrenamiento y testeo}{0}}
+\headcommand {\sectionentry {4}{Mejoras al algoritmo backpropagation}{11}{Mejoras al algoritmo backpropagation}{0}}
+\headcommand {\beamer@sectionpages {6}{10}}
+\headcommand {\beamer@subsectionpages {10}{10}}
+\headcommand {\slideentry {4}{0}{2}{11/11}{}{0}}
 \headcommand {\beamer@framepages {11}{11}}
-\headcommand {\sectionentry {4}{Mejoras al algoritmo backpropagation}{12}{Mejoras al algoritmo backpropagation}{0}}
-\headcommand {\beamer@sectionpages {6}{11}}
-\headcommand {\beamer@subsectionpages {11}{11}}
-\headcommand {\slideentry {4}{0}{2}{12/12}{}{0}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{12}{Eta din\IeC {\'a}mico}}\headcommand {\beamer@subsectionpages {11}{11}}
+\headcommand {\slideentry {4}{1}{1}{12/12}{Eta din\IeC {\'a}mico}{0}}
 \headcommand {\beamer@framepages {12}{12}}
-\headcommand {\beamer@subsectionentry {0}{4}{1}{13}{Eta din\IeC {\'a}mico}}\headcommand {\beamer@subsectionpages {12}{12}}
-\headcommand {\slideentry {4}{1}{1}{13/13}{Eta din\IeC {\'a}mico}{0}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{13}{Ruido y momentum}}\headcommand {\beamer@subsectionpages {12}{12}}
+\headcommand {\slideentry {4}{2}{1}{13/13}{Ruido y momentum}{0}}
 \headcommand {\beamer@framepages {13}{13}}
-\headcommand {\beamer@subsectionentry {0}{4}{2}{14}{Ruido y momentum}}\headcommand {\beamer@subsectionpages {13}{13}}
-\headcommand {\slideentry {4}{2}{1}{14/14}{Ruido y momentum}{0}}
+\headcommand {\slideentry {4}{2}{2}{14/14}{Ruido y momentum}{0}}
 \headcommand {\beamer@framepages {14}{14}}
 \headcommand {\sectionentry {5}{Resultados}{15}{Resultados}{0}}
-\headcommand {\beamer@sectionpages {12}{14}}
-\headcommand {\beamer@subsectionpages {14}{14}}
-\headcommand {\slideentry {5}{0}{2}{15/15}{}{0}}
+\headcommand {\beamer@sectionpages {11}{14}}
+\headcommand {\beamer@subsectionpages {13}{14}}
+\headcommand {\slideentry {5}{0}{3}{15/15}{}{0}}
 \headcommand {\beamer@framepages {15}{15}}
-\headcommand {\slideentry {5}{0}{3}{16/16}{}{0}}
+\headcommand {\slideentry {5}{0}{4}{16/16}{}{0}}
 \headcommand {\beamer@framepages {16}{16}}
-\headcommand {\sectionentry {6}{Conclusiones}{17}{Conclusiones}{0}}
-\headcommand {\beamer@sectionpages {15}{16}}
-\headcommand {\beamer@subsectionpages {15}{16}}
-\headcommand {\slideentry {6}{0}{4}{17/17}{}{0}}
+\headcommand {\slideentry {5}{0}{5}{17/17}{}{0}}
 \headcommand {\beamer@framepages {17}{17}}
-\headcommand {\slideentry {6}{0}{5}{18/18}{}{0}}
+\headcommand {\slideentry {5}{0}{6}{18/18}{}{0}}
 \headcommand {\beamer@framepages {18}{18}}
-\headcommand {\beamer@partpages {1}{18}}
-\headcommand {\beamer@subsectionpages {17}{18}}
-\headcommand {\beamer@sectionpages {17}{18}}
-\headcommand {\beamer@documentpages {18}}
-\headcommand {\def \inserttotalframenumber {18}}
+\headcommand {\sectionentry {6}{Conclusiones}{19}{Conclusiones}{0}}
+\headcommand {\beamer@sectionpages {15}{18}}
+\headcommand {\beamer@subsectionpages {15}{18}}
+\headcommand {\slideentry {6}{0}{7}{19/19}{}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {6}{0}{8}{20/20}{}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {6}{0}{9}{21/21}{}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\beamer@partpages {1}{21}}
+\headcommand {\beamer@subsectionpages {19}{21}}
+\headcommand {\beamer@sectionpages {19}{21}}
+\headcommand {\beamer@documentpages {21}}
+\headcommand {\def \inserttotalframenumber {21}}

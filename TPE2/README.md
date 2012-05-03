@@ -16,15 +16,16 @@ Para correr la red neuronal multicapa primero se debe estar parado sobre la rút
 * 6 - lrn_type_name: metodo para actualizar el `lrn_base` al final de cada epoca (Constant, Annealed, Dynamic)
 * 7 - interactive_flag: Si se setea en 1, se mostrará el aprendizaje de la red en vivo.
 * 8 - noise: Si se setea en 1, se utilizará ruido en el aprendizaje.
+* 9 - symmetry : si se setea en 1, se utilizará una red simétrica. Asimétrica en el caso contrario
 
-* `ejemplo: main('samples.txt', 500, [2 4], "SIGMOID", 0.02, "CONSTANT", 1, 0)`
+* `ejemplo: main('samples.txt', 500, [2 4], "SIGMOID", 0.02, "CONSTANT", 1, 0, 0)`
 
 En caso de querer consultar los parámetros ayuda, puede invocarse `main('help')` y mostrará la forma de invocación y los operadores válidos para cada típo de selección.
 
 Explicación detallada en Inglés
 -------------------------------
 
-Invoque main like main(filePath, 500, [2 4], "SIGMOID", 0.02, "CONSTANT", 1, 0)
+Invoque main like main(filePath, 500, [2 4], "SIGMOID", 0.02, "CONSTANT", 1, 0, 0)
 This network will try to learn the file_path function, with an architecture of 2 hidden
 layers with 2 and 4 neurons in each layer respectively.
 Algorithm will run 500 epochs using the SIGMOID transfer function with a 0.02 etha and

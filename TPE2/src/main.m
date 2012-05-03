@@ -201,18 +201,6 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	printf('\t Precision for 0.05 error: Train: %f, Generalization: %f \n', get_precision(train_errs, train_set_len, 0.05) , get_precision(test_errs, test_set_len, 0.05));
 	printf('\t Precision for 0.01 error: Train: %f, Generalization: %f \n', get_precision(train_errs, train_set_len, 0.01) , get_precision(test_errs, test_set_len, 0.01));
 	%plotSamples3D(vec, zeta, points, vals);
-		if(final_error < (10**(-5)) ) 
-				printGreenColorNB();
-				printf('\tError is smaller than 10^{-5}\n');
-		else
-			if(test_errors(epochs) < (10**(-3)))
-				printGreenColorNB();
-				printf('\tError is smaller than 10^{-3}\n');
-			else
-				printRedColorNB();
-				printf('\tError is grater than 10^{-3} - try using a different \"eta\" or incrementing the number of epochs\n');
-			endif
-		endif
 	releasePrintColor();
 	plotStats2D(epochs, test_errors, errors,lrn_rates, epochs);
 endfunction

@@ -1,15 +1,15 @@
-\beamer@endinputifotherversion {3.10pt}
+\beamer@endinputifotherversion {3.07pt}
 \select@language {spanish}
 \beamer@sectionintoc {2}{Introducci\IeC {\'o}n}{3}{0}{1}
 \beamer@subsectionintoc {2}{1}{El problema}{4}{0}{1}
 \beamer@sectionintoc {3}{Modelado del problema}{6}{0}{2}
 \beamer@subsectionintoc {3}{1}{Representaci\IeC {\'o}n de la red neuronal}{7}{0}{2}
 \beamer@subsectionintoc {3}{2}{Funciones de activaci\IeC {\'o}n}{8}{0}{2}
-\beamer@subsectionintoc {3}{3}{Simetr\IeC {\'\i }a}{10}{0}{2}
-\beamer@subsectionintoc {3}{4}{C\IeC {\'a}lculo del error}{11}{0}{2}
-\beamer@subsectionintoc {3}{5}{Conjuntos de entrenamiento y testeo}{11}{0}{2}
-\beamer@sectionintoc {4}{Mejoras al algoritmo backpropagation}{12}{0}{3}
-\beamer@subsectionintoc {4}{1}{Eta din\IeC {\'a}mico}{13}{0}{3}
-\beamer@subsectionintoc {4}{2}{Ruido y momentum}{14}{0}{3}
+\beamer@subsectionintoc {3}{3}{Arquitecturas}{9}{0}{2}
+\beamer@subsectionintoc {3}{4}{C\IeC {\'a}lculo del error}{10}{0}{2}
+\beamer@subsectionintoc {3}{5}{Conjuntos de entrenamiento y testeo}{10}{0}{2}
+\beamer@sectionintoc {4}{Mejoras al algoritmo backpropagation}{11}{0}{3}
+\beamer@subsectionintoc {4}{1}{Eta din\IeC {\'a}mico}{12}{0}{3}
+\beamer@subsectionintoc {4}{2}{Ruido y momentum}{13}{0}{3}
 \beamer@sectionintoc {5}{Resultados}{15}{0}{4}
-\beamer@sectionintoc {6}{Conclusiones}{17}{0}{5}
+\beamer@sectionintoc {6}{Conclusiones}{19}{0}{5}

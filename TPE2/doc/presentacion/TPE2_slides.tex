@@ -186,15 +186,11 @@ Derivada:
 \begin{frame}{Conclusión}
 
 \begin{itemize}
-\item Para la resolucion de problemas no siempre es necesaria una mayor cantidad de neuronas para 
-lograr una precisión aceptable (puede llevar a malas generalizaciones y tiempo de más 
+\item Incrementar la cantidad de neuronas arbitrariamente no necesariamente 
+implica mejoras en cuanto al error (puede llevar a malas generalizaciones y tiempo de más 
 hasta alcanzar el error desdeado). Esto puede observarse en la figura 1 del \textbf{Anexo A}\\
-\item El aprendizaje de las redes y la velocidad de convergencia dependen exclusivamente de la naturaleza del problema 
-y de los parámetros adecuados para dicho problema en particular.\\
-\item Las mejoras al algoritmo de back propagation, no garantizan mejoras en la velocidad de convergencia para 
-todos los problemas.\\
-\item Momentum no siempre puede acelerar la convergencia.\\
-\item La función de activación \textit{exponencial} es más propensa a atascarse en mínimos.
+\item No existe tal cosa como una mejor arquitectura o parámetros óptimos. Estos seguramente dependan 
+el problema que se está analizando.\\
 \end{itemize}
 
 \end{frame}
@@ -202,12 +198,10 @@ todos los problemas.\\
 \begin{frame}{Conclusión cont.}
 \begin{itemize}
 
-\item Tomar demasiados patrones de entrenamiento pueden perjudicar la capacidad de la red de generalizar, 
-sin embargo muy pocos pueden provocarlo también (muestra no representativa).\\
 \item Momentum no siempre puede acelerar la convergencia.\\
 \item La función de activación \textit{exponencial} es más propensa a atascarse en mínimos.
-\item Tomar demasiados patrones de entrenamiento pueden perjudicar la capacidad de la red de generalizar, 
-sin embargo muy pocos pueden provocarlo también (muestra no representativa).\\
+\item Tomar pocos puntos puede ser una muestra poco representativa, y por lo tanto, puede haber 
+mala generalización.\\
 \end{itemize}
 \end{frame}
 

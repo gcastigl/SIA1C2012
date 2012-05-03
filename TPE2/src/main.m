@@ -13,10 +13,13 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 
 	if (strcmp(tolower(file_name), 'help'))
 		printGreenColor();
-		printf('\n***Invoque main like main(filePath, HIDDEN_LAYERS, epochs, TRANSFORMATION, eta, LEARN_TYPE)***\n')
+		printf('\n***Invoque main like main(filePath, HIDDEN_LAYERS, epochs, TRANSFORMATION, eta, LEARN_TYPE, interactive, noise, symmetry)***\n')
 		printf('\nHIDDEN_LAYERS = [2 4] for two layers with 2 and 4 neurons in each layer respectively\n');
 		printf('\nTRANSFORMATION = [Sg, Linear, Sigmoid]\n');
 		printf('\nLEARN_TYPE = [Constant, Annealed, Dynamic]\n');
+		printf('\ninteractive = [1, 0]\n');, , 
+		printf('\nnoise = [1, 0]\n');
+		printf('\nsymmetry = [1, 0]\n');
 		releasePrintColor();
 		return;
 	endif

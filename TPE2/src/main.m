@@ -85,7 +85,7 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		lrn_type = 1;
 	endif
 	
-	train_percentage = 0.6; % Percentage of the number of sampoles that will be used for training 
+	train_percentage = 0.4; % Percentage of the number of sampoles that will be used for training 
 	testAndTrainSets = getRandomSamples(points, train_percentage);
 	train_set = testAndTrainSets{1};
 	train_set_len = length(train_set);

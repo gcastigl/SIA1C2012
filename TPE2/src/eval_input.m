@@ -34,7 +34,7 @@ function values = eval_input ( net, new_input)
 				value = tanh(net.beta * value);
 			elseif(net.trans_type == 3)  % Sigmoid (tanh) function
 				if(i == s) % Use tanh() except in the output layer
-					value = 1 / (1 + exp(- net.beta * value));
+					value = 1 / (1 + exp(- 2* net.beta * value));
 				else
 					value = tanh(net.beta * value);
 				end

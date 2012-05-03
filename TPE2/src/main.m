@@ -85,7 +85,7 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		lrn_type = 1;
 	endif
 	
-	train_percentage = 0.4; % Percentage of the number of sampoles that will be used for training 
+	train_percentage = 0.3; % Percentage of the number of sampoles that will be used for training 
 	testAndTrainSets = getRandomSamples(points, train_percentage);
 	train_set = testAndTrainSets{1};
 	train_set_len = length(train_set);
@@ -111,8 +111,8 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	framesPerEpochs = 1;
 	skippedFrames = 0;
 	first = 1;
-	batch_size = train_set_len/4; %size of batch
-	noise_factor = 0.1;
+	batch_size = 3; %size of batch
+	noise_factor = 0.7;
 	for i = 1:epochs % Iterate over epochs
 		vec = get_randorder(train_set_len); % Shuffle trainset
 		err = 0;

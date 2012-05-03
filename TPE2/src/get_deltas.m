@@ -4,8 +4,8 @@ function deltas = get_deltas(net, values, expected)
 	%first calculate delta for output layer.
 	for i= 1:net.arch(layers)
 		d = expected(i) - values{layers}(i);
-		if( net.trans_type == 3)
-					d = d * net.beta * ( 1 - values{layers}(i) * values{layers}(i));
+		if( net.trans_type == 3 || net.trans_type == 4)
+					d = d * net.beta * 2 *  values{layers}(i) * (1 - values{layers}(i) );
 		endif
 		deltas{layers-1}(i) = d;
 	end

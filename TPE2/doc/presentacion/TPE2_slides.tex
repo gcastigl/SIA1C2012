@@ -29,28 +29,102 @@
 \frame{\tableofcontents}
 
 \section{Introducción}
-\subsection{Overview of the Beamer Class}
-\frame
-{
-  \frametitle{Features of the Beamer Class}
+\subsection{El problema}
+\begin{frame}{El problema}
 
-  \begin{itemize}
-  \item<1-> Normal LaTeX class.
-  \item<2-> Easy overlays.
-  \item<3-> No external programs needed.      
-  \end{itemize}
-}
+\par El problema planteado consiste en la estimación de funciones escalares a partir de un conjunto de puntos que las representan.
+\vspace{10px}
+\par En nuestor caso particular hemos trabajado con el archivo \textbf{samples7.txt}
+
+\end{frame}
+
+\begin{frame}{Gráfico de la función}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.50]{./images/funcion.png}
+\label{modelado}
+\end{center}
+\end{figure}
+
+\end{frame}
 
 
-\section{Dos}
-\begin{frame}{A sample slide}
+
+
+\section{Modelado del problema}
+\subsection{Representación de la red neuronal}
+
+\begin{frame}{Representación de la red neuronal}
+\par Se representó la red neuronal como una matriz de pesos. \\
+\begin{itemize}
+\item Cada neurona es una columna de pesos.
+\item Cada capa de neuronas es una matriz de pesos.
+\item La red neuronal, por consiguiente, es un vector de matrices.
+\end{itemize}
+\end{frame}
+
+\subsection{Funciones de activación}
+\begin{frame}
+ Se utilizaron dos funciones de activación distintas:
+\begin{block}{Sigmoidea exponencial}
+
+\[
+  g(h) = \frac{1}{1 + e^{-2 \beta h}} 
+\]
+
+Derivada:
+
+\[
+  2 \beta g(1-g) 
+\]
+
+\end{block}
+
+\begin{block}{Tangente hiperbólica}
+
+\[
+  g(x) = tanh(x) 
+\]
+
+Derivada:
+
+\[
+  \beta g(1-g^2) 
+\]
+
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Ruptura de la simetría}
 \par asfas
 \end{frame}
-\section{Tres}
-\begin{frame}{A sample slide}
-\par asfas
+
+
+\subsection{Simetría}
+
+\begin{frame}{Ruptura de la simetría}
+\par asfsas
 \end{frame}
-\section{Cccc}
+
+\subsection{Cálculo del error}
+
+\subsection{Conjuntos de entrenamiento y testeo}
+\begin{frame}{Conjunto de entrenamiento y testeo}
+\par Se decidió seguir el consejo de la cátedra y al realizar las pruebas se utilizó un subconjunto de los datos seleccionados al azar para la fase de aprendizaje y el subconjunto restante para testeo.
+
+\begin{itemize}
+\item Elección de puntos al azar? Puntos representativos?
+\end{itemize}
+\end{frame}
+
+\section{Mejoras al algoritmo backpropagation}
+\subsection{Eta dinámico}
+\subsection{Ruido y momentum}
+
+\section{Resultados}
+\section{Conclusiones}
 \begin{frame}{A sample slide}
 
 \begin{theorem}[The Poincar\'e inequality]

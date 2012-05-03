@@ -33,25 +33,30 @@
 \headcommand {\slideentry {3}{3}{1}{10/10}{Simetr\IeC {\'\i }a}{0}}
 \headcommand {\beamer@framepages {10}{10}}
 \headcommand {\beamer@subsectionentry {0}{3}{4}{11}{C\IeC {\'a}lculo del error}}\headcommand {\beamer@subsectionpages {10}{10}}
-\headcommand {\sectionentry {4}{Mejoras al algoritmo backpropagation}{11}{Mejoras al algoritmo backpropagation}{0}}
-\headcommand {\beamer@sectionpages {6}{10}}
-\headcommand {\beamer@subsectionpages {11}{10}}
-\headcommand {\slideentry {4}{0}{1}{11/11}{}{0}}
+\headcommand {\beamer@subsectionentry {0}{3}{5}{11}{Conjuntos de entrenamiento y testeo}}\headcommand {\beamer@subsectionpages {11}{10}}
+\headcommand {\slideentry {3}{5}{1}{11/11}{Conjuntos de entrenamiento y testeo}{0}}
 \headcommand {\beamer@framepages {11}{11}}
-\headcommand {\sectionentry {5}{Resultados}{12}{Resultados}{0}}
-\headcommand {\beamer@sectionpages {11}{11}}
+\headcommand {\sectionentry {4}{Mejoras al algoritmo backpropagation}{12}{Mejoras al algoritmo backpropagation}{0}}
+\headcommand {\beamer@sectionpages {6}{11}}
 \headcommand {\beamer@subsectionpages {11}{11}}
-\headcommand {\slideentry {5}{0}{2}{12/12}{}{0}}
+\headcommand {\slideentry {4}{0}{2}{12/12}{}{0}}
 \headcommand {\beamer@framepages {12}{12}}
-\headcommand {\sectionentry {6}{Conclusiones}{13}{Conclusiones}{0}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{13}{Eta din\IeC {\'a}mico}}\headcommand {\beamer@subsectionpages {12}{12}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{13}{Ruido y momentum}}\headcommand {\beamer@subsectionpages {13}{12}}
+\headcommand {\sectionentry {5}{Resultados}{13}{Resultados}{0}}
 \headcommand {\beamer@sectionpages {12}{12}}
-\headcommand {\beamer@subsectionpages {12}{12}}
-\headcommand {\slideentry {6}{0}{3}{13/13}{}{0}}
+\headcommand {\beamer@subsectionpages {13}{12}}
+\headcommand {\slideentry {5}{0}{1}{13/13}{}{0}}
 \headcommand {\beamer@framepages {13}{13}}
-\headcommand {\slideentry {6}{0}{4}{14/14}{}{0}}
+\headcommand {\sectionentry {6}{Conclusiones}{14}{Conclusiones}{0}}
+\headcommand {\beamer@sectionpages {13}{13}}
+\headcommand {\beamer@subsectionpages {13}{13}}
+\headcommand {\slideentry {6}{0}{2}{14/14}{}{0}}
 \headcommand {\beamer@framepages {14}{14}}
-\headcommand {\beamer@partpages {1}{14}}
-\headcommand {\beamer@subsectionpages {13}{14}}
-\headcommand {\beamer@sectionpages {13}{14}}
-\headcommand {\beamer@documentpages {14}}
-\headcommand {\def \inserttotalframenumber {14}}
+\headcommand {\slideentry {6}{0}{3}{15/15}{}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\beamer@partpages {1}{15}}
+\headcommand {\beamer@subsectionpages {14}{15}}
+\headcommand {\beamer@sectionpages {14}{15}}
+\headcommand {\beamer@documentpages {15}}
+\headcommand {\def \inserttotalframenumber {15}}

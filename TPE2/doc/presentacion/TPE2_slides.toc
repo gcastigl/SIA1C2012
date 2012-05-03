@@ -7,6 +7,9 @@
 \beamer@subsectionintoc {3}{2}{Funciones de activaci\IeC {\'o}n}{8}{0}{2}
 \beamer@subsectionintoc {3}{3}{Simetr\IeC {\'\i }a}{10}{0}{2}
 \beamer@subsectionintoc {3}{4}{C\IeC {\'a}lculo del error}{11}{0}{2}
-\beamer@sectionintoc {4}{Mejoras al algoritmo backpropagation}{11}{0}{3}
-\beamer@sectionintoc {5}{Resultados}{12}{0}{4}
-\beamer@sectionintoc {6}{Conclusiones}{13}{0}{5}
+\beamer@subsectionintoc {3}{5}{Conjuntos de entrenamiento y testeo}{11}{0}{2}
+\beamer@sectionintoc {4}{Mejoras al algoritmo backpropagation}{12}{0}{3}
+\beamer@subsectionintoc {4}{1}{Eta din\IeC {\'a}mico}{13}{0}{3}
+\beamer@subsectionintoc {4}{2}{Ruido y momentum}{13}{0}{3}
+\beamer@sectionintoc {5}{Resultados}{13}{0}{4}
+\beamer@sectionintoc {6}{Conclusiones}{14}{0}{5}

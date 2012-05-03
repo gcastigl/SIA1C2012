@@ -1,7 +1,12 @@
 \beamer@endinputifotherversion {3.10pt}
 \select@language {spanish}
 \beamer@sectionintoc {2}{Introducci\IeC {\'o}n}{3}{0}{1}
-\beamer@subsectionintoc {2}{1}{Overview of the Beamer Class}{4}{0}{1}
-\beamer@sectionintoc {3}{Dos}{7}{0}{2}
-\beamer@sectionintoc {4}{Tres}{9}{0}{3}
-\beamer@sectionintoc {5}{Cccc}{11}{0}{4}
+\beamer@subsectionintoc {2}{1}{El problema}{4}{0}{1}
+\beamer@sectionintoc {3}{Modelado del problema}{6}{0}{2}
+\beamer@subsectionintoc {3}{1}{Representaci\IeC {\'o}n de la red neuronal}{7}{0}{2}
+\beamer@subsectionintoc {3}{2}{Funciones de activaci\IeC {\'o}n}{8}{0}{2}
+\beamer@subsectionintoc {3}{3}{Simetr\IeC {\'\i }a}{10}{0}{2}
+\beamer@subsectionintoc {3}{4}{C\IeC {\'a}lculo del error}{11}{0}{2}
+\beamer@sectionintoc {4}{Mejoras al algoritmo backpropagation}{11}{0}{3}
+\beamer@sectionintoc {5}{Resultados}{12}{0}{4}
+\beamer@sectionintoc {6}{Conclusiones}{13}{0}{5}

@@ -125,10 +125,10 @@ El crecimiento es aritmético, con cota en $\eta =0.5$, la reducción es exponen
 \par Debido a la existencia de mínimos locales se desarrolló un algoritmo  \textbf{\textit{persistent search}} que dado un cierto error, entrena
  la red neuronal la cantidad de épocas especificada y verifica si el error obtenido es mayor al deseado. En cuyo caso reinicia el algoritmo, asigna 
 los pesos al azar y vuelve a comenzar el entrenamiento.\\
-\par Otra estrategia que se utilizó para subsanar este problema es la de darle un impulso a $\eta$ al detectar que el algoritmo está estancado 
-en un mínimo local, haciendo que los valores de los pesos cambien significativamente en un paso (sería análogo a agregar poco ruido a todas la matrices).
 
-\par{Funciones de activación}
+\par Otra estrategia que se utilizó para subsanar este problema es la de darle un impulso a $\eta$ al detectar que el algoritmo está estancado en un mínimo local, haciendo que los valores de los pesos cambien significativamente en un paso (sería análogo a agregar poco \textbf{ruido} a todas la matrices). A su vez se implementó la estrategia de de \textbf{momentum} con el objetivo de suavizar las correcciones bruscas de pesos.
+
+\subsection{Funciones de activación}
 
 \par Para todos los casos de prueba se entrenó a la red utilizando la función de activación la función tangente hiperbólica
 
@@ -180,24 +180,32 @@ Entonces, esto nos está diciendo, por ejemplo que, si esta sumatoria es igual a
 Si, por ejemplo, el desvío es igual a 0, significará que todos los valores tienen un error de
 0.01. Es decir el error es fijo. Si es alto significa que hay algunos valores muy precisos (error casi 0) y otros con valor muy grande. Es decir el error es variado.
 
-
 \section{Resultados}
 
-\par De todas formas, los resultados obtenidos no pueden ser descartados y/o tomados como óptimos o absulutos. Esto se debe a que el problema presenta numerosas variables que pueden incidir en el resultado del aprendizaje de una red neuronal: los distintos valores que pueden tomar $\beta$ y $\eta$, la arquitectura utilizada, la cantidad de épocas, la presencia de ruido aleatorio, las conexiones muertas para romper simetría, etc.
+\par En las pruebas realizadas con el factor de momentum activado se observó que la red no se estanca tan fácilmente en mínimos locales. Sin embargo, en algunos casos, puede demorar la convergencia de la red hacia los valores deseados.\\
+
+\par Asimismo se observó que la función de activación tangente hiperbólica resultó obtener una mejor performance en comparación con la función sigmoidea exponencial.
+
+\par Por su parte es notoria la diferencia en cantidad de épocas de la red funcionando con un $\eta$ adaptativo versus la red funcionando sin este. Mejor aún, la reducción en el número de épocas utilizando $\eta$ adaptativo es de aproximadamente un $20\%$.\\
+
+\par De todas formas, los resultados obtenidos no pueden ser descartados y/o tomados como óptimos o absulutos. Esto se debe a que el problema presenta numerosas variables que pueden incidir en el resultado del aprendizaje de una red neuronal: los distintos valores que pueden tomar $\beta$ y $\eta$, la arquitectura utilizada, la cantidad de épocas, la presencia de ruido aleatorio, las conexiones muertas para romper simetría, etc.\\
+
 \par Además, debido a la aleatoriedad de la elección de los puntos a utilizar en el conjunto de entrenamiento y la inicialización de los pesos de a red al azar, no podemos dar por descartadas malos resultados ya que es posible que, por ejemplo, se hayan seleccionado puntos poco representativos de la función o que los pesos no se hayan inicializado de la forma óptima.
 \par Una forma de subsanar esta problemática sería correr numerosas veces cada caso de testeo antes de poder sacar una conclusión pero debido a la complejidad temporal del problema, realizar esto requeriría más tiempo del disponible.
-
 
 
 \section{Conclusión}
 
 Luego de realizadas las pruebas y analizado los resultados, se pudo observar lo siguiente:\\
 \begin{itemize}
-\item Para la resolucion de problemas no siempre es necesaria una mayor cantidad de neuronas para lograr una precisión aceptable (puede llevar a malas generalizaciones y tiempo de mas hasta alcanzar el error desdeado). \\
+\item Para la resolucion de problemas no siempre es necesaria una mayor cantidad de neuronas para lograr una precisión aceptable (puede llevar a malas generalizaciones y tiempo de mas hasta alcanzar el error desdeado). Esto puede observarse en la figura 1 del \textbf{Anexo A}\\
 \item El aprendizaje de las redes y la velocidad de convergencia dependen exclusivamente de la naturaleza del problema y de los parámetros adecuados para dicho problema en particular.\\
 \item Las mejoras al algoritmo de back propagation, no garantizan mejoras en la velocidad de convergencia para todos los problemas.\\
+\item Momentum no siempre puede acelerar la convergencia.
+\item \textit{Exponencial} requiere de más entrenamiento.
 \item Muchos patrones de entrenamiento pueden perjudicar la capacidad de la red de generalizar, sin embargo muy pocos pueden provocar un aprendizaje que no es el esperado.\\
 \end{itemize}
+
 
 %----------------------------------------------------------------------
 
@@ -209,24 +217,13 @@ Luego de realizadas las pruebas y analizado los resultados, se pudo observar lo 
 
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.30]{./images/LinearConstante.png}
+\includegraphics[scale=0.70]{./images/6.png}
 \label{modelado}
 \end{center}
 \end{figure}
 
 \begin{center}
-\par Figura 1: Ejemplo de estancamiento en mínimo local debido a la utilización de una función de transferencia lineal.
-\end{center}
-
-\begin{figure}[H]
-\begin{center}
-\includegraphics[scale=0.30]{./images/escapeminlocal.png}
-\label{modelado}
-\end{center}
-\end{figure}
-
-\begin{center}
-\par Figura 2: Escape de mínimo local utilizando eta dinámico para el problema de paridad de 3 bits usando 500 épocas y una arquitectura de una capa oculta con 3 neuronas.
+\par Figura 1: Ejemplo red neuronal con una arquitectura de [200 100] entrenada 200 épocas con learning rate adaptativo y función de activación tangente hiperbólica.
 \end{center}
 
 \clearpage

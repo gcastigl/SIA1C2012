@@ -6,4 +6,8 @@ log.txt
 *.log
 *.aux
 *.jar
+*.synctex.gz
 *~
+*.nav
+*.out
+*.toc

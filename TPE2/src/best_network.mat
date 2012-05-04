@@ -1,0 +1,166 @@
+# Created by Octave 3.2.3, Fri May 04 11:16:14 2012 ART <alankarpovsky@Alan-Karpovskys-Macbook-Pro-2.local>
+# name: net
+# type: struct
+# length: 13
+# name: weights
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: cell
+# rows: 3
+# columns: 1
+# name: <cell-element>
+# type: matrix
+# rows: 3
+# columns: 5
+ 0.05186356093657385 0.1132082419761558 -0.343955714161377 0.05207873673957564 -0.1933402799575191
+ -0.1071004027380777 0.2995319434174423 -0.3272343639570156 -0.4091254638772182 -0.4336537712515524
+ -0.3873322669879952 -0.3816381880539088 -0.08603779394748162 0.1950610004654837 -0.1914560350198671
+# name: <cell-element>
+# type: matrix
+# rows: 6
+# columns: 4
+ 0.1502949856640222 -0.06178139037579905 -0.1801111721178622 0.3284317300094137
+ -0.4865339704629912 0.1111234156518102 -0.2142110895574472 0.1356326346034916
+ -0.4731706404135169 0.3939669317775848 -0.4502697895707921 0.2448846604604519
+ -0.40110401777905 -0.07814916565484692 0.06667264141607332 -0.2089590559476265
+ 0.2602729371299675 0.06940905734376135 -0.4021247087726281 -0.2426171164443561
+ -0.4471382798037838 0.4931425737242683 -0.2160353443980403 0.3272022492346536
+# name: <cell-element>
+# type: matrix
+# rows: 5
+# columns: 1
+ -0.4021540846278065
+ 0.2473175900299813
+ -0.08101087822829828
+ 0.3945916991390237
+ -0.03462660049647065
+
+
+# name: boolweights
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: cell
+# rows: 3
+# columns: 1
+# name: <cell-element>
+# type: matrix
+# rows: 3
+# columns: 5
+ 1 1 1 1 1
+ 1 1 1 1 1
+ 1 1 1 1 1
+# name: <cell-element>
+# type: matrix
+# rows: 6
+# columns: 4
+ 1 1 1 1
+ 1 1 1 1
+ 1 1 1 1
+ 1 1 1 1
+ 1 1 1 1
+ 1 1 1 1
+# name: <cell-element>
+# type: matrix
+# rows: 5
+# columns: 1
+ 1
+ 1
+ 1
+ 1
+ 1
+
+
+# name: arch
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: matrix
+# rows: 1
+# columns: 4
+ 2 5 4 1
+
+# name: lrn_type
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar
+3
+
+# name: trans_type
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar
+3
+
+# name: lrn_rt
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar
+0.02
+
+# name: lrn_decay
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar
+0.55
+
+# name: lrn_consist
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar
+3
+
+# name: lrn_sum
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar
+0.005
+
+# name: counter
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar
+0
+
+# name: prev_err
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar
+99999999
+
+# name: beta
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar
+0.7
+
+# name: mom_coef
+# type: cell
+# rows: 1
+# columns: 1
+# name: <cell-element>
+# type: scalar
+0.9
+

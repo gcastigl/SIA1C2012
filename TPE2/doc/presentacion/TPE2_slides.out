@@ -1,14 +1,13 @@
-\BOOKMARK [2][]{Outline0.1}{Outline}{}
-\BOOKMARK [2][]{Outline0.2}{Introducci\363n}{}
-\BOOKMARK [3][]{Outline0.2.1.4}{El problema}{Outline0.2}
-\BOOKMARK [2][]{Outline0.3}{Modelado del problema}{}
-\BOOKMARK [3][]{Outline0.3.1.7}{Representaci\363n de la red neuronal}{Outline0.3}
-\BOOKMARK [3][]{Outline0.3.2.8}{Funciones de activaci\363n}{Outline0.3}
-\BOOKMARK [3][]{Outline0.3.3.9}{Arquitecturas}{Outline0.3}
-\BOOKMARK [3][]{Outline0.3.4.10}{C\341lculo del error}{Outline0.3}
-\BOOKMARK [3][]{Outline0.3.5.10}{Conjuntos de entrenamiento y testeo}{Outline0.3}
-\BOOKMARK [2][]{Outline0.4}{Mejoras al algoritmo backpropagation}{}
-\BOOKMARK [3][]{Outline0.4.1.12}{Eta din\341mico}{Outline0.4}
-\BOOKMARK [3][]{Outline0.4.2.13}{Ruido y momentum}{Outline0.4}
-\BOOKMARK [2][]{Outline0.5}{Resultados}{}
-\BOOKMARK [2][]{Outline0.6}{Conclusiones}{}
+\BOOKMARK [2][]{Outline0.2}{Introducci\363n}{}% 1
+\BOOKMARK [3][]{Outline0.2.1.4}{El problema}{Outline0.2}% 2
+\BOOKMARK [2][]{Outline0.3}{Modelado del problema}{}% 3
+\BOOKMARK [3][]{Outline0.3.1.7}{Representaci\363n de la red neuronal}{Outline0.3}% 4
+\BOOKMARK [3][]{Outline0.3.2.8}{Funciones de activaci\363n}{Outline0.3}% 5
+\BOOKMARK [3][]{Outline0.3.3.9}{Arquitecturas}{Outline0.3}% 6
+\BOOKMARK [3][]{Outline0.3.4.10}{C\341lculo del error}{Outline0.3}% 7
+\BOOKMARK [3][]{Outline0.3.5.10}{Conjuntos de entrenamiento y testeo}{Outline0.3}% 8
+\BOOKMARK [2][]{Outline0.4}{Mejoras al algoritmo backpropagation}{}% 9
+\BOOKMARK [3][]{Outline0.4.1.12}{Eta din\341mico}{Outline0.4}% 10
+\BOOKMARK [3][]{Outline0.4.2.13}{Ruido y momentum}{Outline0.4}% 11
+\BOOKMARK [2][]{Outline0.5}{Resultados}{}% 12
+\BOOKMARK [2][]{Outline0.6}{Conclusiones}{}% 13

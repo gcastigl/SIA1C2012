@@ -17,9 +17,9 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 		printf('\nHIDDEN_LAYERS = [2 4] for two layers with 2 and 4 neurons in each layer respectively\n');
 		printf('\nTRANSFORMATION = [Sigmoid, sigmoid_exp]\n');
 		printf('\nLEARN_TYPE = [Constant, Annealed, Dynamic]\n');
-		printf('\ninteractive = [1, 0]\n');, , 
-		printf('\nnoise = [1, 0]\n');
-		printf('\nsymmetry = [1, 0]\n');
+		printf('\nINTERACTIVE = [1, 0]\n');, , 
+		printf('\nNOISE = [1, 0]\n');
+		printf('\nSYMMETRY = [1, 0]\n');
 		releasePrintColor();
 		return;
 	endif
@@ -202,5 +202,13 @@ function net = main(file_name, hidden_layers, epochs, trans_name, lrn_base, lrn_
 	printf('\t Precision for 0.01 error: Train: %f, Generalization: %f \n', get_precision(train_errs, train_set_len, 0.01) , get_precision(test_errs, test_set_len, 0.01));
 	%plotSamples3D(vec, zeta, points, vals);
 	releasePrintColor();
+
 	plotStats2D(epochs, test_errors, errors,lrn_rates, epochs);
+
+	printGreenColor();
+	printf('\nSaved network architecture in ./weights.mat ..\n\n');
+	save best_network.mat net; % Save all the weights and architecture of the network
+	releasePrintColor();
+
+
 endfunction

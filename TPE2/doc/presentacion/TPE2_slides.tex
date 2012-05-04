@@ -125,8 +125,10 @@ Derivada:
 
 \subsection{Eta dinámico}
 \begin{frame}{Eta dinámico ($\eta$ adaptativo)}
-\par Incrementar $\eta$ si el error sube consistenemente incrementar eta aritméticamente: quizás se está siendo muy conservador.
-\par Si el error incrementa, reducir $\eta$ exponencialmente.
+\begin{itemize}
+\item Si el error sube consistenemente incrementar eta aritméticamente: quizás se está siendo muy conservador.
+\item Si el error incrementa, reducir $\eta$ exponencialmente.
+\end{itemize}
 \end{frame}
 
 \subsection{Ruido y momentum}
@@ -136,8 +138,9 @@ Derivada:
 \par Olvido exponencial de cambios anteriores.
 \par Se aplica a cada batch / lote
 \end{frame}
+
 \begin{frame}{Ruido}
-\par Idea: Escape del mínimo local.
+\par \textbf{Idea:} Escape del mínimo local.\\
 \par Robustez de la red neuronal: debería poder soportar ruido.
 \end{frame}
 
@@ -146,7 +149,7 @@ Derivada:
 \begin{frame}{Resultados 1}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.40]{../images/6.png}
+\includegraphics[scale=0.38]{../images/6.png}
 \label{modelado}
 \end{center}
 \end{figure}
@@ -159,7 +162,7 @@ Derivada:
 \begin{frame}{Resultados 2}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.40]{../images/nice.png}
+\includegraphics[scale=0.50]{../images/nice.png}
 \label{modelado}
 \end{center}
 \end{figure}
@@ -172,7 +175,7 @@ Derivada:
 \begin{frame}{Resultados 3}
 \begin{figure}[H]
 \begin{center}
-\includegraphics[scale=0.40]{../images/9.png}
+\includegraphics[scale=0.38]{../images/9.png}
 \label{modelado}
 \end{center}
 \end{figure}
@@ -188,7 +191,7 @@ Derivada:
 \begin{itemize}
 \item Incrementar la cantidad de neuronas arbitrariamente no necesariamente 
 implica mejoras en cuanto al error (puede llevar a malas generalizaciones y tiempo de más 
-hasta alcanzar el error desdeado). Esto puede observarse en la figura 1 del \textbf{Anexo A}\\
+hasta alcanzar el error desdeado).\\
 \item No existe tal cosa como una mejor arquitectura o parámetros óptimos. Estos seguramente dependan 
 el problema que se está analizando.\\
 \end{itemize}
@@ -199,9 +202,8 @@ el problema que se está analizando.\\
 \begin{itemize}
 
 \item Momentum no siempre puede acelerar la convergencia.\\
-\item La función de activación \textit{exponencial} es más propensa a atascarse en mínimos.
-\item Tomar pocos puntos puede ser una muestra poco representativa, y por lo tanto, puede haber 
-mala generalización.\\
+\item La función de activación \textit{exponencial} es más propensa a atascarse en mínimos.\\
+\item Tomar pocos puntos puede ser una muestra poco representativa, y por lo tanto, puede haber mala generalización.\\
 \end{itemize}
 \end{frame}
 

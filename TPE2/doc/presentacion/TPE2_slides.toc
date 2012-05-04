@@ -1,4 +1,4 @@
-\beamer@endinputifotherversion {3.07pt}
+\beamer@endinputifotherversion {3.10pt}
 \select@language {spanish}
 \beamer@sectionintoc {2}{Introducci\IeC {\'o}n}{3}{0}{1}
 \beamer@subsectionintoc {2}{1}{El problema}{4}{0}{1}

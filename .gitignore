@@ -12,4 +12,4 @@ log.txt
 *.out
 *.toc
 octave-core
-*.mat
+bet_network*

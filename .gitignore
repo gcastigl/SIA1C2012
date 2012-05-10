@@ -11,3 +11,5 @@ log.txt
 *.nav
 *.out
 *.toc
+octave-core
+bet_network*

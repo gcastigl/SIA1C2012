@@ -2,9 +2,9 @@ package hopfield;
 
 import java.util.Arrays;
 
-public class AsynchronichHopfieldNet extends HopfieldNet {
+public class AsynchHopfieldNet extends HopfieldNet {
 
-	public AsynchronichHopfieldNet(int N) {
+	public AsynchHopfieldNet(int N) {
 		super(N);
 	}
 

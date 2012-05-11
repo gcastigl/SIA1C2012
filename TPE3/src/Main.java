@@ -36,15 +36,6 @@ public class Main {
 		}
 	}
 	
-	/**
-	 *
-	 * Check if any of the original memorized patterns if equal to the
-	 * the given pattern (usually the network output).
-	 * 
-	 * @patterns: Original patterns matrix.
-	 * @vec: Pattern we want to check for equality.
-	 *
-	 */ 
 	private static int getMatchingPatternIndex(int[][] patterns, int[] vec) {
 		int index = 0;
 		for (int[] pattern: patterns) {

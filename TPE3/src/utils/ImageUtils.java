@@ -42,6 +42,7 @@ public class ImageUtils {
 
 	public static void toBlackAndWhite(int[] array) {
 		for (int i = 0; i < array.length; i++) {
+			// POSSIBLE FIXME: the color is set according to red value only.
 			if  (getRed(array[i]) > (255 / 2)) {
 				array[i] = 1;
 			} else {

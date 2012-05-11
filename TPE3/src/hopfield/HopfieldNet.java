@@ -20,19 +20,23 @@ public abstract class HopfieldNet {
 	public void storePatterns(int[][] patterns) {
 		for (int i = 0; i < weights.length; i++) {
 			for (int j = i; j < weights[0].length; j++) {
-				if (i == j) {
-					weights[i][j] = 0;
-				} else {
-					weights[i][j] = 0;
-					for (int[] pattern: patterns) {
-						weights[i][j] += pattern[i] * pattern[j]; 	
-					}
-					weights[i][j] /= weights[0].length;
-					// mirror matrix
-					weights[j][i] = weights[i][j];
-				}
+				setWeight(i, j, patterns);
 			}
 		}
+	}
+	
+	private void setWeight(int i, int j, int[][] patterns) {
+		if (i == j) {
+			weights[i][j] = 0;
+			return;
+		}
+		weights[i][j] = 0;
+		for (int[] pattern: patterns) {
+			weights[i][j] += pattern[i] * pattern[j];
+		}
+		weights[i][j] /= weights[0].length;
+		// mirror matrix!
+		weights[j][i] = weights[i][j];
 	}
 	
 	public void initialize(int[] recognize) {

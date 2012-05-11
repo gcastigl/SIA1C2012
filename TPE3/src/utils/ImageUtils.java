@@ -1,4 +1,5 @@
 package utils;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -44,7 +45,7 @@ public class ImageUtils {
 			if  (getRed(array[i]) > (255 / 2)) {
 				array[i] = 1;
 			} else {
-				array[i] = 0;
+				array[i] = -1;
 			}
 			
 		}

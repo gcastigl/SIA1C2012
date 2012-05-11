@@ -10,12 +10,31 @@ import javax.imageio.ImageIO;
 
 public class ImageUtils {
 
+	/**
+	 *
+	 * Loads an RGB image stored in the given path and converts it
+	 * to black and white. 
+	 * Returns an INT array containing a 0 if the pixel is white
+	 * and 1 if the pixel is black.
+	 *
+	 * @path: Path of the image
+	 *
+	 */ 
 	public static int[] loadBlackAndWhiteImage(String path) {
 		int[] colorImage = loadImage(path);
 		toBlackAndWhite(colorImage);
 		return colorImage;
 	}
-	
+
+	/**
+	 *
+	 * Loads an RGB image stored in the given path. 
+	 * Returns an INT array containing the alpha, R, G, B channels
+	 * for each pixel of the image.
+	 *
+	 * @path: Path of the image
+	 *
+	 */ 
 	public static int[] loadImage(String path) {
 		try {
 			BufferedImage image = ImageIO.read(new File(path));

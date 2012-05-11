@@ -7,12 +7,15 @@ import utils.ImageUtils;
 
 public class Main {
 
+	public static final int numberOfPatterns = 2;
+	
 	public static void main(String[] args) {
-		
-		int[][] patterns = new int[2][];
+
+		System.out.println("Network will memorize " + numberOfPatterns + " patterns.")
+		int[][] patterns = new int[numberOfPatterns][];
 		int N = getDummyPatterns(patterns);
 
-		HopfieldNet net = new SynchronichHopfieldNet(N);
+		HopfieldNet net = new SynchHopfieldNet(N);
 		net.storePatterns(patterns);
 		
 		// For debugging purposes
@@ -23,7 +26,7 @@ public class Main {
 //		int[] recognize = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/line1.png");
 		int[] recognize = new int[] {1, -1, 1};
 		net.initialize(recognize);
-		int[] ans = net.iterateUntilConvergence();
+		int[] ans = net.iterateUntilConvergence(); // Evolve the states until converge
 		
 		System.out.println("Patron devuelto");
 		System.out.println(Arrays.toString(ans));
@@ -35,6 +38,15 @@ public class Main {
 		}
 	}
 	
+	/**
+	 *
+	 * Check if any of the original memorized patterns if equal to the
+	 * the given pattern (usually the network output).
+	 * 
+	 * @patterns: Original patterns matrix.
+	 * @vec: Pattern we want to check for equality.
+	 *
+	 */ 
 	private static int getMatchingPatternIndex(int[][] patterns, int[] vec) {
 		int index = 0;
 		for (int[] pattern: patterns) {

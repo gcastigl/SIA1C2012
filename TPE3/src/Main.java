@@ -63,7 +63,7 @@ public class Main {
 		patterns[1] = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/line2.png");
 //		patterns[2] = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/line3.png");
 //		patterns[3] = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/line4.png");
-		return (int) Math.sqrt(patterns[0].length);	// should always be 64
+		return patterns[0].length;	// should always be 64 * 64
 	}
 	
 	private static int getDummyPatterns(int[][] patterns) {

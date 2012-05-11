@@ -19,7 +19,7 @@ public class AsynchronichHopfieldNet extends HopfieldNet {
 				h += weights[index][i] * states[i];
 			}
 			states[index] = sgn(h, state);
-		} while(Arrays.equals(prevStates, states));
+		} while (!Arrays.equals(prevStates, states));
 		return prevStates;
 	}
 	

@@ -51,9 +51,17 @@ public class SynchHopfieldNet extends HopfieldNet {
 	}
 	
 	/**
-	 * Aplica la funcion signo al vector vec.
-	 * En el caso que vec[i] sea 0, se guarda el valor que se encuentra en prevStates.
-	 */
+	 *
+	 * Applies the SGN() function to the input array (vec).
+	 * In the case that vec[i] = 0 then the previous value is stored
+	 * in that possition.
+	 *
+	 * @vec: States for each unit of the network
+	 * @prevStates: States for each unit of the network. 
+	 * The prevStates are used because the original states are beign modified 
+	 * and we need the original states in the case that vec[i] = 0
+	 * 
+	 */ 
 	protected int[] sgn(float[] vec, int[] prevStates) {
 		int[] ans = new int[vec.length];
 		for (int i = 0; i < vec.length; i++) {

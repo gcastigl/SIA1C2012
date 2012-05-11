@@ -1,16 +1,13 @@
 package hopfield;
 
-import java.util.Arrays;
 
-import utils.MatrixUtils;
-
-public class HopfieldNet {
+public abstract class HopfieldNet {
 	
 	/**
-	 * -1 or 1
+	 * Should always be either -1 or 1
 	 */
-	private int[] states;
-	private float[][] weights;
+	protected int[] states;
+	protected float[][] weights;
 	
 	public HopfieldNet(int N) {
 		weights = new float[N][N];
@@ -41,32 +38,7 @@ public class HopfieldNet {
 		}
 	}
 	
-	public int[] iterateUntilConvergence() {
-		boolean finished = false;
-		while (!finished) {
-			int[] nextStates = sgn(MatrixUtils.multiply(weights, states), states);
-			if (Arrays.equals(states, nextStates)) {
-				finished = true;
-				return nextStates;
-			} else {
-				states = nextStates;
-			}
-		}
-		// should never get here
-		return null;
-	}
-
-	/**
-	 * Aplica la funcion signo al vector vec.
-	 * En el caso que vec[i] sea 0, se guarda el valor que se encuentra en prevStates.
-	 */
-	private int[] sgn(float[] vec, int[] prevStates) {
-		int[] ans = new int[vec.length];
-		for (int i = 0; i < vec.length; i++) {
-			ans[i] = (vec[i] > 0) ? 1 : (vec[i] < 0 ? -1 : prevStates[i]);
-		}
-		return ans;
-	}
+	public abstract int[] iterateUntilConvergence();
 	
 	public float[][] getWeights() {
 		return weights;

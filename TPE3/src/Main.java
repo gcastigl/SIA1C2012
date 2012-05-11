@@ -1,4 +1,5 @@
 import hopfield.HopfieldNet;
+import hopfield.SynchronichHopfieldNet;
 
 import java.util.Arrays;
 
@@ -11,7 +12,7 @@ public class Main {
 		int[][] patterns = new int[2][];
 		int N = getDummyPatterns(patterns);
 
-		HopfieldNet net = new HopfieldNet(N);
+		HopfieldNet net = new SynchronichHopfieldNet(N);
 		net.storePatterns(patterns);
 		
 		// For debugging purposes

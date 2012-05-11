@@ -1,21 +1,19 @@
+import hopfield.AsynchHopfieldNet;
+import hopfield.Config;
 import hopfield.HopfieldNet;
-import hopfield.SynchHopfieldNet;
 
 import java.util.Arrays;
 
 import utils.ImageUtils;
 
 public class Main {
-
-	public static final int numberOfPatterns = 2;
-	
 	public static void main(String[] args) {
+		System.out.println("Network will memorize " + Config.NUMBER_OF_PATTERNS + " patterns.");
+		int[][] patterns = new int[Config.NUMBER_OF_PATTERNS][];
+		int N = getImagePatterns(patterns);
+//		int N = getDummyPatterns(patterns);
 
-		System.out.println("Network will memorize " + numberOfPatterns + " patterns.");
-		int[][] patterns = new int[numberOfPatterns][];
-		int N = getDummyPatterns(patterns);
-
-		HopfieldNet net = new SynchHopfieldNet(N);
+		HopfieldNet net = new AsynchHopfieldNet(N);
 		net.storePatterns(patterns);
 		
 		// For debugging purposes
@@ -23,8 +21,8 @@ public class Main {
 //		MatrixUtils.print(net.getWeights());
 		
 		// Set here what you want the net to recongnize
-//		int[] recognize = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/line1.png");
-		int[] recognize = new int[] {1, -1, 1};
+		int[] recognize = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/" + Config.pictures[0]);
+//		int[] recognize = new int[] {1, -1, 1};
 		net.initialize(recognize);
 		int[] ans = net.iterateUntilConvergence(); // Evolve the states until converge
 		
@@ -59,11 +57,10 @@ public class Main {
 	}
 	
 	private static int getImagePatterns(int[][] patterns) {
-		patterns[0] = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/line1.png");
-		patterns[1] = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/line2.png");
-//		patterns[2] = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/line3.png");
-//		patterns[3] = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/line4.png");
-		return patterns[0].length;	// should always be 64 * 64
+		for (int i = 0; i < Config.NUMBER_OF_PATTERNS; i++) {
+			patterns[i] = ImageUtils.loadBlackAndWhiteImage("./TPE3/resources/" + Config.pictures[i]);
+		}
+		return patterns[0].length;
 	}
 	
 	private static int getDummyPatterns(int[][] patterns) {
@@ -71,4 +68,6 @@ public class Main {
 		patterns[1] = new int[] {-1, -1, 1};
 		return patterns[0].length;
 	}
+	
+
 }

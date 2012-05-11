@@ -1,5 +1,8 @@
+package hopfield;
+
 import java.util.Arrays;
 
+import utils.MatrixUtils;
 
 public class HopfieldNet {
 	

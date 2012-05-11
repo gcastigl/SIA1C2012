@@ -4,12 +4,36 @@ import java.util.Arrays;
 
 import utils.MatrixUtils;
 
-public class SynchronichHopfieldNet extends HopfieldNet {
+/**
+ *
+ * This class represents a Synchroneus Network.
+ * Remember that Hopfield networks updates its states asynchroneusly.
+ *
+ */ 	
+public class SynchHopfieldNet extends HopfieldNet {
 
-	public SynchronichHopfieldNet(int N) {
+	/**
+	 *
+	 * Creates a synchroneus hopfield network with N neurons.
+	 *
+	 * @N: Number of units.
+	 */ 
+	public SyncHopfieldNet(int N) {
 		super(N);
 	}
 	
+
+	/**
+	 *
+	 * Initially "states" will contain the pattern which we want the network
+	 * to recognize. We will multiply the weights matrix (final) by the states
+	 * vector assigning this answer to "states" until we detect a fixed point
+	 * (no changes between the previous step and the current step in the vec).
+	 * 
+	 * Note that we can fall into cycles with lenght 2 and we must prevent
+	 * this pitfall.
+	 *
+	 */ 
 	@Override
 	public int[] iterateUntilConvergence() {
 		boolean finished = false;

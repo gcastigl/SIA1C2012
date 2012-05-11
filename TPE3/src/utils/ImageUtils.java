@@ -1,5 +1,7 @@
 package utils;
 
+import hopfield.HopfieldNet;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -44,9 +46,9 @@ public class ImageUtils {
 		for (int i = 0; i < array.length; i++) {
 			// POSSIBLE FIXME: the color is set according to red value only.
 			if  (getRed(array[i]) > (255 / 2)) {
-				array[i] = 1;
+				array[i] = HopfieldNet.STATE_POSITIVE;
 			} else {
-				array[i] = -1;
+				array[i] = HopfieldNet.STATE_NEGATIVE;
 			}
 			
 		}

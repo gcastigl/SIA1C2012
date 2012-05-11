@@ -3,8 +3,11 @@ package hopfield;
 
 public abstract class HopfieldNet {
 	
+	public static final int STATE_POSITIVE = 1;
+	public static final int STATE_NEGATIVE = -1;
+	
 	/**
-	 * Should always be either -1 or 1
+	 * Should always be either STATE_POSITIVE or STATE_NEGATIVE
 	 */
 	protected int[] states;
 	protected float[][] weights;

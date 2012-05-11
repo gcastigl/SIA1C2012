@@ -13,17 +13,17 @@ public class SynchronichHopfieldNet extends HopfieldNet {
 	@Override
 	public int[] iterateUntilConvergence() {
 		boolean finished = false;
+		int[] nextStates = null;
 		while (!finished) {
-			int[] nextStates = sgn(MatrixUtils.multiply(weights, states), states);
+			nextStates = sgn(MatrixUtils.multiply(weights, states), states);
 			if (Arrays.equals(states, nextStates)) {
 				finished = true;
-				return nextStates;
 			} else {
 				states = nextStates;
 			}
 		}
 		// should never get here
-		return null;
+		return nextStates;
 	}
 
 	/**

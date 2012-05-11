@@ -25,17 +25,4 @@ public class SynchronichHopfieldNet extends HopfieldNet {
 		// should never get here
 		return nextStates;
 	}
-
-	/**
-	 * Aplica la funcion signo al vector vec.
-	 * En el caso que vec[i] sea 0, se guarda el valor que se encuentra en prevStates.
-	 */
-	private int[] sgn(float[] vec, int[] prevStates) {
-		int[] ans = new int[vec.length];
-		for (int i = 0; i < vec.length; i++) {
-			ans[i] = (vec[i] > 0) ? STATE_POSITIVE : 
-				((vec[i] < 0) ? STATE_NEGATIVE : prevStates[i]);
-		}
-		return ans;
-	}
 }

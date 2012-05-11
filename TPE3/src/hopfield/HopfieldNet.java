@@ -43,6 +43,19 @@ public abstract class HopfieldNet {
 	
 	public abstract int[] iterateUntilConvergence();
 	
+	/**
+	 * Aplica la funcion signo al vector vec.
+	 * En el caso que vec[i] sea 0, se guarda el valor que se encuentra en prevStates.
+	 */
+	protected int[] sgn(float[] vec, int[] prevStates) {
+		int[] ans = new int[vec.length];
+		for (int i = 0; i < vec.length; i++) {
+			ans[i] = (vec[i] > 0) ? STATE_POSITIVE : 
+				((vec[i] < 0) ? STATE_NEGATIVE : prevStates[i]);
+		}
+		return ans;
+	}
+	
 	public float[][] getWeights() {
 		return weights;
 	}

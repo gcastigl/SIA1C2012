@@ -18,7 +18,7 @@ public class SynchHopfieldNet extends HopfieldNet {
 	 *
 	 * @N: Number of units.
 	 */ 
-	public SyncHopfieldNet(int N) {
+	public SynchHopfieldNet(int N) {
 		super(N);
 	}
 	

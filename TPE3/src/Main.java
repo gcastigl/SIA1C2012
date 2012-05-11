@@ -1,5 +1,5 @@
 import hopfield.HopfieldNet;
-import hopfield.SynchronichHopfieldNet;
+import hopfield.SynchHopfieldNet;
 
 import java.util.Arrays;
 
@@ -11,7 +11,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 
-		System.out.println("Network will memorize " + numberOfPatterns + " patterns.")
+		System.out.println("Network will memorize " + numberOfPatterns + " patterns.");
 		int[][] patterns = new int[numberOfPatterns][];
 		int N = getDummyPatterns(patterns);
 

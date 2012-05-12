@@ -3,8 +3,11 @@ package hopfield;
 import java.io.File;
 import java.util.Arrays;
 
+import utils.ImageUtils;
+
 public class Config {
 	
+	public static final String RESOURCES_PATH = "./TPE3/resources/";
 	public static final int NUMBER_OF_PATTERNS = 2;
 	public static final String[] pictures = new String[] {
 		"a.png",
@@ -35,10 +38,14 @@ public class Config {
 	public static int TOTAL_PICTURES = pictures.length;
 	
 	
-	public static void listFiles(String directory) {
-		File f = new File(directory);
+	public static void listImages() {
+		File f = new File(RESOURCES_PATH);
 		if (f.isDirectory()) {
 			System.out.println(Arrays.toString(f.list()));
 		}
+	}
+	
+	public static int[] getImage(int index) {
+		return ImageUtils.loadBlackAndWhiteImage(RESOURCES_PATH + pictures[index]);
 	}
 }

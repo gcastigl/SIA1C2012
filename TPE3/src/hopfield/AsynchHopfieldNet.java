@@ -22,15 +22,12 @@ public class AsynchHopfieldNet extends HopfieldNet {
 		} while (!Arrays.equals(prevStates, states));
 		return prevStates;
 	}
-	
+
 	private int sgn(float h, int prevState) {
 		if (h == 0) {
 			return prevState;
 		}
-		if (h > 0) {
-			return STATE_POSITIVE;
-		}
-		return STATE_NEGATIVE;
+		return (h > 0) ? STATE_POSITIVE : STATE_NEGATIVE;
 	}
 
 }

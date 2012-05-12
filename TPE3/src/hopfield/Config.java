@@ -46,6 +46,8 @@ public class Config {
 	}
 	
 	public static int[] getImage(int index) {
-		return ImageUtils.loadBlackAndWhiteImage(RESOURCES_PATH + pictures[index]);
+		int[] image = ImageUtils.loadImage(RESOURCES_PATH + pictures[index]);
+		ImageUtils.convertColorImageToState(image);
+		return image;
 	}
 }

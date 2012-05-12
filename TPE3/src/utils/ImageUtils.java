@@ -1,5 +1,6 @@
 package utils;
 
+import hopfield.Config;
 import hopfield.HopfieldNet;
 
 import java.awt.Image;
@@ -91,6 +92,13 @@ public class ImageUtils {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         WritableRaster raster = (WritableRaster) image.getData();
         raster.setPixels(0, 0, width, height, pixels);
+        // Save as PNG
+	    try {
+	    	File imageFile = new File(Config.RESOURCES_PATH + "newImage.png");
+			ImageIO.write(image, "png", imageFile);
+		} catch (IOException e) {
+			System.out.println("Error saving the image to disk: " + e.getMessage());
+		}
         return image;
     }
 

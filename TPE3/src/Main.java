@@ -4,6 +4,8 @@ import hopfield.HopfieldNet;
 
 import java.util.Arrays;
 
+import utils.ImageUtils;
+
 public class Main {
 	public static void main(String[] args) {
 		System.out.println("Network will memorize " + Config.NUMBER_OF_PATTERNS + " patterns.");
@@ -19,7 +21,7 @@ public class Main {
 //		MatrixUtils.print(net.getWeights());
 		
 		// Set here what you want the net to recongnize
-		int[] recognize = Config.getImage(0);
+		int[] recognize = Config.getImageAsState(1);
 //		int[] recognize = new int[] {1, -1, 1};
 		net.initialize(recognize);
 		int[] ans = net.iterateUntilConvergence(); // Evolve the states until converge
@@ -47,7 +49,7 @@ public class Main {
 	
 	private static int getImagePatterns(int[][] patterns) {
 		for (int i = 0; i < Config.NUMBER_OF_PATTERNS; i++) {
-			patterns[i] = Config.getImage(i);
+			patterns[i] = Config.getImageAsState(i);
 		}
 		return patterns[0].length;
 	}

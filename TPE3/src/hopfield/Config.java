@@ -1,7 +1,12 @@
 package hopfield;
 
+import java.awt.Image;
+import java.awt.image.RenderedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
+
+import javax.imageio.ImageIO;
 
 import utils.ImageUtils;
 
@@ -45,9 +50,21 @@ public class Config {
 		}
 	}
 	
-	public static int[] getImage(int index) {
-		int[] image = ImageUtils.loadImage(RESOURCES_PATH + pictures[index]);
-		ImageUtils.convertColorImageToState(image);
+	public static int[] getImageAsState(int index) {
+		int[] image = ImageUtils.loadBlackAndWhiteImage(RESOURCES_PATH + pictures[index]);
+		ImageUtils.convertBlackAndWhiteImageToState(image);
 		return image;
+	}
+	
+	public static void saveStateToImage(int[] outputState) {
+		ImageUtils.convertStateToBlackAndWhiteRGB(outputState);
+		Image image = ImageUtils.getImageFromArray(outputState, 64, 64);
+		// Save as PNG
+	    try {
+	    	File imageFile = new File(Config.RESOURCES_PATH + "newImage.png");
+			ImageIO.write((RenderedImage) image, "png", imageFile);
+	    } catch (IOException e) {
+			System.out.println("Error saving the image to disk: " + e.getMessage());
+		}
 	}
 }

@@ -8,15 +8,14 @@ public abstract class HopfieldNet {
 	
 	/**
 	 * Should always be either STATE_POSITIVE or STATE_NEGATIVE
-	 * because we use BIPOLAR units.
+	 * because this are BIPOLAR units.
 	 */
 	protected int[] states;
 	protected float[][] weights;
 	
 	/**
-	 *
 	 * Creates a synchroneus hopfield network with N neurons.
-	 *
+	 * 
 	 * @N: Number of units.
 	 */ 
 	public HopfieldNet(int N) {
@@ -26,7 +25,6 @@ public abstract class HopfieldNet {
 	
 
 	/**
-	 *
 	 * Initializes the wheigths matrix given all the patterns
 	 * that the network will have to memorize.
 	 * This represents the "learning" of a Hopfield network and
@@ -35,7 +33,6 @@ public abstract class HopfieldNet {
 	 *
 	 * @patterns: Matrix of patterns that the network shold 
 	 * memorize; one pattern per row.
-	 *
 	 */ 	
 	public void storePatterns(int[][] patterns) {
 		for (int i = 0; i < weights.length; i++) {
@@ -66,7 +63,7 @@ public abstract class HopfieldNet {
 	}
 	
 	/**
-	 *
+	 * <pre>
 	 * Initially "states" will contain the pattern which we want the network
 	 * to recognize. We will multiply the weights matrix (final) by the states
 	 * vector assigning this answer to "states" until we detect a fixed point
@@ -74,7 +71,7 @@ public abstract class HopfieldNet {
 	 * 
 	 * Note that we can fall into cycles with lenght 2 and we must prevent
 	 * this pitfall.
-	 *
+	 * </pre>
 	 */ 
 	public abstract int[] iterateUntilConvergence();
 	

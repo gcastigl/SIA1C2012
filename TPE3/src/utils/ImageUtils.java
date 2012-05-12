@@ -2,7 +2,9 @@ package utils;
 
 import hopfield.HopfieldNet;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 
@@ -27,6 +29,7 @@ public class ImageUtils {
 			}
 		}
 	}
+	
 	/**
 	 * Loads an RGB image stored in the given path. 
 	 * Returns an INT array containing the alpha, R, G, B channels
@@ -76,4 +79,28 @@ public class ImageUtils {
 		System.out.println("argb: " + alpha + ", " + red + ", " + green + ", " + blue);
 	}
 	
+	/**
+	 * Function to create an image given a RGB pixel array
+	 * 
+	 * @param pixels array containing color to create the image
+	 * @param width	image width
+	 * @param height image height
+	 * @return the image that has been created from the pixel array.
+	 */
+	public static Image getImageFromArray(int[] pixels, int width, int height) {
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        WritableRaster raster = (WritableRaster) image.getData();
+        raster.setPixels(0, 0, width, height, pixels);
+        return image;
+    }
+
+	public static void fromBlackAndWhiteToRGB(int[] array) {
+		for (int i = 0; i < array.length; i++) {
+			if (array[i] == HopfieldNet.STATE_POSITIVE) {
+				array[i] = getRGB(0, 255, 255, 255);
+			} else {
+				array[i] = getRGB(0, 0, 0, 0);
+			}
+		}
+	}
 }

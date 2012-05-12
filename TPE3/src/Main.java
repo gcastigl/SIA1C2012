@@ -4,8 +4,6 @@ import hopfield.HopfieldNet;
 
 import java.util.Arrays;
 
-import utils.ImageUtils;
-
 public class Main {
 	public static void main(String[] args) {
 		System.out.println("Network will memorize " + Config.NUMBER_OF_PATTERNS + " patterns.");
@@ -49,7 +47,7 @@ public class Main {
 	
 	private static int getImagePatterns(int[][] patterns) {
 		for (int i = 0; i < Config.NUMBER_OF_PATTERNS; i++) {
-			patterns[i] = Config.getImage(0);
+			patterns[i] = Config.getImage(i);
 		}
 		return patterns[0].length;
 	}

@@ -13,6 +13,12 @@ public abstract class HopfieldNet {
 	protected int[] states;
 	protected float[][] weights;
 	
+	/**
+	 *
+	 * Creates a synchroneus hopfield network with N neurons.
+	 *
+	 * @N: Number of units.
+	 */ 
 	public HopfieldNet(int N) {
 		weights = new float[N][N];
 		states = new int[N];
@@ -59,6 +65,17 @@ public abstract class HopfieldNet {
 		}
 	}
 	
+	/**
+	 *
+	 * Initially "states" will contain the pattern which we want the network
+	 * to recognize. We will multiply the weights matrix (final) by the states
+	 * vector assigning this answer to "states" until we detect a fixed point
+	 * (no changes between the previous step and the current step in the vec).
+	 * 
+	 * Note that we can fall into cycles with lenght 2 and we must prevent
+	 * this pitfall.
+	 *
+	 */ 
 	public abstract int[] iterateUntilConvergence();
 	
 	public float[][] getWeights() {

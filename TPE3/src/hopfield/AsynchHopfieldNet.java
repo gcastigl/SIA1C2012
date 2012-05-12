@@ -1,6 +1,5 @@
 package hopfield;
 
-import java.util.Arrays;
 
 public class AsynchHopfieldNet extends HopfieldNet {
 
@@ -12,7 +11,8 @@ public class AsynchHopfieldNet extends HopfieldNet {
 	public int[] iterateUntilConvergence() {
 		int maxIterationsWithoutChanges = 10;
 		int iterationsWithoutChanges = 0;
-		do {
+		// Repetir la iteración hasta que el vector de estados permanezca sin cambiar
+		while (iterationsWithoutChanges < maxIterationsWithoutChanges) {
 			int index = (int) (Math.random() * getNumNeurons());
 			int prevState = states[index];
 			updateUnit(index);
@@ -21,8 +21,7 @@ public class AsynchHopfieldNet extends HopfieldNet {
 			} else {
 				iterationsWithoutChanges = 0;
 			}
-		// Repetir la iteración hasta que el vector de estados permanezca sin cambiar
-		} while (iterationsWithoutChanges < maxIterationsWithoutChanges);
+		}
 		return states;
 	}
 	

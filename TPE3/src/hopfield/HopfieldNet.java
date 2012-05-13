@@ -68,9 +68,6 @@ public abstract class HopfieldNet {
 	 * to recognize. We will multiply the weights matrix (final) by the states
 	 * vector assigning this answer to "states" until we detect a fixed point
 	 * (no changes between the previous step and the current step in the vec).
-	 * 
-	 * Note that we can fall into cycles with lenght 2 and we must prevent
-	 * this pitfall.
 	 * </pre>
 	 */ 
 	public abstract int[] iterateUntilConvergence();

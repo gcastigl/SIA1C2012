@@ -15,6 +15,7 @@ public class SynchHopfieldNet extends HopfieldNet {
 
 	@Override
 	public int[] iterateUntilConvergence() {
+		// FIXME: Note that we can fall into cycles with lenght 2 and we must prevent this pitfall.
 		boolean finished = false;
 		int[] nextStates = null;
 		while (!finished) {

@@ -33,8 +33,7 @@ public class SynchHopfieldNet extends HopfieldNet {
 	protected int[] sgn(float[] vec, int[] prevStates) {
 		int[] ans = new int[vec.length];
 		for (int i = 0; i < vec.length; i++) {
-			ans[i] = (vec[i] > 0) ? STATE_POSITIVE : 
-				((vec[i] < 0) ? STATE_NEGATIVE : prevStates[i]);
+			ans[i] = sgn(vec[i], prevStates[i]);;
 		}
 		return ans;
 	}

@@ -33,11 +33,4 @@ public class AsynchHopfieldNet extends HopfieldNet {
 		states[index] = sgn(h, states[index]);
 	}
 
-	private int sgn(float h, int prevState) {
-		if (h == 0) {
-			return prevState;
-		}
-		return (h > 0) ? STATE_POSITIVE : STATE_NEGATIVE;
-	}
-
 }

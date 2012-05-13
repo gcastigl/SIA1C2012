@@ -83,4 +83,11 @@ public abstract class HopfieldNet {
 	public int getNumNeurons() {
 		return states.length;
 	}
+	
+	public int sgn(float h, int prevState) {
+		if (h == 0) {
+			return prevState;
+		}
+		return (h > 0) ? STATE_POSITIVE : STATE_NEGATIVE;
+	}
 }

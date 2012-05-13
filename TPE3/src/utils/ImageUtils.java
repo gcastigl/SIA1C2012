@@ -44,7 +44,7 @@ public class ImageUtils {
 		for (int i = 0; i < image.length; i++) {
 			if (image[i] == Color.BLACK.getRGB()) {
 				image[i] = HopfieldNet.STATE_POSITIVE;				
-			} else if (image[i] == Color.WHITE.getRGB()) {				
+			} else if (image[i] == Color.WHITE.getRGB()) {
 				image[i] = HopfieldNet.STATE_NEGATIVE;
 			} else {
 				throw new IllegalArgumentException("Invalid color: " + image[i]);
@@ -81,8 +81,10 @@ public class ImageUtils {
 		for (int i = 0; i < array.length; i++) {
 			if (array[i] == HopfieldNet.STATE_POSITIVE) {
 				array[i] = Color.BLACK.getRGB();
-			} else {
+			} else if (array[i] == HopfieldNet.STATE_NEGATIVE) {
 				array[i] = Color.WHITE.getRGB();
+			} else {
+				throw new IllegalArgumentException("Invalid state: " + array[i]);
 			}
 		}
 	}

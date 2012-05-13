@@ -14,7 +14,7 @@ public abstract class HopfieldNet {
 	protected float[][] weights;
 	
 	/**
-	 * Creates a synchroneus hopfield network with N neurons.
+	 * Creates a synchronous hopfield network with N neurons.
 	 * 
 	 * @N: Number of units.
 	 */ 
@@ -25,13 +25,13 @@ public abstract class HopfieldNet {
 	
 
 	/**
-	 * Initializes the wheigths matrix given all the patterns
+	 * Initializes the weights matrix given all the patterns
 	 * that the network will have to memorize.
 	 * This represents the "learning" of a Hopfield network and
-	 * it is important to remark that the wheights matrix will not
+	 * it is important to remark that the weights matrix will not
 	 * be modified again after the execution of this method.
 	 *
-	 * @patterns: Matrix of patterns that the network shold 
+	 * @patterns: Matrix of patterns that the network should 
 	 * memorize; one pattern per row.
 	 */ 	
 	public void storePatterns(int[][] patterns) {

@@ -26,14 +26,13 @@ public class SynchHopfieldNet extends HopfieldNet {
 				states = nextStates;
 			}
 		}
-		// should never get here
 		return nextStates;
 	}
 	
 	protected int[] sgn(float[] vec, int[] prevStates) {
 		int[] ans = new int[vec.length];
 		for (int i = 0; i < vec.length; i++) {
-			ans[i] = sgn(vec[i], prevStates[i]);;
+			ans[i] = sgn(vec[i], prevStates[i]);
 		}
 		return ans;
 	}

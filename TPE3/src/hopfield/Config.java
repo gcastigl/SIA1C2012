@@ -16,7 +16,6 @@ public class Config {
 	public static final int NUMBER_OF_PATTERNS = 2;
 	public static final String[] pictures = new String[] {
 		"a.png",
-		"bad-egg.png",
 		"circle-union.png",
 		"circle1.png",
 		"circle2.png",
@@ -39,7 +38,8 @@ public class Config {
 		"picture.png",
 		"rss.png",
 		"sonic.png",
-		"windows.png"};
+		"windows.png",
+		"zbad-egg.png",};
 	public static int TOTAL_PICTURES = pictures.length;
 	
 	

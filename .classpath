@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="TPE3/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="E:/Code/ITBA/SIA1C2012/TPE3/lib/charts4j-1.3/lib/charts4j-1.3.jar"/>
+	<classpathentry kind="lib" path="E:/Code/ITBA/SIA1C2012/TPE3/lib/charts4j-1.3/lib/junit-4.4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

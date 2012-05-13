@@ -4,8 +4,6 @@ import hopfield.HopfieldNet;
 
 import java.util.Arrays;
 
-import utils.ImageUtils;
-
 public class Main {
 	public static void main(String[] args) {
 		System.out.println("Network will memorize " + Config.NUMBER_OF_PATTERNS + " patterns.");
@@ -21,19 +19,21 @@ public class Main {
 //		MatrixUtils.print(net.getWeights());
 		
 		// Set here what you want the net to recongnize
-		int[] recognize = Config.getImageAsState(1);
+		int patronToRecognize = 2;
+		int[] recognize = Config.getImageAsState(patronToRecognize);
+		System.out.println("Pattern to be recognized: " + patronToRecognize);
 //		int[] recognize = new int[] {1, -1, 1};
 		net.initialize(recognize);
 		int[] ans = net.iterateUntilConvergence(); // Evolve the states until converge
 		
-		System.out.println("Patron devuelto");
-		System.out.println(Arrays.toString(ans));
+		System.out.println("Recongnized pattern: " + Arrays.toString(ans));
 		int patternIndex = getMatchingPatternIndex(patterns, ans);
 		if (patternIndex != -1) {
-			System.out.println("El patron introducido se parece al " + patternIndex);
+			System.out.println("returned patter matches pattern number: " + patternIndex);
 		} else {
 			System.out.println("El array devuelto no matchea con ningun patron");
 		}
+		Config.saveStateToImage(ans);
 	}
 	
 	private static int getMatchingPatternIndex(int[][] patterns, int[] vec) {

@@ -13,7 +13,7 @@ import utils.ImageUtils;
 public class Config {
 	
 	public static final String RESOURCES_PATH = "./TPE3/resources/";
-	public static final int NUMBER_OF_PATTERNS = 2;
+	public static final int NUMBER_OF_PATTERNS = 4;
 	public static final String[] pictures = new String[] {
 		"a.png",
 		"circle-union.png",

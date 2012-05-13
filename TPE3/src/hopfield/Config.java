@@ -39,7 +39,7 @@ public class Config {
 		"rss.png",
 		"sonic.png",
 		"windows.png",
-		"zbad-egg.png",};
+		"zbad-egg.png"};
 	public static int TOTAL_PICTURES = pictures.length;
 	
 	

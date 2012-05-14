@@ -4,7 +4,6 @@ import hopfield.AsynchHopfieldNet;
 import hopfield.Config;
 import hopfield.HopfieldNet;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.Assert;

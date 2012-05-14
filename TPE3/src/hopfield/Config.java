@@ -51,7 +51,11 @@ public class Config {
 	}
 	
 	public static int[] getImageAsState(int index) {
-		int[] image = ImageUtils.loadBlackAndWhiteImage(RESOURCES_PATH + pictures[index]);
+		return getImageAsState(pictures[index]);
+	}
+	
+	public static int[] getImageAsState(String imageName) {
+		int[] image = ImageUtils.loadBlackAndWhiteImage(RESOURCES_PATH + imageName);
 		ImageUtils.convertBlackAndWhiteImageToState(image);
 		return image;
 	}

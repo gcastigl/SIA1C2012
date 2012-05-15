@@ -11,6 +11,8 @@ import org.junit.Test;
 
 public class AsynchHopfieldTest {
 	
+	private HopfieldNet net = new AsynchHopfieldNet();
+	
 	@Test
 	public void reconocerPatron() {
 		String[] patternNames = {"h.png", "line1.png", "line2.png", "line3.png", "line4.png"};
@@ -78,14 +80,12 @@ public class AsynchHopfieldTest {
 	}
 	
 	private int[] testNet(int[][] patterns, int[] recognize) {
-		HopfieldNet net = new AsynchHopfieldNet(patterns[0].length);
 		net.storePatterns(patterns);
 		net.initialize(recognize);
 		return net.iterateUntilConvergence();
 	}
 	
 	private int[][] testNet(int[][] patterns, int[][] recognize) {
-		HopfieldNet net = new AsynchHopfieldNet(patterns[0].length);
 		net.storePatterns(patterns);
 		int[][] ans = new int[recognize.length][];
 		for (int i = 0; i < recognize.length; i++) {

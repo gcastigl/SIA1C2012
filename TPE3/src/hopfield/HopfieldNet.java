@@ -11,18 +11,7 @@ public abstract class HopfieldNet {
 	 * because this are BIPOLAR units.
 	 */
 	protected int[] states;
-	protected float[][] weights;
-	
-	/**
-	 * Creates a synchronous hopfield network with N neurons.
-	 * 
-	 * @N: Number of units.
-	 */ 
-	public HopfieldNet(int N) {
-		weights = new float[N][N];
-		states = new int[N];
-	}
-	
+	protected float[][] weights;	
 
 	/**
 	 * Initializes the weights matrix given all the patterns
@@ -35,6 +24,9 @@ public abstract class HopfieldNet {
 	 * memorize; one pattern per row.
 	 */ 	
 	public void storePatterns(int[][] patterns) {
+		int N = patterns[0].length;
+		weights = new float[N][N];
+		states = new int[N];
 		for (int i = 0; i < weights.length; i++) {
 			for (int j = i; j < weights[0].length; j++) {
 				setWeight(i, j, patterns);
@@ -57,8 +49,15 @@ public abstract class HopfieldNet {
 	}
 	
 	public void initialize(int[] recognize) {
+		validateDimention(recognize);
 		for (int i = 0; i < states.length; i++) {
 			states[i] = recognize[i];
+		}
+	}
+	
+	private void validateDimention(int[] vec) {
+		if (vec.length != states.length) {
+			throw new IllegalArgumentException("Array must have lenght = " + states.length);
 		}
 	}
 	

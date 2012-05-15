@@ -3,10 +3,6 @@ package hopfield;
 
 public class AsynchHopfieldNet extends HopfieldNet {
 
-	public AsynchHopfieldNet(int N) {
-		super(N);
-	}
-
 	@Override
 	public int[] iterateUntilConvergence() {
 		int maxIterationsWithoutChanges = 2 * states.length;

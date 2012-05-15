@@ -8,10 +8,10 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Network will memorize " + Config.NUMBER_OF_PATTERNS + " patterns.");
 		int[][] patterns = new int[Config.NUMBER_OF_PATTERNS][];
-		int N = getImagePatterns(patterns);
-//		int N = getDummyPatterns(patterns);
+		getImagePatterns(patterns);
+//		getDummyPatterns(patterns);
 
-		HopfieldNet net = new AsynchHopfieldNet(N);
+		HopfieldNet net = new AsynchHopfieldNet();
 		net.storePatterns(patterns);
 		
 		// For debugging purposes

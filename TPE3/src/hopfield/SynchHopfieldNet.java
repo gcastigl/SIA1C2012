@@ -9,10 +9,6 @@ import utils.MatrixUtils;
  */ 	
 public class SynchHopfieldNet extends HopfieldNet {
 
-	public SynchHopfieldNet(int N) {
-		super(N);
-	}
-
 	@Override
 	public int[] iterateUntilConvergence() {
 		// FIXME: Note that we can fall into cycles with lenght 2 and we must prevent this pitfall.

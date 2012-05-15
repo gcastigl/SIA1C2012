@@ -19,4 +19,16 @@ public class PatternUtils {
 			pattern[i] = HopfieldNet.STATE_NEGATIVE;
 		}
 	}
+	
+	/**
+	 * Por cada bit, con probabilidad p lo invierte.
+	 */
+	public static void addNoise2(int[] pattern, float p) {
+		for (int i = 0; i < pattern.length; i++) {
+			if (Math.random() < p) {
+				pattern[i] = (pattern[i] == HopfieldNet.STATE_NEGATIVE) ? 
+					HopfieldNet.STATE_POSITIVE : HopfieldNet.STATE_NEGATIVE;
+			}
+		}
+	}
 }

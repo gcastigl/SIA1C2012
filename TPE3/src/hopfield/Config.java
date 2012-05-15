@@ -61,6 +61,7 @@ public class Config {
 	}
 	
 	public static void saveStateToImage(int[] outputState) {
+		outputState = outputState.clone();
 		ImageUtils.convertStateToBlackAndWhiteRGB(outputState);
 		Image image = ImageUtils.getImageFromArray(outputState, 64, 64);
 		// Save as PNG

@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class AsynchHopfieldTest {
-
+	
 	@Test
 	public void reconocerPatron() {
 		String[] patternNames = {"h.png", "line1.png", "line2.png", "line3.png", "line4.png"};
@@ -42,6 +42,24 @@ public class AsynchHopfieldTest {
 		Assert.assertFalse(Arrays.equals(recognize, ans));
 	}
 
+	@Test
+	public void mostrarPatronesInversos() {
+		String[] patternNames = {"line1.png", "line2.png", "line3.png", "line4.png"};
+		int[][] patterns = getPatterns(patternNames);
+		int[][] invertedPatterns = getPatterns(patternNames);
+		// invert all pattterns
+		for (int[] pattern: invertedPatterns) {
+			invertPattern(pattern);
+		}
+		// FIXME: la red siempre tendria que encontrar siempre el patron 
+		// inverso al original?
+		int[][] ans = testNet(patterns, invertedPatterns);
+		for (int i = 0; i < ans.length; i++) {
+			Config.saveStateToImage(ans[i]);
+			Assert.assertFalse(Arrays.equals(ans[i], patterns[i]));
+		}
+	}
+	
 	private int[][] getPatterns(String[] patternNames) {
 		int totalPatterns = patternNames.length;
 		int[][] patterns = new int[totalPatterns][];
@@ -51,11 +69,28 @@ public class AsynchHopfieldTest {
 		return patterns;
 	}
 	
+	private void invertPattern(int[] pattern) {
+		for (int i = 0; i < pattern.length; i++) {
+			pattern[i] = (pattern[i] == HopfieldNet.STATE_NEGATIVE) ? 
+				HopfieldNet.STATE_POSITIVE : HopfieldNet.STATE_NEGATIVE;
+		}
+	}
+	
 	private int[] testNet(int[][] patterns, int[] recognize) {
-		int N = patterns[0].length;
-		HopfieldNet net = new AsynchHopfieldNet(N);
+		HopfieldNet net = new AsynchHopfieldNet(patterns[0].length);
 		net.storePatterns(patterns);
 		net.initialize(recognize);
 		return net.iterateUntilConvergence();
+	}
+	
+	private int[][] testNet(int[][] patterns, int[][] recognize) {
+		HopfieldNet net = new AsynchHopfieldNet(patterns[0].length);
+		net.storePatterns(patterns);
+		int[][] ans = new int[recognize.length][];
+		for (int i = 0; i < recognize.length; i++) {
+			net.initialize(recognize[i]);
+			ans[i] = net.iterateUntilConvergence();
+		}
+		return ans;
 	}
 }

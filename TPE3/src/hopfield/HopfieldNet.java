@@ -35,17 +35,15 @@ public abstract class HopfieldNet {
 	}
 	
 	private void setWeight(int i, int j, int[][] patterns) {
-		if (i == j) {
-			weights[i][j] = 0;
-			return;
-		}
 		weights[i][j] = 0;
-		for (int[] pattern: patterns) {
-			weights[i][j] += pattern[i] * pattern[j];
+		if (i != j) {
+			for (int[] pattern: patterns) {
+				weights[i][j] += pattern[i] * pattern[j];
+			}
+			weights[i][j] /= weights[0].length;
+			// mirrored matrix!
+			weights[j][i] = weights[i][j];
 		}
-		weights[i][j] /= weights[0].length;
-		// mirrored matrix!
-		weights[j][i] = weights[i][j];
 	}
 	
 	public void initialize(int[] recognize) {

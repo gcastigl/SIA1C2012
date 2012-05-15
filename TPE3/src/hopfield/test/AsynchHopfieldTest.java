@@ -66,7 +66,6 @@ public class AsynchHopfieldTest {
 	}
 	
 	private int[] testNet(int[][] patterns, int[] recognize) {
-		System.out.println(Arrays.toString(net.calcCrosstalks(patterns)));
 		net.storePatterns(patterns);
 		net.initialize(recognize);
 		return net.iterateUntilConvergence();

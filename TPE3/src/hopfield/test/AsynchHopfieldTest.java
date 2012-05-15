@@ -55,7 +55,6 @@ public class AsynchHopfieldTest {
 		// inverso al original?
 		int[][] ans = testNet(patterns, invertedPatterns);
 		for (int i = 0; i < ans.length; i++) {
-			Config.saveStateToImage(ans[i]);
 			Assert.assertFalse(Arrays.equals(ans[i], patterns[i]));
 		}
 	}

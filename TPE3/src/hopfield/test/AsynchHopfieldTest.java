@@ -18,6 +18,17 @@ public class AsynchHopfieldTest {
 		int[] ans = testNet(getPatterns(patternNames), recognize);
 		Assert.assertTrue(Arrays.equals(recognize, ans));
 	}
+
+	@Test
+	public void reconocerPatronConRuido() {
+		String[] patternNames = {"h.png", "line1.png", "line2.png", "line3.png", "line4.png"};
+		int[] recognize = Config.getImageAsState("line1.png");
+		// add some noise to the image
+		int[] noisyImage = recognize.clone();
+		for (int i = 0; i < noisyImage.length / 2; i++) {
+			noisyImage[i] = HopfieldNet.STATE_NEGATIVE;
+		}
+		int[] ans = testNet(getPatterns(patternNames), noisyImage);
 		Assert.assertTrue(Arrays.equals(recognize, ans));
 	}
 	

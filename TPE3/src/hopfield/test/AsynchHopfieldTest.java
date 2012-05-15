@@ -53,10 +53,12 @@ public class AsynchHopfieldTest {
 		}
 		// FIXME: la red siempre tendria que encontrar siempre el patron 
 		// inverso al original?
+		boolean allDifferent = false;
 		int[][] ans = testNet(patterns, invertedPatterns);
 		for (int i = 0; i < ans.length; i++) {
-			Assert.assertFalse(Arrays.equals(ans[i], patterns[i]));
+			allDifferent |= Arrays.equals(ans[i], patterns[i]);
 		}
+		Assert.assertFalse(allDifferent);
 	}
 	
 	private int[][] getPatterns(String[] patternNames) {

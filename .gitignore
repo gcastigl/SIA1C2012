@@ -13,3 +13,4 @@ log.txt
 *.toc
 octave-core
 bet_network*
+out/*

@@ -87,6 +87,18 @@ public abstract class HopfieldNet {
 		}
 		return (h > 0) ? STATE_POSITIVE : STATE_NEGATIVE;
 	}
+	
+	
+	public float E(int[] s) {
+		float e = 0;
+		for (int i = 0; i < s.length; i++) {
+			for (int j = 0; j < s.length; j++) {
+				e += weights[i][j] * s[i] * s[j];
+			}
+		}
+		return e / -2;
+	}
+	
 	/*
 	 * Calcula el vector crossTalk para el patron v del vector patterns
 	 */

@@ -39,7 +39,7 @@ public class AsynchHopfieldTest {
 	}
 
 	public boolean mostrarPatronesInversos() {
-		String[] patternNames = {"line1.png", "line2.png", "line3.png", "line4.png"};
+		String[] patternNames = {"h.png", "line1.png", "line2.png", "line3.png", "line4.png"};
 		int[][] patterns = getPatterns(patternNames);
 		int[][] invertedPatterns = getPatterns(patternNames);
 		// invert all pattterns

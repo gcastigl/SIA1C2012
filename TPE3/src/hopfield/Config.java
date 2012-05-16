@@ -13,6 +13,11 @@ import utils.ImageUtils;
 public class Config {
 	
 	public static final String RESOURCES_PATH = "./TPE3/resources/";
+	public static final String RESOURCES_PATH_OUT = RESOURCES_PATH + "out/";
+	static {
+		// Create folder for output
+		new File(RESOURCES_PATH_OUT).mkdirs();
+	}
 	public static final int NUMBER_OF_PATTERNS = 4;
 	public static final String[] pictures = new String[] {
 		"a.png",
@@ -61,12 +66,16 @@ public class Config {
 	}
 	
 	public static void saveStateToImage(int[] outputState) {
+		saveStateToImage(outputState, "newImage" + System.currentTimeMillis());
+	}
+	
+	public static void saveStateToImage(int[] outputState, String fileName) {
 		outputState = outputState.clone();
 		ImageUtils.convertStateToBlackAndWhiteRGB(outputState);
 		Image image = ImageUtils.getImageFromArray(outputState, 64, 64);
 		// Save as PNG
 	    try {
-	    	File imageFile = new File(Config.RESOURCES_PATH + "newImage.png");
+	    	File imageFile = new File(Config.RESOURCES_PATH_OUT + fileName + ".png");
 			ImageIO.write((RenderedImage) image, "png", imageFile);
 	    } catch (IOException e) {
 			System.out.println("Error saving the image to disk: " + e.getMessage());

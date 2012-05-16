@@ -87,4 +87,23 @@ public abstract class HopfieldNet {
 		}
 		return (h > 0) ? STATE_POSITIVE : STATE_NEGATIVE;
 	}
+	/*
+	 * Calcula el vector crossTalk para el patron v del vector patterns
+	 */
+	public float[] crossTalk(int v, int[][] patterns) {
+		int N = patterns[0].length;
+		float[] crossTalk = new float[N];
+		for (int i = 0; i < N; i++) {
+			float k = 0;
+			for (int j = 0; j < N; j++) {
+				for (int u = 0; u < patterns.length; u++) {
+					if (u != v) {
+						k += patterns[u][i] * patterns[u][j] * patterns[v][j];
+					}
+				}
+			}
+			crossTalk[i] = patterns[v][i] + (k / N);
+		}
+		return crossTalk;
+	}
 }

@@ -24,13 +24,19 @@ public abstract class HopfieldNet {
 	 * memorize; one pattern per row.
 	 */ 	
 	public void storePatterns(int[][] patterns) {
-		int N = patterns[0].length;
-		weights = new float[N][N];
-		states = new int[N];
+		initNet(patterns);
 		for (int i = 0; i < weights.length; i++) {
 			for (int j = i; j < weights[0].length; j++) {
 				setWeight(i, j, patterns);
 			}
+		}
+	}
+	
+	private void initNet(int[][] patterns) {
+		int N = patterns[0].length;
+		if (states == null || states.length != N) {
+			weights = new float[N][N];
+			states = new int[N];
 		}
 	}
 	

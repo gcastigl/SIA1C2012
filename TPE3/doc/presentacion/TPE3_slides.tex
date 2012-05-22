@@ -310,12 +310,22 @@ A continuación se muestra el resultado de pasarle como entrada la imagen ``h'' 
 \section{Conclusiones}
 
 \begin{frame}{Cantidad de patrones almacenables}
-
 \begin{itemize}
 \item \Large La capacidad sugerida por \textit{Hertz} ($0.138N$) no fue verificada, en la práctica fue mucho menor.
-\item La red logró almacenar hasta 6 o 7 imágenes.
+\item \Large La red logró almacenar hasta 6 o 7 imágenes.
 \end{itemize}
+\end{frame}
 
+\begin{frame}{Conclusiones}
+\begin{itemize}
+\item Las Redes de Hopfield son buenas a fines teóricos pero no prácticos ya que la cantidad de memoria requerida para almacenar pequeñas imágenes es muy grande.
+\item La cantidad de memoria requerida por al red de Hopfield es mucho mayor al tamaño de 
+los patrones a almacenar.
+\item La capacidad práctica de la red es mucho menor a la capacidad teórica, principalmente 
+debido a la correlación entre patrones.
+\item Se hallaron métodos para evitar que se converja a un patrón inverso.
+\item El uso de la psuedoinversa obtuvo mejores resultados que la red de Hebb normal.
+\end{itemize}
 \end{frame}
 
 \end{document}

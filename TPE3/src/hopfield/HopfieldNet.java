@@ -34,7 +34,7 @@ public abstract class HopfieldNet {
 		}
 	}
 	
-	private void setWeight(int i, int j, int[][] patterns) {
+	protected void setWeight(int i, int j, int[][] patterns) {
 		weights[i][j] = 0;
 		if (i != j) {
 			for (int[] pattern: patterns) {

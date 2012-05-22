@@ -4,7 +4,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		AsynchHopfieldTest asynchTest = new AsynchHopfieldTest();
-		asynchTest.reconocerPatronConRuido();
+		boolean testStatus = asynchTest.reconocerPatronConRuido();
+		System.out.println(testStatus);
 	}
 	
 }

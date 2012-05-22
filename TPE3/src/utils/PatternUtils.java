@@ -20,6 +20,18 @@ public class PatternUtils {
 		}
 	}
 	
+
+	/**
+	 * Borra el 50% de los primeros valores del patron pasado por parametro
+	 */
+	public static void addNoiseH(int[] pattern) {
+		for (int i = 0; i < 64; i++) {
+			for (int j = 0; j < 64 / 2; j++) {				
+				pattern[i * 64 + j] = HopfieldNet.STATE_NEGATIVE;
+			}
+		}
+	}
+	
 	/**
 	 * Por cada bit, con probabilidad p lo invierte.
 	 */

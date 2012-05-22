@@ -160,16 +160,18 @@ cambiado respecto del paso anterior sino también  hacer esta verificación resp
 
 \subsubsection{Sincrónica (Modelo de Little)}
 
-\par En cada paso se actualizan todas las neuronas de forma simultánea de acuerdo a la siguiente regla:\\
+\par En cada paso se actualizan todas las neuronas de forma simultánea.\\
 
+
+
+\subsubsection{Asincrónica (Modelo de Hopfield)}
+
+\par En cada paso se actualiza una unidad por vez; la misma es seleccionada de forma completamente aleatoria y se utiliza la ecuación:
 \begin{equation}
 \label{updateRule}
 S_i(n+1) = sgn\left(\sum_{j=1}^{N}{W_{ij}S_j(n)}\right)
 \end{equation}
 
-\subsubsection{Asincrónica (Modelo de Hopfield)}
-
-\par En cada paso se actualiza una unidad por vez; la misma es seleccionada de forma completamente aleatoria y se utiliza la ecuación \ref{updateRule} para la actualización.
 
 \subsubsection{Bit de paridad}
 
@@ -190,7 +192,7 @@ de que por problemas de estabilidad se converja a una imágen no invertida pero 
 invertido. Esto haría que se invierta la imágen cuando no se debería hacerlo. La probabilidad de que 
 esto suceda es baja, y en particular no fue observado en la práctica. Por último, agregar un bit igual 
 en todos los patrones a memorizar incrementa el crosstalk entre ellos. Sin embargo el incremento fue 
-considerado despreciable frente a la cantidad de neuronas ya presentes $4096$.
+considerado despreciable frente a la cantidad de neuronas ya presentes ($4096$).
 
 \subsubsection{Matriz pseudo-inversa}
 
@@ -218,7 +220,6 @@ Q_{\mu \nu} = \frac{1}{N}\sum_{i}  \xi_i^{\mu}  \xi_i^{\nu}
 \end{equation}
 
 
-\par Para el cálculo de la inversa de las matrices, \\
 
 \par Es fácil ver que la matriz $Q$ será invertible si los patrones son linealmente independientes. 
 Por lo que esta implementación presenta dos problemas, Por un lado, si los patrones no son 

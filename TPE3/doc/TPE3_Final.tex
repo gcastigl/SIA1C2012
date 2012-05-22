@@ -198,13 +198,9 @@ considerado despreciable frente a la cantidad de neuronas ya presentes ($4096$).
 
 \par La idea detrás de esta corrección de los pesos es que los patrones no siempre pueden ser 
 aleatorios, como se asume en algunos cálculos de la capacidad teórica de una red. Claramente 
-en el caso de las imágenes provistas por la cátedra, los patrones no son azarosos. Muchos de ellos 
-están correlacionados, por ejemplo, dos patrones en donde predomine el negro en zonas similares. 
+en el caso de las imágenes provistas por la cátedra, los patrones no son azarosos. Muchos de ellos están correlacionados, por ejemplo, dos patrones en donde predomine el negro en zonas similares. \\
 \par El problema detrás de los patrones correlacionados es que el término crosstalk entre estos 
-es mayor. Esto hace que los estados atractores tengan menor estabilidad, y además puede aumentar 
-la cantidad de estados espúreos. Como explica Hertz en su libro de teoría neuronal, para patrones 
-correlacionados la red puede no aprender patrones incluso cuando la cantidad de patrones 
-es significantemente menor a la cantidad de neuronas. La solución es usar una 
+es mayor. Esto hace que los estados atractores tengan menor estabilidad, y además puede aumentar la cantidad de estados espúreos. Como explica Hertz en su libro de teoría neuronal, para patrones correlacionados la red puede no aprender patrones incluso cuando la cantidad de patrones es significantemente menor a la cantidad de neuronas. La solución es usar una 
 matriz psuedo-inversa.
 
 \par Por su parte, el cálculo de esta matriz pseudo-inversa está dado por:\\
@@ -283,9 +279,8 @@ A continuación se muestra el resultado de pasarle como entrada la imagen ``foot
 \end{figure}
 
 \begin{center}
-\par Figura 1: Respuesta de una red de hopfield asincrónica ante un patrón incompleto.
+\par Figura 1: Respuesta de una red de hopfield asincrónica ante un patrón con ruido.
 \end{center}
-
 
 
 
@@ -324,24 +319,12 @@ A continuación se muestra el resultado de pasarle como entrada la imagen ``h'' 
 
 
 \subsection{Cantidad de patrones almacenables}
-
 \par En una primer instancia, se intentó que la cantidad de patrones almacenables en la red 
-sea similar a la capacidad sugerida teóricamente por Hertz en su libro, que corresponde a aproximadamente 
-$0.138N$. Esto correspondería a más de 500 imágenes. Sin embargo esto no fue observado empíricamente.
+sea similar a la capacidad sugerida teóricamente por Hertz en su libro, que corresponde a aproximadamente $0.138N$. Esto correspondería a más de 500 imágenes. Sin embargo esto no fue observado empíricamente.\\
 
-\par La razón detrás de esta discrepancia entre lo teórico y lo práctico surge de asumir varias hipótesis 
-al deducir dicho valor para la capacidad. En un primer plano, el valor surge de asumir que todos 
-los patrones son azarosos. Como ya se ha explicado en la sección de matrices psuedo-inversas, este no 
-es el caso para las imágenes tratadas; el término de crosstalk es mucho mayor en 
-este caso que en el caso de tener patrones azarosos. En segundo lugar, el cálculo se refiere únicamente 
-a la estabilidad en los estados atractores; surge de exigir que el error en los mismos sea menor a 
-un $1\%$. Sin embargo no hace referencia a la posibilidad de que los patrones de entrada 
-converjan a un estado espúreo, lo cual se observó seguido en la práctica al usar más de 6 o 7 imágenes.
+\par La razón detrás de esta discrepancia entre lo teórico y lo práctico surge de asumir varias hipótesis al deducir dicho valor para la capacidad. En un primer plano, el valor surge de asumir que todos los patrones son azarosos. Como ya se ha explicado en la sección de matrices psuedo-inversas, este no es el caso para las imágenes tratadas; el término de crosstalk es mucho mayor en este caso que en el caso de tener patrones azarosos. En segundo lugar, el cálculo se refiere únicamente a la estabilidad en los estados atractores; surge de exigir que el error en los mismos sea menor a un $1\%$. Sin embargo no hace referencia a la posibilidad de que los patrones de entrada converjan a un estado espúreo, lo cual se observó seguido en la práctica al usar más de 6 o 7 imágenes.\\
 
-\par El número exacto de cantidad de patrones máximos almacenables es difícil de determinar, dado que 
-depende de qué patrones se usen. Patrones con mayor correlación (mayor término de crosstalk) por lo 
-general traían mayores problemas. Además, se observó que la implementación psuedo-inversa tuvo resultados 
-consistentemente mejores que la regla de Hebb.
+\par El número exacto de cantidad de patrones máximos almacenables es difícil de determinar, dado que depende de qué patrones se usen. Patrones con mayor correlación (mayor término de crosstalk) por lo general traían mayores problemas. Además, se observó que la implementación psuedo-inversa tuvo resultados consistentemente mejores que la regla de Hebb.
 
 
 

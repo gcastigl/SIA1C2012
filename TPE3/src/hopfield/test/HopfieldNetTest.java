@@ -76,6 +76,7 @@ public class HopfieldNetTest {
 			default:
 				throw new IllegalArgumentException("Unknown test: " + testNumber);
 		}
+		Config.saveStateToImage(original, "Original");
 		Config.saveStateToImage(recognized,"Resultado");
 		System.out.println("Error: " + PatternUtils.error(recognized, original));
 	}

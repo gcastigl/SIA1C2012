@@ -174,9 +174,18 @@ S_i(n+1) = sgn\left(\sum_{j=1}^{N}{W_{ij}S_j(n)}\right)
 
 \subsubsection{Matriz pseudo-inversa}
 
-\par Para el cálculo de la inversa de las matrices, se utilizó la librería \textit{JaMath} (único uso).\\
+\par La idea detrás de esta corrección de los pesos es que los patrones no siempre pueden ser 
+aleatorios, como se asume en algunos cálculos de la capacidad teórica de una red. Claramente 
+en el caso de las imágenes provistas por la cátedra, los patrones no son azarosos. Muchos de ellos 
+están correlacionados, por ejemplo, dos patrones en donde predomine el negro en zonas similares. 
+\par El problema detrás de los patrones correlacionados es que el término crosstalk entre estos 
+es mayor. Esto hace que los estados atractores tengan menor estabilidad, y además puede aumentar 
+la cantidad de estados espúreos. Como explica Hertz en su libro de teoría neuronal, para patrones 
+correlacionados la red puede no aprender patrones incluso cuando la cantidad de patrones 
+es significantemente menor a la cantidad de neuronas. La solución es usar una 
+matriz psuedo-inversa.
 
-\par Por su parte, el cálculo de la pseudo-inversa de una matriz está dada por:\\
+\par Por su parte, el cálculo de esta matriz pseudo-inversa está dado por:\\
 
 \begin{equation}
 w_{ij}=\frac{1}{N}\sum_{\mu \nu} \xi_i^{\mu}(Q^{-1})_{\mu \nu}  \xi_j^{\nu}
@@ -187,6 +196,22 @@ siendo
 \begin{equation}
 Q_{\mu \nu} = \frac{1}{N}\sum_{i}  \xi_i^{\mu}  \xi_i^{\nu}
 \end{equation}
+
+
+\par Para el cálculo de la inversa de las matrices, \\
+
+\par Es fácil ver que la matriz $Q$ será invertible si los patrones son linealmente independientes. 
+Por lo que esta implementación presenta dos problemas, Por un lado, si los patrones no son 
+linealmente independientes, no se puede invertir la matriz. Hertz explica que la manera de subsanar 
+dicho problema es utilizar un subconjunto linealmente independiente de los patrones que sea generador 
+del mismo espacio. En el trabajo, se decidió simplemente usar la inversa de Moore-Penrose de la matriz $Q$, 
+que en particular será la inversa si los patrones sin linealmente independientes. En el caso de que no lo sean, 
+al menos existe dicha matriz, a pesar de que el comportamiento de la red será indeterminado.
+
+\par El segundo problema de la psuedo-inversa consiste en que el cálculo de una matriz inversa 
+es muchas veces numericamente inestable. Para intentar subsanar este problema, se utilizó la librería \textit{JAMA} 
+para su cálculo (único uso).
+
 
 
 \section{Resultados}

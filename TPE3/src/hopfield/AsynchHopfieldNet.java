@@ -8,7 +8,12 @@ public class AsynchHopfieldNet extends HopfieldNet {
 		int maxIterationsWithoutChanges = 5 * states.length;
 		int iterationsWithoutChanges = 0;
 		// Repetir la iteración hasta que el vector de estados permanezca sin cambiar
+		int iterations = 0;
 		while (iterationsWithoutChanges < maxIterationsWithoutChanges) {
+			iterations++;
+			if (iterations%200 == 0) {
+//				Config.saveStateToImage(states);
+			}
 			int index = (int) (Math.random() * getNumNeurons());
 			int prevState = states[index];
 			updateUnit(index);

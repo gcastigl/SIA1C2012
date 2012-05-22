@@ -21,9 +21,26 @@ public class Main {
 			System.out.println("No arguments given - Using defaults -");
 			args = getDefaultArgs();
 		}
+		if (args.length == 1) {
+			if ("help".equals(args[0].toLowerCase())) {
+				printHelp();
+			} else {
+				System.out.println("Type in help for program usage.");
+			}
+			return;
+		}
 		runTest(args);
+		System.out.println("*** Program terminated ***");
 	}
 	
+	private static void printHelp() {
+		System.out.println("Help menu for Hopfield Test program:");
+		System.out.println("Argu 1: Net Type to use: [synch | asynch | paritybit | pseudoinverse ]");
+		System.out.println("Argu 2: Test type [0 | 1 | 2 | 3 | 4]");
+		System.out.println("Argu 3: Image to recognize [ fileName ] - Without extension");
+		System.out.println("Argu 4: Images to memorize [ fileName List ] - Without extension");
+	}
+
 	private static String[] getDefaultArgs() {
 		String[] patternNames = {"line1", "line2", "line3", "line4"};
 		String[] args = new String[3 + patternNames.length];

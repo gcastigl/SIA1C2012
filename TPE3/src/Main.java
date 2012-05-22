@@ -38,7 +38,7 @@ public class Main {
 		System.out.println("Argu 1: Net Type to use: [synch | asynch | paritybit | pseudoinverse ]");
 		System.out.println("Argu 2: Test type [0 | 1 | 2 | 3 | 4]");
 		System.out.println("Argu 3: Image to recognize [ fileName ] - Without extension");
-		System.out.println("Argu 4: Images to memorize [ fileName List ] - Without extension");
+		System.out.println("Argu 4: Images to memorize [ fileNameList ] - Without extension");
 	}
 
 	private static String[] getDefaultArgs() {

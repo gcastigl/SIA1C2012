@@ -33,8 +33,6 @@ public class AsynchHopfieldTest {
 		String[] patternNames = {"h.png", "line1.png", "line2.png", "line3.png", "line4.png"};
 		int[] recognize = Config.getImageAsState("pacman.png");
 		int[] ans = testNet(getPatterns(patternNames), recognize);
-		// FIXME: Que se supone que devuelve la red cuando se le da 
-		// un patron que nada que ver con los que tiene memorizados??
 		return Arrays.equals(recognize, ans);
 	}
 
@@ -46,8 +44,6 @@ public class AsynchHopfieldTest {
 		for (int[] pattern: invertedPatterns) {
 			PatternUtils.invert(pattern);
 		}
-		// FIXME: la red siempre tendria que encontrar siempre el patron 
-		// inverso al original?
 		boolean allDifferent = false;
 		int[][] ans = testNet(patterns, invertedPatterns);
 		for (int i = 0; i < ans.length; i++) {
@@ -64,7 +60,7 @@ public class AsynchHopfieldTest {
 		}
 		return patterns;
 	}
-	
+
 	private int[] testNet(int[][] patterns, int[] recognize) {
 		net.storePatterns(patterns);
 		net.initialize(recognize);

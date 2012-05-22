@@ -43,4 +43,15 @@ public class PatternUtils {
 			}
 		}
 	}
+	
+	public static float error(int[] p1, int[] p2) {
+		int error = 0;
+		for (int i = 0; i < p1.length; i++) {
+			if (p1[i] != p2[i]) {
+				error++;
+			}
+		}
+		return (error * 100.0f) / p1.length;
+	}
+	
 }

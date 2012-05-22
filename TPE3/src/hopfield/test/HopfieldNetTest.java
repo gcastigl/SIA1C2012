@@ -37,7 +37,7 @@ public class HopfieldNetTest {
 	
 	public void setPatternNames(String[] patternNames) {
 		if (patternNames.length % 2 == 0) {
-			System.out.println("Warning: using odd number of patterns");
+			System.out.println("Warning: using even number of patterns");
 		}
 		for (int i = 0; i < patternNames.length; i++) {
 			if (!patternNames[i].endsWith(".png")) {

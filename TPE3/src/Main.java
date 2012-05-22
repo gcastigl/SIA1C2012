@@ -62,7 +62,7 @@ public class Main {
 			return;
 		}
 		test.setRecognizeName(args[INDEX_TO_RECOGNIZE]);
-		test.setPatternNames(Arrays.copyOfRange(args, INDEX_PATTERNS, args.length - INDEX_PATTERNS));
+		test.setPatternNames(Arrays.copyOfRange(args, INDEX_PATTERNS, args.length));
 		test.execTest(testNumber);
 	}
 

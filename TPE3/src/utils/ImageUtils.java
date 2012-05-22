@@ -41,6 +41,8 @@ public class ImageUtils {
 	 * depending on the color of the pixel.
 	 */ 
 	public static void convertBlackAndWhiteImageToState(int[] image) {
+		if(image == null)
+			throw new IllegalArgumentException("Image does not exist");
 		for (int i = 0; i < image.length; i++) {
 			if (image[i] == Color.BLACK.getRGB()) {
 				image[i] = HopfieldNet.STATE_POSITIVE;				

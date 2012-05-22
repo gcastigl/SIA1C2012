@@ -85,20 +85,21 @@
 \maketitle               
 
 \begin{abstract} 
-El presente informe busca analizar la implementación de una Red de Hopfield con el fin de analizar su funcionalidad y comportamiento como memoria asociativa direccionable por el contenido.
+El presente informe busca analizar la implementación de una Red de Hopfield con el fin de analizar su funcionalidad y comportamiento como memoria asociativa direccionable por contenido.
 \end{abstract}
 
 \begin{keywords}
-memoria asociativa direccionable por el contenido, hopfield, imágenes, memorización, ruido, atractores, estados espúreos
+memoria asociativa direccionable por contenido, Hopfield, imágenes, memorización, ruido, atractores, estados espúreos
 \end{keywords}
 
 %----------------------------------------------------------------------
 % SECTION I: Introduccion%----------------------------------------------------------------------
 \section{Introducción}
 
-\par Se analizó el comportamiento de una Red de hopfield como memoria asociativa direccionable por el contenido.\\
-El trabajo consistió en la implementación una Red de Hopfield en el lenguaje \textit{Java}. Se tomó un conjunto de patrones a memorizar los cuales pueden visualizarse en la sección \textbf{\textit{Anexo A: Patrones}} y se realizaron numerosas pruebas con el fin de evaluar cuestiones como ser si los patrones son verdaderos atractores, cuál es la máxima cantidad de patrones que la red puede memorizar, qué sucede si se le da como entrada a la red un patrón con ruido, etc.\\
-\par Si bien el algoritmo de hopfield es asincrónico, se decidió implementar una variante sincrónica del mismo para comprar los resultados obtenidos con cada uno (modelo de Little).\\
+\par Se analizó el comportamiento de una Red de Hopfield como memoria asociativa direccionable por el contenido.\\
+El trabajo consistió en la implementación de una Red de Hopfield en el lenguaje \textit{Java}. Se tomó un conjunto de patrones a memorizar los cuales pueden visualizarse en la sección \textbf{\textit{Anexo A: Patrones}} y se realizaron numerosas pruebas con el fin 
+de evaluar ciertas cuestiones como por ejemplo si los patrones son verdaderos atractores, cuál es la máxima cantidad de patrones que la red puede memorizar, qué sucede si se le da como entrada a la red un patrón con ruido, y otras.\\
+\par Si bien el algoritmo de hopfield es asincrónico, se decidió implementar una variante sincrónica del mismo para comparar los resultados obtenidos con cada uno (modelo de Little).\\
 \par En las siguientes secciones se explicará el modelado del problema, como así también las mejoras implementadas, los resultados obtenidos y las conclusiones que se puedan extraer de ellos.
 
 
@@ -133,7 +134,7 @@ Todos los patrones de entrada fueron \textit{normalizados}, es decir que las im�
 
 \subsection{Inicialización de la red}
 
-\par Para los métodos ofrecidos publicamente por la red, se utilizó la convención dada en clase. Se escribió un método \textit{storePatterns} inicializa la matriz de pesos sinápticos de la red neuronal utilizando la regla del producto externo de \textit{Hebb}. Nótese que la matriz de pesos, una vez inicializada, no cambia durante toda la ejecución del algoritmo.\\
+\par Para los métodos ofrecidos públicamente por la red, se utilizó la convención dada en clase. Se escribió un método \textit{storePatterns} que inicializa la matriz de pesos sinápticos de la red neuronal utilizando la regla del producto externo de \textit{Hebb}. Nótese que la matriz de pesos, una vez inicializada, no cambia durante toda la ejecución del algoritmo.\\
 Por cuestiones de eficiencia y dado que la matriz de pesos es simétrica con $W_{ij} = 0$, el algoritmo recorre sólo la diagonal superior de la misma y \textbf{espeja} los resultados.
 
 \subsection{Función de activación}
@@ -149,34 +150,64 @@ Para el caso del modelo de Little, la convergencia está dada cuando el vector d
 $k = 5N$ donde $N$ es la longitud del patrón. Esto se hizo dado que si queda únciamente un pixel para actualizar, 
 la probabilidad de no elegirlo en $aN$ iteraciones es $\left(\frac{N-1}{N}\right)^{aN}$. Si se considera $N$ suficientemente grande, 
 esta pobilidad tiende a $e^{-a}$. Para nuestro particular de $a=5$ y $N=4096$, esta probabilidad equivale a $0.7\%$, lo 
-cual fue considerado aceptable.\\
+cual fue considerado aceptable, dado que es despreciable frente al error causado por problemas de estabilidad.\\
 
-Ambas son equivalentes excepto por la distribución del intervalo de actualizaciones. El modelo de Hopfield da una secuencia aleatoria por lo cual hay baja probabilidad de que dos unidades elijan ser actualizadas en el mismo momento.\\
+Ambas son equivalentes excepto por la distribución del intervalo de actualizaciones. El modelo de Hopfield da una secuencia aleatoria por lo cual hay baja probabilidad de que 
+dos unidades elijan ser actualizadas en el mismo momento.\\
 La primera es útil para simulaciones y la segunda es apropiada para unidades de hardware autónomas.\\
-\par Es importante destacar que el método de iteración hasta la convergencia puede caer en \textbf{ciclos de longitud 2} por lo que es sumamente importante no sólo chequear que el vector de estados no haya cambiado respecto del paso anterior sino también hay que hacer esta verificación respecto de 2 pasos anteriores.
+\par Es importante destacar que el método de iteración hasta la convergencia puede caer en \textbf{ciclos de longitud 2} por lo que es sumamente importante no sólo verificar que el vector de estados no haya 
+cambiado respecto del paso anterior sino también  hacer esta verificación respecto de 2 pasos anteriores.
 
 \subsubsection{Sincrónica (Modelo de Little)}
 
-\par En cada paso se actualizan todas las neuronas de forma simultánea de acuerdo a la siguiente regla:\\
+\par En cada paso se actualizan todas las neuronas de forma simultánea.\\
 
+
+
+\subsubsection{Asincrónica (Modelo de Hopfield)}
+
+\par En cada paso se actualiza una unidad por vez; la misma es seleccionada de forma completamente aleatoria y se utiliza la ecuación:
 \begin{equation}
 \label{updateRule}
 S_i(n+1) = sgn\left(\sum_{j=1}^{N}{W_{ij}S_j(n)}\right)
 \end{equation}
 
-\subsubsection{Asincrónica (Modelo de Hopfield)}
-
-\par En cada paso se actualiza una unidad por ves; la misma es seleccionada de forma completamente aleatoria y se utiliza la ecuación \ref{updateRule} para la actualización.
 
 \subsubsection{Bit de paridad}
 
-\par Se agrega al vector de estados un bit en la última posición inicializado en uno, para indicar que no es un patrón inverso. De esta manera, luego de calcular el vector de estados, si el bit de paridad se encuentra en $-1$, simplemente se invierte el patrón; caso contrario esto puede indicar un patrón inicial o un estado espúreo.
+\par Se consideró que en algunas ocasiones, no es deseado que la red caiga en un estado atractor correspondiente a un patrón inverso a 
+los que se desea aprender. Para subsanar este problema, se implementó el modo $paritybit$ que intenta 
+reconocer qué resultados corresponden a patrones inversos, e invertirlos antes de devolverlos 
+como resultado.
+
+\par Para ello, se agregó a todos los patrones a memorizar un bit de paridad inicializado en $1$. Cuando 
+se intenta recuperar una imágen, se le agrega a esta también un bit final en $1$ nuevamente. Si la red 
+converge a un estado cuyo bit final está invertido, se considera que se ha caído en un patrón inverso, 
+y por lo tanto se invierte.
+
+\par Esta implementación tiene ciertas desventajas. Por un lado, si el estado final es espúreo y tiene 
+ el bit final invertido, se estaría invirtiendo el resultado sin una buena razón. Este error se consideró 
+aceptable ya que de todas maneras un estado espúreo es algo no deseable. Por otro lado, existe la posibilidad 
+de que por problemas de estabilidad se converja a una imágen no invertida pero con el bit de paridad 
+invertido. Esto haría que se invierta la imágen cuando no se debería hacerlo. La probabilidad de que 
+esto suceda es baja, y en particular no fue observado en la práctica. Por último, agregar un bit igual 
+en todos los patrones a memorizar incrementa el crosstalk entre ellos. Sin embargo el incremento fue 
+considerado despreciable frente a la cantidad de neuronas ya presentes ($4096$).
 
 \subsubsection{Matriz pseudo-inversa}
 
-\par Para el cálculo de la inversa de las matrices, se utilizó la librería \textit{JaMath} (único uso).\\
+\par La idea detrás de esta corrección de los pesos es que los patrones no siempre pueden ser 
+aleatorios, como se asume en algunos cálculos de la capacidad teórica de una red. Claramente 
+en el caso de las imágenes provistas por la cátedra, los patrones no son azarosos. Muchos de ellos 
+están correlacionados, por ejemplo, dos patrones en donde predomine el negro en zonas similares. 
+\par El problema detrás de los patrones correlacionados es que el término crosstalk entre estos 
+es mayor. Esto hace que los estados atractores tengan menor estabilidad, y además puede aumentar 
+la cantidad de estados espúreos. Como explica Hertz en su libro de teoría neuronal, para patrones 
+correlacionados la red puede no aprender patrones incluso cuando la cantidad de patrones 
+es significantemente menor a la cantidad de neuronas. La solución es usar una 
+matriz psuedo-inversa.
 
-\par Por su parte, el cálculo de la pseudo-inversa de una matriz está dada por:\\
+\par Por su parte, el cálculo de esta matriz pseudo-inversa está dado por:\\
 
 \begin{equation}
 w_{ij}=\frac{1}{N}\sum_{\mu \nu} \xi_i^{\mu}(Q^{-1})_{\mu \nu}  \xi_j^{\nu}
@@ -187,6 +218,21 @@ siendo
 \begin{equation}
 Q_{\mu \nu} = \frac{1}{N}\sum_{i}  \xi_i^{\mu}  \xi_i^{\nu}
 \end{equation}
+
+
+
+\par Es fácil ver que la matriz $Q$ será invertible si los patrones son linealmente independientes. 
+Por lo que esta implementación presenta dos problemas, Por un lado, si los patrones no son 
+linealmente independientes, no se puede invertir la matriz. Hertz explica que la manera de subsanar 
+dicho problema es utilizar un subconjunto linealmente independiente de los patrones que sea generador 
+del mismo espacio. En el trabajo, se decidió simplemente usar la inversa de Moore-Penrose de la matriz $Q$, 
+que en particular será la inversa si los patrones sin linealmente independientes. En el caso de que no lo sean, 
+al menos existe dicha matriz, a pesar de que el comportamiento de la red será indeterminado.
+
+\par El segundo problema de la psuedo-inversa consiste en que el cálculo de una matriz inversa 
+es muchas veces numericamente inestable. Para intentar subsanar este problema, se utilizó la librería \textit{JAMA} 
+para su cálculo (único uso).
+
 
 
 \section{Resultados}
@@ -279,7 +325,23 @@ A continuación se muestra el resultado de pasarle como entrada la imagen ``h'' 
 
 \subsection{Cantidad de patrones almacenables}
 
-\par Como punto sumamente importante se obserbó que la \textbf{cantidad máxima de patrones posibles de almacenar} fue de XXXXXXXXXXXXXXXXX. Esto se puede explicar por YYYYYYYY.
+\par En una primer instancia, se intentó que la cantidad de patrones almacenables en la red 
+sea similar a la capacidad sugerida teóricamente por Hertz en su libro, que corresponde a aproximadamente 
+$0.138N$. Esto correspondería a más de 500 imágenes. Sin embargo esto no fue observado empíricamente.
+
+\par La razón detrás de esta discrepancia entre lo teórico y lo práctico surge de asumir varias hipótesis 
+al deducir dicho valor para la capacidad. En un primer plano, el valor surge de asumir que todos 
+los patrones son azarosos. Como ya se ha explicado en la sección de matrices psuedo-inversas, este no 
+es el caso para las imágenes tratadas; el término de crosstalk es mucho mayor en 
+este caso que en el caso de tener patrones azarosos. En segundo lugar, el cálculo se refiere únicamente 
+a la estabilidad en los estados atractores; surge de exigir que el error en los mismos sea menor a 
+un $1\%$. Sin embargo no hace referencia a la posibilidad de que los patrones de entrada 
+converjan a un estado espúreo, lo cual se observó seguido en la práctica al usar más de 6 o 7 imágenes.
+
+\par El número exacto de cantidad de patrones máximos almacenables es difícil de determinar, dado que 
+depende de qué patrones se usen. Patrones con mayor correlación (mayor término de crosstalk) por lo 
+general traían mayores problemas. Además, se observó que la implementación psuedo-inversa tuvo resultados 
+consistentemente mejores que la regla de Hebb.
 
 
 

@@ -1,71 +1,110 @@
 package hopfield.test;
 
-import hopfield.AsynchHopfieldNet;
 import hopfield.Config;
 import hopfield.HopfieldNet;
-
-import java.util.Arrays;
-
 import utils.PatternUtils;
 
-public class AsynchHopfieldTest {
+public class HopfieldNetTest {
 	
-	private HopfieldNet net = new AsynchHopfieldNet();
+	/**
+	 * Presenta el patron a la red sin cambios.
+	 */
+	public static final int TEST_PATTERN 			= 0;
+	/**
+	 * Aplica addNoise1() al patron introducido.
+	 */
+	public static final int TEST_PATTERN_NOISE_1 	= 1;
+	/**
+	 * Invierte el patron introducido.
+	 */
+	public static final int TEST_PATTERN_NOISE_2 	= 2;
+	/**
+	 * Invierte y aplica ruido al patron introducido.
+	 */
+	public static final int TEST_PATTERN_NOISE_3 	= 3;
+	/**
+	 * Borra la primera parte del patron.
+	 */
+	public static final int TEST_PATTERN_NOISE_4 	= 4;
 	
-	public boolean patronesDificiles() {
-		String[] patternNames = {"footprint.png", "green-knot.png", "mac.png", "ninja.png", "rss.png"};
-		int[][] patterns = getPatterns(patternNames);
-		int[] recognize = Config.getImageAsState("mac.png");
-		int[] toTest = recognize.clone();
-		PatternUtils.addNoise2(toTest,0.1f);
-		Config.saveStateToImage(toTest,"Entrada con ruido");
-		Config.saveStateToImage(toTest,"Randomizacion");
-		int[] ans = testNet(patterns, toTest);
-		System.out.println(PatternUtils.error(recognize, ans));
-		Config.saveStateToImage(ans,"Resultado");
-		return Arrays.equals(recognize, ans);
+	private HopfieldNet net;
+	private String[] patternNames;
+	private String recognizeName;
+	
+	public HopfieldNetTest(HopfieldNet net) {
+		this.net = net;
 	}
 	
-	public boolean reconocerPatron() {
-		String[] patternNames = {"h.png", "line1.png", "line2.png", "line3.png", "line4.png"};
-		int[] recognize = Config.getImageAsState("line1.png");
-		int[] ans = testNet(getPatterns(patternNames), recognize);
-		return Arrays.equals(recognize, ans);
+	public void setPatternNames(String[] patternNames) {
+		if (patternNames.length % 2 == 0) {
+			System.out.println("Warning: using odd number of patterns");
+		}
+		for (int i = 0; i < patternNames.length; i++) {
+			if (!patternNames[i].endsWith(".png")) {
+				patternNames[i] += ".png";
+			}
+		}
+		this.patternNames = patternNames;
+	}
+	
+	public void setRecognizeName(String recognizeName) {
+		if (!recognizeName.endsWith(".png")) {
+			recognizeName += ".png";
+		}
+		this.recognizeName = recognizeName;
+	}
+	
+	public void execTest(int testNumber) {
+		int[] original = Config.getImageAsState(recognizeName);
+		int[] recognized;
+		switch (testNumber) {
+			case TEST_PATTERN:
+				recognized = reconocerPatron(original.clone());
+				break;
+			case TEST_PATTERN_NOISE_1:
+				recognized = reconocerPatronConRuido1(original.clone());
+				break;
+			case TEST_PATTERN_NOISE_2:
+				recognized = reconocerPatronConRuido2(original.clone());
+				break;
+			case TEST_PATTERN_NOISE_3:
+				recognized = reconocerPatronConRuido3(original.clone());
+				break;
+			case TEST_PATTERN_NOISE_4:
+				recognized = reconocerPatronConRuido4(original.clone());
+				break;
+			default:
+				throw new IllegalArgumentException("Unknown test: " + testNumber);
+		}
+		Config.saveStateToImage(recognized,"Resultado");
+		System.out.println("Error: " + PatternUtils.error(recognized, original));
 	}
 
-	public boolean reconocerPatronConRuido() {
-		String[] patternNames = {"h.png", "line1.png", "line2.png", "line3.png", "line4.png"};
-		int[][] patterns = getPatterns(patternNames);
-		int[] recognize = Config.getImageAsState("line1.png");
-		int[] noisyImage = recognize.clone(); 
-		PatternUtils.addNoiseH(noisyImage);
-		int[] ans = testNet(patterns, noisyImage);
-		return Arrays.equals(recognize, ans);
-	}
-	
-	public boolean noReconocerPatron() {
-		String[] patternNames = {"h.png", "line1.png", "line2.png", "line3.png", "line4.png"};
-		int[] recognize = Config.getImageAsState("pacman.png");
-		int[] ans = testNet(getPatterns(patternNames), recognize);
-		return Arrays.equals(recognize, ans);
+	private int[] reconocerPatron(int[] pattern) {
+		return testNet(getPatterns(patternNames), pattern);
 	}
 
-	public boolean mostrarPatronesInversos() {
-		String[] patternNames = {"h.png", "line1.png", "line2.png", "line3.png", "line4.png"};
-		int[][] patterns = getPatterns(patternNames);
-		int[][] invertedPatterns = getPatterns(patternNames);
-		// invert all pattterns
-		for (int[] pattern: invertedPatterns) {
-			PatternUtils.invert(pattern);
-		}
-		boolean allDifferent = false;
-		int[][] ans = testNet(patterns, invertedPatterns);
-		for (int i = 0; i < ans.length; i++) {
-			allDifferent |= Arrays.equals(ans[i], patterns[i]);
-		}
-		return allDifferent;
+	private int[] reconocerPatronConRuido1(int[] pattern) {
+		PatternUtils.addNoise2(pattern, 0.1f);
+		return testNet(getPatterns(patternNames), pattern);
 	}
-	
+
+	private int[] reconocerPatronConRuido2(int[] pattern) {
+		PatternUtils.invert(pattern);
+		return testNet(getPatterns(patternNames), pattern);
+	}
+
+	private int[] reconocerPatronConRuido3(int[] pattern) {
+		PatternUtils.invert(pattern);
+		PatternUtils.addNoise2(pattern, 0.1f);
+		return testNet(getPatterns(patternNames), pattern);
+	}
+
+	private int[] reconocerPatronConRuido4(int[] pattern) {
+		PatternUtils.addNoiseH(pattern);
+		return testNet(getPatterns(patternNames), pattern);
+	}
+
 	private int[][] getPatterns(String[] patternNames) {
 		int totalPatterns = patternNames.length;
 		int[][] patterns = new int[totalPatterns][];
@@ -76,18 +115,10 @@ public class AsynchHopfieldTest {
 	}
 
 	private int[] testNet(int[][] patterns, int[] recognize) {
+		Config.saveStateToImage(recognize, "Imagen presentada");
 		net.storePatterns(patterns);
 		net.initialize(recognize);
 		return net.iterateUntilConvergence();
 	}
-	
-	private int[][] testNet(int[][] patterns, int[][] recognize) {
-		net.storePatterns(patterns);
-		int[][] ans = new int[recognize.length][];
-		for (int i = 0; i < recognize.length; i++) {
-			net.initialize(recognize[i]);
-			ans[i] = net.iterateUntilConvergence();
-		}
-		return ans;
-	}
+
 }

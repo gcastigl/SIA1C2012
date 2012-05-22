@@ -5,7 +5,7 @@ public class AsynchHopfieldNet extends HopfieldNet {
 
 	@Override
 	public int[] iterateUntilConvergence() {
-		int maxIterationsWithoutChanges = 2 * states.length;
+		int maxIterationsWithoutChanges = 5 * states.length;
 		int iterationsWithoutChanges = 0;
 		// Repetir la iteración hasta que el vector de estados permanezca sin cambiar
 		while (iterationsWithoutChanges < maxIterationsWithoutChanges) {

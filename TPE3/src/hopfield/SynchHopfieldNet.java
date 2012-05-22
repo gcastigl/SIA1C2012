@@ -13,16 +13,25 @@ public class SynchHopfieldNet extends HopfieldNet {
 	public int[] iterateUntilConvergence() {
 		// FIXME: Note that we can fall into cycles with lenght 2 and we must prevent this pitfall.
 		boolean finished = false;
-		int[] nextStates = null;
+		int[][] nextStates = new int[2][];
+		int i = 0, iterations = 0;
 		while (!finished) {
-			nextStates = sgn(MatrixUtils.multiply(weights, states), states);
-			if (Arrays.equals(states, nextStates)) {
+			int[] newState = sgn(MatrixUtils.multiply(weights, states), states);
+			if (Arrays.equals(states, newState)) {
+				nextStates[i] = newState;
 				finished = true;
 			} else {
-				states = nextStates;
+				states = newState;
+				if (iterations >= 2 && Arrays.equals(newState, nextStates[i])) {
+					finished = true;
+					break;
+				}
+				nextStates[i] = newState;
+				i++; i %= 2;				
+				iterations++;				
 			}
 		}
-		return nextStates;
+		return nextStates[i];
 	}
 	
 	protected int[] sgn(float[] vec, int[] prevStates) {

@@ -38,7 +38,7 @@ public class AsynchHopfieldTest {
 		int[][] patterns = getPatterns(patternNames);
 		int[] recognize = Config.getImageAsState("line1.png");
 		int[] noisyImage = recognize.clone(); 
-		PatternUtils.addNoise1(noisyImage);
+		PatternUtils.addNoiseH(noisyImage);
 		int[] ans = testNet(patterns, noisyImage);
 		return Arrays.equals(recognize, ans);
 	}

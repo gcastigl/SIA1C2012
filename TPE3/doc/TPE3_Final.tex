@@ -98,8 +98,8 @@ memoria asociativa direccionable por el contenido, hopfield, imágenes, memoriza
 
 \par Se analizó el comportamiento de una Red de hopfield como memoria asociativa direccionable por el contenido.\\
 El trabajo consistió en la implementación una Red de Hopfield en el lenguaje \textit{Java}. Se tomó un conjunto de patrones a memorizar los cuales pueden visualizarse en la sección \textbf{\textit{Anexo A: Patrones}} y se realizaron numerosas pruebas con el fin de evaluar cuestiones como ser si los patrones son verdaderos atractores, cuál es la máxima cantidad de patrones que la red puede memorizar, qué sucede si se le da como entrada a la red un patrón con ruido, etc.\\
-\par Si bien el algoritmo de hopfield es asincrónico, se decidió implementar una variante sincrónica del mismo para comprar los resultados obtenidos con cada uno.\\
-\par En las siguientes secciones se desrrollará el modelado del problema como así también los resultados obtenidos y las conclusiones que se pueden extraer de ellos.
+\par Si bien el algoritmo de hopfield es asincrónico, se decidió implementar una variante sincrónica del mismo para comprar los resultados obtenidos con cada uno (modelo de Little).\\
+\par En las siguientes secciones se explicará el modelado del problema, como así también las mejoras implementadas, los resultados obtenidos y las conclusiones que se puedan extraer de ellos.
 
 
 %----------------------------------------------------------------------
@@ -117,32 +117,41 @@ El trabajo consistió en la implementación una Red de Hopfield en el lenguaje \
 \item \textbf{$p$}: Cantidad de patrones distintos que contiene $\Psi$\\
 \end{itemize}
 
-\par Se representó a la Red de Hopfield en \textit{Java} como una clase abstracta debido a la distinción antes nombrada del algoritmo \textbf{sincrónico} versus el algoritmo \textbf{asincrónico} (nos permite hacer implementaciones concretas que extiendan de ella).\\
+\par Se representó a la Red de Hopfield  como una clase abstracta debido a la distinción antes nombrada del algoritmo \textbf{sincrónico} versus el algoritmo \textbf{asincrónico} (permite hacer implementaciones concretas que extiendan de ella).\\
 La clase contiene dos variables: un vector y una matriz que están definidos como sigue:\\
 
 \begin{itemize}
 \item \textbf{float[N][N] weights}: Matriz de pesos $W_{ij}$ correspondientes a los patrones que se desean memorizar.
-\item \textbf{int[N] states;}: Vector con los estados de cada una de las $N$ neuronas.\\
+\item \textbf{int[N] states}: Vector con los estados de cada una de las $N$ neuronas.\\
 \end{itemize}
 
-\par Nótese que si bien el vector de estados es de tipo entero, los estados definidos para este problema son $1$ o $-1$ dado que las unidades que estamos utilizando son \textbf{bipolares}\\
+\par Nótese que si bien el vector de estados es de tipo entero, los estados definidos para este problema son $1$ o $-1$ dado que las unidades que están siendo utilizadas son \textbf{bipolares}\\
 
 \par Por otra parte se decidió representar a los patrones $\mu$ como vectores de enteros \textbf{\textit{int[] pattern}} los cuales contienen un $1$ en la posición $i$ en el caso de que el i-ésimo pixel del patrón sea negro o contienen un $-1$ en la posición $i$ en el caso de que el i-ésimo pixel del patrón sea blanco.\\
-Todos los patrones de entrada fueron \textit{normalizados}, es decir que las imágenes cuyo mapa de color estaba en escala de grises fueron pasadas a imágenes blanco y negro; asimismo una de las imágenes que no contenía fondo (fondo transparende) fue modificada dejando intacta la imagen pero agregandole un fondo blanco.
+Todos los patrones de entrada fueron \textit{normalizados}, es decir que las imágenes cuyo mapa de color estaba en escala de grises fueron pasadas a imágenes blanco y negro; asimismo una de las imágenes que no contenía fondo (fondo transparente) fue modificada dejando intacta la imagen pero agregandole un fondo blanco.
 	
 
 \subsection{Inicialización de la red}
 
-\par Se escribió un método \textit{storePatterns} inicializa la matriz de pesos sinápticos de la red neuronal utilizando la regla del producto externo de \textit{Hebb}. Nótese que la matriz de pesos, una vez inicializada, no cambia durante toda la ejecución del algoritmo.\\
+\par Para los métodos ofrecidos publicamente por la red, se utilizó la convención dada en clase. Se escribió un método \textit{storePatterns} inicializa la matriz de pesos sinápticos de la red neuronal utilizando la regla del producto externo de \textit{Hebb}. Nótese que la matriz de pesos, una vez inicializada, no cambia durante toda la ejecución del algoritmo.\\
 Por cuestiones de eficiencia y dado que la matriz de pesos es simétrica con $W_{ij} = 0$, el algoritmo recorre sólo la diagonal superior de la misma y \textbf{espeja} los resultados.
 
 \subsection{Función de activación}
 
-\par La función de activación utizada es la función signo \textbf{f(x) = sgn(x)}.
+\par La función de activación utizada es la función signo.
 
 \subsection{Actualización de estados}
 
-\par Como ya se comentó, se implementaron dos variantes para la actualización de estados: el Modelo de Little y el Modelo de Hopfield los cuales se desarrollarán a continuación. En líneas generales ambos buscan iterar hasta la convergencia (el vector de estados de la red no cambia respecto del paso anterior). Ambas son equivalentes excepto por la distribución del intervalo de actualizaciones. El modelo de Hopfield da una secuencia aleatoria por lo cual hay baja probabilidad de que dos unidades elijan ser actualizadas en el mismo momento.\\
+\par Como ya se comentó, se implementaron dos variantes para la actualización de estados: el Modelo de Little y el Modelo de Hopfield los cuales se desarrollarán a continuación. En líneas generales ambos buscan iterar hasta la convergencia. \\
+Para el caso del modelo de Little, la convergencia está dada cuando el vector de estados permanece invariante respecto del vector en el paso anterior o se detecte un ciclo de longitud dos en las actualizaciones del vector de estados.\\
+
+\par Para el caso de Hopfield, se considera convergente al estado si tras $k$ iteraciones el vector no ha cambiado. Se decidió tomar 
+$k = 5N$ donde $N$ es la longitud del patrón. Esto se hizo dado que si queda únciamente un pixel para actualizar, 
+la probabilidad de no elegirlo en $aN$ iteraciones es $\left(\frac{N-1}{N}\right)^{aN}$. Si se considera $N$ suficientemente grande, 
+esta pobilidad tiende a $e^{-a}$. Para nuestro particular de $a=5$ y $N=4096$, esta probabilidad equivale a $0.7\%$, lo 
+cual fue considerado aceptable.\\
+
+Ambas son equivalentes excepto por la distribución del intervalo de actualizaciones. El modelo de Hopfield da una secuencia aleatoria por lo cual hay baja probabilidad de que dos unidades elijan ser actualizadas en el mismo momento.\\
 La primera es útil para simulaciones y la segunda es apropiada para unidades de hardware autónomas.\\
 \par Es importante destacar que el método de iteración hasta la convergencia puede caer en \textbf{ciclos de longitud 2} por lo que es sumamente importante no sólo chequear que el vector de estados no haya cambiado respecto del paso anterior sino también hay que hacer esta verificación respecto de 2 pasos anteriores.
 
@@ -159,11 +168,30 @@ S_i(n+1) = sgn\left(\sum_{j=1}^{N}{W_{ij}S_j(n)}\right)
 
 \par En cada paso se actualiza una unidad por ves; la misma es seleccionada de forma completamente aleatoria y se utiliza la ecuación \ref{updateRule} para la actualización.
 
-\subsection{Interfaz gráfica}
+\subsubsection{Bit de paridad}
+
+\par Se agrega al vector de estados un bit en la última posición inicializado en uno, para indicar que no es un patrón inverso. De esta manera, luego de calcular el vector de estados, si el bit de paridad se encuentra en $-1$, simplemente se invierte el patrón; caso contrario esto puede indicar un patrón inicial o un estado espúreo.
+
+\subsubsection{Matriz pseudo-inversa}
+
+\par Para el cálculo de la inversa de las matrices, se utilizó la librería \textit{JaMath} (único uso).\\
+
+\par Por su parte, el cálculo de la pseudo-inversa de una matriz está dada por:\\
+
+\begin{equation}
+w_{ij}=\frac{1}{N}\sum_{\mu \nu} \xi_i^{\mu}(Q^{-1})_{\mu \nu}  \xi_j^{\nu}
+\end{equation}
+
+siendo 
+
+\begin{equation}
+Q_{\mu \nu} = \frac{1}{N}\sum_{i}  \xi_i^{\mu}  \xi_i^{\nu}
+\end{equation}
+
 
 \section{Resultados}
 
-\subsection{Verdaderos atractores}
+\subsection{Verdaderos atractores} 
 
 \subsection{Estados espúreos}
 

@@ -302,7 +302,23 @@ A continuación se muestra el resultado de pasarle como entrada la imagen ``h'' 
 
 \subsection{Cantidad de patrones almacenables}
 
-\par Como punto sumamente importante se obserbó que la \textbf{cantidad máxima de patrones posibles de almacenar} fue de XXXXXXXXXXXXXXXXX. Esto se puede explicar por YYYYYYYY.
+\par En una primer instancia, se intentó que la cantidad de patrones almacenables en la red 
+sea similar a la capacidad sugerida teóricamente por Hertz en su libro, que corresponde a aproximadamente 
+$0.138N$. Esto correspondería a más de 500 imágenes. Sin embargo esto no fue observado empíricamente.
+
+\par La razón detrás de esta discrepancia entre lo teórico y lo práctico surge de asumir varias hipótesis 
+al deducir dicho valor para la capacidad. En un primer plano, el valor surge de asumir que todos 
+los patrones son azarosos. Como ya se ha explicado en la sección de matrices psuedo-inversas, este no 
+es el caso para las imágenes tratadas; el término de crosstalk es mucho mayor en 
+este caso que en el caso de tener patrones azarosos. En segundo lugar, el cálculo se refiere únicamente 
+a la estabilidad en los estados atractores; surge de exigir que el error en los mismos sea menor a 
+un $1\%$. Sin embargo no hace referencia a la posibilidad de que los patrones de entrada 
+converjan a un estado espúreo, lo cual se observó seguido en la práctica al usar más de 6 o 7 imágenes.
+
+\par El número exacto de cantidad de patrones máximos almacenables es difícil de determinar, dado que 
+depende de qué patrones se usen. Patrones con mayor correlación (mayor término de crosstalk) por lo 
+general traían mayores problemas. Además, se observó que la implementación psuedo-inversa tuvo resultados 
+consistentemente mejores que la regla de Hebb.
 
 
 

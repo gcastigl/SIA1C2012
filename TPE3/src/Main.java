@@ -42,11 +42,11 @@ public class Main {
 	}
 
 	private static String[] getDefaultArgs() {
-		String[] patternNames = {"line1", "line2", "line3", "line4"};
+		String[] patternNames = {"line1", "line2", "line3", "h", "f"};
 		String[] args = new String[3 + patternNames.length];
 		args[INDEX_NET_TYPE] = "paritybit";
-		args[INDEX_TEST_TYPE] = "3";
-		args[INDEX_TO_RECOGNIZE] = "line1";
+		args[INDEX_TEST_TYPE] = "1";
+		args[INDEX_TO_RECOGNIZE] = "f";
 		System.arraycopy(patternNames, 0, args, INDEX_PATTERNS, patternNames.length);
 		return args;
 	}

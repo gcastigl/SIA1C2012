@@ -12,6 +12,20 @@ public class AsynchHopfieldTest {
 	
 	private HopfieldNet net = new AsynchHopfieldNet();
 	
+	public boolean patronesDificiles() {
+		String[] patternNames = {"footprint.png", "green-knot.png", "mac.png", "ninja.png", "rss.png"};
+		int[][] patterns = getPatterns(patternNames);
+		int[] recognize = Config.getImageAsState("mac.png");
+		int[] toTest = recognize.clone();
+		PatternUtils.addNoise2(toTest,0.1f);
+		Config.saveStateToImage(toTest,"Entrada con ruido");
+		Config.saveStateToImage(toTest,"Randomizacion");
+		int[] ans = testNet(patterns, toTest);
+		System.out.println(PatternUtils.error(recognize, ans));
+		Config.saveStateToImage(ans,"Resultado");
+		return Arrays.equals(recognize, ans);
+	}
+	
 	public boolean reconocerPatron() {
 		String[] patternNames = {"h.png", "line1.png", "line2.png", "line3.png", "line4.png"};
 		int[] recognize = Config.getImageAsState("line1.png");

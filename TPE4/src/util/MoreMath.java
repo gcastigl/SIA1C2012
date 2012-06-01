@@ -1,6 +1,6 @@
-package neuronalnetwork;
+package util;
 
-public class MathUtils {
+public class MoreMath {
 
 	/**
 	 * Returns a pseudo-random value in the interval (a,b) 

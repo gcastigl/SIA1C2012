@@ -21,7 +21,7 @@ public class BackPropagation {
 		for (Entry<float[], float[]> entryTrain: train.entrySet()) {
 			float[] input = entryTrain.getKey();
 			float[] expectedOutput = entryTrain.getValue();
-			train(input, expectedOutput);
+//			train(input, expectedOutput);
 		}
 	}
 	
@@ -62,12 +62,5 @@ public class BackPropagation {
 			
 		}
 		return out;
-	}
-	
-	private void validateDimation(float[] v1, float[] v2) {
-		if (v1.length != v2.length) {
-			throw new IllegalStateException("Vector dimation does not match: " + 
-				v1.length + " != " + v2.length);
-		}
 	}
 }

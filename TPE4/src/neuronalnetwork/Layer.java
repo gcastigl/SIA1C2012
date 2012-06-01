@@ -1,5 +1,6 @@
 package neuronalnetwork;
 
+import util.MoreMath;
 import neuronalnetwork.function.TransferFunction;
 
 public class Layer {
@@ -33,14 +34,14 @@ public class Layer {
 		if (outerLayer) {
 			// input + 1 because of the Bias input for each neuron
 			weights = new float[neurons + 1][outputLen];			
-			initWeightMantrix();
+			initWeightMatrix();
 		}
 	}
 	
-	private void initWeightMantrix() {
+	private void initWeightMatrix() {
 		for (int i = 0; i < weights.length; i++) {
 			for (int j = 0; j < weights[0].length; j++) {
-				weights[i][j] = MathUtils.random(-0.5f, 0.5f);
+				weights[i][j] = MoreMath.random(-0.5f, 0.5f);
 			}
 		}
 	}

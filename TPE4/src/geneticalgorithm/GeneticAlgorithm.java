@@ -8,7 +8,6 @@ public class GeneticAlgorithm {
 	private static final int[] structure = {5, 3, 1}; 
 	
 	private Configuration config;
-	private BreakCriteria breakCriteria;
 	
 	public GeneticAlgorithm(Configuration config) {
 		this.config = config;
@@ -27,7 +26,7 @@ public class GeneticAlgorithm {
 	 */
 	public NeuralNetwork getSolution() {
 		initPopulation();
-		while (!breakCriteria.isFinished(config)) {
+		while (!config.breakCriteria.isFinished(config)) {
 			if (!config.isMixtedSet()) {
 				int[] selected = config.selectionMethod[0].select(config);
 				Chromosome[] childs = config.crossoverMethod.cross(config, selected);

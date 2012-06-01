@@ -1,5 +1,6 @@
 package geneticalgorithm;
 
+import geneticalgorithm.breakcriteria.BreakCriteria;
 import geneticalgorithm.crossover.CrossoverMethod;
 import geneticalgorithm.selector.CandidateSelector;
 
@@ -34,6 +35,8 @@ public class Configuration {
 	public CandidateSelector[] selectionMethod;	// Metodo de seleccion
 	public CrossoverMethod crossoverMethod;		// Metodo de crossover
 	public CandidateSelector replaceMethod;		// Metodo de reemplazo
+	
+	public BreakCriteria breakCriteria;
 	
 	public boolean isMixtedSet() {
 		return SELECTOR_MIXTO.equals(selectionType);

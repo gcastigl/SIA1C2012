@@ -7,9 +7,8 @@ public class NeuralNetwork {
 	private Layer[] layers;
 	
 	/**
-	 * Crea una red con el structure[0] input y structure[structure.length - 1] 
-	 * output.
-	 * Todos los demas valores que se encuentren entre 0 y structure.length - 1 
+	 * Crea una red con input de largo structure[0].
+	 * Todos los demas valores que se encuentren entre 1 y structure.length - 1 
 	 * son creados como capas ocultas.
 	 */
 	public NeuralNetwork(int[] structure) {

@@ -26,9 +26,9 @@ public class NeuronalNetworkTest {
 	
 	private static Map<float[], float[]> getAndTrainingPoints() {
 		Map<float[], float[]> examples = new HashMap<float[], float[]>();
-		examples.put(new float[] {0, 0}, new float[] {0});
-		examples.put(new float[] {0, 1}, new float[] {0});
-		examples.put(new float[] {1, 0}, new float[] {0});
+		examples.put(new float[] {-1, -1}, new float[] {-1});
+		examples.put(new float[] {-1, 1}, new float[] {-1});
+		examples.put(new float[] {1, -1}, new float[] {-1});
 		examples.put(new float[] {1, 1}, new float[] {1});
 		return examples;
 	}

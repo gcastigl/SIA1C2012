@@ -38,7 +38,7 @@ public class GeneticAlgorithm {
 		config.population = new Chromosome[config.N];
 		for (int i = 0; i < config.N; i++) {
 			config.population[i] = new Chromosome(
-				new NeuralNetwork(config.net_structure).getLayers());
+				new NeuralNetwork(config.netConfig.structure).getLayers());
 		}
 	}
 

@@ -7,12 +7,13 @@ import geneticalgorithm.crossover.CrossoverMethod;
 import geneticalgorithm.selector.CandidateSelector;
 import geneticalgorithm.selector.EliteSelector;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Configuration {
+import neuronalnetwork.NetConfiguration;
 
-	public final int[] net_structure = { 2, 5, 1 };
+public class Configuration {
 	
 	private static Map<String, BreakCriteria> breakCriteriaMethods;
 	private static Map<String, CandidateSelector> selectorMethods;
@@ -46,8 +47,9 @@ public class Configuration {
 	public float cp;			// Probabilidad de cruce
 	public int elapsedGen;
 	// Para metodo MIXTO solamente. Cantidad de individuos utilizando Elite
-	// Elite Selector = SelctorArray[0]
 	public int ke;
+	// Para metodo Elite solamente. Cantidad de individuos mas aptos a seleccionar.
+	public int k;
 	
 	public Chromosome[] population;
 	
@@ -56,14 +58,16 @@ public class Configuration {
 	public CrossoverMethod 		crossoverMethod;	// Metodo de crossover
 	public CandidateSelector 	replaceMethod;		// Metodo de reemplazo
 	
+	public NetConfiguration netConfig;
 	
-	public void initialize() {
+	public void initialize() throws IOException {
 		initMethods();
 		breakCriteria = breakCriteriaMethods.get(breakCriteriaType);
 		selectionMethod = selectorMethods.get(selectionType);			
 		crossoverMethod = crossoverMethods.get(crossOverType);
 		replaceMethod = selectorMethods.get(replacementType);
 		elapsedGen = 0;
+		netConfig.initialize();
 	}
 
 	private static void initMethods() {

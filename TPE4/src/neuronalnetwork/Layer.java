@@ -75,4 +75,32 @@ public class Layer {
 	public int getInputLen() {
 		return inputLen;
 	}
+	
+	public boolean equals(Layer layer) {
+		if (inputLen != layer.inputLen) {
+			return false;
+		}
+		if (neurons != layer.neurons) {
+			return false;
+		}
+		float EPS = 0.0001f;
+		float diff;
+		// compare weights
+		for (int i = 0; i < weights.length; i++) {
+			for (int j = 0; j < weights[0].length; j++) {
+				diff = weights[i][j] - layer.weights[i][j];
+				if (Math.abs(diff) > EPS) {
+					return false;
+				}
+			}
+		}
+		// compare biases
+		for (int i = 0; i < bias.length; i++) {
+			diff = bias[i] - layer.bias[i];
+			if (Math.abs(diff) > EPS) {
+				return false;
+			}	
+		}
+		return true;
+	}
 }

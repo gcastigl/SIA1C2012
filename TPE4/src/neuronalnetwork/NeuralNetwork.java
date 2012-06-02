@@ -44,4 +44,16 @@ public class NeuralNetwork {
 	public int getTotalLayers() {
 		return layers.length;
 	}
+
+	public boolean equals(NeuralNetwork net) {
+		if (layers.length != net.layers.length) {
+			return false;
+		}
+		for (int i = 0; i < layers.length; i++) {
+			if (!layers[i].equals(net.layers[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

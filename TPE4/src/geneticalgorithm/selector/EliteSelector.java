@@ -45,7 +45,7 @@ public class EliteSelector extends CandidateSelector {
 	}
 
 	@Override
-	public void replace(Configuration config) {
+	public void replace(Configuration config, Chromosome[] childs) {
 
 	}
 

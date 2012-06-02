@@ -49,5 +49,5 @@ public abstract class CandidateSelector {
 	 * un solo individuo que sustituye generalmente al peor.
 	 * </pre>
 	 */
-	public abstract void replace(Configuration config);
+	public abstract void replace(Configuration config, Chromosome[] childs);
 }

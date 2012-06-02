@@ -15,7 +15,13 @@ public abstract class CrossoverMethod {
 	 * <pre>
 	 */
 	public abstract Chromosome[] cross(Configuration config, int[] selected);
+	}
 
-	public abstract Chromosome[] mutate(Configuration config, int[] selected);
+	/**
+	 * Cruza c1 con c2 y devuelve un vector con los dos hijos generados 
+	 */
+	protected abstract Chromosome[] cross(Chromosome c1, Chromosome c2);
+	
+	public abstract Chromosome[] mutate(Configuration config, Chromosome[] childs);
 
 }

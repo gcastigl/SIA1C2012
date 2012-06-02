@@ -1,5 +1,6 @@
 package geneticalgorithm;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import neuronalnetwork.NeuralNetwork;
 
 
@@ -27,9 +28,13 @@ public class GeneticAlgorithm {
 	public NeuralNetwork getSolution() {
 		initPopulation();
 		while (!config.breakCriteria.isFinished(config)) {
-			if (!config.isMixtedSet()) {
+			if (!config.isMixtedReplacementSet()) {
 				int[] selected = config.selectionMethod[0].select(config);
 				Chromosome[] childs = config.crossoverMethod.cross(config, selected);
+				
+			} else {
+				// TODO: implementar para el caso de Mixto.
+				throw new NotImplementedException();
 			}
 			
 		}

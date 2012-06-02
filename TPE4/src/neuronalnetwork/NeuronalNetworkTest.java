@@ -6,13 +6,12 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import neuronalnetwork.function.SgFunction;
-import neuronalnetwork.function.SigmoidFunction;
 import neuronalnetwork.function.TransferFunction;
 
 public class NeuronalNetworkTest {
 
 	public static void main(String[] args) {
-		NeuralNetwork net = new NeuralNetwork(new int[] {2, 1});
+		NeuralNetwork net = new NeuralNetwork(new int[] {2, 2, 1});
 		TransferFunction f = new SgFunction();
 		Map<float[], float[]> examples = getAndTrainingPoints();
 		evalNet(net, examples, f);

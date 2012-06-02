@@ -8,11 +8,8 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.Map.Entry;
-import java.util.Scanner;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.ExplicitGroup;
+import java.util.StringTokenizer;
 
 public class NetConfiguration {
 

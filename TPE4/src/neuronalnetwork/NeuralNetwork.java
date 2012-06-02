@@ -17,14 +17,14 @@ public class NeuralNetwork {
 		}
 		layers = new Layer[structure.length - 1];
 		for (int i = 1; i < structure.length; i++) {
-			layers[i - 1] = createLayer(structure, i);
+			layers[i - 1] = new Layer(structure[i - 1], structure[i]);
 		}
 	}
-
-	private Layer createLayer(int[] structure, int index) {
-		return new Layer(structure[index - 1], structure[index]);
-	}
 	
+	public NeuralNetwork(Layer[] layers) {
+		this.layers = layers;
+	}
+		
 	public float[] evaluate(float[] input, TransferFunction f) {
 		float[] aux = input;
 		for(Layer l: layers) {

@@ -1,6 +1,5 @@
 package geneticalgorithm.selector;
 
-import geneticalgorithm.Chromosome;
 import geneticalgorithm.Configuration;
 
 /**
@@ -8,11 +7,6 @@ import geneticalgorithm.Configuration;
  * configuracion.
  */
 public class EliteSelector extends CandidateSelector {
-
-	@Override
-	protected void calcFitness(Chromosome c) {
-		
-	}
 	
 	@Override
 	public int[] select(Configuration config) {

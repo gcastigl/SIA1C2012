@@ -2,6 +2,7 @@ package geneticalgorithm.selector;
 
 import geneticalgorithm.Chromosome;
 import geneticalgorithm.Configuration;
+import neuronalnetwork.NeuralNetwork;
 
 public abstract class CandidateSelector {
 
@@ -22,7 +23,10 @@ public abstract class CandidateSelector {
 	/**
 	 * Setea el fitness del invididuo.
 	 */
-	protected abstract void calcFitness(Chromosome c);
+	protected void calcFitness(Chromosome c) {
+		NeuralNetwork n = new NeuralNetwork(c.getLayers());
+		
+	}
 
 	/**
 	 * <pre>

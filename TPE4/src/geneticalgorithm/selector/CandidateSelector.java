@@ -27,7 +27,8 @@ public abstract class CandidateSelector {
 	protected void calcFitness(Configuration config, Chromosome c) {
 		NeuralNetwork net = new NeuralNetwork(c.getLayers());
 		float mse = MSE.calc(net, config.netConfig.f, config.netConfig.testing);
-		c.setFitness(1 / mse);
+		// NOTE: using MINUS mse!
+		c.setFitness(-mse);
 	}
 
 	/**

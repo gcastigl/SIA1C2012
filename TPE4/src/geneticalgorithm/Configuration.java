@@ -12,6 +12,8 @@ import java.util.Map;
 
 public class Configuration {
 
+	public final int[] net_structure = { 2, 5, 1 };
+	
 	private static Map<String, BreakCriteria> breakCriteriaMethods;
 	private static Map<String, CandidateSelector> selectorMethods;
 	private static Map<String, CrossoverMethod> crossoverMethods;
@@ -42,6 +44,7 @@ public class Configuration {
 	public int maxGen;			// Numero maximo de generaciones
 	public float mp;			// Probabilidad de mutacion
 	public float cp;			// Probabilidad de cruce
+	public int elapsedGen;
 	// Para metodo MIXTO solamente. Cantidad de individuos utilizando Elite
 	// Elite Selector = SelctorArray[0]
 	public int ke;
@@ -52,13 +55,15 @@ public class Configuration {
 	public CandidateSelector 	selectionMethod;	// Metodo de seleccion
 	public CrossoverMethod 		crossoverMethod;	// Metodo de crossover
 	public CandidateSelector 	replaceMethod;		// Metodo de reemplazo
-		
+	
+	
 	public void initialize() {
 		initMethods();
 		breakCriteria = breakCriteriaMethods.get(breakCriteriaType);
 		selectionMethod = selectorMethods.get(selectionType);			
 		crossoverMethod = crossoverMethods.get(crossOverType);
-		replaceMethod = selectorMethods.get(replacementType);	
+		replaceMethod = selectorMethods.get(replacementType);
+		elapsedGen = 0;
 	}
 
 	private static void initMethods() {

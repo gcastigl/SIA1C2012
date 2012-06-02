@@ -3,9 +3,7 @@ package geneticalgorithm;
 import neuronalnetwork.NeuralNetwork;
 
 public class GeneticAlgorithm {
-
-	private static final int[] structure = { 5, 3, 1 };
-
+	
 	private Configuration config;
 
 	public GeneticAlgorithm(Configuration config) {
@@ -31,6 +29,7 @@ public class GeneticAlgorithm {
 			config.crossoverMethod.cross(config, selected);
 			config.crossoverMethod.mutate(config, selected);
 			config.replaceMethod.replace(config);
+			config.elapsedGen++;
 		}
 		return null;
 	}
@@ -39,7 +38,7 @@ public class GeneticAlgorithm {
 		config.population = new Chromosome[config.N];
 		for (int i = 0; i < config.N; i++) {
 			config.population[i] = new Chromosome(
-					new NeuralNetwork(structure).getLayers());
+				new NeuralNetwork(config.net_structure).getLayers());
 		}
 	}
 

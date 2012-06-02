@@ -1,90 +1,78 @@
 package neuronalnetwork;
 
-import util.MoreMath;
 import neuronalnetwork.function.TransferFunction;
+import util.MoreMath;
 
 public class Layer {
+
+	private int neurons;
+	private int inputLen;
 	
 	private float[][] weights;
-	private int neurons; 
-	private int outputLen;
-	// Used for backpropagation
+	private float[] bias;			// Bias for each neuron
+	
+	// output before applying f() - Used for backpropagation
 	private float[] h;
 	
-	/**
-	 * Inicializa este Layer con input neuronas como 
-	 * layer de salida (no crea coencciones con capas sucesivas).
-	 */
-	public Layer(int neurons) {
-		this(neurons, neurons, false);
-	}
-	
-	/**
-	 * Inicializa este layer con input neuronas, cada
-	 * una con output conecciones con la capa siguiente.
-	 */
-	public Layer(int neurons, int outputLen) {
-		this(neurons, outputLen, true);
-	}
-	
-	private Layer(int neurons, int outputLen, boolean outerLayer) {
+	public Layer(int inputLen, int neurons) {
 		this.neurons = neurons;
-		this.outputLen = outputLen;
-		h = new float[outputLen];
-		if (outerLayer) {
-			// input + 1 because of the Bias input for each neuron
-			weights = new float[neurons + 1][outputLen];			
-			initWeightMatrix();
-		}
+		this.inputLen = inputLen;
+		h = new float[neurons];
+		weights = new float[inputLen][neurons];
+		bias = new float[neurons];
+		initWeights();
 	}
-	
-	private void initWeightMatrix() {
+
+	private void initWeights() {
 		for (int i = 0; i < weights.length; i++) {
 			for (int j = 0; j < weights[0].length; j++) {
 				weights[i][j] = MoreMath.random(-0.5f, 0.5f);
 			}
 		}
+		for (int i = 0; i < neurons; i++) {			
+			bias[i] = MoreMath.random(-0.5f, 0.5f);
+		}
 	}
 
-	public float[][] getWeights() {
-		return weights;
-	}
-	
-	public int getNeurons() {
-		return neurons;
-	}
-	
-	public int getOutputLen() {
-		return outputLen;
-	}
-	
 	public float[] evaluate(float[] in, TransferFunction f) {
 		validateInputDimention(in.length);
-		if (weights == null) {	// this is an outer layer
-			return in;
-		}
-		float[] output = new float[outputLen];
-		for (int i = 0; i < outputLen; i++) {
+		float[] output = new float[neurons];
+		for (int i = 0; i < neurons; i++) {
 			float sum = 0;
-			for (int j = 0; j < neurons; j++) {
+			for (int j = 0; j < inputLen; j++) {
 				sum += weights[j][i] * in[j];
 			}
-			sum -= weights[neurons][i];	// Bias
+			sum -= bias[i]; // Bias
 			h[i] = sum;
 			output[i] = f.valueAt(sum);
 		}
 		return output;
 	}
-	
-	private void validateInputDimention(int dim) {
-		if (dim != neurons) {
-			throw new IllegalArgumentException("Invalid input dimention given: " 
-				+ dim + ". Should be " + neurons);
+
+	private void validateInputDimention(int in) {
+		if (in != inputLen) {
+			throw new IllegalArgumentException(
+				"Invalid input dimention given: " + in + "but should be " + inputLen);
 		}
 	}
-	
+
 	public float[] getH() {
 		return h;
 	}
 
+	public float[][] getWeights() {
+		return weights;
+	}
+
+	public float[] getBias() {
+		return bias;
+	}
+	
+	public int getNeuronsDim() {
+		return neurons;
+	}
+
+	public int getInputLen() {
+		return inputLen;
+	}
 }

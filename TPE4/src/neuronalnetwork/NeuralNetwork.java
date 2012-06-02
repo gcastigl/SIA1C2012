@@ -16,19 +16,14 @@ public class NeuralNetwork {
 		if (structure.length < 2) {
 			throw new IllegalArgumentException("Net must have at least one layer");
 		}
-		layers = new Layer[structure.length];
-		for (int i = 0; i < structure.length; i++) {
-			layers[i] = createLayer(structure, i);
+		layers = new Layer[structure.length - 1];
+		for (int i = 1; i < structure.length; i++) {
+			layers[i - 1] = createLayer(structure, i);
 		}
 	}
 
 	private Layer createLayer(int[] structure, int index) {
-		int neurons = structure[index];
-		if (index == structure.length - 1) {
-			// Last layer is created as Output Layer
-			return new Layer(neurons);
-		}
-		return new Layer(neurons, structure[index + 1]);
+		return new Layer(structure[index - 1], structure[index]);
 	}
 	
 	public float[] evaluate(float[] input, TransferFunction f) {

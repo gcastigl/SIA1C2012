@@ -24,7 +24,7 @@ public class NeuralNetwork {
 	public NeuralNetwork(Layer[] layers) {
 		this.layers = layers;
 	}
-		
+	
 	public float[] evaluate(float[] input, TransferFunction f) {
 		float[] aux = input;
 		for(Layer l: layers) {

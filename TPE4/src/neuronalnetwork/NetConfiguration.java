@@ -11,11 +11,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.StringTokenizer;
 
+import neuronalnetwork.function.TransferFunction;
+
 public class NetConfiguration {
 
 	private static final String examplesFile = "./TPE4/res/examples.txt";
 
 	public int[] structure;
+	public TransferFunction f;
 	public Map<float[], float[]> training;
 	public Map<float[], float[]> testing;
 

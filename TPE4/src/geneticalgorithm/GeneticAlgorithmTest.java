@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import neuronalnetwork.NetConfiguration;
 import neuronalnetwork.NeuralNetwork;
+import neuronalnetwork.function.SgFunction;
 
 public class GeneticAlgorithmTest {
 	
@@ -40,6 +41,7 @@ public class GeneticAlgorithmTest {
 		config.netConfig = new NetConfiguration();
 		config.netConfig.structure = new int[] {2, 5, 1};
 		config.netConfig.p = 0.7f;
+		config.netConfig.f = new SgFunction();
 		return config;
 	}
 	

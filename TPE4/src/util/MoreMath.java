@@ -23,4 +23,5 @@ public class MoreMath {
 			throw new IllegalArgumentException("Argument must match: " + v1.length + " != " + v2.length);
 		}
 	}
+
 }

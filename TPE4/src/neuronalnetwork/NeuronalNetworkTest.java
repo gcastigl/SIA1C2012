@@ -10,9 +10,10 @@ import neuronalnetwork.function.TransferFunction;
 
 public class NeuronalNetworkTest {
 
+	private static TransferFunction f = new SgFunction();
+	private static NeuralNetwork net = new NeuralNetwork(new int[] {2, 2, 1});
+	
 	public static void main(String[] args) {
-		NeuralNetwork net = new NeuralNetwork(new int[] {2, 2, 1});
-		TransferFunction f = new SgFunction();
 		Map<float[], float[]> examples = getAndTrainingPoints();
 		evalNet(net, examples, f);
 		System.out.println("************************");
@@ -37,7 +38,9 @@ public class NeuronalNetworkTest {
 		for (Entry<float[], float[]> entry: examples.entrySet()) {
 			float[] input = entry.getKey();
 			float[] output = net.evaluate(input, f);
-			System.out.println("Eval: " + Arrays.toString(input) + " ===> " + Arrays.toString(output));
+			System.out.println("Eval: " + Arrays.toString(input) + 
+				" ===> " + Arrays.toString(output));
 		}
+		System.out.println(MSE.calc(net, f, examples));
 	}
 }

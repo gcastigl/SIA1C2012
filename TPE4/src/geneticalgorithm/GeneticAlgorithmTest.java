@@ -8,7 +8,7 @@ public class GeneticAlgorithmTest {
 		// Genetic Algorithm creation
 		Configuration config = createConfiguration();
 		config.initialize();
-		GeneticAlgorithm ga =  new GeneticAlgorithm(config);
+		GeneticAlgorithm ga = new GeneticAlgorithm(config);
 		NeuralNetwork best = ga.getSolution();
 		System.out.println(best);
 	}

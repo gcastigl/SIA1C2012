@@ -11,4 +11,9 @@ public class Clasic extends CrossoverMethod {
 		return null;
 	}
 
+	@Override
+	public Chromosome[] mutate(Configuration config, int[] selected) {
+		return null;
+	}
+
 }

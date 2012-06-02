@@ -1,15 +1,14 @@
 package geneticalgorithm;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import geneticalgorithm.breakcriteria.BreakCriteria;
 import geneticalgorithm.breakcriteria.MaxGenerationCriteria;
 import geneticalgorithm.crossover.Clasic;
 import geneticalgorithm.crossover.CrossoverMethod;
 import geneticalgorithm.selector.CandidateSelector;
 import geneticalgorithm.selector.EliteSelector;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Configuration {
 
@@ -49,18 +48,17 @@ public class Configuration {
 	
 	public Chromosome[] population;
 	
-	public BreakCriteria breakCriteria;			// Metodo de corte
-	public CandidateSelector[] selectionMethod;	// Metodo de seleccion
-	public CrossoverMethod crossoverMethod;		// Metodo de crossover
-	public CandidateSelector[] replaceMethod;	// Metodo de reemplazo
-	
-	public boolean isMixtedReplacementSet() {
-		return SELECTOR_MIXTO.equals(selectionType);
-	}
-	
+	public BreakCriteria 		breakCriteria;		// Metodo de corte
+	public CandidateSelector 	selectionMethod;	// Metodo de seleccion
+	public CrossoverMethod 		crossoverMethod;	// Metodo de crossover
+	public CandidateSelector 	replaceMethod;		// Metodo de reemplazo
+		
 	public void initialize() {
 		initMethods();
-		initVariables();
+		breakCriteria = breakCriteriaMethods.get(breakCriteriaType);
+		selectionMethod = selectorMethods.get(selectionType);			
+		crossoverMethod = crossoverMethods.get(crossOverType);
+		replaceMethod = selectorMethods.get(replacementType);	
 	}
 
 	private static void initMethods() {
@@ -75,24 +73,4 @@ public class Configuration {
 		crossoverMethods.put(Configuration.CROSSOVER_CLASICO, new Clasic());
 	}
 
-	private void initVariables() {
-		// Breakcriteria
-		breakCriteria = breakCriteriaMethods.get(breakCriteriaType);
-		// Candidate selector
-		if (Configuration.SELECTOR_MIXTO.equals(selectionType)) {
-			throw new NotImplementedException();
-		} else {
-			selectionMethod = new CandidateSelector[1];
-			selectionMethod[0] = selectorMethods.get(selectionType);			
-		}
-		// Crossover
-		crossoverMethod = crossoverMethods.get(crossOverType);
-		// Replacement
-		if (Configuration.SELECTOR_MIXTO.equals(replacementType)) {
-			throw new NotImplementedException();
-		} else {
-			replaceMethod = new CandidateSelector[1];
-			replaceMethod[0] = selectorMethods.get(replacementType);			
-		}
-	}
 }

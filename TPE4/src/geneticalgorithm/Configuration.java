@@ -60,8 +60,9 @@ public class Configuration {
 	
 	public NetConfiguration netConfig;
 	
+	
 	public void initialize() throws IOException {
-		initMethods();
+		initMethods(this);
 		breakCriteria = breakCriteriaMethods.get(breakCriteriaType);
 		selectionMethod = selectorMethods.get(selectionType);			
 		crossoverMethod = crossoverMethods.get(crossOverType);
@@ -70,7 +71,7 @@ public class Configuration {
 		netConfig.initialize();
 	}
 
-	private static void initMethods() {
+	private static void initMethods(Configuration instance) {
 		// Break criteria
 		breakCriteriaMethods= new HashMap<String, BreakCriteria>();
 		breakCriteriaMethods.put(Configuration.BREAKCRITERIA_MAX_GEN, new MaxGenerationCriteria());
@@ -79,7 +80,7 @@ public class Configuration {
 		selectorMethods.put(Configuration.SELECTOR_ELITE, new EliteSelector());
 		// Crossover
 		crossoverMethods = new HashMap<String, CrossoverMethod>();
-		crossoverMethods.put(Configuration.CROSSOVER_CLASICO, new Clasic());
+		crossoverMethods.put(Configuration.CROSSOVER_CLASICO, new Clasic(instance));
 	}
 
 }

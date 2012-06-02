@@ -9,6 +9,10 @@ import geneticalgorithm.Configuration;
  */
 public class Clasic extends CrossoverMethod {
 	
+	public Clasic(Configuration config) {
+		super(config);
+	}
+
 	@Override
 	protected Chromosome[] cross(Chromosome c1, Chromosome c2) {
 		Chromosome[] childs = new Chromosome[2];
@@ -16,7 +20,7 @@ public class Clasic extends CrossoverMethod {
 	}
 	
 	@Override
-	public Chromosome[] mutate(Configuration config, Chromosome[] childs) {
+	public Chromosome[] mutate(Chromosome[] childs) {
 		return childs;
 	}
 

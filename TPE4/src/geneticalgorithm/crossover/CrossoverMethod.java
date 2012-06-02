@@ -2,9 +2,19 @@ package geneticalgorithm.crossover;
 
 import geneticalgorithm.Chromosome;
 import geneticalgorithm.Configuration;
+import neuronalnetwork.NetSerializer;
 
 public abstract class CrossoverMethod {
 
+	protected float[] netAsArray;
+	protected Configuration config;
+	
+	public CrossoverMethod(Configuration config) {
+		this.config = config;
+		int connections = NetSerializer.totalConnections(config.netConfig.structure);
+		netAsArray = new float[connections];
+	}
+		
 	/**
 	 * <pre>
 	 * cross() + mutate() son los operadores de busqueda del algoritmo. 
@@ -14,7 +24,7 @@ public abstract class CrossoverMethod {
 	 * de un tamaño determinado.
 	 * <pre>
 	 */
-	public Chromosome[] cross(Configuration config, int[] selected) {
+	public Chromosome[] cross(int[] selected) {
 		Chromosome[] population = config.population;
 		Chromosome[] newIndividuals = new Chromosome[selected.length]; 
 		boolean oddSelection = selected.length % 2 == 1;
@@ -42,6 +52,6 @@ public abstract class CrossoverMethod {
 	 */
 	protected abstract Chromosome[] cross(Chromosome c1, Chromosome c2);
 	
-	public abstract Chromosome[] mutate(Configuration config, Chromosome[] childs);
+	public abstract Chromosome[] mutate(Chromosome[] childs);
 
 }

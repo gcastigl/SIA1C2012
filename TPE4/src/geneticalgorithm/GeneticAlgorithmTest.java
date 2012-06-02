@@ -35,7 +35,7 @@ public class GeneticAlgorithmTest {
 		config.crossOverType 		= Configuration.CROSSOVER_CLASICO;
 		config.replacementType 		= Configuration.SELECTOR_ELITE;
 		// Si selectionType || replacementType es Elite, setear k
-		config.k = 20;
+		config.k_elite = 20;
 		// Set up net configuration
 		config.netConfig = new NetConfiguration();
 		config.netConfig.structure = new int[] {2, 5, 1};

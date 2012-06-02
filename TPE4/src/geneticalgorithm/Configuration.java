@@ -47,9 +47,9 @@ public class Configuration {
 	public float cp;			// Probabilidad de cruce
 	public int elapsedGen;
 	// Para metodo MIXTO solamente. Cantidad de individuos utilizando Elite
-	public int ke;
+	public int ke_mixted;
 	// Para metodo Elite solamente. Cantidad de individuos mas aptos a seleccionar.
-	public int k;
+	public int k_elite;
 	
 	public Chromosome[] population;
 	

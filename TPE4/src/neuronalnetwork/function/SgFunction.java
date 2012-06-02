@@ -10,7 +10,8 @@ public class SgFunction extends TransferFunction {
 
 	@Override
 	public float valueAtDerivated(float x) {
-		throw new IllegalStateException("Sg function does not have derivate function");
+//		throw new IllegalStateException("Sg function does not have derivate function");
+		return 1;
 	}
 
 }

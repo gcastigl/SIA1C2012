@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import neuronalnetwork.function.SgFunction;
 import neuronalnetwork.function.SigmoidFunction;
 import neuronalnetwork.function.TransferFunction;
 
@@ -12,12 +13,12 @@ public class NeuronalNetworkTest {
 
 	public static void main(String[] args) {
 		NeuralNetwork net = new NeuralNetwork(new int[] {2, 1});
-		TransferFunction f = new SigmoidFunction();
+		TransferFunction f = new SgFunction();
 		Map<float[], float[]> examples = getAndTrainingPoints();
 		evalNet(net, examples, f);
 		System.out.println("************************");
 		BackPropagation backProp = new BackPropagation(f, 0.1f);
-		backProp.train(net, examples, 1000);
+		backProp.train(net, examples, 100);
 		evalNet(net, examples, f);
 		System.out.println("Termino");
 //		float[] output = net.evaluate(input, f);

@@ -37,7 +37,7 @@ public class BackPropagation {
 		Layer l = net.getLayer(k);
 		deltas[k] = getLastLayerDelta(l, output, expectedOutput);
 		// Eval all deltas for all layers from 0 to k - 1;
-		for (int m = k - 1; m > 0; m--) {
+		for (int m = k - 1; m >= 0; m--) {
 			deltas[m] = getLayerDelta(m, deltas[m + 1]);
 		}
 		updateUnits(deltas, input);
@@ -56,10 +56,9 @@ public class BackPropagation {
 		Layer curr = net.getLayer(m);
 		float[] h = curr.getH();
 		float[] delta = new float[curr.getNeuronsDim()];
-		float[][] nextLayerWeights = curr.getWeights();
+		float[][] nextLayerWeights = net.getLayer(m + 1).getWeights();
 
 		for (int i = 0; i < delta.length; i++) {
-			System.out.println("");
 			float sum = MoreMath.dotProduct(nextLayerWeights[i], nextLayerDelta);
 			delta[i] = f.valueAtDerivated(h[i]) * sum;
 		}

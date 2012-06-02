@@ -2,6 +2,7 @@ package geneticalgorithm.selector;
 
 import geneticalgorithm.Chromosome;
 import geneticalgorithm.Configuration;
+import neuronalnetwork.MSE;
 import neuronalnetwork.NeuralNetwork;
 
 public abstract class CandidateSelector {
@@ -16,16 +17,17 @@ public abstract class CandidateSelector {
 	 */
 	public void evaluate(Configuration config) {
 		for (Chromosome c : config.population) {
-			calcFitness(c);
+			calcFitness(config, c);
 		}
 	}
 
 	/**
 	 * Setea el fitness del invididuo.
 	 */
-	protected void calcFitness(Chromosome c) {
-		NeuralNetwork n = new NeuralNetwork(c.getLayers());
-		
+	protected void calcFitness(Configuration config, Chromosome c) {
+		NeuralNetwork net = new NeuralNetwork(c.getLayers());
+		float mse = MSE.calc(net, config.netConfig.f, config.netConfig.testing);
+		c.setFitness(1 / mse);
 	}
 
 	/**

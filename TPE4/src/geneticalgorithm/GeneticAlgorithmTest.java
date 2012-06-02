@@ -25,7 +25,7 @@ public class GeneticAlgorithmTest {
 	
 	private static Configuration createConfiguration() throws IOException {
 		Configuration config = new Configuration();
-		config.N = 50;
+		config.N = 20;
 		config.G = 0.6f;
 		config.maxGen = 100;
 		config.mp = 0.01f;
@@ -36,7 +36,7 @@ public class GeneticAlgorithmTest {
 		config.crossOverType 		= Configuration.CROSSOVER_CLASICO;
 		config.replacementType 		= Configuration.SELECTOR_ELITE;
 		// Si selectionType || replacementType es Elite, setear k
-		config.k_elite = 20;
+		config.k_elite = (int) (config.N * 0.4f);
 		// Set up net configuration
 		config.netConfig = new NetConfiguration();
 		config.netConfig.structure = new int[] {2, 5, 1};

@@ -1,4 +1,7 @@
-package geneticalgorithm;
+package main;
+
+import geneticalgorithm.Configuration;
+import geneticalgorithm.GeneticAlgorithm;
 
 import java.io.IOException;
 

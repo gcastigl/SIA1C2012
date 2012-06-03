@@ -1,10 +1,13 @@
-package neuronalnetwork;
+package main;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import neuronalnetwork.BackPropagation;
+import neuronalnetwork.MSE;
+import neuronalnetwork.NeuralNetwork;
 import neuronalnetwork.function.SgFunction;
 import neuronalnetwork.function.TransferFunction;
 

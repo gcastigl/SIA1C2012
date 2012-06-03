@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -66,7 +67,16 @@ public class NetConfiguration {
 
 	private void divideExamples(List<TrainItem> examples) {
 		int forTraining = (int) (examples.size() * p);
-		training = examples.subList(0, forTraining);
-		testing = examples.subList(forTraining, examples.size());
+		training = new ArrayList<TrainItem>();
+		testing = new ArrayList<TrainItem>();
+		int offset = 0;
+		for (TrainItem item: examples) {
+			if (offset < forTraining) {
+				training.add(item);
+			} else {
+				testing.add(item);
+			}
+			offset++;
+		}
 	}
 }

@@ -31,7 +31,7 @@ public class GeneticAlgorithm {
 			config.replaceMethod.replace(childs);
 			config.elapsedGen++;
 		}
-		return null;
+		return findBest().createIndividual();
 	}
 
 	private void initPopulation() {
@@ -42,4 +42,14 @@ public class GeneticAlgorithm {
 		}
 	}
 
+	private Chromosome findBest() {
+		Chromosome best = null;
+		for (int i = 0; i < config.population.length; i++) {
+			Chromosome c = config.population[i];
+			if (best == null || best.getFitnes() < c.getFitnes()) {
+				best = c;
+			}
+		}
+		return best;
+	}
 }

@@ -11,12 +11,16 @@ import java.util.Arrays;
  */
 public class EliteSelector extends CandidateSelector {
 
+	public EliteSelector(Configuration config) {
+		super(config);
+	}
+
 	// Used to sort chromosome to choose the best k
-	ChromosomeContainer[] array;
+	private ChromosomeContainer[] array;
 
 	@Override
-	public int[] select(Configuration config) {
-		sortPopulationByFitness(config);
+	public int[] select() {
+		sortPopulationByFitness();
 		// Get the best k individuals
 		int[] selected = new int[config.k_elite];
 		for (int i = 0; i < selected.length; i++) {
@@ -25,7 +29,7 @@ public class EliteSelector extends CandidateSelector {
 		return selected;
 	}
 
-	private void sortPopulationByFitness(Configuration config) {
+	private void sortPopulationByFitness() {
 		Chromosome[] population = config.population;
 		if (array == null) {
 			initArray(population.length);
@@ -45,8 +49,8 @@ public class EliteSelector extends CandidateSelector {
 	}
 
 	@Override
-	public void replace(Configuration config, Chromosome[] childs) {
-
+	public void replace(Chromosome[] childs) {
+		 
 	}
 
 	private static class ChromosomeContainer implements

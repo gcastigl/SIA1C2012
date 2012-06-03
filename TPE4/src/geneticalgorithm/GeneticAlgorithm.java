@@ -24,11 +24,11 @@ public class GeneticAlgorithm {
 	public NeuralNetwork getSolution() {
 		initPopulation();
 		while (!config.breakCriteria.isFinished(config)) {
-			config.selectionMethod.evaluate(config);
-			int[] selected = config.selectionMethod.select(config);
+			config.selectionMethod.evaluate();
+			int[] selected = config.selectionMethod.select();
 			Chromosome[] childs = config.crossoverMethod.cross(selected);
 			config.crossoverMethod.mutate(childs);
-			config.replaceMethod.replace(config, childs);
+			config.replaceMethod.replace(childs);
 			config.elapsedGen++;
 		}
 		return null;

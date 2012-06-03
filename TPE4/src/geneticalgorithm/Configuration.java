@@ -77,7 +77,7 @@ public class Configuration {
 		breakCriteriaMethods.put(Configuration.BREAKCRITERIA_MAX_GEN, new MaxGenerationCriteria());
 		// Candidate selector + replacement
 		selectorMethods = new HashMap<String, CandidateSelector>();
-		selectorMethods.put(Configuration.SELECTOR_ELITE, new EliteSelector());
+		selectorMethods.put(Configuration.SELECTOR_ELITE, new EliteSelector(instance));
 		// Crossover
 		crossoverMethods = new HashMap<String, CrossoverMethod>();
 		crossoverMethods.put(Configuration.CROSSOVER_CLASICO, new Clasic(instance));

@@ -7,6 +7,12 @@ import neuronalnetwork.NeuralNetwork;
 
 public abstract class CandidateSelector {
 
+	protected Configuration config;
+	
+	public CandidateSelector(Configuration config) {
+		this.config = config;
+	}
+
 	/**
 	 * <pre>
 	 * Represena la bondad de una determianda solucion (es decir, el valor de la
@@ -15,16 +21,16 @@ public abstract class CandidateSelector {
 	 * en el simil biologico.
 	 * </pre>
 	 */
-	public void evaluate(Configuration config) {
+	public void evaluate() {
 		for (Chromosome c : config.population) {
-			calcFitness(config, c);
+			calcFitness(c);
 		}
 	}
 
 	/**
 	 * Setea el fitness del invididuo.
 	 */
-	protected void calcFitness(Configuration config, Chromosome c) {
+	protected void calcFitness(Chromosome c) {
 		NeuralNetwork net = new NeuralNetwork(c.getLayers());
 		float mse = MSE.calc(net, config.netConfig.f, config.netConfig.testing);
 		// NOTE: using MINUS mse!
@@ -38,7 +44,7 @@ public abstract class CandidateSelector {
 	 * aptos.
 	 * </pre>
 	 */
-	public abstract int[] select(Configuration config);
+	public abstract int[] select();
 
 	/**
 	 * <pre>
@@ -49,5 +55,5 @@ public abstract class CandidateSelector {
 	 * un solo individuo que sustituye generalmente al peor.
 	 * </pre>
 	 */
-	public abstract void replace(Configuration config, Chromosome[] childs);
+	public abstract void replace(Chromosome[] childs);
 }

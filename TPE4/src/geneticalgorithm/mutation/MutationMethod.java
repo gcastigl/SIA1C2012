@@ -1,9 +1,9 @@
 package geneticalgorithm.mutation;
 
-import neuronalnetwork.BackPropagation;
-import neuronalnetwork.NetConfiguration;
 import geneticalgorithm.Chromosome;
 import geneticalgorithm.Configuration;
+import neuronalnetwork.BackPropagation;
+import neuronalnetwork.NetConfiguration;
 
 public abstract class MutationMethod {
 
@@ -13,15 +13,18 @@ public abstract class MutationMethod {
 		this.config = config;
 	}
 	
-	public Chromosome[] mutate(Chromosome[] childs) {
+	public void mutate(Chromosome[] childs) {
 		for (Chromosome c: childs) {
-			if (config.backpropp > Math.random()) {
-				NetConfiguration netConfig = config.netConfig;
-				BackPropagation trainer = new BackPropagation(netConfig.f, netConfig.eta);
-				trainer.train(c.createIndividual(), netConfig.training, config.maxGen);
-			}
+			mutate(c);
 		}
-		return childs;
+	}
+	
+	public void mutate(Chromosome c) {
+		if (config.backpropp > Math.random()) {
+			NetConfiguration netConfig = config.netConfig;
+			BackPropagation trainer = new BackPropagation(netConfig.f, netConfig.eta);
+			trainer.train(c.createIndividual(), netConfig.training, config.maxGen);
+		}
 	}
 
 }

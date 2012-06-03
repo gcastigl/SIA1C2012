@@ -76,6 +76,7 @@ public class Configuration {
 		selectionMethod = selectorMethods.get(selectionType);			
 		crossoverMethod = crossoverMethods.get(crossOverType);
 		replaceMethod = selectorMethods.get(replacementType);
+		mutationMethod = mutationMethods.get(mutationType);
 		elapsedGen = 0;
 		netConfig.initialize();
 	}

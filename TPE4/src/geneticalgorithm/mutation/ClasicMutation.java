@@ -10,8 +10,7 @@ public class ClasicMutation extends MutationMethod {
 	}
 
 	@Override
-	public Chromosome[] mutate(Chromosome[] childs) {
-		// TODO: finish this method!!
-		return super.mutate(childs);
+	public void mutate(Chromosome childs) {
+		super.mutate(childs);
 	}
 }

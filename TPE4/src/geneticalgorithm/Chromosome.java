@@ -1,6 +1,7 @@
 package geneticalgorithm;
 
 import neuronalnetwork.Layer;
+import neuronalnetwork.NeuralNetwork;
 
 public class Chromosome {
 
@@ -21,5 +22,9 @@ public class Chromosome {
 	
 	public void setFitness(float fitness) {
 		this.fitness = fitness;
+	}
+	
+	public NeuralNetwork createIndividual() {
+		return new NeuralNetwork(layers);
 	}
 }

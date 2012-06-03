@@ -31,7 +31,7 @@ public abstract class CandidateSelector {
 	 * Setea el fitness del invididuo.
 	 */
 	protected void calcFitness(Chromosome c) {
-		NeuralNetwork net = new NeuralNetwork(c.getLayers());
+		NeuralNetwork net = c.createIndividual();
 		float mse = MSE.calc(net, config.netConfig.f, config.netConfig.testing);
 		// NOTE: using MINUS mse!
 		c.setFitness(-mse);

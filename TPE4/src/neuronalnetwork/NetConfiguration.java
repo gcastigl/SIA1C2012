@@ -5,10 +5,8 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import neuronalnetwork.function.TransferFunction;
@@ -20,8 +18,8 @@ public class NetConfiguration {
 	public int[] structure;
 	public TransferFunction f;
 	public float eta;
-	public Map<float[], float[]> training;
-	public Map<float[], float[]> testing;
+	public List<TrainItem> training;
+	public List<TrainItem> testing;
 
 	// Procentaje de los ejemplos para usar para training; los demas son para
 	// testing
@@ -32,18 +30,20 @@ public class NetConfiguration {
 	 * training y testing de acuerdo a p.
 	 */
 	public void initialize() throws IOException {
-		Map<float[], float[]> allexamples = new HashMap<float[], float[]>();
+		// FIXME: Hardcoded values!
+		int inputDim = 2;
+		int outputDim = 1;
+		List<TrainItem> allexamples = new LinkedList<TrainItem>();
 		try {
 			DataInputStream in = new DataInputStream(new FileInputStream(
 					examplesFile));
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String strLine;
 			while ((strLine = br.readLine()) != null) {
-				// FIXME: Hardcoded values!
-				float[] input = new float[2];
-				float[] output = new float[1];
+				float[] input = new float[inputDim];
+				float[] output = new float[outputDim];
 				parseLine(strLine, input, output);
-				allexamples.put(input, output);
+				allexamples.add(new TrainItem(input, output));
 			}
 			divideExamples(allexamples);
 			in.close();
@@ -64,18 +64,9 @@ public class NetConfiguration {
 		}
 	}
 
-	private void divideExamples(Map<float[], float[]> examples) {
-		training = new HashMap<float[], float[]>();
-		testing = new HashMap<float[], float[]>();
+	private void divideExamples(List<TrainItem> examples) {
 		int forTraining = (int) (examples.size() * p);
-		Iterator<Entry<float[], float[]>> it = examples.entrySet().iterator();
-		for (int i = 0; i < forTraining; i++) {
-			Entry<float[], float[]> entry = it.next();
-			training.put(entry.getKey(), entry.getValue());
-		}
-		while (it.hasNext()) {
-			Entry<float[], float[]> entry = it.next();
-			testing.put(entry.getKey(), entry.getValue());
-		}
+		training = examples.subList(0, forTraining);
+		testing = examples.subList(forTraining, examples.size());
 	}
 }

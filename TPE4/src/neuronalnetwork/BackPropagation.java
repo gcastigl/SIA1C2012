@@ -1,7 +1,6 @@
 package neuronalnetwork;
 
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.List;
 
 import neuronalnetwork.function.TransferFunction;
 
@@ -16,13 +15,11 @@ public class BackPropagation {
 		this.eta = eta;
 	}
 	
-	public void train(NeuralNetwork net, Map<float[], float[]> train, int epochs) {
+	public void train(NeuralNetwork net, List<TrainItem> train, int epochs) {
 		this.net = net;
 		while (epochs-- > 0) { 
-			for (Entry<float[], float[]> entryTrain: train.entrySet()) {
-				float[] input = entryTrain.getKey();
-				float[] expectedOutput = entryTrain.getValue();
-				train(input, expectedOutput);
+			for (TrainItem item: train) {
+				train(item.input, item.output);
 			}
 		}
 	}

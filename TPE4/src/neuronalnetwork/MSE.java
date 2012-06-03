@@ -1,17 +1,16 @@
 package neuronalnetwork;
 
-import java.util.Map;
-import java.util.Map.Entry;
+import java.util.List;
 
 import neuronalnetwork.function.TransferFunction;
 
 public class MSE {
 
 	public static float calc(NeuralNetwork net, TransferFunction f,
-			Map<float[], float[]> testExamples) {
+			List<TrainItem> testExamples) {
 		float mse = 0;
-		for (Entry<float[], float[]> test : testExamples.entrySet()) {
-			mse += calc(net, f, test.getKey(), test.getValue());
+		for (TrainItem test : testExamples) {
+			mse += calc(net, f, test.input, test.output);
 		}
 		return mse / 2;
 	}

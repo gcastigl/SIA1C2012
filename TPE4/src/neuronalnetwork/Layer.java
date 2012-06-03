@@ -5,13 +5,13 @@ import util.MoreMath;
 
 public class Layer {
 
-	private int neurons;
 	private int inputLen;
+	private int neurons;
 	
 	private float[][] weights;
 	private float[] bias;			// Bias for each neuron
 	
-	// output before applying f() - Used for backpropagation
+	// output of the layer before applying f() - Used for backpropagation
 	private float[] h;
 	
 	public Layer(int inputLen, int neurons) {

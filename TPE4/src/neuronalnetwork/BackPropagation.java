@@ -34,8 +34,7 @@ public class BackPropagation {
 		float[][] deltas = new float[k][];
 		// Eval delta for last layer (k)
 		k--;								// -1 to make k an index
-		Layer l = net.getLayer(k);
-		deltas[k] = getLastLayerDelta(l, output, expectedOutput);
+		deltas[k] = getLastLayerDelta(net.getLayer(k), output, expectedOutput);
 		// Eval all deltas for all layers from 0 to k - 1;
 		for (int m = k - 1; m >= 0; m--) {
 			deltas[m] = getLayerDelta(m, deltas[m + 1]);

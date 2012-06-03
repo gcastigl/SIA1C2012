@@ -28,17 +28,6 @@ public class NetSerializer {
 					offset++;
 				}
 			}
-			// save bias
-			float[] bias = l.getBias();
-			for (int j = 0; j < bias.length; j++) {
-				if (offset > end) {
-					return;
-				}
-				if (offset >= start) {
-					array[offset] = bias[j];						
-				}
-				offset++;
-			}
 		}
 	}
 
@@ -48,15 +37,10 @@ public class NetSerializer {
 		for (Layer l: net.getLayers()) {
 			// load weights
 			float[][] weights = l.getWeights();
-			float[] bias = l.getBias();
 			for (int i = 0; i < weights.length; i++) {
 				for (int j = 0; j < weights[0].length; j++) {
 					weights[i][j] = array[offset++];
 				}
-			}
-			// load bias
-			for (int j = 0; j < bias.length; j++) {
-				bias[j] = array[offset++];	
 			}
 		}
 		return new Chromosome(net.getLayers());

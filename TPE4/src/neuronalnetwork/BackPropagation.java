@@ -55,29 +55,29 @@ public class BackPropagation {
 		Layer curr = net.getLayer(m);
 		float[] h = curr.getH();
 		float[] delta = new float[curr.getNeuronsDim()];
-		float[][] nextLayerWeights = net.getLayer(m + 1).getWeights();
+		
+		Layer next = net.getLayer(m + 1);
+		float[][] nextLayerWeights = next.getWeights();
 
 		for (int i = 0; i < delta.length; i++) {
-			float sum = MoreMath.dotProduct(nextLayerWeights[i], nextLayerDelta);
+			float sum = 0;
+			for (int j = 0; j < next.getNeuronsDim(); j++) {
+				sum += nextLayerWeights[j][i] * nextLayerDelta[j];	
+			}
 			delta[i] = f.valueAtDerivated(h[i]) * sum;
 		}
 		return delta;
 	}
 
 	private void updateUnits(float[][] deltas, float[] input) {
-		for (int m = 0; m < deltas.length; m++) {
-			Layer curr = net.getLayer(m);
+		for (int layer = 0; layer < deltas.length; layer++) {
+			Layer curr = net.getLayer(layer);
 			float[][] weights = curr.getWeights();
-			float[] bias = curr.getBias();
 			// update connections
-			for (int i = 0; i < curr.getNeuronsDim(); i++) {
-				for (int j = 0; j < curr.getInputLen(); j++) {
-					float delta = getDelta(deltas, m, i, j, input);
-					weights[j][i] += delta;
+			for (int neuron = 0; neuron < weights.length; neuron++) {
+				for (int i = 0; i < weights[0].length; i++) {
+					weights[neuron][i] += getDelta(deltas, layer, neuron, i, input);
 				}
-				// update bias
-				float biasDelta = eta * deltas[m][i] * (-1);
-				bias[i] += biasDelta;
 			}
 		}
 	}
@@ -86,7 +86,7 @@ public class BackPropagation {
 		float[] h = net.getLayer(layer).getH();
 		float v;
 		if (layer == 0) {
-			v = input[in];
+			v = (in == input.length) ? -1 : input[in];
 		} else {
 			v = f.valueAt(h[neuron]);
 		}

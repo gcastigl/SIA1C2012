@@ -7,19 +7,20 @@ public class Layer {
 
 	private int inputLen;
 	private int neurons;
-	
+
 	private float[][] weights;
-	private float[] bias;			// Bias for each neuron
 	
 	// output of the layer before applying f() - Used for backpropagation
 	private float[] h;
+	// usado para copiar el array de entrada y agregar un -1 al final
+	private float[] biasedInputCache;
 	
 	public Layer(int inputLen, int neurons) {
 		this.neurons = neurons;
 		this.inputLen = inputLen;
 		h = new float[neurons];
-		weights = new float[inputLen][neurons];
-		bias = new float[neurons];
+		weights = new float[neurons][inputLen + 1];
+		biasedInputCache = new float[inputLen + 1];
 		initWeights();
 	}
 
@@ -29,22 +30,18 @@ public class Layer {
 				weights[i][j] = MoreMath.random(-0.5f, 0.5f);
 			}
 		}
-		for (int i = 0; i < neurons; i++) {			
-			bias[i] = MoreMath.random(-0.5f, 0.5f);
-		}
 	}
 
 	public float[] evaluate(float[] in, TransferFunction f) {
 		validateInputDimention(in.length);
+		// copia a biasedInputCache la entrada y agrega un -1 al final
+		System.arraycopy(in, 0, biasedInputCache, 0, in.length);
+		biasedInputCache[in.length] = -1;
+		
 		float[] output = new float[neurons];
-		for (int i = 0; i < neurons; i++) {
-			float sum = 0;
-			for (int j = 0; j < inputLen; j++) {
-				sum += weights[j][i] * in[j];
-			}
-			sum -= bias[i]; // Bias
-			h[i] = sum;
-			output[i] = f.valueAt(sum);
+		for (int n = 0; n < neurons; n++) {
+			h[n] = MoreMath.dotProduct(weights[n], biasedInputCache);
+			output[n] = f.valueAt(h[n]);
 		}
 		return output;
 	}
@@ -64,10 +61,6 @@ public class Layer {
 		return weights;
 	}
 
-	public float[] getBias() {
-		return bias;
-	}
-	
 	public int getNeuronsDim() {
 		return neurons;
 	}
@@ -75,7 +68,7 @@ public class Layer {
 	public int getInputLen() {
 		return inputLen;
 	}
-	
+
 	public boolean equals(Layer layer) {
 		if (inputLen != layer.inputLen) {
 			return false;
@@ -85,7 +78,6 @@ public class Layer {
 		}
 		float EPS = 0.0001f;
 		float diff;
-		// compare weights
 		for (int i = 0; i < weights.length; i++) {
 			for (int j = 0; j < weights[0].length; j++) {
 				diff = weights[i][j] - layer.weights[i][j];
@@ -93,13 +85,6 @@ public class Layer {
 					return false;
 				}
 			}
-		}
-		// compare biases
-		for (int i = 0; i < bias.length; i++) {
-			diff = bias[i] - layer.bias[i];
-			if (Math.abs(diff) > EPS) {
-				return false;
-			}	
 		}
 		return true;
 	}

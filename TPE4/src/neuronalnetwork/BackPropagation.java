@@ -73,7 +73,7 @@ public class BackPropagation {
 			// update connections
 			for (int i = 0; i < curr.getNeuronsDim(); i++) {
 				for (int j = 0; j < curr.getInputLen(); j++) {
-					float delta = getDelta(m, deltas, i, input);
+					float delta = getDelta(deltas, m, i, j, input);
 					weights[j][i] += delta;
 				}
 				// update bias
@@ -83,14 +83,14 @@ public class BackPropagation {
 		}
 	}
 	
-	private float getDelta(int m, float[][] deltas, int i, float[] input) {
-		float[] h = net.getLayer(m).getH();
+	private float getDelta(float[][] deltas, int layer, int neuron, int in, float[] input) {
+		float[] h = net.getLayer(layer).getH();
 		float v;
-		if (m == 0) {
-			v = input[i];
+		if (layer == 0) {
+			v = input[in];
 		} else {
-			v = f.valueAt(h[i]);
+			v = f.valueAt(h[neuron]);
 		}
-		return eta * deltas[m][i] * v;
+		return eta * deltas[layer][neuron] * v;
 	}
 }

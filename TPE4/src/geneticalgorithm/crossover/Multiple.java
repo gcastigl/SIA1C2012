@@ -28,9 +28,4 @@ public class Multiple extends CrossoverMethod {
 		return childs;
 	}
 
-	@Override
-	public Chromosome[] mutate(Chromosome[] childs) {
-		return null;
-	}
-
 }

@@ -27,7 +27,7 @@ public class GeneticAlgorithm {
 			config.selectionMethod.evaluate();
 			int[] selected = config.selectionMethod.select();
 			Chromosome[] childs = config.crossoverMethod.cross(selected);
-			config.crossoverMethod.mutate(childs);
+			config.mutationMethod.mutate(childs);
 			config.replaceMethod.replace(childs);
 			config.elapsedGen++;
 		}

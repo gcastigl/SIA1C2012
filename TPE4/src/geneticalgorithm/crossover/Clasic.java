@@ -27,10 +27,5 @@ public class Clasic extends CrossoverMethod {
 		childs[1] = NetSerializer.fromArray(config.netConfig.structure, netAsArray);
 		return childs;
 	}
-	
-	@Override
-	public Chromosome[] mutate(Chromosome[] childs) {
-		return childs;
-	}
 
 }

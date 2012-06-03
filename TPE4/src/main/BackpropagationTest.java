@@ -66,7 +66,8 @@ public class BackpropagationTest {
 		while (it.hasNext()) {
 			float[] v = it.next().getKey();
 			for (int i = 0; i < max.length; i++) {
-				v[i] /= max[i];
+				v[i] /= (2 * max[i]);	// [-0.5, 0.5]
+				v[i] += 0.5f;			// [0, 1]
 			}
 //			System.out.println(Arrays.toString(v));
 		}

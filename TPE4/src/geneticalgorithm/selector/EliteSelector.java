@@ -11,18 +11,22 @@ import java.util.Arrays;
  */
 public class EliteSelector extends CandidateSelector {
 
+	// Used to sort chromosome to choose the best k
+	private ChromosomeContainer[] array;
+
 	public EliteSelector(Configuration config) {
 		super(config);
 	}
 
-	// Used to sort chromosome to choose the best k
-	private ChromosomeContainer[] array;
-
 	@Override
 	public int[] select() {
+		return selectBestK((int) (config.G * config.N));
+	}
+
+	private int[] selectBestK(int k) {
 		sortPopulationByFitness();
 		// Get the best k individuals
-		int[] selected = new int[config.k_elite];
+		int[] selected = new int[k];
 		for (int i = 0; i < selected.length; i++) {
 			selected[i] = array[i].index;
 		}

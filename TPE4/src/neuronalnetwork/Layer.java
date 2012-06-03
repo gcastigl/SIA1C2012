@@ -52,7 +52,7 @@ public class Layer {
 	private void validateInputDimention(int in) {
 		if (in != inputLen) {
 			throw new IllegalArgumentException(
-				"Invalid input dimention given: " + in + "but should be " + inputLen);
+				"Invalid input dimention given: " + in + " but should be " + inputLen);
 		}
 	}
 

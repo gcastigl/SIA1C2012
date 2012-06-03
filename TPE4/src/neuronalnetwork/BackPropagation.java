@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import neuronalnetwork.function.TransferFunction;
-import util.MoreMath;
 
 public class BackPropagation {
 

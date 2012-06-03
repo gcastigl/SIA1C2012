@@ -4,6 +4,7 @@ import geneticalgorithm.breakcriteria.BreakCriteria;
 import geneticalgorithm.breakcriteria.MaxGenerationCriteria;
 import geneticalgorithm.crossover.Clasic;
 import geneticalgorithm.crossover.CrossoverMethod;
+import geneticalgorithm.crossover.Multiple;
 import geneticalgorithm.selector.CandidateSelector;
 import geneticalgorithm.selector.EliteSelector;
 
@@ -79,6 +80,7 @@ public class Configuration {
 		// Crossover
 		crossoverMethods = new HashMap<String, CrossoverMethod>();
 		crossoverMethods.put(Configuration.CROSSOVER_CLASICO, new Clasic(instance));
+		crossoverMethods.put(Configuration.CROSSOVER_MULTIPLE, new Multiple(instance));
 	}
 
 }

@@ -13,7 +13,7 @@ public class NetSerializer {
 	 * Serializa la red al array desde start hasta end inclusive.
 	 */
 	public static void toArray(Layer[] layers, float[] array, int start, int end) {
-		int offset = start;
+		int offset = 0;
 		for (Layer l: layers) {
 			// save weights
 			float[][] weights = l.getWeights();
@@ -22,7 +22,10 @@ public class NetSerializer {
 					if (offset > end) {
 						return;
 					}
-					array[offset++] = weights[i][j];
+					if (offset >= start) {
+						array[offset] = weights[i][j];
+					}
+					offset++;
 				}
 			}
 			// save bias
@@ -31,9 +34,11 @@ public class NetSerializer {
 				if (offset > end) {
 					return;
 				}
-				array[offset++] = bias[j];	
+				if (offset >= start) {
+					array[offset] = bias[j];						
+				}
+				offset++;
 			}
-			
 		}
 	}
 

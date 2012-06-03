@@ -19,6 +19,7 @@ public class NetConfiguration {
 
 	public int[] structure;
 	public TransferFunction f;
+	public float eta;
 	public Map<float[], float[]> training;
 	public Map<float[], float[]> testing;
 

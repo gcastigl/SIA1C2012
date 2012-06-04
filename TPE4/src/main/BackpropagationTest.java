@@ -7,7 +7,7 @@ import neuronalnetwork.BackPropagation;
 import neuronalnetwork.MSE;
 import neuronalnetwork.NeuralNetwork;
 import neuronalnetwork.TrainItem;
-import neuronalnetwork.function.SigmoidFunction;
+import neuronalnetwork.function.SgFunction;
 import neuronalnetwork.function.TransferFunction;
 
 public class BackpropagationTest {
@@ -18,7 +18,7 @@ public class BackpropagationTest {
 	public static void main(String[] args) {
 		List<TrainItem> examples = getExamplesSg();
 		NeuralNetwork net = new NeuralNetwork(new int[] {INPUT, 5, 5, OUTPUT});
-		TransferFunction f = new SigmoidFunction();
+		TransferFunction f = new SgFunction();
 		System.out.println("Error before training: " + MSE.calc(net, f, examples));
 		BackPropagation b = new BackPropagation(f, 0.1f);
 		b.train(net, examples, 100);

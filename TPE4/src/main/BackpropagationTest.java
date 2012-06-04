@@ -54,25 +54,8 @@ public class BackpropagationTest {
 		examples.add(new TrainItem(INPUT, OUTPUT, -1.3664f, -1.3962f, 0.0059f));
 		examples.add(new TrainItem(INPUT, OUTPUT, 0.6269f, -3.0484f, 0.0135f));
 		examples.add(new TrainItem(INPUT, OUTPUT, -0.5923f, 1.2464f ,  0.7949f));
-		normalizeSigmoid(examples);
+		ExamplesNormalizer.normalizeSigmoid(examples);
 		return examples;
 	}
-	
-	public static void normalizeSigmoid(List<TrainItem> examples) {
-		float[] max = examples.get(0).input.clone();
-		for (TrainItem item: examples) {
-			float[] v = item.input;
-			for (int i = 0; i < max.length; i++) {
-				max[i] = Math.max(max[i], Math.abs(v[i]));
-			}
-		}
-		for (TrainItem item: examples) {
-			float[] v = item.input;
-			for (int i = 0; i < max.length; i++) {
-				v[i] /= (2 * max[i]);	// [-0.5, 0.5]
-				v[i] += 0.5f;			// [0, 1]
-			}
-//			System.out.println(Arrays.toString(v));
-		}
-	}
+
 }

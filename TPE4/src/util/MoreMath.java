@@ -24,4 +24,11 @@ public class MoreMath {
 		}
 	}
 
+	public static double[] asDouble(float[] array) {
+		double[] v = new double[array.length];
+		for (int i = 0; i < v.length; i++) {
+			v[i] = array[i];
+		}
+		return v;
+	}
 }

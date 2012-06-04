@@ -6,9 +6,9 @@ import neuronalnetwork.function.TransferFunction;
 
 public class BackPropagation {
 
-	private NeuralNetwork net;
-	private TransferFunction f;
-	private float eta;
+	protected NeuralNetwork net;
+	protected TransferFunction f;
+	protected float eta;
 	
 	public BackPropagation(TransferFunction f, float eta) {
 		this.f = f;
@@ -24,7 +24,7 @@ public class BackPropagation {
 		}
 	}
 	
-	private void train(float[] input, float[] expectedOutput) {
+	protected void train(float[] input, float[] expectedOutput) {
 		float[] output = net.evaluate(input, f);
 		int k = net.getTotalLayers();
 		float[][] deltas = new float[k][];

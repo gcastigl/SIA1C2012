@@ -11,6 +11,8 @@ import geneticalgorithm.mutation.ClasicMutation;
 import geneticalgorithm.mutation.MutationMethod;
 import geneticalgorithm.selector.CandidateSelector;
 import geneticalgorithm.selector.EliteSelector;
+import geneticalgorithm.selector.RouletteSelector;
+import geneticalgorithm.selector.TournamentSelector;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -32,6 +34,7 @@ public class Configuration {
 	
 	public static final String SELECTOR_ELITE 		= "elite";
 	public static final String SELECTOR_RULETA 		= "ruleta";
+	public static final String SELECTOR_TORNEO 		= "torneo";
 	public static final String SELECTOR_UNIVERSAL 	= "universal";
 	public static final String SELECTOR_BOLTZMAN 	= "boltzman";
 	public static final String SELECTOR_MIXTO 		= "mixto";
@@ -108,6 +111,8 @@ public class Configuration {
 		// Candidate selector + replacement
 		selectorMethods = new HashMap<String, CandidateSelector>();
 		selectorMethods.put(Configuration.SELECTOR_ELITE, new EliteSelector(instance));
+		selectorMethods.put(Configuration.SELECTOR_RULETA, new RouletteSelector(instance));
+		selectorMethods.put(Configuration.SELECTOR_TORNEO, new TournamentSelector(instance));
 		// Crossover
 		crossoverMethods = new HashMap<String, CrossoverMethod>();
 		crossoverMethods.put(Configuration.CROSSOVER_CLASICO, new Clasic(instance));

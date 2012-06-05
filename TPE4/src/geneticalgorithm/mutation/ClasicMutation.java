@@ -8,15 +8,13 @@ public class ClasicMutation extends MutationMethod {
 
 	public ClasicMutation(Configuration config) {
 		super(config);
-		if (config.p_mutate <= 0.01) {
-			System.out.println("Warning: mutation value is very low: " + config.p_mutate);
-		}
+		System.out.println("Mutation value: " + config.pMutate);
 	}
 
 	@Override
 	public void mutate(Chromosome c) {
 		super.mutate(c);
-		if (config.p_mutate > Math.random()) {
+		if (config.pMutate > Math.random()) {
 			int randIndex = (int) (Math.random() * NetSerializer.totalConnections(c.getLayers()));
 			NetSerializer.toArray(c.getLayers(), netAsArray);
 			netAsArray[randIndex] = getMutatation(netAsArray[randIndex]);

@@ -60,7 +60,7 @@ public class Configuration {
 	/** Probabilidad de cruce */
 	public float cp;
 	/** Probabilidad de mutacion */
-	public float p_mutate;
+	public float pMutate;
 	/** Probabilidad de realizar backpropagation */
 	public float backpropp;
 	
@@ -70,10 +70,10 @@ public class Configuration {
 	public int ke_mixted;
 	/** Para metodo CRUCE UNIFORME PARAMETRIZADO solamente. probabilidad de cruce de alelo. */
 	public float pCross_uniform;
-	/** Para metodo de MUTACION NO UNIFORME solamente. Probabilidad de mutacion */
-	public float pMutation_unUniform;
 	/** Para metodo de MUTACION NO UNIFORME solamente. Decaimiento de la robabilidad de mutacion */
 	public float c_unUniform;
+	/** Para metodo de MUTACION NO UNIFORME solamente. Cantidad de generaciones tras cada decaimeiento */
+	public float n_unUniform;
 	
 	public Chromosome[] population;
 	

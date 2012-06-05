@@ -29,10 +29,10 @@ public class GeneticAlgorithmTest {
 		config.N = 20;
 		config.G = 0.6f;
 		config.maxGen = 100;
-		config.mp = 0.01f;
+		config.pMutate = 0.02f;
 		config.cp = 0.7f;
 		config.backpropp = 0.05f;
-		config.pCross = 0.4f;
+		config.pCross_uniform = 0.4f;
 		// Seteo de metodos a utilizar
 		config.breakCriteriaType 	= Configuration.BREAKCRITERIA_MAX_GEN;
 		config.selectionType 		= Configuration.SELECTOR_ELITE;

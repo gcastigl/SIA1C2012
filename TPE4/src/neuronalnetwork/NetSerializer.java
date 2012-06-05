@@ -4,6 +4,10 @@ import geneticalgorithm.Chromosome;
 
 public class NetSerializer {
 	
+	public static void toArray(Layer[] layers, float[] array) {
+		toArray(layers, array, 0);
+	}
+	
 	public static void toArray(Layer[] layers, float[] array, int start) {
 		int end = totalConnections(layers) - 1;
 		toArray(layers, array, start, end);

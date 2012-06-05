@@ -6,6 +6,9 @@ public class NeuralNetwork {
 
 	private Layer[] layers;
 	
+	public NeuralNetwork() {
+	}
+	
 	/**
 	 * Crea una red con input de largo structure[0].
 	 * Todos los demas valores que se encuentren entre 1 y structure.length - 1 
@@ -22,6 +25,10 @@ public class NeuralNetwork {
 	}
 	
 	public NeuralNetwork(Layer[] layers) {
+		setLayers(layers);
+	}
+	
+	public void setLayers(Layer[] layers) {
 		this.layers = layers;
 	}
 	

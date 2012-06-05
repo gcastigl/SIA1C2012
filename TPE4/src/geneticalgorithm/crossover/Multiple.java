@@ -5,6 +5,9 @@ import neuronalnetwork.NetSerializer;
 import geneticalgorithm.Chromosome;
 import geneticalgorithm.Configuration;
 
+/**
+ * Cruce de Dos Puntos.
+ */
 public class Multiple extends CrossoverMethod {
 
 	public Multiple(Configuration config) {

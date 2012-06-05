@@ -6,6 +6,7 @@ import geneticalgorithm.crossover.Anular;
 import geneticalgorithm.crossover.Clasic;
 import geneticalgorithm.crossover.CrossoverMethod;
 import geneticalgorithm.crossover.Multiple;
+import geneticalgorithm.crossover.UniformParametrizied;
 import geneticalgorithm.mutation.ClasicMutation;
 import geneticalgorithm.mutation.MutationMethod;
 import geneticalgorithm.selector.CandidateSelector;
@@ -100,6 +101,7 @@ public class Configuration {
 		crossoverMethods.put(Configuration.CROSSOVER_CLASICO, new Clasic(instance));
 		crossoverMethods.put(Configuration.CROSSOVER_MULTIPLE, new Multiple(instance));
 		crossoverMethods.put(Configuration.CROSSOVER_ANULAR, new Anular(instance));
+		crossoverMethods.put(Configuration.CROSSOVER_UNIFORME, new UniformParametrizied(instance));
 		// Mutation
 		mutationMethods = new HashMap<String, MutationMethod>();
 		mutationMethods.put(Configuration.MUTATION_CLASICO, new ClasicMutation(instance));

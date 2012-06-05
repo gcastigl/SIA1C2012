@@ -31,14 +31,14 @@ public class GeneticAlgorithmTest {
 		config.maxGen = 100;
 		config.pMutate = 0.02f;
 		config.cp = 0.7f;
-		config.backpropp = 0.05f;
+		config.backpropp = 0.1f;
 		config.pCross_uniform = 0.4f;
 		// Seteo de metodos a utilizar
 		config.breakCriteriaType 	= Configuration.BREAKCRITERIA_MAX_GEN;
-		config.selectionType 		= Configuration.SELECTOR_ELITE;
+		config.selectionType 		= Configuration.SELECTOR_TORNEO;
 		config.crossOverType 		= Configuration.CROSSOVER_CLASICO;
 		config.mutationType			= Configuration.MUTATION_CLASICO;
-		config.replacementType 		= Configuration.SELECTOR_ELITE;
+		config.replacementType 		= Configuration.SELECTOR_TORNEO;
 		// Set up net configuration
 		config.netConfig = new NetConfiguration();
 		config.netConfig.structure = new int[] {2, 10, 7, 1};

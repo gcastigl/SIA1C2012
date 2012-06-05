@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -46,6 +47,8 @@ public class NetConfiguration {
 				parseLine(strLine, input, output);
 				allexamples.add(new TrainItem(input, output));
 			}
+			// Shuffle set before dividing the examples!
+			Collections.shuffle(allexamples);
 			divideExamples(allexamples);
 			in.close();
 		} catch (IOException e) {

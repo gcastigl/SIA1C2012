@@ -40,10 +40,10 @@ public class GeneticAlgorithmTest {
 		config.replacementType 		= Configuration.SELECTOR_ELITE;
 		// Set up net configuration
 		config.netConfig = new NetConfiguration();
-		config.netConfig.structure = new int[] {2, 5, 1};
+		config.netConfig.structure = new int[] {2, 10, 7, 1};
 		config.netConfig.p = 0.7f;
 		config.netConfig.eta = 0.1f;
-		config.netConfig.f = new SgFunction();
+		config.netConfig.f = new TanhFunction(0.5f);
 		return config;
 	}
 

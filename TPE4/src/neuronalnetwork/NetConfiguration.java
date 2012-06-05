@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import main.ExamplesNormalizer;
 import neuronalnetwork.function.TransferFunction;
 
 public class NetConfiguration {
@@ -47,6 +48,8 @@ public class NetConfiguration {
 				parseLine(strLine, input, output);
 				allexamples.add(new TrainItem(input, output));
 			}
+			// FIXME: Hardcoded values!
+			ExamplesNormalizer.normalizeTanh(allexamples);
 			// Shuffle set before dividing the examples!
 			Collections.shuffle(allexamples);
 			divideExamples(allexamples);

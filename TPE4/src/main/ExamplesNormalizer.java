@@ -7,13 +7,7 @@ import neuronalnetwork.TrainItem;
 public class ExamplesNormalizer {
 
 	public static void normalizeSigmoid(List<TrainItem> examples) {
-		float[] max = examples.get(0).input.clone();
-		for (TrainItem item: examples) {
-			float[] v = item.input;
-			for (int i = 0; i < max.length; i++) {
-				max[i] = Math.max(max[i], Math.abs(v[i]));
-			}
-		}
+		float[] max = max(examples);
 		for (TrainItem item: examples) {
 			float[] v = item.input;
 			for (int i = 0; i < max.length; i++) {
@@ -22,5 +16,27 @@ public class ExamplesNormalizer {
 			}
 //			System.out.println(Arrays.toString(v));
 		}
+	}
+	
+	public static void normalizeTanh(List<TrainItem> examples) {
+		float[] max = max(examples);
+		for (TrainItem item: examples) {
+			float[] v = item.input;
+			for (int i = 0; i < max.length; i++) {
+				v[i] /= (max[i]);	// [-1, 1]
+			}
+//			System.out.println(Arrays.toString(v));
+		}
+	}
+	
+	private static float[] max(List<TrainItem> examples) {
+		float[] max = examples.get(0).input.clone();
+		for (TrainItem item: examples) {
+			float[] v = item.input;
+			for (int i = 0; i < max.length; i++) {
+				max[i] = Math.max(max[i], Math.abs(v[i]));
+			}
+		}
+		return max;
 	}
 }

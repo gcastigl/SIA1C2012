@@ -51,17 +51,29 @@ public class Configuration {
 	public String breakCriteriaType;
 
 	
-	public int N;				// Poblacion
-	public float G;				// Brecha generacional
-	public int maxGen;			// Numero maximo de generaciones
-	public float cp;			// Probabilidad de cruce
-	public float mp;			// Probabilidad de mutacion
-	public float backpropp;		// Probabilidad de realizar backpropagation
+	/** Poblacion */
+	public int N; 
+	/** Brecha generacional */
+	public float G;
+	/** Numero maximo de generaciones */
+	public int maxGen;
+	/** Probabilidad de cruce */
+	public float cp;
+	/** Probabilidad de mutacion */
+	public float p_mutate;
+	/** Probabilidad de realizar backpropagation */
+	public float backpropp;
+	
 	public int elapsedGen;
-	// Para metodo MIXTO solamente. Cantidad de individuos utilizando Elite
+	
+	/** Para metodo MIXTO solamente. Cantidad de individuos utilizando Elite */
 	public int ke_mixted;
-	// Para metodo CRUCE UNIFORME PARAMETRIZADO solamente. probabilidad de cruce de alelo.
-	public float pCross;
+	/** Para metodo CRUCE UNIFORME PARAMETRIZADO solamente. probabilidad de cruce de alelo. */
+	public float pCross_uniform;
+	/** Para metodo de MUTACION NO UNIFORME solamente. Probabilidad de mutacion */
+	public float pMutation_unUniform;
+	/** Para metodo de MUTACION NO UNIFORME solamente. Decaimiento de la robabilidad de mutacion */
+	public float c_unUniform;
 	
 	public Chromosome[] population;
 	

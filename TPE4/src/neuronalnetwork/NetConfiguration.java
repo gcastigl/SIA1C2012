@@ -20,6 +20,7 @@ public class NetConfiguration {
 
 	public int[] structure;
 	public TransferFunction f;
+	public int epochs;
 	public float eta;
 	public List<TrainItem> training;
 	public List<TrainItem> testing;

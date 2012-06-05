@@ -22,7 +22,7 @@ public abstract class MutationMethod extends NetModificator {
 		if (config.backpropp > Math.random()) {
 			NetConfiguration netConfig = config.netConfig;
 			BackPropagation trainer = new BackPropagation(netConfig.f, netConfig.eta);
-			trainer.train(c.createIndividual(), netConfig.training, config.maxGen);
+			trainer.train(c.createIndividual(), netConfig.training, config.netConfig.epochs);
 		}
 	}
 

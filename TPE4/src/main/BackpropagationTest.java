@@ -7,7 +7,7 @@ import neuronalnetwork.BackPropagation;
 import neuronalnetwork.MSE;
 import neuronalnetwork.NeuralNetwork;
 import neuronalnetwork.TrainItem;
-import neuronalnetwork.function.SgFunction;
+import neuronalnetwork.function.TanhFunction;
 import neuronalnetwork.function.TransferFunction;
 
 public class BackpropagationTest {
@@ -16,12 +16,16 @@ public class BackpropagationTest {
 	private static int OUTPUT;
 	
 	public static void main(String[] args) {
-		List<TrainItem> examples = getExamplesSg();
-		NeuralNetwork net = new NeuralNetwork(new int[] {INPUT, 5, 5, OUTPUT});
-		TransferFunction f = new SgFunction();
+		List<TrainItem> examples = getExamplesTp();		
+		TransferFunction f = new TanhFunction();
+		ExamplesNormalizer.normalizeTanh(examples);
+		
+		NeuralNetwork net = new NeuralNetwork(new int[] {INPUT, 8, 8, OUTPUT});
+		
+		
 		System.out.println("Error before training: " + MSE.calc(net, f, examples));
 		BackPropagation b = new BackPropagation(f, 0.1f);
-		b.train(net, examples, 100);
+		b.train(net, examples, 1000);
 		System.out.println("Error after training: " + MSE.calc(net, f, examples));
 	}
 
@@ -40,7 +44,7 @@ public class BackpropagationTest {
 		return examples;
 	}
 	
-	private static List<TrainItem> getExamplesSigmoid() {
+	private static List<TrainItem> getExamplesTp() {
 		List<TrainItem> examples = new ArrayList<TrainItem>();
 		INPUT = 2;
 		OUTPUT = 1;
@@ -54,7 +58,6 @@ public class BackpropagationTest {
 		examples.add(new TrainItem(INPUT, OUTPUT, -1.3664f, -1.3962f, 0.0059f));
 		examples.add(new TrainItem(INPUT, OUTPUT, 0.6269f, -3.0484f, 0.0135f));
 		examples.add(new TrainItem(INPUT, OUTPUT, -0.5923f, 1.2464f ,  0.7949f));
-		ExamplesNormalizer.normalizeSigmoid(examples);
 		return examples;
 	}
 

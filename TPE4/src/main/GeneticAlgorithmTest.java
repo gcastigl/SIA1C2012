@@ -32,6 +32,7 @@ public class GeneticAlgorithmTest {
 		config.mp = 0.01f;
 		config.cp = 0.7f;
 		config.backpropp = 0.05f;
+		config.pCross = 0.4f;
 		// Seteo de metodos a utilizar
 		config.breakCriteriaType 	= Configuration.BREAKCRITERIA_MAX_GEN;
 		config.selectionType 		= Configuration.SELECTOR_ELITE;

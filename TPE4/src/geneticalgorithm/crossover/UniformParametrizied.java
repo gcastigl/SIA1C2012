@@ -12,6 +12,9 @@ public class UniformParametrizied extends CrossoverMethod {
 		super(config);
 		int connections = NetSerializer.totalConnections(config.netConfig.structure);
 		net2AsArray = new float[connections];
+		if (config.pCross < 0.1) {
+			System.out.println("Warning: " + config.pCross + " is a low value for Uniform Parametrizied Crossover method\n");
+		}
 	}
 
 	@Override

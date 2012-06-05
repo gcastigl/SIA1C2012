@@ -22,6 +22,6 @@ public class ClasicMutation extends MutationMethod {
 	}
 	
 	private float getMutatation(float value) {
-		return value += Math.random();
+		return value + (float) Math.random();
 	}
 }

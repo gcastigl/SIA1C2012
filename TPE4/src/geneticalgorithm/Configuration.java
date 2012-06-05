@@ -2,6 +2,7 @@ package geneticalgorithm;
 
 import geneticalgorithm.breakcriteria.BreakCriteria;
 import geneticalgorithm.breakcriteria.MaxGenerationCriteria;
+import geneticalgorithm.crossover.Anular;
 import geneticalgorithm.crossover.Clasic;
 import geneticalgorithm.crossover.CrossoverMethod;
 import geneticalgorithm.crossover.Multiple;
@@ -58,6 +59,8 @@ public class Configuration {
 	public int elapsedGen;
 	// Para metodo MIXTO solamente. Cantidad de individuos utilizando Elite
 	public int ke_mixted;
+	// Para metodo CRUCE UNIFORME PARAMETRIZADO solamente. probabilidad de cruce de alelo.
+	public float pCross;
 	
 	public Chromosome[] population;
 	
@@ -77,6 +80,10 @@ public class Configuration {
 		crossoverMethod = crossoverMethods.get(crossOverType);
 		replaceMethod = selectorMethods.get(replacementType);
 		mutationMethod = mutationMethods.get(mutationType);
+		if (breakCriteria == null || selectionMethod == null || 
+			crossoverMethod == null || replaceMethod == null || mutationMethod == null) {
+			throw new IllegalArgumentException("Invalid configuraton selected!");
+		}
 		elapsedGen = 0;
 		netConfig.initialize();
 	}
@@ -92,6 +99,7 @@ public class Configuration {
 		crossoverMethods = new HashMap<String, CrossoverMethod>();
 		crossoverMethods.put(Configuration.CROSSOVER_CLASICO, new Clasic(instance));
 		crossoverMethods.put(Configuration.CROSSOVER_MULTIPLE, new Multiple(instance));
+		crossoverMethods.put(Configuration.CROSSOVER_ANULAR, new Anular(instance));
 		// Mutation
 		mutationMethods = new HashMap<String, MutationMethod>();
 		mutationMethods.put(Configuration.MUTATION_CLASICO, new ClasicMutation(instance));

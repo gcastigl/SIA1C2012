@@ -21,10 +21,10 @@ public class Clasic extends CrossoverMethod {
 		int p = (int) (Math.random() * totalConnections);
 		NetSerializer.toArray(c1.getLayers(), netAsArray, 0, p);
 		NetSerializer.toArray(c2.getLayers(), netAsArray, p + 1);
-		childs[0] = NetSerializer.fromArray(config.netConfig.structure, netAsArray);
+		childs[0] = buildChormosome();
 		NetSerializer.toArray(c2.getLayers(), netAsArray, 0, p);
 		NetSerializer.toArray(c1.getLayers(), netAsArray, p + 1);
-		childs[1] = NetSerializer.fromArray(config.netConfig.structure, netAsArray);
+		childs[1] = buildChormosome();
 		return childs;
 	}
 

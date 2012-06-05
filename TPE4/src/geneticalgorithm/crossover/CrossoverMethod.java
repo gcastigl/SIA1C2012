@@ -2,19 +2,14 @@ package geneticalgorithm.crossover;
 
 import geneticalgorithm.Chromosome;
 import geneticalgorithm.Configuration;
-import neuronalnetwork.NetSerializer;
+import geneticalgorithm.NetModificator;
 
-public abstract class CrossoverMethod {
+public abstract class CrossoverMethod extends NetModificator {
 
-	protected float[] netAsArray;
-	protected Configuration config;
-	
 	public CrossoverMethod(Configuration config) {
-		this.config = config;
-		int connections = NetSerializer.totalConnections(config.netConfig.structure);
-		netAsArray = new float[connections];
+		super(config);
 	}
-		
+
 	/**
 	 * <pre>
 	 * cross() + mutate() son los operadores de busqueda del algoritmo. 

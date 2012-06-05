@@ -31,6 +31,6 @@ public class Anular extends CrossoverMethod {
 			NetSerializer.toArray(c2.getLayers(), netAsArray, from);
 			NetSerializer.toArray(c2.getLayers(), netAsArray, 0, to);
 		}
-		return NetSerializer.fromArray(config.netConfig.structure, netAsArray);
+		return buildChormosome();
 	}
 }

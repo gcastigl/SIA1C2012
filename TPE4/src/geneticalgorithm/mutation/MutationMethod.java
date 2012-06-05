@@ -2,15 +2,14 @@ package geneticalgorithm.mutation;
 
 import geneticalgorithm.Chromosome;
 import geneticalgorithm.Configuration;
+import geneticalgorithm.NetModificator;
 import neuronalnetwork.BackPropagation;
 import neuronalnetwork.NetConfiguration;
 
-public abstract class MutationMethod {
+public abstract class MutationMethod extends NetModificator {
 
-	protected Configuration config;
-	
 	public MutationMethod(Configuration config) {
-		this.config = config;
+		super(config);
 	}
 	
 	public void mutate(Chromosome[] childs) {

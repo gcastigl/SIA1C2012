@@ -23,11 +23,11 @@ public class Multiple extends CrossoverMethod {
 		NetSerializer.toArray(c1.getLayers(), netAsArray, 0, r1);
 		NetSerializer.toArray(c2.getLayers(), netAsArray, r1 + 1, r2);
 		NetSerializer.toArray(c1.getLayers(), netAsArray, r2);
-		childs[0] = NetSerializer.fromArray(config.netConfig.structure, netAsArray);
+		childs[0] = buildChormosome();
 		NetSerializer.toArray(c2.getLayers(), netAsArray, 0, r1);
 		NetSerializer.toArray(c1.getLayers(), netAsArray, r1 + 1, r2);
 		NetSerializer.toArray(c2.getLayers(), netAsArray, r2);
-		childs[1] = NetSerializer.fromArray(config.netConfig.structure, netAsArray);
+		childs[1] = buildChormosome();
 		return childs;
 	}
 

@@ -12,8 +12,8 @@ public class UniformParametrizied extends CrossoverMethod {
 		super(config);
 		int connections = NetSerializer.totalConnections(config.netConfig.structure);
 		net2AsArray = new float[connections];
-		if (config.pCross < 0.1) {
-			System.out.println("Warning: " + config.pCross + " is a low value for Uniform Parametrizied Crossover method\n");
+		if (config.pCross_uniform < 0.1) {
+			System.out.println("Warning: " + config.pCross_uniform + " is a low value for Uniform Parametrizied Crossover method\n");
 		}
 	}
 
@@ -21,7 +21,7 @@ public class UniformParametrizied extends CrossoverMethod {
 	protected Chromosome[] cross(Chromosome c1, Chromosome c2) {
 		NetSerializer.toArray(c1.getLayers(), netAsArray);
 		NetSerializer.toArray(c2.getLayers(), net2AsArray);
-		float p = config.pCross;
+		float p = config.pCross_uniform;
 		for (int i = 0; i < netAsArray.length; i++) {
 			if (p > Math.random()) {
 				float aux = netAsArray[i];

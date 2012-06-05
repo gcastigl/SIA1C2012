@@ -5,10 +5,8 @@ import geneticalgorithm.GeneticAlgorithm;
 
 import java.io.IOException;
 
-import neuronalnetwork.MSE;
 import neuronalnetwork.NetConfiguration;
-import neuronalnetwork.NeuralNetwork;
-import neuronalnetwork.function.SgFunction;
+import neuronalnetwork.function.TanhFunction;
 
 public class GeneticAlgorithmTest {
 	
@@ -19,8 +17,7 @@ public class GeneticAlgorithmTest {
 			config = createConfiguration();
 			config.initialize();
 			GeneticAlgorithm ga = new GeneticAlgorithm(config);
-			NeuralNetwork best = ga.getSolution();
-			showBest(config, best);
+			ga.getSolution();
 		} catch (IOException e) {
 			System.out.println("Could not start Genetic Algorithm: " + e.getMessage());
 			System.out.println("Program terminated.");
@@ -49,9 +46,5 @@ public class GeneticAlgorithmTest {
 		config.netConfig.f = new SgFunction();
 		return config;
 	}
-	
-	private static void showBest(Configuration config, NeuralNetwork net) {
-		NetConfiguration netConfig = config.netConfig;
-		System.out.println("MSE = " + MSE.calc(net, netConfig.f, netConfig.testing));
-	}
+
 }

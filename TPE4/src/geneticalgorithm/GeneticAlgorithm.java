@@ -76,7 +76,7 @@ public class GeneticAlgorithm {
 		Chromosome best = null;
 		for (int i = 0; i < config.population.length; i++) {
 			Chromosome c = config.population[i];
-			if (best == null || best.getFitnes() < c.getFitnes()) {
+			if (best == null || best.getFitness() < c.getFitness()) {
 				best = c;
 			}
 		}

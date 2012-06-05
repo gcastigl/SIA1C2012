@@ -40,7 +40,7 @@ public class EliteSelector extends CandidateSelector {
 		}
 		for (int i = 0; i < population.length; i++) {
 			array[i].index = i;
-			array[i].fitness = population[i].getFitnes();
+			array[i].fitness = population[i].getFitness();
 		}
 		Arrays.sort(array);
 	}

@@ -16,7 +16,7 @@ public class Chromosome {
 		return layers;
 	}
 
-	public float getFitnes() {
+	public float getFitness() {
 		return fitness;
 	}
 	

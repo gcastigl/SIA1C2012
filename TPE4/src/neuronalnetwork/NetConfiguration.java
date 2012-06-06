@@ -24,7 +24,8 @@ public class NetConfiguration {
 	public float eta;
 	public List<TrainItem> training;
 	public List<TrainItem> testing;
-
+	public List<TrainItem> allexamples;
+	
 	// Procentaje de los ejemplos para usar para training; los demas son para
 	// testing
 	public float p = 0.5f;
@@ -37,7 +38,7 @@ public class NetConfiguration {
 		// FIXME: Hardcoded values!
 		int inputDim = 2;
 		int outputDim = 1;
-		List<TrainItem> allexamples = new LinkedList<TrainItem>();
+		allexamples = new LinkedList<TrainItem>();
 		try {
 			DataInputStream in = new DataInputStream(new FileInputStream(
 					examplesFile));

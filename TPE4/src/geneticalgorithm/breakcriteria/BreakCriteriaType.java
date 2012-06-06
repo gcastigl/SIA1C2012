@@ -6,7 +6,7 @@ public enum BreakCriteriaType {
 	ENT_ERROR {
 		@Override
 		public BreakCriteria getInstance(Configuration config) {
-			return new ErrorCriteria(config);
+			return new MinErrorBreakCriteria(config);
 		}
 	}, MAX_GEN {
 		@Override

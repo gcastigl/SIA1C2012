@@ -5,11 +5,11 @@ import geneticalgorithm.Configuration;
 import neuronalnetwork.MSE;
 import neuronalnetwork.NetConfiguration;
 
-public class ErrorCriteria extends BreakCriteria {
+public class MinErrorBreakCriteria extends BreakCriteria {
 
 	double quota = 0.001;
 
-	public ErrorCriteria(Configuration config) {
+	public MinErrorBreakCriteria(Configuration config) {
 		super(config);
 	}
 

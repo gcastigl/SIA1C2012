@@ -12,6 +12,7 @@ import geneticalgorithm.selector.SelectorType;
 import java.io.IOException;
 
 import neuronalnetwork.NetConfiguration;
+import neuronalnetwork.function.TanhFunction;
 
 public class Configuration {
 	
@@ -58,6 +59,37 @@ public class Configuration {
 	/** Configuracion de las variables a usar para la red */
 	public NetConfiguration netConfig;
 	
+	public Configuration() {
+		setDefaultValues();
+	}
+	
+	public void setDefaultValues() {
+		// Seteo de metodos a utilizar
+		breakCriteriaType 	= BreakCriteriaType.MAX_GEN;
+		selectionType 		= SelectorType.RULETA;
+		crossOverType 		= CrossoverType.CLASICO;
+		mutationType		= MutationType.MUTATION_CLASICO;
+		replacementType 	= SelectorType.ELITE;
+		
+		// Para el caso de MIXTO
+		mixtedSelectionType 	= SelectorType.RULETA;
+		
+		N = 20;
+		G = 0.6f;
+		maxGen = 100;
+		pMutate = 0.02f;
+		cp = 0.7f;
+		backpropp = 0.01f;
+		pCross_uniform = 0.4f;
+		ke_mixted = (int) (N * 0.5f);
+		// Set up net configuration
+		netConfig = new NetConfiguration();
+		netConfig.structure = new int[] {2, 10, 7, 1};
+		netConfig.epochs = 50;
+		netConfig.p = 0.7f;
+		netConfig.eta = 0.1f;
+		netConfig.f = new TanhFunction(0.5f);
+	}
 	
 	public void initialize() throws IOException {
 		breakCriteria 	= breakCriteriaType.getInstance(this);
@@ -68,5 +100,5 @@ public class Configuration {
 		elapsedGen = 0;
 		netConfig.initialize();
 	}
-
+	
 }

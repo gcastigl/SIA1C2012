@@ -9,9 +9,6 @@ import geneticalgorithm.selector.SelectorType;
 
 import java.io.IOException;
 
-import neuronalnetwork.NetConfiguration;
-import neuronalnetwork.function.TanhFunction;
-
 public class GeneticAlgorithmTest {
 	
 	public static void main(String[] args) {
@@ -43,16 +40,7 @@ public class GeneticAlgorithmTest {
 		config.crossOverType 		= CrossoverType.CLASICO;
 		config.mutationType			= MutationType.MUTATION_CLASICO;
 		config.replacementType 		= SelectorType.ELITE;
-		// Para el caso de MIXTO
-		config.mixtedSelectionType 	= SelectorType.RULETA;
 		config.ke_mixted = (int) (config.N * 0.5f);
-		// Set up net configuration
-		config.netConfig = new NetConfiguration();
-		config.netConfig.structure = new int[] {2, 10, 7, 1};
-		config.netConfig.epochs = 50;
-		config.netConfig.p = 0.7f;
-		config.netConfig.eta = 0.1f;
-		config.netConfig.f = new TanhFunction(0.5f);
 		return config;
 	}
 

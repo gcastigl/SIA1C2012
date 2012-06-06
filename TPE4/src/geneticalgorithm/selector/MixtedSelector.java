@@ -15,7 +15,7 @@ public class MixtedSelector extends CandidateSelector {
 		}
 		elite = new EliteSelector(config);
 		this.s2 = s2;
-		System.out.println("Mixted selector ke: " + config.ke_mixted);
+		System.out.println("ke_mixted: " + config.ke_mixted);
 	}
 
 	@Override

@@ -89,6 +89,9 @@ public class Configuration {
 		netConfig.p = 0.7f;
 		netConfig.eta = 0.1f;
 		netConfig.f = new TanhFunction(0.5f);
+		
+		c_unUniform = 0.9f;
+		n_unUniform = 15;
 	}
 	
 	public void initialize() throws IOException {

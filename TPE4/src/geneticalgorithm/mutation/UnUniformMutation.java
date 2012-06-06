@@ -7,9 +7,8 @@ public class UnUniformMutation extends ClasicMutation {
 	
 	public UnUniformMutation(Configuration config) {
 		super(config);
-		System.out.println("Usando Metodo No uniforme de mutacion");
-		System.out.println("C: " + config.c_unUniform);
-		System.out.println("N: " + config.n_unUniform);
+		System.out.println("c_unUniform: " + config.c_unUniform);
+		System.out.println("n_unUniform: " + config.n_unUniform);
 	}
 	
 	@Override

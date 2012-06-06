@@ -24,9 +24,11 @@ public class MixtedSelector extends CandidateSelector {
 		int[] bests2 = s2.select();
 		int[] selected = new int[(int) (config.N * config.G)];
 		int i = 0;
+		// choose all k_e candidates selected by the elite selector
 		for (; i < bests1.length; i++) {
 			selected[i] = bests1[i];
 		}
+		// choose the first #childs - k_e candidates selected by the other selector
 		for (; i < selected.length; i++) {
 			selected[i] = bests2[i];
 		}

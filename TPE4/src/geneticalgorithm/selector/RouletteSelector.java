@@ -101,23 +101,11 @@ public class RouletteSelector extends CandidateSelector {
 		return mf;
 	}
 
-	private static class ChromosomeContainer implements
-			Comparable<ChromosomeContainer> {
+	private static class ChromosomeContainer {
 		int index;
 		float fitness;
-
 		float fi; // Slot size
 		float qi; // Cumulative probability
-		
-		@Override
-		public String toString() {
-			return "Index: " + index + " - fitness: " + fitness +  " - fi: " + fi +  " - qi: " + qi;
-		}
-
-		@Override
-		public int compareTo(ChromosomeContainer o) {
-			return (int) (o.qi - qi);
-		}
 	}
 
 }

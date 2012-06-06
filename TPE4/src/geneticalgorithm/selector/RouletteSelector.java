@@ -3,13 +3,10 @@ package geneticalgorithm.selector;
 import geneticalgorithm.Chromosome;
 import geneticalgorithm.Configuration;
 
-import java.util.Arrays;
-
 public class RouletteSelector extends CandidateSelector {
 
-	// Used to sort chromosome to choose the best k
 	private ChromosomeContainer[] array;
-	private float sumFitness; // Sum of the fitness of each individual in the
+	private float sumFitness; 	// Sum of the fitness of each individual in the
 								// population
 
 	public RouletteSelector(Configuration config) {
@@ -18,9 +15,7 @@ public class RouletteSelector extends CandidateSelector {
 
 	@Override
 	public int[] select() {
-
 		return selectBestK((int) (config.G * config.N));
-
 	}
 
 	private int[] selectBestK(int k) {
@@ -29,21 +24,14 @@ public class RouletteSelector extends CandidateSelector {
 		computeCumProbability();
 		float rnd = 0;
 		boolean individualChosen = false;
-
 		// Get the best k individuals
 		int[] selected = new int[k];
 		for (int i = 0; i < selected.length; i++) {
-
-			while ((rnd = (float) Math.random()) == 0.0)
-				// Rnd must not be 0!
-				;
-
+			rnd = (float) Math.max(Math.random(), 0.000001f);	// rnd should never be 0!
 			if (rnd < array[0].qi) {
 				selected[i] = array[0].index;
 			} else {
-
 				individualChosen = false;
-
 				for (int j = 1; !individualChosen && j < selected.length; j++) {
 					if (rnd > array[j - 1].qi && rnd <= array[j].qi) {
 						selected[i] = array[i].index;
@@ -85,7 +73,6 @@ public class RouletteSelector extends CandidateSelector {
 	}
 
 	private void computeCumProbability() {
-
 		for (ChromosomeContainer e : array) {
 			e.qi = sumSlotSize(e.index);
 		}
@@ -93,11 +80,9 @@ public class RouletteSelector extends CandidateSelector {
 
 	private float sumSlotSize(int index) {
 		float slotSumWithLimit = 0;
-
 		for (int i = 0; i < index + 1; i++) {
 			slotSumWithLimit += array[i].fi;
 		}
-
 		return slotSumWithLimit;
 	}
 

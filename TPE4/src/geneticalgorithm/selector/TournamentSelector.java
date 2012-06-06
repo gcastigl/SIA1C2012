@@ -27,14 +27,10 @@ public class TournamentSelector extends CandidateSelector {
 	private int playTournament() {
 		int individual1 = (int) MoreMath.random(0, config.population.length - 1);
 		int individual2 = (int) MoreMath.random(0, config.population.length - 1);
-		
 		int better = config.population[individual1].getFitness() >= config.population[individual2].getFitness() ? individual1:individual2;
-		int worst = better == individual1 ? individual2:individual1;
-		
-		
+		int worst = better == individual1 ? individual2 : individual1;
 		float rnd = (float) Math.random();
-		
-		if(rnd < 0.75)
+		if (rnd < 0.75)
 			return better;
 		else
 			return worst;

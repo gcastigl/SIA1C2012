@@ -56,4 +56,12 @@ public abstract class CandidateSelector {
 	 * </pre>
 	 */
 	public abstract void replace(Chromosome[] childs);
+	
+	protected float calctTotalFitness(Chromosome[] population) {
+		float mf = 0;
+		for (Chromosome e : population) {
+			mf += e.getFitness();
+		}
+		return mf;
+	}
 }

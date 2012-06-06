@@ -19,7 +19,7 @@ public class RouletteSelector extends CandidateSelector {
 	}
 
 	private int[] selectBestK(int k) {
-		sumFitness = sumFitness(config.population);
+		sumFitness = calctTotalFitness(config.population);
 		computeSlotSize();
 		computeCumProbability();
 		float rnd = 0;
@@ -85,14 +85,6 @@ public class RouletteSelector extends CandidateSelector {
 		for (int i = 0; i < length; i++) {
 			array[i] = new ChromosomeContainer();
 		}
-	}
-
-	private float sumFitness(Chromosome[] population) {
-		float mf = 0;
-		for (Chromosome e : population) {
-			mf += e.getFitness();
-		}
-		return mf;
 	}
 
 	private static class ChromosomeContainer {

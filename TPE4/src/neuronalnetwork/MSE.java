@@ -12,7 +12,7 @@ public class MSE {
 		for (TrainItem test : testExamples) {
 			mse += calc(net, f, test.input, test.output);
 		}
-		return mse / 2;
+		return mse / (2 * testExamples.size());
 	}
 
 	public static float calc(NeuralNetwork net, TransferFunction f,

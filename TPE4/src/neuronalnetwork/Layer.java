@@ -14,6 +14,7 @@ public class Layer {
 	private float[] h;
 	// usado para copiar el array de entrada y agregar un -1 al final
 	private float[] biasedInputCache;
+	private float[] outputCache;
 	
 	public Layer(int inputLen, int neurons) {
 		this.neurons = neurons;
@@ -21,6 +22,7 @@ public class Layer {
 		h = new float[neurons];
 		weights = new float[neurons][inputLen + 1];
 		biasedInputCache = new float[inputLen + 1];
+		outputCache = new float[neurons];
 		initWeights();
 	}
 
@@ -38,12 +40,11 @@ public class Layer {
 		System.arraycopy(in, 0, biasedInputCache, 0, in.length);
 		biasedInputCache[in.length] = -1;
 		
-		float[] output = new float[neurons];
 		for (int n = 0; n < neurons; n++) {
 			h[n] = MoreMath.dotProduct(weights[n], biasedInputCache);
-			output[n] = f.valueAt(h[n]);
+			outputCache[n] = f.valueAt(h[n]);
 		}
-		return output;
+		return outputCache;
 	}
 
 	private void validateInputDimention(int in) {

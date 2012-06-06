@@ -18,6 +18,12 @@ public class RouletteSelector extends CandidateSelector {
 		return selectBestK((int) (config.G * config.N));
 	}
 
+	@Override
+	public void replace(Chromosome[] childs) {
+		int[] selected = selectBestK(config.N - childs.length);
+		createNewPopulation(selected, childs);
+	}
+	
 	private int[] selectBestK(int k) {
 		sumFitness = calctTotalFitness(config.population);
 		computeSlotSize();
@@ -41,23 +47,6 @@ public class RouletteSelector extends CandidateSelector {
 			}
 		}
 		return selected;
-	}
-
-	@Override
-	public void replace(Chromosome[] childs) {
-		Chromosome[] oldPpulation = config.population;
-		Chromosome[] newPopulation = new Chromosome[config.N];
-		int[] selected = selectBestK(config.N - childs.length);
-		int index = 0;
-		while (index < childs.length) {
-			newPopulation[index] = childs[index];
-			index++;
-		}
-		for (int i = 0; i < selected.length; index++, i++) {
-			newPopulation[index] = oldPpulation[selected[i]];
-		}
-		// update population
-		config.population = newPopulation;
 	}
 
 	private void computeSlotSize() {

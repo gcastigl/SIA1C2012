@@ -56,12 +56,39 @@ public abstract class CandidateSelector {
 	 * </pre>
 	 */
 	public abstract void replace(Chromosome[] childs);
-	
+
 	protected float calctTotalFitness(Chromosome[] population) {
 		float mf = 0;
 		for (Chromosome e : population) {
 			mf += e.getFitness();
 		}
 		return mf;
+	}
+	
+	/**
+	 * <pre>
+	 * Une los candidatos de la population original que esten en el indice selectedFromOriginal con los 
+	 * childs entregados en el segundo parametro.
+	 * 
+	 * Importante:
+	 * selectedFromOriginal.length + childs.length = populationlength para que sea todo consistente.
+	 * </pre>
+	 */
+	protected void createNewPopulation(int[] selectedFromOriginal, Chromosome[] childs) {
+		if (selectedFromOriginal.length + childs.length != config.population.length) {
+			System.out.println("Se esta creando una nueva population de distinta dimension que N!");
+		}
+		Chromosome[] oldPpulation = config.population;
+		Chromosome[] newPopulation = new Chromosome[config.N];
+		int index = 0;
+		while (index < childs.length) {
+			newPopulation[index] = childs[index];
+			index++;
+		}
+		for (int i = 0; i < selectedFromOriginal.length; index++, i++) {
+			newPopulation[index] = oldPpulation[selectedFromOriginal[i]];
+		}
+		// update population
+		config.population = newPopulation;
 	}
 }

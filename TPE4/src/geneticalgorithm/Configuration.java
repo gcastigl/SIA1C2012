@@ -1,6 +1,7 @@
 package geneticalgorithm;
 
 import geneticalgorithm.breakcriteria.BreakCriteria;
+import geneticalgorithm.breakcriteria.ErrorCriteria;
 import geneticalgorithm.breakcriteria.MaxGenerationCriteria;
 import geneticalgorithm.breakcriteria.StructureBreakCriteria;
 import geneticalgorithm.crossover.Anular;
@@ -112,6 +113,7 @@ public class Configuration {
 		breakCriteriaMethods= new HashMap<String, BreakCriteria>();
 		breakCriteriaMethods.put(Configuration.BREAKCRITERIA_MAX_GEN, new MaxGenerationCriteria(instance));
 		breakCriteriaMethods.put(Configuration.BREAKCRITERIA_ESTRUCTURA, new StructureBreakCriteria(instance));
+		breakCriteriaMethods.put(Configuration.BREAKCRITERIA_ENT_OPTIMO, new ErrorCriteria(instance));
 		// Candidate selector + replacement
 		selectorMethods = new HashMap<String, CandidateSelector>();
 		selectorMethods.put(Configuration.SELECTOR_ELITE, new EliteSelector(instance));

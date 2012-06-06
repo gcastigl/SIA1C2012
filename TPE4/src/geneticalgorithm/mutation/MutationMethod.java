@@ -10,6 +10,7 @@ public abstract class MutationMethod extends NetModificator {
 
 	public MutationMethod(Configuration config) {
 		super(config);
+		System.out.println("Mutation method: " + getClass().getSimpleName());
 	}
 	
 	public void mutate(Chromosome[] childs) {

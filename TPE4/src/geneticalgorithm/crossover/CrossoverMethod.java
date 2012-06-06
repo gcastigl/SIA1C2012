@@ -8,6 +8,7 @@ public abstract class CrossoverMethod extends NetModificator {
 
 	public CrossoverMethod(Configuration config) {
 		super(config);
+		System.out.println("Crossover method: " + getClass().getSimpleName());
 	}
 
 	/**

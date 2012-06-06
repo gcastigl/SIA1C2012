@@ -60,7 +60,7 @@ public class GeneticAlgorithm {
 		float mseGener = MSE.calc(net, netConfig.f, netConfig.testing);
 		System.out.println("*** Algorithm finished. ***");
 		System.out.println("MSE Training " + msetrain);
-		System.out.println("MSE testing " + mseGener);
+		System.out.println("MSE Testing " + mseGener);
 	}
 	
 	private float calcAvgMSE() {

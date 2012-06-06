@@ -18,6 +18,7 @@ public class GeneticAlgorithmTest {
 			config = createConfiguration();
 			config.initialize();
 			GeneticAlgorithm ga = new GeneticAlgorithm(config);
+			System.out.println("**************************************");
 			ga.getSolution();
 		} catch (IOException e) {
 			System.out.println("Could not start Genetic Algorithm: " + e.getMessage());

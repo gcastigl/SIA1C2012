@@ -11,6 +11,7 @@ public abstract class CandidateSelector {
 	
 	public CandidateSelector(Configuration config) {
 		this.config = config;
+		System.out.println("Selector method: " + getClass().getSimpleName());
 	}
 
 	/**

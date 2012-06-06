@@ -8,6 +8,7 @@ public abstract class BreakCriteria {
 	
 	public BreakCriteria(Configuration config) {
 		this.config = config;
+		System.out.println("Break criteria: " + getClass().getSimpleName());
 	}
 	
 	public abstract boolean isFinished();

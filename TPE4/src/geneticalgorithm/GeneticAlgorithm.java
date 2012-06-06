@@ -55,8 +55,9 @@ public class GeneticAlgorithm {
 	
 	private void showFinalStats(Chromosome best) {
 		NetConfiguration netConfig = config.netConfig;
-		float msetrain = MSE.calc(best.createIndividual(), netConfig.f, netConfig.training);
-		float mseGener = MSE.calc(best.createIndividual(), netConfig.f, netConfig.testing);
+		NeuralNetwork net = best.createIndividual();
+		float msetrain = MSE.calc(net, netConfig.f, netConfig.training);
+		float mseGener = MSE.calc(net, netConfig.f, netConfig.testing);
 		System.out.println("*** Algorithm finished. ***");
 		System.out.println("MSE Training " + msetrain);
 		System.out.println("MSE testing " + mseGener);

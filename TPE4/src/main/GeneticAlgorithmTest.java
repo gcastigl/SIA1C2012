@@ -39,6 +39,9 @@ public class GeneticAlgorithmTest {
 		config.crossOverType 		= Configuration.CROSSOVER_CLASICO;
 		config.mutationType			= Configuration.MUTATION_CLASICO;
 		config.replacementType 		= Configuration.SELECTOR_TORNEO;
+		// Para el caso de MIXTO
+		config.mixtedSelectionType 	= Configuration.SELECTOR_RULETA;
+		config.ke_mixted = (int) (config.N * 0.5f);
 		// Set up net configuration
 		config.netConfig = new NetConfiguration();
 		config.netConfig.structure = new int[] {2, 10, 7, 1};

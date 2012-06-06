@@ -11,6 +11,7 @@ import geneticalgorithm.mutation.ClasicMutation;
 import geneticalgorithm.mutation.MutationMethod;
 import geneticalgorithm.selector.CandidateSelector;
 import geneticalgorithm.selector.EliteSelector;
+import geneticalgorithm.selector.MixtedSelector;
 import geneticalgorithm.selector.RouletteSelector;
 import geneticalgorithm.selector.TournamentSelector;
 
@@ -52,7 +53,8 @@ public class Configuration {
 	public String mutationType;
 	public String replacementType;
 	public String breakCriteriaType;
-
+	/** Segundo selector a usar para el metodo mixto */
+	public String mixtedSelectionType;
 	
 	/** Poblacion */
 	public int N; 
@@ -113,6 +115,8 @@ public class Configuration {
 		selectorMethods.put(Configuration.SELECTOR_ELITE, new EliteSelector(instance));
 		selectorMethods.put(Configuration.SELECTOR_RULETA, new RouletteSelector(instance));
 		selectorMethods.put(Configuration.SELECTOR_TORNEO, new TournamentSelector(instance));
+		CandidateSelector s2 = selectorMethods.get(instance.mixtedSelectionType);
+		selectorMethods.put(Configuration.SELECTOR_MIXTO, new MixtedSelector(instance, s2));
 		// Crossover
 		crossoverMethods = new HashMap<String, CrossoverMethod>();
 		crossoverMethods.put(Configuration.CROSSOVER_CLASICO, new Clasic(instance));

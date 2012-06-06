@@ -25,7 +25,7 @@ public class GeneticAlgorithm {
 	 */
 	public NeuralNetwork getSolution() {
 		initPopulation();
-		while (!config.breakCriteria.isFinished(config)) {
+		while (!config.breakCriteria.isFinished()) {
 			config.selectionMethod.evaluate();
 			int[] selected = config.selectionMethod.select();
 			Chromosome[] childs = config.crossoverMethod.cross(selected);

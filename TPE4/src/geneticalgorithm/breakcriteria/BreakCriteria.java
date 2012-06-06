@@ -4,6 +4,12 @@ import geneticalgorithm.Configuration;
 
 public abstract class BreakCriteria {
 
-	public abstract boolean isFinished(Configuration config);
+	protected Configuration config;
+	
+	public BreakCriteria(Configuration config) {
+		this.config = config;
+	}
+	
+	public abstract boolean isFinished();
 
 }

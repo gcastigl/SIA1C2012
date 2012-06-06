@@ -2,6 +2,8 @@ package util;
 
 public class MoreMath {
 
+	public static final float EPS = 0.00001f;
+	
 	/**
 	 * Returns a pseudo-random value in the interval (a,b) 
 	 */

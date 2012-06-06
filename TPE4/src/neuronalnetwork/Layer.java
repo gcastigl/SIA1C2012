@@ -1,10 +1,12 @@
 package neuronalnetwork;
 
+import java.util.Arrays;
+
 import neuronalnetwork.function.TransferFunction;
 import util.MoreMath;
 
 public class Layer {
-
+	
 	private int inputLen;
 	private int neurons;
 
@@ -77,16 +79,26 @@ public class Layer {
 		if (neurons != layer.neurons) {
 			return false;
 		}
-		float EPS = 0.0001f;
 		float diff;
 		for (int i = 0; i < weights.length; i++) {
 			for (int j = 0; j < weights[0].length; j++) {
 				diff = weights[i][j] - layer.weights[i][j];
-				if (Math.abs(diff) > EPS) {
+				if (Math.abs(diff) > MoreMath.EPS) {
 					return false;
 				}
 			}
 		}
 		return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		int hashCode = 0;
+		for (int i = 0; i < weights.length; i++) {
+			for (int j = 0; j < weights[0].length; j++) {				
+				hashCode += weights[i][j];
+			}
+		}
+		return hashCode;
 	}
 }

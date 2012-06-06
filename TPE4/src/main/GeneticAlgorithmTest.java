@@ -2,6 +2,10 @@ package main;
 
 import geneticalgorithm.Configuration;
 import geneticalgorithm.GeneticAlgorithm;
+import geneticalgorithm.breakcriteria.BreakCriteriaType;
+import geneticalgorithm.crossover.CrossoverType;
+import geneticalgorithm.mutation.MutationType;
+import geneticalgorithm.selector.SelectorType;
 
 import java.io.IOException;
 
@@ -31,16 +35,16 @@ public class GeneticAlgorithmTest {
 		config.maxGen = 100;
 		config.pMutate = 0.02f;
 		config.cp = 0.7f;
-		config.backpropp = 0.1f;
+		config.backpropp = 0.01f;
 		config.pCross_uniform = 0.4f;
 		// Seteo de metodos a utilizar
-		config.breakCriteriaType 	= Configuration.BREAKCRITERIA_MAX_GEN;
-		config.selectionType 		= Configuration.SELECTOR_TORNEO;
-		config.crossOverType 		= Configuration.CROSSOVER_CLASICO;
-		config.mutationType			= Configuration.MUTATION_CLASICO;
-		config.replacementType 		= Configuration.SELECTOR_TORNEO;
+		config.breakCriteriaType 	= BreakCriteriaType.MAX_GEN;
+		config.selectionType 		= SelectorType.RULETA;
+		config.crossOverType 		= CrossoverType.CLASICO;
+		config.mutationType			= MutationType.MUTATION_CLASICO;
+		config.replacementType 		= SelectorType.ELITE;
 		// Para el caso de MIXTO
-		config.mixtedSelectionType 	= Configuration.SELECTOR_RULETA;
+		config.mixtedSelectionType 	= SelectorType.RULETA;
 		config.ke_mixted = (int) (config.N * 0.5f);
 		// Set up net configuration
 		config.netConfig = new NetConfiguration();

@@ -73,17 +73,11 @@ public class RouletteSelector extends CandidateSelector {
 	}
 
 	private void computeCumProbability() {
-		for (ChromosomeContainer e : array) {
-			e.qi = sumSlotSize(e.index);
-		}
-	}
-
-	private float sumSlotSize(int index) {
 		float slotSumWithLimit = 0;
-		for (int i = 0; i < index + 1; i++) {
-			slotSumWithLimit += array[i].fi;
+		for (ChromosomeContainer e : array) {
+			slotSumWithLimit += e.fi;
+			e.qi = slotSumWithLimit;
 		}
-		return slotSumWithLimit;
 	}
 
 	private void initArray(int length) {

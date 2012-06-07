@@ -32,7 +32,7 @@ public class StructureBreakCriteria extends BreakCriteria {
 		for (Chromosome c: population) {
 			diff.add(c);
 		}
-		return diff.size();
+		return config.population.length - diff.size();
 	}
 
 }

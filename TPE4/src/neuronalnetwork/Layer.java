@@ -96,7 +96,7 @@ public class Layer {
 		int hashCode = 0;
 		for (int i = 0; i < weights.length; i++) {
 			for (int j = 0; j < weights[0].length; j++) {				
-				hashCode += weights[i][j];
+				hashCode += weights[i][j] * 100000;
 			}
 		}
 		return hashCode;

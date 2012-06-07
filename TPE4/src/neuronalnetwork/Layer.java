@@ -1,7 +1,5 @@
 package neuronalnetwork;
 
-import java.util.Arrays;
-
 import neuronalnetwork.function.TransferFunction;
 import util.MoreMath;
 

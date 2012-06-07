@@ -47,6 +47,8 @@ public class Configuration {
 	public float c_unUniform;
 	/** Para metodo de MUTACION NO UNIFORME solamente. Cantidad de generaciones tras cada decaimeiento */
 	public float n_unUniform;
+	/** Para metodo de CORTE POR ERROR MINIMO solamente. Error minimo LMS a alcanzar para la condicion de corte */
+	public float minError_breakCriteria;
 	
 	public Chromosome[] population;
 	
@@ -96,6 +98,8 @@ public class Configuration {
 		
 		c_unUniform = 0.9f;
 		n_unUniform = 15;
+		
+		minError_breakCriteria = 0.001f;
 	}
 	
 	public void initialize() throws IOException {

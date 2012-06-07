@@ -6,6 +6,7 @@ public class MaxGenerationCriteria extends BreakCriteria {
 
 	public MaxGenerationCriteria(Configuration config) {
 		super(config);
+		System.out.println("\tGeneraciones: " + config.maxGen);
 	}
 
 	@Override

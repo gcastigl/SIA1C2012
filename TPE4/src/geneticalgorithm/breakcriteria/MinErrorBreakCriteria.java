@@ -7,10 +7,9 @@ import neuronalnetwork.NetConfiguration;
 
 public class MinErrorBreakCriteria extends BreakCriteria {
 
-	double quota = 0.001;
-
 	public MinErrorBreakCriteria(Configuration config) {
 		super(config);
+		System.out.println("\tMin error criteria: " + config.minError_breakCriteria);
 	}
 
 	@Override
@@ -20,7 +19,7 @@ public class MinErrorBreakCriteria extends BreakCriteria {
 		for (Chromosome chrom : config.population) {
 			acum += MSE.calc(chrom.createIndividual(), netConfig.f, netConfig.training);
 		}
-		return acum < quota;
+		return acum < config.minError_breakCriteria;
 	}
 
 }

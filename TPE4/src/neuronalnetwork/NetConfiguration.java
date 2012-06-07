@@ -28,7 +28,7 @@ public class NetConfiguration {
 	
 	// Procentaje de los ejemplos para usar para training; los demas son para
 	// testing
-	public float p = 0.5f;
+	public float p = 0.7f;
 
 	/**
 	 * Lee los ejemplos del archivo examplesFile y los carga en los aprametros

@@ -90,14 +90,14 @@ public class Configuration {
 		ke_mixted = (int) (N * 0.5f);
 		// Set up net configuration
 		netConfig = new NetConfiguration();
-		netConfig.structure = new int[] {2, 10, 10, 5, 1};
+		netConfig.structure = new int[] {2, 15, 15, 10, 1};
 		netConfig.epochs = 50;
 		netConfig.p = 0.7f;
 		netConfig.eta = 0.1f;
 		netConfig.f = new TanhFunction(0.5f);
 		
 		c_unUniform = 0.9f;
-		n_unUniform = 15;
+		n_unUniform = 20;
 		
 		minError_breakCriteria = 0.001f;
 	}

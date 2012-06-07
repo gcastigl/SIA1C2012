@@ -88,7 +88,7 @@ public class Configuration {
 		ke_mixted = (int) (N * 0.5f);
 		// Set up net configuration
 		netConfig = new NetConfiguration();
-		netConfig.structure = new int[] {2, 10, 7, 1};
+		netConfig.structure = new int[] {2, 10, 10, 5, 1};
 		netConfig.epochs = 50;
 		netConfig.p = 0.7f;
 		netConfig.eta = 0.1f;

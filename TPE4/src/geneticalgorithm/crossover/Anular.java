@@ -11,14 +11,12 @@ public class Anular extends CrossoverMethod {
 	}
 
 	@Override
-	protected Chromosome[] cross(Chromosome c1, Chromosome c2) {
-		Chromosome[] childs = new Chromosome[2];
+	protected void cross(Chromosome c1, Chromosome c2) {
 		int totalConnections = NetSerializer.totalConnections(c1.getLayers());
 		int p = (int) (Math.random() * totalConnections);
 		int l = p + (int) (Math.random() * (totalConnections / 2));
 		childs[0] = anularCross(c1, c2, totalConnections, p, l);
 		childs[1] = anularCross(c2, c1, totalConnections, p, l);
-		return childs;
 	}
 
 	private Chromosome anularCross(Chromosome c1, Chromosome c2, int totalConnections, int from, int to) {

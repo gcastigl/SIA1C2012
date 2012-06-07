@@ -15,8 +15,7 @@ public class Multiple extends CrossoverMethod {
 	}
 
 	@Override
-	protected Chromosome[] cross(Chromosome c1, Chromosome c2) {
-		Chromosome[] childs = new Chromosome[2];
+	protected void cross(Chromosome c1, Chromosome c2) {
 		int totalConnections = NetSerializer.totalConnections(c1.getLayers());
 		int r1 = (int) (Math.random() * (totalConnections - 1));
 		int r2 = (int) MoreMath.random(r1, totalConnections);
@@ -28,7 +27,6 @@ public class Multiple extends CrossoverMethod {
 		NetSerializer.toArray(c1.getLayers(), netAsArray, r1 + 1, r2);
 		NetSerializer.toArray(c2.getLayers(), netAsArray, r2);
 		childs[1] = buildChormosome();
-		return childs;
 	}
 
 }

@@ -5,9 +5,12 @@ import geneticalgorithm.Configuration;
 import geneticalgorithm.NetModificator;
 
 public abstract class CrossoverMethod extends NetModificator {
-
+	
+	protected Chromosome[] childs;
+	
 	public CrossoverMethod(Configuration config) {
 		super(config);
+		childs = new Chromosome[2];
 		System.out.println("Crossover method: " + getClass().getSimpleName());
 	}
 
@@ -29,14 +32,13 @@ public abstract class CrossoverMethod extends NetModificator {
 			// Si hay un numero impar, cruzo el ultimo con el primero
 			// y luego todas las parejas desde 0 hasta N - 1 (par)
 			maxLen--;
-			Chromosome[] childs = cross(
-				population[selected[0]], population[selected[maxLen]]);
+			cross(population[selected[0]], population[selected[maxLen]]);
 			newIndividuals[maxLen] = childs[0];
 		}
 		for (int i = 0; i < maxLen; i += 2) {
 			Chromosome c1 = population[selected[i]];
 			Chromosome c2 = population[selected[i + 1]];
-			Chromosome[] childs = cross(c1, c2);
+			cross(c1, c2);
 			newIndividuals[i] = childs[0];
 			newIndividuals[i + 1] = childs[1];
 		}
@@ -47,6 +49,6 @@ public abstract class CrossoverMethod extends NetModificator {
 	/**
 	 * Cruza c1 con c2 y devuelve un vector con los dos hijos generados 
 	 */
-	protected abstract Chromosome[] cross(Chromosome c1, Chromosome c2);
+	protected abstract void cross(Chromosome c1, Chromosome c2);
 	
 }

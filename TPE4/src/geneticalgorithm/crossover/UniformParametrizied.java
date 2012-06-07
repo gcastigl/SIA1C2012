@@ -18,7 +18,7 @@ public class UniformParametrizied extends CrossoverMethod {
 	}
 
 	@Override
-	protected Chromosome[] cross(Chromosome c1, Chromosome c2) {
+	protected void cross(Chromosome c1, Chromosome c2) {
 		NetSerializer.toArray(c1.getLayers(), netAsArray);
 		NetSerializer.toArray(c2.getLayers(), net2AsArray);
 		float p = config.pCross_uniform;
@@ -29,10 +29,8 @@ public class UniformParametrizied extends CrossoverMethod {
 				net2AsArray[i] = aux;
 			}
 		}
-		Chromosome[] childs = new Chromosome[2];
 		childs[0] = NetSerializer.fromArray(config.netConfig.structure, netAsArray);
 		childs[1] = NetSerializer.fromArray(config.netConfig.structure, net2AsArray);
-		return childs;
 	}
 
 }

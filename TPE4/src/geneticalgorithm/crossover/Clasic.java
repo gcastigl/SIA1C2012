@@ -15,8 +15,7 @@ public class Clasic extends CrossoverMethod {
 	}
 
 	@Override
-	protected Chromosome[] cross(Chromosome c1, Chromosome c2) {
-		Chromosome[] childs = new Chromosome[2];
+	protected void cross(Chromosome c1, Chromosome c2) {
 		int totalConnections = NetSerializer.totalConnections(c1.getLayers());
 		int p = (int) (Math.random() * totalConnections);
 		NetSerializer.toArray(c1.getLayers(), netAsArray, 0, p);
@@ -25,7 +24,6 @@ public class Clasic extends CrossoverMethod {
 		NetSerializer.toArray(c2.getLayers(), netAsArray, 0, p);
 		NetSerializer.toArray(c1.getLayers(), netAsArray, p + 1);
 		childs[1] = buildChormosome();
-		return childs;
 	}
 
 }

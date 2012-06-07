@@ -36,10 +36,10 @@ public class GeneticAlgorithmTest {
 		config.backpropp = 0.01f;
 		config.pCross_uniform = 0.4f;
 		// Seteo de metodos a utilizar
-		config.breakCriteriaType 	= BreakCriteriaType.MAX_GEN;
+		config.breakCriteriaType 	= BreakCriteriaType.ENT_ERROR;
 		config.selectionType 		= SelectorType.RULETA;
 		config.crossOverType 		= CrossoverType.CLASICO;
-		config.mutationType			= MutationType.MUTATION_CLASICO;
+		config.mutationType			= MutationType.MUTATION_NO_UNIFORME;
 		config.replacementType 		= SelectorType.ELITE;
 		config.ke_mixted = (int) (config.N * 0.5f);
 		return config;

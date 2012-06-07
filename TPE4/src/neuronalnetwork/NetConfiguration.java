@@ -1,17 +1,11 @@
 package neuronalnetwork;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.StringTokenizer;
 
-import main.ExamplesNormalizer;
+import main.ExamplesUtils;
 import neuronalnetwork.function.TransferFunction;
 
 public class NetConfiguration {
@@ -28,48 +22,23 @@ public class NetConfiguration {
 	
 	// Procentaje de los ejemplos para usar para training; los demas son para
 	// testing
-	public float p = 0.7f;
+	public float p;
 
 	/**
 	 * Lee los ejemplos del archivo examplesFile y los carga en los aprametros
 	 * training y testing de acuerdo a p.
 	 */
 	public void initialize() throws IOException {
-		// FIXME: Hardcoded values!
-		int inputDim = 2;
-		int outputDim = 1;
-		allexamples = new LinkedList<TrainItem>();
+		int inputDim = structure[0];
+		int outputDim = structure[structure.length - 1];
 		try {
-			DataInputStream in = new DataInputStream(new FileInputStream(
-					examplesFile));
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			while ((strLine = br.readLine()) != null) {
-				float[] input = new float[inputDim];
-				float[] output = new float[outputDim];
-				parseLine(strLine, input, output);
-				allexamples.add(new TrainItem(input, output));
-			}
-			// FIXME: Hardcoded values!
-			ExamplesNormalizer.normalizeTanh(allexamples);
+			allexamples = ExamplesUtils.loadExamples(examplesFile, inputDim, outputDim);
 			// Shuffle set before dividing the examples!
 			Collections.shuffle(allexamples);
 			divideExamples(allexamples);
-			in.close();
 		} catch (IOException e) {
-			System.out.println("File: " + examplesFile
-					+ " could not be loaded. " + e.getMessage());
+			System.out.println("File: " + examplesFile + " could not be loaded. " + e.getMessage());
 			throw e;
-		}
-	}
-
-	private void parseLine(String line, float[] in, float[] out) {
-		StringTokenizer tokenizer = new StringTokenizer(line.trim());
-		for (int i = 0; i < in.length; i++) {
-			in[i] = Float.parseFloat(tokenizer.nextToken());
-		}
-		for (int i = 0; i < out.length; i++) {
-			out[i] = Float.parseFloat(tokenizer.nextToken());
 		}
 	}
 

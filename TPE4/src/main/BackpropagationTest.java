@@ -18,7 +18,7 @@ public class BackpropagationTest {
 	public static void main(String[] args) {
 		List<TrainItem> examples = getExamplesTp();		
 		TransferFunction f = new TanhFunction();
-		ExamplesNormalizer.normalizeTanh(examples);
+		ExamplesUtils.normalizeTanh(examples);
 		
 		NeuralNetwork net = new NeuralNetwork(new int[] {INPUT, 8, 8, OUTPUT});
 		

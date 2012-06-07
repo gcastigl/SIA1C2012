@@ -11,7 +11,9 @@ import geneticalgorithm.selector.SelectorType;
 
 import java.io.IOException;
 
+import main.ExamplesUtils;
 import neuronalnetwork.NetConfiguration;
+import neuronalnetwork.function.SigmoidFunction;
 import neuronalnetwork.function.TanhFunction;
 
 public class Configuration {
@@ -109,7 +111,16 @@ public class Configuration {
 		replaceMethod 	= replacementType.getInstance(this);
 		mutationMethod 	= mutationType.getInstance(this);
 		elapsedGen = 0;
+		// set up net configuration
 		netConfig.initialize();
+		// normalize examples!
+		if (netConfig.f instanceof TanhFunction) {
+			ExamplesUtils.normalizeTanh(netConfig.allexamples);
+		} else if (netConfig.f instanceof SigmoidFunction) {
+			ExamplesUtils.normalizeSigmoid(netConfig.allexamples);
+		} else {
+			System.out.println("Warning: examples could not be normalized!");
+		}
 	}
 	
 }

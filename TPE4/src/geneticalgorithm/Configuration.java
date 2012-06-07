@@ -99,7 +99,7 @@ public class Configuration {
 		c_unUniform = 0.9f;
 		n_unUniform = 20;
 		
-		minError_breakCriteria = 0.001f;
+		minError_breakCriteria = 0.01f;
 	}
 	
 	public void initialize() throws IOException {

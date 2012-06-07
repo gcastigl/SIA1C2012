@@ -29,8 +29,8 @@ public class MixtedSelector extends CandidateSelector {
 			selected[i] = bests1[i];
 		}
 		// choose the first #childs - k_e candidates selected by the other selector
-		for (; i < selected.length; i++) {
-			selected[i] = bests2[i];
+		for (int index = 0; i < selected.length; i++) {
+			selected[i] = bests2[index++];
 		}
 		return selected;
 	}

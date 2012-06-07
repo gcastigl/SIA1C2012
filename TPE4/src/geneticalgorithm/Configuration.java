@@ -58,7 +58,11 @@ public class Configuration {
 	
 	/** Configuracion de las variables a usar para la red */
 	public NetConfiguration netConfig;
-	
+
+	/**
+	 * Crea una nueva configuracion y la inicizliza co valores iniciales para
+	 * facilitar su contruccion
+	 */
 	public Configuration() {
 		setDefaultValues();
 	}

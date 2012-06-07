@@ -50,7 +50,7 @@ public class GeneticAlgorithm {
 	private void showPopulationStats() {
 		float avgMse = calcAvgMSE();
 		System.out.print("Generation: " + config.elapsedGen);
-		System.out.println(" -- AVG MSE: " + avgMse);
+		System.out.println(" -- (Generalization) AVG MSE: " + avgMse);
 	}
 	
 	private void showFinalStats(Chromosome best) {

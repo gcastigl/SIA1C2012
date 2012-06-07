@@ -11,6 +11,11 @@ public class Chromosome {
 	public Chromosome(Layer[] layers) {
 		this.layers = layers;
 	}
+
+	public void setTo(Chromosome c) {
+		this.layers = c.layers;
+		this.fitness = c.fitness;
+	}
 	
 	public Layer[] getLayers() {
 		return layers;

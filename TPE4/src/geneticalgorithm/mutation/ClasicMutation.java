@@ -18,6 +18,8 @@ public class ClasicMutation extends MutationMethod {
 			int randIndex = (int) (Math.random() * NetSerializer.totalConnections(c.getLayers()));
 			NetSerializer.toArray(c.getLayers(), netAsArray);
 			netAsArray[randIndex] = getMutatation(netAsArray[randIndex]);
+			Chromosome mutated = buildChormosome();
+			c.setTo(mutated);
 		}
 	}
 	

@@ -19,6 +19,7 @@ public class MinErrorBreakCriteria extends BreakCriteria {
 		for (Chromosome chrom : config.population) {
 			acum += MSE.calc(chrom.createIndividual(), netConfig.f, netConfig.training);
 		}
+		acum /= config.population.length;
 		return acum < config.minError_breakCriteria;
 	}
 

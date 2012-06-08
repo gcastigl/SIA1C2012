@@ -56,6 +56,8 @@ public class BackPropagation {
 		float[][] nextLayerWeights = next.getWeights();
 
 		for (int i = 0; i < delta.length; i++) {
+			// Por cada neurona j de la capa siguiente, tomo la coneccion entre 
+			// la nurona i de esta capa con la nuerona j (nextLayerWeights[j][i])
 			float sum = 0;
 			for (int j = 0; j < next.getNeuronsDim(); j++) {
 				sum += nextLayerWeights[j][i] * nextLayerDelta[j];	
@@ -66,26 +68,38 @@ public class BackPropagation {
 	}
 
 	private void updateUnits(float[][] deltas, float[] input) {
-		for (int layer = 0; layer < deltas.length; layer++) {
+		for (int layer = 0; layer < deltas.length; layer++) {				// por cada capa
 			Layer curr = net.getLayer(layer);
 			float[][] weights = curr.getWeights();
-			// update connections
-			for (int neuron = 0; neuron < weights.length; neuron++) {
-				for (int i = 0; i < weights[0].length; i++) {
-					weights[neuron][i] += getDelta(deltas, layer, neuron, i, input);
+			float[] layerH = curr.getH();
+			for (int neuron = 0; neuron < weights.length; neuron++) {		// por cada neurona neuron
+				float neuronDelta = deltas[layer][neuron];
+				float df = f.valueAtDerivated(layerH[neuron]);
+				float[] neuronWeights = weights[neuron];
+				for (int i = 0; i < weights[neuron].length; i++) {			// por cada coneccion i
+					float y = getY(layer, neuron, i, neuronWeights, input);
+					weights[neuron][i] += eta * neuronDelta * df * y;
 				}
 			}
 		}
 	}
 	
-	private float getDelta(float[][] deltas, int layer, int neuron, int in, float[] input) {
-		float[] h = net.getLayer(layer).getH();
-		float v;
-		if (layer == 0) {
-			v = (in == input.length) ? -1 : input[in];
-		} else {
-			v = f.valueAt(h[neuron]);
+	private float getY(int layer, int neuron, int connection, float[] neuronWeights, float[] input) {
+		float y;
+		boolean lastLayer = isLastLayer(connection, neuronWeights.length);
+		if (lastLayer) {
+			return -1;
 		}
-		return eta * deltas[layer][neuron] * v;
+		if (layer == 0) {
+			y = input[connection];
+		} else {
+			float[] prevLeayerH = net.getLayer(layer - 1).getH();
+			y = f.valueAt(prevLeayerH[connection]);
+		}
+		return y;
+	}
+	
+	private boolean isLastLayer(int connection, int arrayLen) {
+		return connection == arrayLen - 1;
 	}
 }

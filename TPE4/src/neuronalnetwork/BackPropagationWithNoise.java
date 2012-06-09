@@ -27,12 +27,20 @@ public class BackPropagationWithNoise extends BackPropagation {
 		for (Layer l: net.getLayers()) {
 			float[][] weights = l.getWeights();
 			for (int i = 0; i < weights.length; i++) {
-				for (int j = 0; j < weights[0].length; j++) {
+				for (int j = 0; j < weights[i].length; j++) {
 					if (pNoise > Math.random()) {
-						weights[i][j] += weights[i][j] * noiseAmount; 
+						weights[i][j] += calcNoise(weights[i][j]); 
 					}
 				}
 			}
 		}
+	}
+	
+	private float calcNoise(float value) {
+		float newvalue = value * noiseAmount;
+		if (0.5 > Math.random()) {
+			newvalue = -newvalue;
+		}
+		return newvalue;
 	}
 }

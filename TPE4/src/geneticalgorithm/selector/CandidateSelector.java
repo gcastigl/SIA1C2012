@@ -35,7 +35,7 @@ public abstract class CandidateSelector {
 		NeuralNetwork net = c.createIndividual();
 		float mse = MSE.calc(net, config.netConfig.f, config.netConfig.testing);
 		// NOTE: using MINUS mse!
-		c.setFitness(-mse);
+		c.setFitness(1/mse);
 	}
 
 	/**

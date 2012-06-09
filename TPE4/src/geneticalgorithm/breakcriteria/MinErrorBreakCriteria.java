@@ -14,13 +14,14 @@ public class MinErrorBreakCriteria extends BreakCriteria {
 
 	@Override
 	public boolean isFinished() {
-		double acum = 0;
+		double least = Double.MAX_VALUE;
 		NetConfiguration netConfig = config.netConfig;
 		for (Chromosome chrom : config.population) {
-			acum += MSE.calc(chrom.createIndividual(), netConfig.f, netConfig.training);
+			double aux =  MSE.calc(chrom.createIndividual(), netConfig.f, netConfig.training);
+			if( aux < least)
+				least = aux;
 		}
-		acum /= config.population.length;
-		return acum < config.minError_breakCriteria;
+		return least < config.minError_breakCriteria;
 	}
 
 }

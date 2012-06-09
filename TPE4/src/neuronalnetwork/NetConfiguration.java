@@ -11,7 +11,7 @@ import neuronalnetwork.function.TransferFunction;
 public class NetConfiguration {
 
 	private static final String examplesFile = "./TPE4/res/examples.txt";
-
+	//private static final String examplesFile = "C:\\Documents and Settings\\Martin\\sia\\SIA1C2012\\TPE4\\res\\examples.txt";
 	public int[] structure;
 	public TransferFunction f;
 	public int epochs;

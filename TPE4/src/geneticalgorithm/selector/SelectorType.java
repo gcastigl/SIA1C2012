@@ -10,6 +10,12 @@ public enum SelectorType {
 			return new EliteSelector(config);
 		}
 	}, 
+	BOLTZMAN {
+		@Override
+		public CandidateSelector getInstance(Configuration config) {
+			return new BoltzmanSelector(config);
+		}
+	}, 
 	RULETA {
 		@Override
 		public CandidateSelector getInstance(Configuration config) {

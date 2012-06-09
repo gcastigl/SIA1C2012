@@ -37,7 +37,7 @@ public class GeneticAlgorithmTest {
 		config.pCross_uniform = 0.4f;
 		// Seteo de metodos a utilizar
 		config.breakCriteriaType 	= BreakCriteriaType.ENT_ERROR;
-		config.selectionType 		= SelectorType.RULETA;
+		config.selectionType 		= SelectorType.BOLTZMAN;
 		config.crossOverType 		= CrossoverType.CLASICO;
 		config.mutationType			= MutationType.MUTATION_CLASICO;
 		config.replacementType 		= SelectorType.ELITE;

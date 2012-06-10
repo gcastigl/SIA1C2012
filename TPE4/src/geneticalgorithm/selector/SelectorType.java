@@ -28,10 +28,17 @@ public enum SelectorType {
 			return new RouletteSelector(config);
 		}
 	}, 
-	MIXED {
+	MIXED_BOLTZMAN {
 		@Override
 		public CandidateSelector getInstance(Configuration config) {
-			CandidateSelector s2 = config.mixtedSelectionType.getInstance(config);
+			CandidateSelector s2 = new BoltzmanSelector(config);
+			return new MixtedSelector(config, s2);
+		}
+	},
+	MIXED_RULETA {
+		@Override
+		public CandidateSelector getInstance(Configuration config) {
+			CandidateSelector s2 = new RouletteSelector(config);
 			return new MixtedSelector(config, s2);
 		}
 	},

@@ -42,7 +42,6 @@ public class GeneticAlgorithmTest {
 		config.mutationType			= MutationType.MUTATION_CLASICO;
 		config.replacementType 		= SelectorType.RULETA;
 		config.ke_mixted = (int) (config.N * 0.5f);
-		config.eliteSelection = SelectorType.ELITE == config.selectionType;
 		return config;
 	}
 

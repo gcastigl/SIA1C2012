@@ -40,9 +40,7 @@ public class Configuration {
 	public float backpropp;
 	
 	public int elapsedGen;
-	
-	public boolean eliteSelection;
-	
+		
 	/** Para metodo MIXTO solamente. Cantidad de individuos utilizando Elite */
 	public int ke_mixted;
 	/** Para metodo CRUCE UNIFORME PARAMETRIZADO solamente. probabilidad de cruce de alelo. */

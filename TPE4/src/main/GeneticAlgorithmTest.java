@@ -41,7 +41,7 @@ public class GeneticAlgorithmTest {
 		config.crossOverType 		= CrossoverType.CLASICO;
 		config.mutationType			= MutationType.MUTATION_CLASICO;
 		config.replacementType 		= SelectorType.RULETA;
-		config.ke_mixted = (int) (config.N * 0.5f);
+		config.ke_mixted = 10;
 		return config;
 	}
 

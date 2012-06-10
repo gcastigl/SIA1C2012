@@ -45,8 +45,7 @@ public abstract class CrossoverMethod extends NetModificator {
 		}
 	}
 
-	private Chromosome[] eliteCrossover(Chromosome[] newIndividuals,
-			int[] selected) {
+	private Chromosome[] eliteCrossover(Chromosome[] newIndividuals, int[] selected) {
 		Chromosome[] individualPool = new Chromosome[selected.length + newIndividuals.length];
 		for (int i = 0; i < selected.length; i++) {
 			individualPool[i] = config.population[selected[i]];

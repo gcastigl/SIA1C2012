@@ -37,9 +37,13 @@ public class MixtedSelector extends CandidateSelector {
 
 	@Override
 	public void replace(Chromosome[] childs) {
-		// El Tp no especifica como tiene que ser el reemplazo de 
-		// los individuos para el metodo mixto.
-		elite.replace(childs);
+		int[] eliteSelection = elite.selectBestK(config.ke_mixted);
+		int neededToCompleteN = config.N - config.ke_mixted - childs.length;
+		int[] otherSelection = s2.selectBestK(neededToCompleteN);
+		int[] allselected = new int[eliteSelection.length + otherSelection.length];
+		System.arraycopy(eliteSelection, 0, allselected, 0, eliteSelection.length);
+		System.arraycopy(otherSelection, 0, allselected, eliteSelection.length, otherSelection.length);
+		createNewPopulation(allselected, childs);
 	}
 
 }

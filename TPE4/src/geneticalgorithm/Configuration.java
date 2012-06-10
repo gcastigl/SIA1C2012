@@ -23,8 +23,6 @@ public class Configuration {
 	public CrossoverType crossOverType;
 	public MutationType mutationType;
 	public SelectorType replacementType;
-	/** Segundo selector a usar para el metodo mixto */
-	public SelectorType mixtedSelectionType;
 	
 	/** Poblacion */
 	public int N; 
@@ -79,9 +77,6 @@ public class Configuration {
 		mutationType		= MutationType.MUTATION_CLASICO;
 		replacementType 	= SelectorType.ELITE;
 		
-		// Para el caso de MIXTO
-		mixtedSelectionType 	= SelectorType.RULETA;
-		
 		N = 20;
 		G = 0.8f;
 		maxGen = 100;
@@ -108,8 +103,8 @@ public class Configuration {
 		breakCriteria 	= breakCriteriaType.getInstance(this);
 		selectionMethod = selectionType.getInstance(this);			
 		crossoverMethod = crossOverType.getInstance(this);
-		replaceMethod 	= replacementType.getInstance(this);
 		mutationMethod 	= mutationType.getInstance(this);
+		replaceMethod 	= replacementType.getInstance(this);
 		elapsedGen = 0;
 		// set up net configuration
 		netConfig.initialize();

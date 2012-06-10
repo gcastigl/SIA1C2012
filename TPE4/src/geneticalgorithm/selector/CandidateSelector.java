@@ -4,6 +4,7 @@ import geneticalgorithm.Chromosome;
 import geneticalgorithm.Configuration;
 import neuronalnetwork.MSE;
 import neuronalnetwork.NeuralNetwork;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public abstract class CandidateSelector {
 
@@ -34,8 +35,7 @@ public abstract class CandidateSelector {
 	protected void calcFitness(Chromosome c) {
 		NeuralNetwork net = c.createIndividual();
 		float mse = MSE.calc(net, config.netConfig.f, config.netConfig.testing);
-		// NOTE: using MINUS mse!
-		c.setFitness(1/mse);
+		c.setFitness(1 / mse);
 	}
 
 	/**
@@ -91,5 +91,9 @@ public abstract class CandidateSelector {
 		}
 		// update population
 		config.population = newPopulation;
+	}
+
+	protected int[] selectBestK(int k) {
+		throw new NotImplementedException();
 	}
 }

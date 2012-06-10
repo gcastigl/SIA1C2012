@@ -23,6 +23,7 @@ public class EliteSelector extends CandidateSelector {
 		return selectBestK((int) (config.G * config.N));
 	}
 
+	@Override
 	protected int[] selectBestK(int k) {
 		sortPopulationByFitness();
 		// Get the best k individuals

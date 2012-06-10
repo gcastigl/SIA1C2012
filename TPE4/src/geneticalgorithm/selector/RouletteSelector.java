@@ -33,37 +33,37 @@ public class RouletteSelector extends CandidateSelector {
 		// Get the best k individuals
 		int[] selected = new int[k];
 		int N = config.population.length;
-		boolean[] used = new boolean[N];
-		for( int i = 0 ; i < N ; i ++){
-			used[i] = false;
-		}
+		//boolean[] used = new boolean[N];
+		//for( int i = 0 ; i < N ; i ++){
+	//		used[i] = false;
+		//}
 		for (int i = 0; i < selected.length; i++) {
 			
-			individualChosen = false;
-			while(!individualChosen){
-				boolean found = false;
+			//individualChosen = false;
+			//while(!individualChosen){
+				//boolean found = false;
 				rnd = (float) Math.max(Math.random(), 0.000001f);	// rnd should never be 0!
 				if (rnd < array[0].qi) {
-					if(!used[0]){
+				//	if(!used[0]){
 						individualChosen = true;
 						selected[i] = array[0].index;
-						used[0] = true;
-					}
+				//		used[0] = true;
+				//	}
 				} else {
 					individualChosen = false;
-					for (int j = 1; !individualChosen && j < selected.length && !found; j++) {
+					for (int j = 1; !individualChosen && j < selected.length /*&& !found*/; j++) {
 						if (rnd > array[j - 1].qi && rnd <= array[j].qi) {
-							if(!used[j]){
+				//			if(!used[j]){
 								selected[i] = j;
 								individualChosen = true;
-								used[j] = true;
-							}
-							else{
-								found = true;
-							}
+			//					used[j] = true;
+			//				}
+			//				else{
+			//					found = true;
+			//				}
 						}
 					}
-				}
+				//}
 			}
 		}
 		return selected;

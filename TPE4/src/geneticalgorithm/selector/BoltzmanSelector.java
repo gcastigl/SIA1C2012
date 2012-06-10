@@ -5,9 +5,9 @@ import geneticalgorithm.Configuration;
 
 public class BoltzmanSelector extends CandidateSelector{
 	
-	private final double MAX_T = 10000.0;
-	private final double MIN_T = 1000.0;
-	private final double DEC_RATE = 1.0;
+	private final double MAX_T = 10000;
+	private final double MIN_T = 1000;
+	private final double DEC_RATE = 5;
 	
 	public BoltzmanSelector(Configuration config) {
 		super(config);

@@ -41,6 +41,8 @@ public class Configuration {
 	
 	public int elapsedGen;
 	
+	public boolean eliteSelection;
+	
 	/** Para metodo MIXTO solamente. Cantidad de individuos utilizando Elite */
 	public int ke_mixted;
 	/** Para metodo CRUCE UNIFORME PARAMETRIZADO solamente. probabilidad de cruce de alelo. */
@@ -74,7 +76,7 @@ public class Configuration {
 	public void setDefaultValues() {
 		// Seteo de metodos a utilizar
 		breakCriteriaType 	= BreakCriteriaType.MAX_GEN;
-		selectionType 		= SelectorType.RULETA;
+		selectionType 		= SelectorType.ELITE;
 		crossOverType 		= CrossoverType.CLASICO;
 		mutationType		= MutationType.MUTATION_CLASICO;
 		replacementType 	= SelectorType.ELITE;
@@ -83,7 +85,7 @@ public class Configuration {
 		mixtedSelectionType 	= SelectorType.RULETA;
 		
 		N = 20;
-		G = 0.6f;
+		G = 0.8f;
 		maxGen = 100;
 		pMutate = 0.02f;
 		cp = 0.7f;
@@ -92,8 +94,8 @@ public class Configuration {
 		ke_mixted = (int) (N * 0.5f);
 		// Set up net configuration
 		netConfig = new NetConfiguration();
-		netConfig.structure = new int[] {2, 15, 15, 10, 1};
-		netConfig.epochs = 50;
+		netConfig.structure = new int[] {2, 15, 15, 1};
+		netConfig.epochs = 200;
 		netConfig.p = 0.7f;
 		netConfig.eta = 0.1f;
 		netConfig.f = new TanhFunction(0.5f);

@@ -65,7 +65,11 @@ public class EliteSelector extends CandidateSelector {
 
 		@Override
 		public int compareTo(ChromosomeContainer o) {
-			return (int) (o.fitness - fitness);
+			if(o.fitness == fitness)
+				return 0;
+			if( o.fitness < fitness)
+				return -1;
+			return 1;
 		}
 	}
 }

@@ -18,10 +18,12 @@ public class MinErrorBreakCriteria extends BreakCriteria {
 		NetConfiguration netConfig = config.netConfig;
 		for (Chromosome chrom : config.population) {
 			double aux =  MSE.calc(chrom.createIndividual(), netConfig.f, netConfig.training);
+			
 			if( aux < least)
 				least = aux;
 		}
-		return least < config.minError_breakCriteria;
+		System.out.println("MSE:"  + least);
+		return least < (double)config.minError_breakCriteria;
 	}
 
 }

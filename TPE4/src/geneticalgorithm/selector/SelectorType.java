@@ -16,6 +16,12 @@ public enum SelectorType {
 			return new BoltzmanSelector(config);
 		}
 	}, 
+	UNIVERSAL {
+		@Override
+		public CandidateSelector getInstance(Configuration config) {
+			return new UniversalSelector(config);
+		}
+	}, 
 	RULETA {
 		@Override
 		public CandidateSelector getInstance(Configuration config) {

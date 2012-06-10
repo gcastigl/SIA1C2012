@@ -28,8 +28,8 @@ public class GeneticAlgorithmTest {
 	
 	private static Configuration createConfiguration() throws IOException {
 		Configuration config = new Configuration();
-		config.N = 20;
-		config.G = 0.6f;
+		config.N = 30;
+		config.G = 0.5f;
 		config.maxGen = 100;
 		config.pMutate = 0.02f;
 		config.cp = 0.7f;
@@ -37,11 +37,12 @@ public class GeneticAlgorithmTest {
 		config.pCross_uniform = 0.4f;
 		// Seteo de metodos a utilizar
 		config.breakCriteriaType 	= BreakCriteriaType.ENT_ERROR;
-		config.selectionType 		= SelectorType.BOLTZMAN;
+		config.selectionType 		= SelectorType.ELITE;
 		config.crossOverType 		= CrossoverType.CLASICO;
 		config.mutationType			= MutationType.MUTATION_CLASICO;
-		config.replacementType 		= SelectorType.ELITE;
+		config.replacementType 		= SelectorType.RULETA;
 		config.ke_mixted = (int) (config.N * 0.5f);
+		config.eliteSelection = SelectorType.ELITE == config.selectionType;
 		return config;
 	}
 

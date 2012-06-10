@@ -36,7 +36,32 @@ public abstract class CrossoverMethod extends NetModificator {
 		for (int i = 0; i < maxLen; i += 2) {
 			cross(newIndividuals, i, selected[i], selected[i + 1], 2);
 		}
-		return newIndividuals;
+		if(!config.eliteSelection){
+			return newIndividuals;			
+		}
+		else{
+			Chromosome[] individualPool = new Chromosome[selected.length + newIndividuals.length];
+			for( int i = 0 ; i < selected.length ; i ++){
+				individualPool[i] = config.population[selected[i]];
+			}
+			for( int i = selected.length ; i < selected.length + newIndividuals.length ; i ++){
+				individualPool[i] = newIndividuals[i - selected.length];
+			}
+			int N = individualPool.length;
+			for( int i= 1 ; i < N ; i ++){
+				for( int j = 0 ; j < N-i; j ++){
+					if(individualPool[j].getFitness() < individualPool[j+1].getFitness()){
+						Chromosome aux = individualPool[j];
+						individualPool[j] = individualPool[j+1];
+						individualPool[j+1] = aux;
+					}
+				}
+			}
+			for( int i = 0 ; i < newIndividuals.length ; i ++){
+				newIndividuals[i] = individualPool[i];
+			}
+			return newIndividuals;
+		}
 	}
 
 	/**

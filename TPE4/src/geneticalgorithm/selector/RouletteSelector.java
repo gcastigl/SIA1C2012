@@ -24,7 +24,8 @@ public class RouletteSelector extends CandidateSelector {
 		createNewPopulation(selected, childs);
 	}
 	
-	private int[] selectBestK(int k) {
+	@Override
+	protected int[] selectBestK(int k) {
 		sumFitness = calctTotalFitness(config.population);
 		computeSlotSize();
 		computeCumProbability();

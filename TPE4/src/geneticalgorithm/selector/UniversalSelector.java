@@ -15,7 +15,8 @@ public class UniversalSelector extends CandidateSelector {
 		return selectBestK(k);
 	}
 
-	private int[] selectBestK(int k) {
+	@Override
+	protected int[] selectBestK(int k) {
 		double F = 0;
 		for (Chromosome c : config.population) {
 			F += c.getFitness();

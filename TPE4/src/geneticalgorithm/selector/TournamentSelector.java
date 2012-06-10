@@ -12,10 +12,11 @@ public class TournamentSelector extends CandidateSelector {
 
 	@Override
 	public int[] select() {
-		return selectK((int) (config.G * config.N));
+		return selectBestK((int) (config.G * config.N));
 	}
 
-	private int[] selectK(int k) {
+	@Override
+	protected int[] selectBestK(int k) {
 		// Get the best k individuals
 		int[] selected = new int[k];
 		for (int i = 0; i < selected.length; i++) {
@@ -40,7 +41,7 @@ public class TournamentSelector extends CandidateSelector {
 
 	@Override
 	public void replace(Chromosome[] childs) {
-		int[] selected = selectK(config.N - childs.length);
+		int[] selected = selectBestK(config.N - childs.length);
 		createNewPopulation(selected, childs);
 	}
 

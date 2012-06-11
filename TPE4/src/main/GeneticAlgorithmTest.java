@@ -61,7 +61,8 @@ public class GeneticAlgorithmTest {
 		System.out.println("\treplacementType = ELITE - BOLTZMAN - UNIVERSAL - RULETA - MIXED_BOLTZMAN - MIXED_RULETA - TURNAMENT");
 		System.out.println("**************************");
 		System.out.println("==> Call with a signle parameter \"default\" to start G.A. with deafualt values.");
-		System.out.print("==> For advanced parameter Tune up, checkout class GeneticAlgorithmTest(main class) and set up any other desired paramer @createConfiguration() method");
+		System.out.println("==> For advanced parameter Tune up, checkout class GeneticAlgorithmTest(main class) and set up any other desired paramer @createConfiguration() method");
+		System.out.println("\tConfiguracion class has all available parameters with the documentation explaining what it does.");
 	}
 
 	private static void parseArgs(String[] args) {

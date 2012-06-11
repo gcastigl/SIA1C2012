@@ -122,7 +122,7 @@ Con este fin se implementó un algoritmo que permite definir de manera sencilla 
 
 \subsubsection{Representación de los individuos}
 
-\par Se decidio representar a cada individuo de la población (red neuronal multicapa en este caso) de la siguiente forma: Cada capa de la red neuronal está represnetada por un arreglo de pesos; por consiguiente una red neuronal es la concatenación de los arreglos de cada una de sus capas. Un cromosoma será entonces un arreglo en el que cada locus representará un peso puntual de la red.
+\par Se decidió representar a cada individuo de la población (red neuronal multicapa en este caso) de la siguiente forma: Cada capa de la red neuronal está represnetada por una matriz de pesos; por consiguiente una red neuronal es la concatenación de los las filas de la matriz de cada una de sus capas. Un cromosoma será entonces un arreglo en el que cada locus representará un peso puntual de la red (notar que el $bias$ esta representado como una conección extra a cada una de las neuronas).
 
 \subsubsection{Diagramación del algoritmo}
 
@@ -222,6 +222,12 @@ La selección/reemplazo mixto consiste en elegir $k_e$ individuos utilizando \te
 \par Figura 1: Modelado esquemático del funcionamiento del algoritmo genético para poblaciones de 10 individuos y un gap generacional G = 0.6.
 \end{center}
 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=0.80]{./images/Dibujo1.png}
+\label{modelado}
+\end{center}
+\end{figure}
 
 %\VerbatimInput{./code/calculoAb.m}
 

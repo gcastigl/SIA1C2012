@@ -15,3 +15,9 @@ Parámetros de invocacion: N G maxGen mp cp selectionType replacementType
 ==> Llamar con un parámetro "default" para empezar una simulación con sólo parámetros default.
 ==> Para una configuración avanzada de los parámetros, ver clase GeneticAlgorithmTest(paquete Main) y configurar todos los parámetros deseados en el método createConfiguration().
 	La clase Configuration tiene todas las configuraciones de parámetros disponibles junto a la documentation explicando para que sirven.
+
+	
+Ejemplos de invocacion:
+
+java -jar geneticAlgorithmTest.jar default
+java -jar geneticAlgorithmTest.jar 20 0.6 200 0.01 0.75 RULETA ELITE

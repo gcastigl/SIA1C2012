@@ -9,6 +9,8 @@ import geneticalgorithm.selector.SelectorType;
 
 import java.io.IOException;
 
+import neuronalnetwork.NeuralNetwork;
+
 public class GeneticAlgorithmTest {
 	
 	private static int N;
@@ -42,7 +44,8 @@ public class GeneticAlgorithmTest {
 			config.initialize();
 			GeneticAlgorithm ga = new GeneticAlgorithm(config);
 			System.out.println("**************************************");
-			ga.getSolution();
+			NeuralNetwork nw = ga.getSolution();
+			nw.persist("out.nw", config);
 		} catch (IOException e) {
 			System.out.println("Could not start Genetic Algorithm: " + e.getMessage());
 			System.out.println("Program terminated.");
@@ -84,29 +87,29 @@ public class GeneticAlgorithmTest {
 	private static void initDefaultArgsValues() {
 		N = 30;
 		G = 0.5f;
-		maxGen = 200;
+		maxGen = 10;
 		mp = 0.02f;
 		cp = 0.7f;
 		selectionType = SelectorType.ELITE;
 		replacementType = SelectorType.RULETA;
 	}
 	
-	private static Configuration createConfiguration() throws IOException {
+	public static Configuration createConfiguration() throws IOException {
 		Configuration config = new Configuration();
 		config.N = N;
 		config.G = G;
 		config.maxGen = maxGen;
 		config.pMutate = mp;
 		config.cp = cp;
-		config.backpropp = 0.01f;
+		config.backpropp = 0.05f;
 		config.pCross_uniform = 0.4f;
 		// Seteo de metodos a utilizar
-		config.breakCriteriaType 	= BreakCriteriaType.ENT_ERROR;
+		config.breakCriteriaType 	= BreakCriteriaType.MAX_GEN;
 		config.selectionType 		= selectionType;
 		config.crossOverType 		= CrossoverType.ANULAR;
 		config.mutationType			= MutationType.MUTATION_CLASICO;
 		config.replacementType 		= replacementType;
-		config.ke_mixted = 10;
+		config.ke_mixted = 6;
 		return config;
 	}
 

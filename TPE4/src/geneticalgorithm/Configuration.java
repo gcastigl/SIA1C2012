@@ -82,7 +82,7 @@ public class Configuration {
 		maxGen = 100;
 		pMutate = 0.02f;
 		cp = 0.7f;
-		backpropp = 0.01f;
+		backpropp = 0.05f;
 		pCross_uniform = 0.4f;
 		ke_mixted = (int) (N * 0.5f);
 		// Set up net configuration

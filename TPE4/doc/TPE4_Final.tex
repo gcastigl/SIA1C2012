@@ -123,6 +123,9 @@ Con este fin se implementó un algoritmo que permite definir de manera sencilla 
 \subsubsection{Representación de los individuos}
 
 \par Se decidió representar a cada individuo de la población (red neuronal multicapa en este caso) de la siguiente forma: Cada capa de la red neuronal está represnetada por una matriz de pesos; por consiguiente una red neuronal es la concatenación de los las filas de la matriz de cada una de sus capas. Un cromosoma será entonces un arreglo en el que cada locus representará un peso puntual de la red (notar que el $bias$ esta representado como una conección extra a cada una de las neuronas).
+\par En otras palabras, cada \textit{locus} representa una conexión en la red neuronal. Su \textit{alelo} respectivo 
+indica el peso de dicha conexión. Para reconstruir la red a partir del cromosoma se guarda convenientemente la 
+arquitectura utilizada en otro lado.
 
 \subsubsection{Diagramación del algoritmo}
 
@@ -145,6 +148,11 @@ De esta forma, la \textit{generación i+1} ya tiene $6$ de los $10$ individuos n
 
 \par El método de selección/reemplazo \textit{Elite} consiste en elegir a los $k$ ``mejores'' individuos de la población, considerando mejores a los individuos con mejor \textit{fitness}.
 
+\par El método de selección elite es algo distinto a los demás. Se eligen los $k$ individuos a cruzar. Se cruzan 
+para obtener unos $k$ nuevos individuos. De esos $2k$ individuos, se eligen los mejores $k$ para la nueva 
+generación. En otras palabras, si los $k$ hijos producidos tienen menor fitness que sus padres, ninguno de 
+ellos pasa a la nueva generación.
+
 \subsection{Ruleta}
 
 \par La selección/reemplazo por ruleta se realiza de la siguiente manera:\\
@@ -161,7 +169,24 @@ De esta forma, la \textit{generación i+1} ya tiene $6$ de los $10$ individuos n
 
 \subsection{Boltzman}
 
-\par La selección/reemplazo por Boltzman estipula que la probabilidad de ser elegido es proporcional a una funcioón no lineal del \textit{fitness} y de la ``temperatura''. En este sentido guarda ciertas similitudes a \textit{simmulated annealed}: al principio busca diversidad y luego baja la temperatura haciedno que cada vez haya menos diveridad de acuerdo a cierto decrease rate.
+\par La selección/reemplazo por Boltzman estipula que la probabilidad 
+de ser elegido es proporcional a una función no 
+lineal del \textit{fitness} y de la ``temperatura''. 
+En este sentido guarda ciertas similitudes a \textit{simmulated annealing}: al 
+principio busca diversidad (la probabilidad de elegir cada individuo es más uniforme) 
+y luego baja la temperatura haciendo que cada 
+vez haya menos diveridad de acuerdo a una cierta función decreciente monótona de la temperatura. 
+\par La probabilidad de cada individuo $i$ de ser elegido es de $ \frac{e^{\frac{f_i}{T}}}{\sum_{i}e^{\frac{f_i}{T}}}$, 
+donde $T$ es la temperatura, $f_i$ el fitness de cada individuo. Es fácil ver que si T tiende a infinito, todos 
+los términos tienden a $1$, por lo que la probabilidad de cada individuo de ser elegido es $\frac{1}{N}$, es decir 
+uniforme. Por otro lado, a medida que $T$ tiende a valores más pequeños, el peso de los términos con mayores 
+valores de $f_i$ crece exponencialmente en relación con el resto, por lo que la probabilidad de ser elegidos 
+sube. 
+\par Se debe tener cuidado con la elección de la temperatura $T$ en relación al rango de posibles valores de 
+fitness. Esto se debe a que si la razón \frac{f_i}{T} toma valores grandes, puede haber problemas 
+de representación y almacenamiento de el número $e$ elevado a dicho valor. En particular se decidió utilizar 
+una temperatura mínima de $1000$, dado que asumiendo un fitness de $10000$ correspondiente a un error 
+cuadrático medio de $10^{-5}$ el coeficiente vale $10$ y no trae los problemas ya mencionados.
 
 \subsection{Torneo}
 
@@ -193,10 +218,68 @@ La selección/reemplazo mixto consiste en elegir $k_e$ individuos utilizando \te
 \item \textbf{Estructura:} Se finaliza al detectar que una parte relevante de la poblacioón no cambia de generacioón en generación. Es decir, dado un porcentaje $p$, el algoritmo termina cuando la cantidad de individuos iguales de la generación es mayor a dicho $p$.
 \end{itemize}
 
-\section{Mutación y backpropagation}
+\section{Mutación y refinamiento}
 
-\par Una vez cruzados, los individuos pasan a la siguiente generación con una probabilidad baja de ser mutados y/o entrenados mediante \textit{backpropagation}.\\
-\par La mutación se realiza de la siguiente manera: Se toma un peso al azar del individuo y se le suma un número random proporcional al valor del mismo. Es decir, se le agrega cierto ruido a uno de los pesos de la red neuronal en cuestión.
+
+\par Una vez cruzados, los individuos pasan a la siguiente generación con una 
+probabilidades bajas e independientes de ser mutados y/o refinados 
+mediante el algoritmo de \textit{backpropagation}.
+\subsection{Mutación}
+\par Es importante entender que existe una probabilidad de que se produzca la mutación de
+un individuo y en caso de que ésto sea verdadero se puede producir la
+mutación de cada locus de ese individuo. Sin embargo, si la cantidad de locus es considerable, 
+este procedimiento puede ser innecesariamente ineficiente, teniendo que generar $L+1$ números 
+al azar, siendo $L$ la cantidad de locus, si sucede el primer evento. Sin embargo, si se 
+considera $p_m$ la probabilidad de que mute un individuo, y $p$ la probabilidad de que mute cada locus, se verifica 
+que la probabilidad de que no mute ningún locus es:
+\[P(X=0) = p_m(1-p)^{L}+(1-p_m)\]
+En otras palabras, la probabilidad de que el individuo no mute más la probabilidad de que mute pero 
+no mute ningún locus. La notación variable probabilística $X$ denota la cantidad de locus mutados. 
+También se puede verificar que la probabilidad de que muten exactamente $i$ locus está dada por:
+\[P(X=i) = p_mp^i(1-p)^{L-i}comb(L,i)\]
+Sin embargo, si se toma $p_m$ y $p$ pequenos, el factor $p_mp^i$ se hace arbitrariamente pequeno, por 
+lo que las probabilidades disminuyen drásticamente para valores incrementales de $i$. Se podría incluso 
+despreciar la probabilidad de que muten dos locus o más. Dicha probabildid está dada por:
+\[P(X\ge 2) = 1 - (P(X=0) + P(X=1))\]
+\[P(X\ge 2) = 1 - (p_m(1-p)^{L}+(1-p_m) + p_mp(1-p)^{L-1}L)\]
+\[P(X\ge 2) = -p_m(1-p)^{L}+p_m - p_mp(1-p)^{L-1}L)\]
+\[P(X\ge 2) = p_m\left(1 - (1-p)^{L} - p(1-p)^{L-1}L)\right)\]
+Por ejemplo, para $L=50$, $p_m=0.01$ y $p=0.001$, esta expresión es aproximadamente $10^-5$, mientras 
+que la probabilidad de que mute sólo un locus es $5(10^{-3})$. En vista de estos resultados, se puede 
+ despreciar la probabilidad de que mute más de un locus y definir una nueva probabilidad $p'$, tal que 
+ $p'$ representa la probabilidad de que mute algún locus, y $1-p'$ es la probabilidad de que no haya mutación.
+\par Dadas las consideraciones anteriores, la mutación se realiza de la siguiente manera: 
+se genera un número al azar entre $0$ y $1$. Si es menor a $p'$, se toma un locus al azar del individuo y se 
+lo modifica. A pesar de que 
+estrictamente no es equivalente al modelo de mutación ya explicado, es más eficiente. 
+\par La modificación del locus consiste en generar un  
+un número al azar proporcional al valor del mismo y otro random no proporcional al valor. La 
+idea detrás de esto es que el ruido pueda afectar de igual a igual a valores grandes como muy pequeños. 
+En conclusión, la mutción consiste en agregar cierto ruido a uno de los pesos de la red neuronal en cuestión. Cabe 
+destacar que los cálculos asumen que la cantidad de locus ($L$) no es demasiado grande, caso contrario la probabilidad 
+de que mute más de un locus deja de ser despreciable (la distribución binomial se empieza a comportar 
+como una distribución normal). En otras palabras, si la arquitectura es particularmente grande 
+se debería reconsiderar dicho método.
+
+\subsubsection{Mutación clásica}
+
+Consiste en lo ya explicado en la sección anterior. Si se obtiene un número al azar entre $0$ y $1$ menor a 
+$p'$ se elige un locus al azar para mutar.
+
+\subsubsection{Mutación no uniforme}
+
+Similar a la mutación clásica, con la salvedad que $p'$ no es constante sino que pasa a ser una función 
+de las generaciones elapsadas. En otras palabras se tiene una función $p'(g)$ decreciente. La idea de que 
+dicha función sea decreciente es similar al objetivo de la selección de \textit{Boltzman}: aumentar la diversidad 
+en generaciones tempranas y reducirla en generaciones más tardías. En particular se utilizó la siguiente función:
+\[p'(g) = c^{g}p'_0\]
+
+\subsection{Refinamiento}
+
+Una vez finalizada la etapa de mutación, se genera un nuevo número al azar entre $0$ y $1$. Si dicho número 
+es menor a una probabilidad $p_b$, se refina el individuo generado. La etapa de refinamiento consiste en 
+un algoritmo de backpropagation con una cantidad de etapas acotadas. 
+
 
 \section{Resultados}
 
@@ -233,8 +316,43 @@ La selección/reemplazo mixto consiste en elegir $k_e$ individuos utilizando \te
 \par Figura 2: Flujo y etapas del algoritmo genético implementado.
 \end{center}
 
-%\VerbatimInput{./code/calculoAb.m}
+\section*{Anexo B: Tabla de Resultados}
 
+\begin{table}
+\begin{tabular}{| l | l | c | c | c | }
+\hline
+Selección && Reemplazo && Min. Entrenamiento && Min. Generalización && Prom. Generalización \hline \hline
+Ruleta && Elite && $1.6$x$10^{-3}$ && $2.5$x$10^{-3}$ && $3.0$x$10^{-3}$ \hline
+Boltzman && Elite && $6.4$x$10^{-4}$ && $8.9$x$10^{-4}$ && $1.3$x$10^{-3}$ \hline
+Universal && Elite && $1.7$x$10^{-3}$ && $1.9$x$10^{-3}$ && $2.1$x$10^{-3}$ \hline
+Torneo && Elite && $7.8$x$10^{-4}$ && $9.7$x$10^{-4}$ && $1.1$x$10^{-3}$ \hline
+Elite && Elite && $2.3$x$10^{-4}$ && $3.2$x$10^{-4}$ && $3.2$x$10^{-4}$ \hline
+Ruleta && Mixed_Boltzman && $3.2$x$10^{-3}$ && $4.3$x$10^{-3}$ && $6.0$x$10^{-3}$ \hline
+Boltzman && Mixed_Boltzman && $1.1$x$10^{-3}$ && $8.1$x$10^{-4}$ && $1.4$x$10^{-3}$ \hline
+Universal && Mixed_Boltzman && $8.3$x$10^{-4}$ && $8.3$x$10^{-4}$ && $8.3$x$10^{-4}$ \hline
+Elite && Mixed_Boltzman && $4.2$x$10^{-4}$ && $4.5$x$10^{-4}$ && $4.2$x$10^{-4}$ \hline
+Ruleta && Boltzman && $1.7$x$10^{-3}$ && $2.4$x$10^{-3}$ && $3.7$x$10^{-3}$ \hline
+Boltzman && Boltzman && $6.9$x$10^{-3}$ && $7.3$x$10^{-3}$ && 0.11$ \hline
+Elite && Boltzman && $2.8$x$10^{-4}$ && $6.3$x$10^{-4}$ && $6.3$x$10^{-4}$ \hline
+Universal && Boltzman && $1.8$x$10^{-3}$ && $2.3$x$10^{-3}$ && $2.4$x$10^{-3}$ \hline
+Ruleta && Ruleta && $1.4$x$10^{-3}$ && $1.7$x$10^{-3}$ && $1.7$x$10^{-3}$ \hline
+Elite && Ruleta && $8.9$x$10^{-4}$ && $9.5$x$10^{-4}$ && $9.5$x$10^{-4}$ \hline
+Boltzman && Ruleta && $1.2$x$10^{-3}$ && $2.2$x$10^{-4}$ && $2.4$x$10^{-4}$ \hline
+Universal && Ruleta && $5.2$x$10^{-3}$ && $4.7$x$10^{-3}$ && $5.2$x$10^{-3}$ \hline
+\end{tabular}
+\end{table}
+\begin{center} Tabla 1: Datos de ejecución para los distintos criterios de selección.
+\begin{itemize}
+\item 30 cromosomas
+\item Brecha generacional $0.5$.
+\item 100 Generaciones (criterio de corte)
+\item Probabilidad de mutación (clásica): $0.02$.
+\item Probabilidad de cruce: $0.4$. Crossover anular.
+\item Probabilidad de refinamiento: $0.05$.
+\item $k_e = 6$ (para los ejemplos de \textit{Mixed}).
+\end{itemize}
+
+%\VerbatimInput{./code/calculoAb.m}
 
 
 

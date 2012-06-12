@@ -183,7 +183,7 @@ uniforme. Por otro lado, a medida que $T$ tiende a valores más pequeños, el pe
 valores de $f_i$ crece exponencialmente en relación con el resto, por lo que la probabilidad de ser elegidos 
 sube. 
 \par Se debe tener cuidado con la elección de la temperatura $T$ en relación al rango de posibles valores de 
-fitness. Esto se debe a que si la razón \frac{f_i}{T} toma valores grandes, puede haber problemas 
+fitness. Esto se debe a que si la razón $\frac{f_i}{T}$ toma valores grandes, puede haber problemas 
 de representación y almacenamiento de el número $e$ elevado a dicho valor. En particular se decidió utilizar 
 una temperatura mínima de $1000$, dado que asumiendo un fitness de $10000$ correspondiente a un error 
 cuadrático medio de $10^{-5}$ el coeficiente vale $10$ y no trae los problemas ya mencionados.
@@ -316,33 +316,60 @@ un algoritmo de backpropagation con una cantidad de etapas acotadas.
 \par Figura 2: Flujo y etapas del algoritmo genético implementado.
 \end{center}
 
-\section*{Anexo B: Tabla de Resultados}
+\clearpage
 
-\begin{table}
-\begin{tabular}{| l | l | c | c | c | }
+\section*{Anexo B: Tabla de Resultados}
+\begin{center} 
+
+
+\begin{tabular}{| c | c | c | c | c | }
 \hline
-Selección && Reemplazo && Min. Entrenamiento && Min. Generalización && Prom. Generalización \hline \hline
-Ruleta && Elite && $1.6$x$10^{-3}$ && $2.5$x$10^{-3}$ && $3.0$x$10^{-3}$ \hline
-Boltzman && Elite && $6.4$x$10^{-4}$ && $8.9$x$10^{-4}$ && $1.3$x$10^{-3}$ \hline
-Universal && Elite && $1.7$x$10^{-3}$ && $1.9$x$10^{-3}$ && $2.1$x$10^{-3}$ \hline
-Torneo && Elite && $7.8$x$10^{-4}$ && $9.7$x$10^{-4}$ && $1.1$x$10^{-3}$ \hline
-Elite && Elite && $2.3$x$10^{-4}$ && $3.2$x$10^{-4}$ && $3.2$x$10^{-4}$ \hline
-Ruleta && Mixed_Boltzman && $3.2$x$10^{-3}$ && $4.3$x$10^{-3}$ && $6.0$x$10^{-3}$ \hline
-Boltzman && Mixed_Boltzman && $1.1$x$10^{-3}$ && $8.1$x$10^{-4}$ && $1.4$x$10^{-3}$ \hline
-Universal && Mixed_Boltzman && $8.3$x$10^{-4}$ && $8.3$x$10^{-4}$ && $8.3$x$10^{-4}$ \hline
-Elite && Mixed_Boltzman && $4.2$x$10^{-4}$ && $4.5$x$10^{-4}$ && $4.2$x$10^{-4}$ \hline
-Ruleta && Boltzman && $1.7$x$10^{-3}$ && $2.4$x$10^{-3}$ && $3.7$x$10^{-3}$ \hline
-Boltzman && Boltzman && $6.9$x$10^{-3}$ && $7.3$x$10^{-3}$ && 0.11$ \hline
-Elite && Boltzman && $2.8$x$10^{-4}$ && $6.3$x$10^{-4}$ && $6.3$x$10^{-4}$ \hline
-Universal && Boltzman && $1.8$x$10^{-3}$ && $2.3$x$10^{-3}$ && $2.4$x$10^{-3}$ \hline
-Ruleta && Ruleta && $1.4$x$10^{-3}$ && $1.7$x$10^{-3}$ && $1.7$x$10^{-3}$ \hline
-Elite && Ruleta && $8.9$x$10^{-4}$ && $9.5$x$10^{-4}$ && $9.5$x$10^{-4}$ \hline
-Boltzman && Ruleta && $1.2$x$10^{-3}$ && $2.2$x$10^{-4}$ && $2.4$x$10^{-4}$ \hline
-Universal && Ruleta && $5.2$x$10^{-3}$ && $4.7$x$10^{-3}$ && $5.2$x$10^{-3}$ \hline
+Selección & Reemplazo & Min. Entrenamiento & Min. Generalizacion & Prom. Generalización\\
+\hline \hline
+Ruleta & Elite & $1.6$x$10^{-3}$ & $2.5$x$10^{-3}$ & $3.0$x$10^{-3}$\\
+\hline
+Boltzman & Elite & $6.4$x$10^{-4}$ & $8.9$x$10^{-4}$ & $1.3$x$10^{-3}$\\
+\hline
+Universal & Elite & $1.7$x$10^{-3}$ & $1.9$x$10^{-3}$ & $2.1$x$10^{-3}$\\
+\hline
+Torneo & Elite & $7.8$x$10^{-4}$ & $9.7$x$10^{-4}$ & $1.1$x$10^{-3}$\\
+\hline
+Elite & Elite & $2.3$x$10^{-4}$ & $3.2$x$10^{-4}$ & $3.2$x$10^{-4}$\\
+\hline
+Ruleta & Mixed-Boltzman & $3.2$x$10^{-3}$ & $4.3$x$10^{-3}$ & $6.0$x$10^{-3}$\\
+\hline
+Boltzman & Mixed-Boltzman & $1.1$x$10^{-3}$ & $8.1$x$10^{-4}$ & $1.4$x$10^{-3}$\\
+\hline
+Universal & Mixed-Boltzman & $8.3$x$10^{-4}$ & $8.3$x$10^{-4}$ & $8.3$x$10^{-4}$\\
+\hline
+Elite & Mixed-Boltzman & $4.2$x$10^{-4}$ & $4.5$x$10^{-4}$ & $4.2$x$10^{-4}$\\
+\hline
+Ruleta & Boltzman & $1.7$x$10^{-3}$ & $2.4$x$10^{-3}$ & $3.7$x$10^{-3}$\\
+\hline
+Boltzman & Boltzman & $6.9$x$10^{-3}$ & $7.3$x$10^{-3}$ & $0.11$\\
+\hline
+Elite & Boltzman & $2.8$x$10^{-4}$ & $6.3$x$10^{-4}$ & $6.3$x$10^{-4}$\\
+\hline
+Universal & Boltzman & $1.8$x$10^{-3}$ & $2.3$x$10^{-3}$ & $2.4$x$10^{-3}$\\
+\hline
+Ruleta & Ruleta & $1.4$x$10^{-3}$ & $1.7$x$10^{-3}$ & $1.7$x$10^{-3}$\\
+\hline
+Elite & Ruleta & $8.9$x$10^{-4}$ & $9.5$x$10^{-4}$ & $9.5$x$10^{-4}$\\
+\hline
+Boltzman & Ruleta & $1.2$x$10^{-3}$ & $2.2$x$10^{-4}$ & $2.4$x$10^{-4}$\\
+\hline
+Universal & Ruleta & $5.2$x$10^{-3}$ & $4.7$x$10^{-3}$ & $5.2$x$10^{-3}$\\
+\hline
 \end{tabular}
-\end{table}
-\begin{center} Tabla 1: Datos de ejecución para los distintos criterios de selección.
+\end{center}
+
+\vspace{10px}
+
+\begin{center} 
+\par Tabla 1: Datos de ejecución para los distintos criterios de selección.\\
+\vspace{5px}
 \begin{itemize}
+\centering
 \item 30 cromosomas
 \item Brecha generacional $0.5$.
 \item 100 Generaciones (criterio de corte)
@@ -351,6 +378,7 @@ Universal && Ruleta && $5.2$x$10^{-3}$ && $4.7$x$10^{-3}$ && $5.2$x$10^{-3}$ \hl
 \item Probabilidad de refinamiento: $0.05$.
 \item $k_e = 6$ (para los ejemplos de \textit{Mixed}).
 \end{itemize}
+\end{center}
 
 %\VerbatimInput{./code/calculoAb.m}
 

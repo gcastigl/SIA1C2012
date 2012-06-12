@@ -85,21 +85,26 @@
 \maketitle               
 
 \begin{abstract} 
-El presente informe busca analizar la utilización de algoritmos genéticos para la obtención de pesos optimos para
-redes neuronales multicapa. Se estudiarán distintas técnicas de selección, cruza, mutación y reemplazo de los 
+El presente informe busca analizar la utilización de algoritmos genéticos 
+para la obtención de pesos óptimos para
+redes neuronales multicapas que aproximen funciones reales en intervalos acotados. 
+Se estudiarán distintas técnicas de selección, cruza, mutación y reemplazo de los 
 individuos y se detallarán los resultados obtenidos.
 \end{abstract}
 
 \begin{keywords}
-algotitmos genéticos, métodos de selección, métodos de cruza, redes neuronales, evolución, población, mutación, reemplazo, individuo, gen
+algotitmos genéticos, métodos de selección, métodos de cruza, redes neuronales, evolución, población, mutación, reemplazo, individuo, cromosoma
 \end{keywords}
 
 %----------------------------------------------------------------------
 % SECTION I: Introduccion%----------------------------------------------------------------------
 \section{Introducción}
 
-\par Se analizó el comportamiento de los algoritmos genéticos en el problema de la obtención de pesos para redes neuronales multicapa.\\
-Con este fin se implementó un algoritmo que permite definir de manera sencilla todos los parámetros más importantes del motor de algoritmos genéticos con el fin de hacer más simple y práctico su estudio. Los parámetros que el usuario puede modificar son los siguientes:\\
+\par Se analizó el comportamiento de los algoritmos genéticos en el problema de la obtención de pesos para redes 
+neuronales multicapa que aproximan funciones reales.\\
+Con este fin se implementó un algoritmo que permite definir de manera sencilla todos 
+los parámetros más importantes del motor de algoritmos genéticos con el fin de hacer más simple 
+y práctico su estudio. Los parámetros que el usuario puede modificar son los siguientes:\\
 
 \begin{itemize} 
 \item Tamaño de la población $(N)$
@@ -122,16 +127,35 @@ Con este fin se implementó un algoritmo que permite definir de manera sencilla 
 
 \subsubsection{Representación de los individuos}
 
-\par Se decidió representar a cada individuo de la población (red neuronal multicapa en este caso) de la siguiente forma: Cada capa de la red neuronal está represnetada por una matriz de pesos; por consiguiente una red neuronal es la concatenación de los las filas de la matriz de cada una de sus capas. Un cromosoma será entonces un arreglo en el que cada locus representará un peso puntual de la red (notar que el $bias$ esta representado como una conección extra a cada una de las neuronas).
-\par En otras palabras, cada \textit{locus} representa una conexión en la red neuronal. Su \textit{alelo} respectivo 
+\par Se decidió representar a cada individuo de la población (red neuronal multicapa en este caso) 
+de la siguiente forma: Cada capa de la red neuronal está represnetada por una matriz de pesos; 
+por consiguiente una red neuronal es la concatenación de los las filas de la matriz de cada una de sus capas. 
+Un cromosoma será entonces un arreglo de números reales en el que cada locus representará un peso 
+puntual de la red (notar que el $bias$ esta representado como una conección extra a cada una de las neuronas).
+\par En otras palabras, cada \textit{locus} representa una conexión en la red neuronal. Su \textit{alelo} 
+respectivo, un número real, 
 indica el peso de dicha conexión. Para reconstruir la red a partir del cromosoma se guarda convenientemente la 
 arquitectura utilizada en otro lado.
 
 \subsubsection{Diagramación del algoritmo}
 
-\par En lo que a algoritmos genéticos respecta, existen numerosas formas de pensar la diagramación del mismo. Si bien la base teórica de fondo siempre es la misma, la forma en la que se eligen los individuos para ser cruzados, la forma en la que los individuos cruzados pasan o no pasan a la siguiente generación y demás aspectos pueden quedar a elección de quien sea que implemente el motor de algoritmos genéticos.\\
-\par En la \textbf{Figura 1} del \textbf {Anexo A} se observa el modelado elegido para la implementación del algoritmo y en la \textbf{Figura 2} se ejemplifica un caso particular: \\\\
-Suponiendo poblaciones de 10 individuos y un gap generacional $G = 0.6$ se seleccionan, mediante alguno de los métodos de selección que desarrollaremos a continuación, un $(G*100)\%$ de la cantidad de individuos $(N)$ de la \textit{generación i}. Es decir que para el ejemplo de poblaciones de 10 individuso y $G = 0.6$, se tomarán $6$ individuos (un $60\%$ del tamaño de la población). Estos $6$ individuos seleccionados son cruzados mediante alguno de los métodos de \textit{crossover} y luego son pasados directamente a la \textit{generación i+1} con cierta probabilidad de mutación y/o de \textit{backpropagation}. Esto quiere decir que con cierta probabilidad baja, los hijos de los individuos seleccionados pueden ser mutados y/o entregandos mediante \textit{backpropagation} antes de ser pasados a la próxima generación.\\\\
+\par En lo que a algoritmos genéticos respecta, existen numerosas formas de pensar la 
+diagramación del mismo. Si bien la base teórica de fondo siempre es la misma, 
+la forma en la que se eligen los individuos para ser cruzados, la forma en la que los individuos 
+cruzados pasan o no a la siguiente generación y demás aspectos pueden quedar a elección de 
+quien sea que implemente el motor de algoritmos genéticos.\\
+\par En la \textbf{Figura 1} del \textbf {Anexo A} se observa el modelado elegido para la 
+implementación del algoritmo y en la \textbf{Figura 2} se ejemplifica un caso particular: \\\\
+Suponiendo poblaciones de 10 individuos 
+y un gap generacional $G = 0.6$ se seleccionan, mediante alguno de los 
+métodos de selección que se desarrollarán a continuación, un $(G*100)\%$ de la 
+cantidad de individuos $(N)$ de la \textit{generación i}. Es decir que para el ejemplo de 
+poblaciones de 10 individuso y $G = 0.6$, se tomarán $6$ individuos (un $60\%$ del tamaño de la población). 
+Estos $6$ individuos seleccionados son cruzados 
+mediante alguno de los métodos de \textit{crossover} y luego son pasados directamente 
+a la \textit{generación i+1} con cierta probabilidad de mutación y/o de \textit{backpropagation}. 
+Esto quiere decir que con cierta probabilidad baja, los hijos de los individuos seleccionados pueden 
+ser mutados y/o refinados mediante \textit{backpropagation} antes de ser pasados a la próxima generación.\\\\
 De esta forma, la \textit{generación i+1} ya tiene $6$ de los $10$ individuos necesarios. Los $4$ individuos restantes son seleccionados de entre los $10$ individuos de la \textit{generación i}; en otras palabras son seleccionados entre los padres de los hijos obtenidos por la cruza y los que nunca fueron elegidos en un principio por el método de selección. Nótese que los $4$ individuos en cuestión del ejemplo son seleccionados mediante los métodos de reemplazo.\\
 
 \par El motor de algoritmos genéticos implementado tiene la particularidad de permitir el uso de métodos mixtos para la selección y el reemplazo de los individuos. El usuario puede optar por elegir los individuos a cruzar bajo el método de selección \textit{Elite} y luego elegir los individuos a reemplazar utilizando \textit{Ruleta}.
@@ -175,9 +199,10 @@ lineal del \textit{fitness} y de la ``temperatura''.
 En este sentido guarda ciertas similitudes a \textit{simmulated annealing}: al 
 principio busca diversidad (la probabilidad de elegir cada individuo es más uniforme) 
 y luego baja la temperatura haciendo que cada 
-vez haya menos diveridad de acuerdo a una cierta función decreciente monótona de la temperatura. 
-\par La probabilidad de cada individuo $i$ de ser elegido es de $ \frac{e^{\frac{f_i}{T}}}{\sum_{i}e^{\frac{f_i}{T}}}$, 
-donde $T$ es la temperatura, $f_i$ el fitness de cada individuo. Es fácil ver que si T tiende a infinito, todos 
+vez haya menos diversidad de acuerdo a una cierta función decreciente monótona de la temperatura. 
+\par La probabilidad de cada individuo $i$ de ser elegido es de:
+\[ \frac{e^{\frac{f_i}{T}}}{\sum_{i}e^{\frac{f_i}{T}}} \]
+Donde $T$ es la temperatura, $f_i$ el fitness de cada individuo. Es fácil ver que si T tiende a infinito, todos 
 los términos tienden a $1$, por lo que la probabilidad de cada individuo de ser elegido es $\frac{1}{N}$, es decir 
 uniforme. Por otro lado, a medida que $T$ tiende a valores más pequeños, el peso de los términos con mayores 
 valores de $f_i$ crece exponencialmente en relación con el resto, por lo que la probabilidad de ser elegidos 
@@ -233,19 +258,19 @@ al azar, siendo $L$ la cantidad de locus, si sucede el primer evento. Sin embarg
 considera $p_m$ la probabilidad de que mute un individuo, y $p$ la probabilidad de que mute cada locus, se verifica 
 que la probabilidad de que no mute ningún locus es:
 \[P(X=0) = p_m(1-p)^{L}+(1-p_m)\]
-En otras palabras, la probabilidad de que el individuo no mute más la probabilidad de que mute pero 
+En otras palabras, equivale a la probabilidad de que el individuo no mute más la probabilidad de que mute pero 
 no mute ningún locus. La notación variable probabilística $X$ denota la cantidad de locus mutados. 
 También se puede verificar que la probabilidad de que muten exactamente $i$ locus está dada por:
 \[P(X=i) = p_mp^i(1-p)^{L-i}comb(L,i)\]
-Sin embargo, si se toma $p_m$ y $p$ pequenos, el factor $p_mp^i$ se hace arbitrariamente pequeno, por 
+Sin embargo, si se toma $p_m$ y $p$ pequeños, el factor $p_mp^i$ se hace arbitrariamente pequeño, por 
 lo que las probabilidades disminuyen drásticamente para valores incrementales de $i$. Se podría incluso 
 despreciar la probabilidad de que muten dos locus o más. Dicha probabildid está dada por:
 \[P(X\ge 2) = 1 - (P(X=0) + P(X=1))\]
 \[P(X\ge 2) = 1 - (p_m(1-p)^{L}+(1-p_m) + p_mp(1-p)^{L-1}L)\]
 \[P(X\ge 2) = -p_m(1-p)^{L}+p_m - p_mp(1-p)^{L-1}L)\]
 \[P(X\ge 2) = p_m\left(1 - (1-p)^{L} - p(1-p)^{L-1}L)\right)\]
-Por ejemplo, para $L=50$, $p_m=0.01$ y $p=0.001$, esta expresión es aproximadamente $10^-5$, mientras 
-que la probabilidad de que mute sólo un locus es $5(10^{-3})$. En vista de estos resultados, se puede 
+Por ejemplo, para $L=50$, $p_m=0.01$ y $p=0.001$, esta expresión es aproximadamente $10^{-5}$, mientras 
+que la probabilidad de que mute sólo un locus es $5$x$10^{-3}$. En vista de estos resultados, se puede 
  despreciar la probabilidad de que mute más de un locus y definir una nueva probabilidad $p'$, tal que 
  $p'$ representa la probabilidad de que mute algún locus, y $1-p'$ es la probabilidad de que no haya mutación.
 \par Dadas las consideraciones anteriores, la mutación se realiza de la siguiente manera: 
@@ -273,6 +298,7 @@ de las generaciones elapsadas. En otras palabras se tiene una función $p'(g)$ d
 dicha función sea decreciente es similar al objetivo de la selección de \textit{Boltzman}: aumentar la diversidad 
 en generaciones tempranas y reducirla en generaciones más tardías. En particular se utilizó la siguiente función:
 \[p'(g) = c^{g}p'_0\]
+Donde $c$ es algún coeficiente real positivo menor que $1$.
 
 \subsection{Refinamiento}
 
@@ -283,9 +309,62 @@ un algoritmo de backpropagation con una cantidad de etapas acotadas.
 
 \section{Resultados}
 
+Si se observa con detenimiento la \textbf{Tabla 1} del \textbf{Anexo B}, se puede observar los resultados 
+obtenidos por el algoritmo genético con distintos criterios de selección y reemplazo, utilizando 
+un criterio de corte de $100$ generaciones. Se puede apreciar que todos los criterios 
+fueron exitosos en minimizar hasta cierto extento el error cuadrático medio de la red, alcanzando al menos 
+un error en el orden de $10^{-3}$ en el mejor individuo. De los resultados se pueden apreciar que 
+los métodos \textit{Elite} son los más rápidos en converger a menores valores, sin embargo pagan el precio 
+de tener una menor diversidad. Esto es evidente si se compara el error de generalización del mejor individuo 
+con el error de generalización promedio de los individuos, los cuales son particularmente similares (es una 
+condición necesaria pero no suficiente, se podrían tener individuos tan similares pero pesos muy 
+distintos, aunque es poco probable). 
+\par Esto causa que los métodos que hacen mucho uso de elitismo se estanquen 
+en mínimos locales fácilmente. Por ejemplo, si se hace observa en la misma tabla el resultado del método 
+de selección \textit{Elite} con reemplazo \textit{Mixto Elite-Boltzman}, se alcanzaron valores de 
+$4.2$x$10^{-4}$, $4.5$x$10^{-4}$ y $4.2$x$10^{-4}$ para el error cuadrático medio de entrenamiento del 
+mejor individuo, el de generalización del mejor individuo, y el de generalización promedio de todos los individuos 
+respectivamente. Se decidió entrenar una red con la misma configuración por $5000$ generaciones, y el error mejoró a 
+tan solo $9.1$x$10^{-5}$, $3.6$x$10^{-4}$ y $3.6$x$10^{-4}$ respectivamente. Esto deja en evidencia que 
+dudosamente se pueda obtener un error sustancialmente menor al obtenido en unas $100$ generaciones utilizando 
+métodos muy elitistas.
+\par Por otro lado, los métodos que no son tan elitistas no alcanzan en pocas generaciones errores 
+tan bajos como los métodos más elitistas. Sin embargo sí hacen que la diversidad sea mayor. Nuevamente 
+eso se puede apreicar en la diferencias entre el error alcanzado por el mejor individuo y el error promedio 
+de los individuos. Si se observa el caso del método de Boltzman para tanto la selección como el reemplazo, 
+se puede apreciar que el error del mejor individuo está en el orden de $10^{-3}$ mientras el error promedio 
+es de $0.011$. Esto indica que métodos que promueven la diversidad como lo es el de Boltzman en generaciones 
+tempranas hará que se tenga una diversidad muy grande de individuos, lo cual muy probablemente se traduzca a 
+tener valores muy variados de fitness en la población. Por lo general este tipo de métodos también suelen alcanzar 
+errores en el orden de $10^{-4}$ pero no antes de alcanzar al menos $1000$ generaciones. 
+\par Sin importar qué método se haya utilizado, no se encontraron casos que reduzcan el error a órdenes 
+inferiores a $10^-4$, lo cual podría indicar quizás una cota para la arquitectura analizada.
+\par Por otro lado, se observó que el refinamiento mejoró sustancialmente la efectividad del algoritmo. Sin embargo, 
+el refinamiento conlleva a que el tiempo de ejecución de las generaciones sea mayor. Debido a esto, 
+si se decide no utilizarlo se puede, por ejemplo, utilizar una población mucho mayor sin una pérdida considerable 
+de performance. 
+
 \section{Conclusión}
 
+Tras el análisis de los resultados se pueden formular a las siguientes conclusiones:
 
+\begin{itemize}
+\item No existe un método de selección o reemplazo óptimo. Todos conllevan sus respectivas ventajas o 
+desventajas, y la efectividad de cada uno depende de la naturaleza del problema estudiado.
+\item Utilizar métodos de selección y reemplazo muy elitistas acelera la convergencia inicial a muestras 
+con mayor fitness, pero reduce particularmente la diversidad de la población y por lo tanto puede 
+caer en mínimos locales. Se consideró que debido a esta limitación el criterio de corte por \textit{Contenido} 
+resultó muy adecuado para estos casos.
+\item Los criterios que utilizan cierto elitismo junto con algún método que aumente la diversidad de la población 
+traen buenos resultados a largo plazo. Se observó además que dichos métodos son también consistentes a largo plazo, 
+es decir que en sucesivas ejecuciones los resultados son particularmente similares. Esto deja en evidencia, a 
+diferencia de los métodos elititistas que caen fácilmente en mínimos locales, que dicha combinación de métodos 
+conlleva un mejor cubrimiento del dominio.
+\item Si existe la posibilidad de navegar la función de costo utilizando el gradiente, como es el caso de 
+utilizar el algoritmo de \textit{backpropagation}, se puede implementar un refinamiento de la población que 
+mejora sustancialmente el fitness de la población.
+\item Los métodos 
+\end{itemize}
 %----------------------------------------------------------------------
 
 
@@ -348,7 +427,7 @@ Elite & Mixed-Boltzman & $4.2$x$10^{-4}$ & $4.5$x$10^{-4}$ & $4.2$x$10^{-4}$\\
 \hline
 Ruleta & Boltzman & $1.7$x$10^{-3}$ & $2.4$x$10^{-3}$ & $3.7$x$10^{-3}$\\
 \hline
-Boltzman & Boltzman & $6.9$x$10^{-3}$ & $7.3$x$10^{-3}$ & $0.11$\\
+Boltzman & Boltzman & $6.9$x$10^{-3}$ & $7.3$x$10^{-3}$ & $0.011$\\
 \hline
 Elite & Boltzman & $2.8$x$10^{-4}$ & $6.3$x$10^{-4}$ & $6.3$x$10^{-4}$\\
 \hline
@@ -379,10 +458,11 @@ Universal & Ruleta & $5.2$x$10^{-3}$ & $4.7$x$10^{-3}$ & $5.2$x$10^{-3}$\\
 \item Probabilidad de cruce: $0.4$. Crossover anular.
 \item Probabilidad de refinamiento: $0.05$.
 \item $k_e = 6$ (para los ejemplos de \textit{Mixed}).
+\item Red con dos capas ocultas, ambas de $15$ neuronas.
+\item Función de activación tangente hiperbólica.
 \end{itemize}
 \end{center}
 
-%\VerbatimInput{./code/calculoAb.m}
 
 
 

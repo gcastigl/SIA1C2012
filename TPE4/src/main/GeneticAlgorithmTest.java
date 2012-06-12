@@ -87,7 +87,7 @@ public class GeneticAlgorithmTest {
 	private static void initDefaultArgsValues() {
 		N = 30;
 		G = 0.5f;
-		maxGen = 10;
+		maxGen = 100;
 		mp = 0.02f;
 		cp = 0.7f;
 		selectionType = SelectorType.ELITE;
@@ -101,7 +101,7 @@ public class GeneticAlgorithmTest {
 		config.maxGen = maxGen;
 		config.pMutate = mp;
 		config.cp = cp;
-		config.backpropp = 0.05f;
+		config.backpropp = 0.01f;
 		config.pCross_uniform = 0.4f;
 		// Seteo de metodos a utilizar
 		config.breakCriteriaType 	= BreakCriteriaType.MAX_GEN;

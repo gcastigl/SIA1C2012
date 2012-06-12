@@ -88,7 +88,7 @@ public class Configuration {
 		// Set up net configuration
 		netConfig = new NetConfiguration();
 		netConfig.structure = new int[] {2, 15, 15, 1};
-		netConfig.epochs = 200;
+		netConfig.epochs = 150;
 		netConfig.p = 0.7f;
 		netConfig.eta = 0.1f;
 		netConfig.f = new TanhFunction(0.5f);

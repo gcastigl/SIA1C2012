@@ -130,7 +130,7 @@ arquitectura utilizada en otro lado.
 \subsubsection{Diagramación del algoritmo}
 
 \par En lo que a algoritmos genéticos respecta, existen numerosas formas de pensar la diagramación del mismo. Si bien la base teórica de fondo siempre es la misma, la forma en la que se eligen los individuos para ser cruzados, la forma en la que los individuos cruzados pasan o no pasan a la siguiente generación y demás aspectos pueden quedar a elección de quien sea que implemente el motor de algoritmos genéticos.\\
-\par En la \textbf{Figura 1} del \textbf {Anexo A} se observa el modelado elegido para la implementación del algoritmo: \\\\
+\par En la \textbf{Figura 1} del \textbf {Anexo A} se observa el modelado elegido para la implementación del algoritmo y en la \textbf{Figura 2} se ejemplifica un caso particular: \\\\
 Suponiendo poblaciones de 10 individuos y un gap generacional $G = 0.6$ se seleccionan, mediante alguno de los métodos de selección que desarrollaremos a continuación, un $(G*100)\%$ de la cantidad de individuos $(N)$ de la \textit{generación i}. Es decir que para el ejemplo de poblaciones de 10 individuso y $G = 0.6$, se tomarán $6$ individuos (un $60\%$ del tamaño de la población). Estos $6$ individuos seleccionados son cruzados mediante alguno de los métodos de \textit{crossover} y luego son pasados directamente a la \textit{generación i+1} con cierta probabilidad de mutación y/o de \textit{backpropagation}. Esto quiere decir que con cierta probabilidad baja, los hijos de los individuos seleccionados pueden ser mutados y/o entregandos mediante \textit{backpropagation} antes de ser pasados a la próxima generación.\\\\
 De esta forma, la \textit{generación i+1} ya tiene $6$ de los $10$ individuos necesarios. Los $4$ individuos restantes son seleccionados de entre los $10$ individuos de la \textit{generación i}; en otras palabras son seleccionados entre los padres de los hijos obtenidos por la cruza y los que nunca fueron elegidos en un principio por el método de selección. Nótese que los $4$ individuos en cuestión del ejemplo son seleccionados mediante los métodos de reemplazo.\\
 
@@ -294,16 +294,6 @@ un algoritmo de backpropagation con una cantidad de etapas acotadas.
 
 \section*{Anexo A: Gráficos}
 
-\begin{figure}[H]
-\begin{center}
-\includegraphics[scale=1.90]{./images/AlgGenModelado.png}
-\label{modelado}
-\end{center}
-\end{figure}
-
-\begin{center}
-\par Figura 1: Modelado esquemático del funcionamiento del algoritmo genético para poblaciones de 10 individuos y un gap generacional G = 0.6.
-\end{center}
 
 \begin{figure}[H]
 \begin{center}
@@ -313,8 +303,20 @@ un algoritmo de backpropagation con una cantidad de etapas acotadas.
 \end{figure}
 
 \begin{center}
-\par Figura 2: Flujo y etapas del algoritmo genético implementado.
+\par Figura 1: Flujo y etapas del algoritmo genético implementado.
 \end{center}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[scale=1.90]{./images/AlgGenModelado.png}
+\label{modelado}
+\end{center}
+\end{figure}
+
+\begin{center}
+\par Figura 2: Modelado esquemático del funcionamiento del algoritmo genético para poblaciones de 10 individuos y un gap generacional G = 0.6.
+\end{center}
+
 
 \clearpage
 

@@ -21,3 +21,6 @@ Ejemplos de invocacion:
 
 java -jar geneticAlgorithmTest.jar default
 java -jar geneticAlgorithmTest.jar 20 0.6 200 0.01 0.75 RULETA ELITE
+
+Nota: 
+	El programa busca el archivo de ejemplos a partir del path: "./TPE4/res/examples.txt". Si esta ruta no existe o el arhcivo no existe el programa no correra y tirar una excepcion de archivo no encontrado!

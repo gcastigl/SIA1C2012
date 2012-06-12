@@ -18,6 +18,7 @@ public class StructureBreakCriteria extends BreakCriteria {
 	public StructureBreakCriteria(Configuration config) {
 		super(config);
 	}
+
 	
 	@Override
 	public boolean isFinished() {
@@ -34,5 +35,7 @@ public class StructureBreakCriteria extends BreakCriteria {
 		}
 		return config.population.length - diff.size();
 	}
+	
+	
 
 }

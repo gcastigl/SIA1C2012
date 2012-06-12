@@ -18,6 +18,12 @@ public enum BreakCriteriaType {
 		public BreakCriteria getInstance(Configuration config) {
 			return new StructureBreakCriteria(config);
 		}
+	},
+	 CONTENT {
+		@Override
+		public BreakCriteria getInstance(Configuration config) {
+			return new NoGrowthCriteria(config);
+		}
 	};
 	
 	public abstract BreakCriteria getInstance(Configuration config);
